@@ -42,7 +42,7 @@
       display: none;
     }
     &::after {
-      content: url("../../../public/search.svg");
+      content: url("../../../public/close.svg");
     }
   }
   @include date-picker-style(
