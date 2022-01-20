@@ -10,4 +10,6 @@ export { default as Select } from './components/Select'
 export { default as Switch } from './components/Switch'
 export { default as TimePicker } from './components/TimePicker'
 export { default as Socket } from './components/Socket';
+export { default as Loading } from './components/loading';
+export { default as Error } from './components/Error';
 

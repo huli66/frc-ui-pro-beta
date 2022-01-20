@@ -17,12 +17,12 @@ export const Loading: FC<LoadingProps> = (props) => {
     css['width'] = size;
     css['height'] = size;
   }
-  const cls = classNames('swc-loading', className, {});
+  const cls = classNames('frc-loading', className, {});
   return (
     <>
       <div className={cls} {...restProps}>
-        <div className='swc-loading-container' style={css}>
-          <svg className='swc-circular' viewBox='25 25 50 50'>
+        <div className='frc-loading-container' style={css}>
+          <svg className='frc-circular' viewBox='25 25 50 50'>
             <circle className='path' cx='50' cy='50' r='20' fill='none' strokeWidth='3' strokeMiterlimit='10' />
           </svg>
         </div>

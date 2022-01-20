@@ -10,34 +10,34 @@ import {
     PRIMARY_STORY,
 } from '@storybook/addon-docs';
 
-import Loading from './index';
+import Error from './index';
 
 export default {
-    title: '通用/加载中 Loading',
-    component: Loading,
+    title: '通用/错误弹窗 Error',
+    component: Error,
     parameters: {
         docs: {
             page: () => (
                 <>
                     <Title />
-                    <Description >加载中。</Description>
+                    <Description >错误弹窗。</Description>
                     <Subtitle>组件展示</Subtitle>
                     <Primary />
                     <ArgsTable story={PRIMARY_STORY} />
-                    <Stories title={"加载中 Loading"} includePrimary={true} />
+                    <Stories title={"错误弹窗 Error"} includePrimary={true} />
                 </>
             ),
         },
     },
-} as ComponentMeta<typeof Loading>;
+} as ComponentMeta<typeof Error>;
 
 export const Default = (args: any) => (
-    <div style={{ width: "100%", height: 300, overflow: "hidden" }}>
-        <Loading {...args} />
-        <div style={{ width: "100%", height: 300, background: '#136c5e' }}>
+    <div style={{ width: "100%", height: 500, overflow: "hidden" }}>
+        <Error {...args} />
+        <div style={{ width: "100%", height: 500, background: '#136c5e' }}>
             123
         </div>
     </div>
 );
 
-Default.storyName = '默认 loading';
+Default.storyName = '默认 Error';
