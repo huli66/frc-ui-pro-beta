@@ -59,9 +59,9 @@ Emitter.prototype.on = Emitter.prototype.addEventListener = function(event: any,
  */
 
 Emitter.prototype.once = function(event: any, fn: any) {
-  function on() {
+  const on = (res: any) => {
     this.off(event, on);
-    fn.apply(this, arguments);
+    fn.apply(this, res);
   }
 
   on.fn = fn;
