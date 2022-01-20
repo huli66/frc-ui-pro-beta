@@ -1,6 +1,6 @@
 {
   "name": "frc-ui-pro",
-  "version": "0.1.2",
+  "version": "1.1.0",
   "author": "chenhui996",
   "private": false,
   "main": "dist/src/index.js",
@@ -47,7 +47,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "build-ts": "tsc -p tsconfig.build.json",
-    "build-css": "node-sass ./src/styles/index.scss ./dist/src/index.css",
+    "build-css": "node-sass ./src/styles/index.scss ./dist/src/styles/global/index.css",
     "cp-public": "cp -R ./public ./dist",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
