@@ -1,14 +1,38 @@
 // Button.stories.ts|tsx
 
-import React, { useState } from 'react';
+import React from 'react';
 
 import { ComponentMeta } from '@storybook/react';
+
+import {
+    Title,
+    Subtitle,
+    Description,
+    Primary,
+    ArgsTable,
+    Stories,
+    PRIMARY_STORY,
+} from '@storybook/addon-docs';
 
 import Checkbox from './index';
 
 export default {
     title: '数据录入/多选框 Checkbox',
     component: Checkbox,
+    parameters: {
+        docs: {
+            page: () => (
+                <>
+                    <Title />
+                    <Description >多选框。</Description>
+                    <Subtitle>组件展示</Subtitle>
+                    <Primary />
+                    <ArgsTable story={PRIMARY_STORY} />
+                    <Stories title={"多选框 Checkbox"} includePrimary={true} />
+                </>
+            ),
+        },
+    },
 } as ComponentMeta<typeof Checkbox>;
 
 export const Default = (args: any) => <Checkbox {...args}>Checkbox</Checkbox>;
