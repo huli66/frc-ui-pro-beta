@@ -24,7 +24,7 @@ export default {
                     <Subtitle>组件展示</Subtitle>
                     <Primary />
                     <ArgsTable story={PRIMARY_STORY} />
-                    <Stories title={"错误弹窗 Error"} includePrimary={true} />
+                    <Stories title={"错误弹窗 Error"} includePrimary={false} />
                 </>
             ),
         },

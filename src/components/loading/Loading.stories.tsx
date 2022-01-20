@@ -24,7 +24,7 @@ export default {
                     <Subtitle>组件展示</Subtitle>
                     <Primary />
                     <ArgsTable story={PRIMARY_STORY} />
-                    <Stories title={"加载中 Loading"} includePrimary={true} />
+                    <Stories title={"加载中 Loading"} includePrimary={false} />
                 </>
             ),
         },
