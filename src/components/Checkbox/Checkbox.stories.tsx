@@ -54,11 +54,7 @@ import { Checkbox } from 'frc-ui-pro';
 
 // ----------------------------------------------------------------
 
-const Group = Checkbox.Group
-
-// const MockFunc = (name?: string) => {
-//     return <div>{name || 123}</div>
-// }
+const CheckboxGroup = Checkbox.Group
 
 export default {
     title: '数据录入/多选框 Checkbox',
@@ -79,7 +75,7 @@ export default {
                     <Subheading>Checkbox</Subheading>
                     <ArgsTable of={Checkbox} exclude={["blur", 'focus']} />
                     <Subheading>Checkbox Group</Subheading>
-                    <ArgsTable of={Group} />
+                    <ArgsTable of={CheckboxGroup} />
                     <Subheading>方法</Subheading>
                     <Subheading>Checkbox</Subheading>
                     <ArgsTable of={Checkbox} include={["blur", 'focus']} />
@@ -124,7 +120,7 @@ ActiveAndDisabled.storyName = '激活 | 禁用';
 
 // ----------------------------------------------------------------
 
-export const GroupComponent = () => {
+export const Group = () => {
     const plainOptions = ["Apple", "Pear", "Orange"];
     const options = [
         { label: "Apple", value: "Apple" },
@@ -155,7 +151,7 @@ export const GroupComponent = () => {
     )
 }
 
-GroupComponent.storyName = '复选框组 group';
+Group.storyName = '复选框组 group';
 
 // ----------------------------------------------------------------
 
