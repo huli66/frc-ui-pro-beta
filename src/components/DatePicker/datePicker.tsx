@@ -13,11 +13,13 @@ import 'moment/locale/zh-cn'
 import locale from 'antd/es/date-picker/locale/zh_CN'
 
 interface FRCDatePickerCustomProps {
+  /** 自定义前缀图标 */
   prefixIcon?: React.ReactNode
+  /** 增加时间选择功能 */
   showTime?: boolean
 }
 
-export type FRCDatePickerProps = DatePickerProps & FRCDatePickerCustomProps
+export type FRCDatePickerProps = FRCDatePickerCustomProps & DatePickerProps
 
 const addPrefixNode = (nodes: any, prefixIcon: React.ReactNode) => {
   const addNode = document.createElement('div')

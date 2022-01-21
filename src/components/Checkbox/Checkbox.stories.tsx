@@ -15,10 +15,15 @@ import {
     ArgsTable,
     Stories,
     PRIMARY_STORY,
+    Heading,
+    Subheading
 } from '@storybook/addon-docs';
 
 import Checkbox from './index';
 
+// ----------------------------------------------------------------
+
+// 引用示例代码
 const ImportComponent = () => {
     const markdown = `
 ~~~js
@@ -47,25 +52,57 @@ import { Checkbox } from 'frc-ui-pro';
         }} /></>
 }
 
+// ----------------------------------------------------------------
+
+const Group = Checkbox.Group
+
+// const MockFunc = (name?: string) => {
+//     return <div>{name || 123}</div>
+// }
+
 export default {
     title: '数据录入/多选框 Checkbox',
     component: Checkbox,
     parameters: {
         docs: {
+            // docs 页面 => 总体布局
             page: () => (
                 <>
                     <Title />
-                    <Description >多选框。</Description>
+                    <Description>多选框。</Description>
                     <ImportComponent />
-                    <Subtitle>组件展示</Subtitle>
+                    <Subtitle>默认 - 组件展示</Subtitle>
                     <Primary />
-                    <ArgsTable story={PRIMARY_STORY} />
-                    <Stories title={"多选框 Checkbox"} includePrimary={true} />
+                    <Stories title="组件总览" includePrimary={true} />
+                    <Heading>API</Heading>
+                    <Subheading>属性</Subheading>
+                    <Subheading>Checkbox</Subheading>
+                    <ArgsTable of={Checkbox} exclude={["blur", 'focus']} />
+                    <Subheading>Checkbox Group</Subheading>
+                    <ArgsTable of={Group} />
+                    <Subheading>方法</Subheading>
+                    <Subheading>Checkbox</Subheading>
+                    <ArgsTable of={Checkbox} include={["blur", 'focus']} />
                 </>
             ),
         },
     },
+    // 细分属性 - 分类（用于canvas 页查阅）
+    argTypes: {
+        blur: {
+            table: {
+                category: '方法',
+            },
+        },
+        focus: {
+            table: {
+                category: '方法',
+            },
+        },
+    }
 } as ComponentMeta<typeof Checkbox>;
+
+// ----------------------------------------------------------------
 
 export const Default = (args: any) => <Checkbox {...args}>Checkbox</Checkbox>;
 Default.storyName = '默认 checkbox';
@@ -87,7 +124,7 @@ ActiveAndDisabled.storyName = '激活 | 禁用';
 
 // ----------------------------------------------------------------
 
-export const Group = () => {
+export const GroupComponent = () => {
     const plainOptions = ["Apple", "Pear", "Orange"];
     const options = [
         { label: "Apple", value: "Apple" },
@@ -118,7 +155,7 @@ export const Group = () => {
     )
 }
 
-Group.storyName = '复选框组 group';
+GroupComponent.storyName = '复选框组 group';
 
 // ----------------------------------------------------------------
 
