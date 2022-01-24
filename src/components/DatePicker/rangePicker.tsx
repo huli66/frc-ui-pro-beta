@@ -26,7 +26,7 @@ interface FRCRangePickerCustomProps {
   /** 默认日期 */
   defaultValue?: moment.Moment[]
   /** 禁用起始项 */
-  disabled?: [boolean, boolean]
+  disabled?: boolean | [boolean, boolean]
   /** 不可选择的时间 */
   disabledTime?: (date: moment.Moment, partial: 'start' | 'end') => void
   /** 展示的日期格式 */
@@ -158,6 +158,7 @@ FRCRangePicker.defaultProps = {
   picker: 'date',
   popupStyle: {},
   style: {},
+  disabled: false,
 }
 
 export default FRCRangePicker

@@ -21,8 +21,8 @@ export interface BasePickerProps {
   className?: string
   /** 自定义日期单元格的内容 */
   dateRender?: (currentDate: moment.Moment, today: moment.Moment) => React.ReactNode
-  /** 禁用 */
-  disabled?: boolean
+  // /** 禁用 */
+  // disabled?: boolean
   /** 不可选择的日期 */
   disabledDate?: (currentDate: moment.Moment) => boolean
   /** 额外的弹出日历 className */
@@ -74,6 +74,8 @@ interface FRCDatePickerCustomProps {
   defaultPickerValue?: moment.Moment
   /** 默认日期，如果开始时间或结束时间为 null 或者 undefined，日期范围将是一个开区间 */
   defaultValue?: moment.Moment
+  /** 禁用 */
+  disabled?: boolean
   /** 不可选择的时间 */
   disabledTime?: (current: moment.Moment) => object
   /** 设置日期格式，为数组时支持多格式匹配，展示以第一个为准。配置参考 moment.js，支持自定义格式 */
@@ -158,7 +160,8 @@ export const FRCDatePicker: FC<FRCDatePickerProps> = (
   const classesDropdown = classNames(
     'frc-date-picker-dropdown',
     dropdownClassName,
-    {},
+    {
+    },
   )
 
   const options = {
