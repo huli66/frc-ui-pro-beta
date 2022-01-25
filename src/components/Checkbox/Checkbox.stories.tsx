@@ -57,7 +57,7 @@ import { Checkbox } from 'frc-ui-pro';
 const CheckboxGroup = Checkbox.Group
 
 export default {
-    title: '数据录入/多选框 Checkbox',
+    title: '数据录入/Checkbox 多选框',
     component: Checkbox,
     parameters: {
         docs: {

@@ -1,9 +1,16 @@
+.storybook-demo {
+  > .frc-select {
+    margin: 8px 8px 8px 0;
+  }
+}
+
 .frc-select-container {
   display: inline-block;
   vertical-align: top;
 }
 
-.frc-select.ant-select {
+.frc-select.ant-select.ant-select-single,
+.frc-select.ant-select.ant-select-multiple {
   @include input-number-style(
     // normal
     $select-background,
@@ -126,7 +133,7 @@
   .ant-select-item-group {
     padding-top: 8px;
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       border-color: #253330;
       border-top-style: solid;

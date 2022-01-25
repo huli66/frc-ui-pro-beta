@@ -1,5 +1,3 @@
-// Button.stories.ts|tsx
-
 import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
@@ -314,42 +312,34 @@ export const WeekFormatComponent = () => {
     return (
         <>
             <DatePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="week"
             />
             <DatePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="week"
                 suffixIcon={<FiSlack />}
             />
             <DatePicker.RangePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="week"
             />
             <DatePicker.RangePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="week"
                 suffixIcon={<FiSlack />}
             />
             <br />
             <DatePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="week"
                 disabled
             />
             <DatePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="week"
                 suffixIcon={<FiSlack />}
                 disabled
             />
             <DatePicker.RangePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="week"
                 disabled
             />
             <DatePicker.RangePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="week"
                 suffixIcon={<FiSlack />}
                 disabled
@@ -367,42 +357,34 @@ export const MonthFormatComponent = () => {
     return (
         <>
             <DatePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="month"
             />
             <DatePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="month"
                 suffixIcon={<FiSlack />}
             />
             <DatePicker.RangePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="month"
             />
             <DatePicker.RangePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="month"
                 suffixIcon={<FiSlack />}
             />
             <br />
             <DatePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="month"
                 disabled
             />
             <DatePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="month"
                 suffixIcon={<FiSlack />}
                 disabled
             />
             <DatePicker.RangePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="month"
                 disabled
             />
             <DatePicker.RangePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="month"
                 suffixIcon={<FiSlack />}
                 disabled
@@ -420,42 +402,34 @@ export const QuarterFormatComponent = () => {
     return (
         <>
             <DatePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="quarter"
             />
             <DatePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="quarter"
                 suffixIcon={<FiSlack />}
             />
             <DatePicker.RangePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="quarter"
             />
             <DatePicker.RangePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="quarter"
                 suffixIcon={<FiSlack />}
             />
             <br />
             <DatePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="quarter"
                 disabled
             />
             <DatePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="quarter"
                 suffixIcon={<FiSlack />}
                 disabled
             />
             <DatePicker.RangePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="quarter"
                 disabled
             />
             <DatePicker.RangePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="quarter"
                 suffixIcon={<FiSlack />}
                 disabled
@@ -473,42 +447,34 @@ export const YearFormatComponent = () => {
     return (
         <>
             <DatePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="year"
             />
             <DatePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="year"
                 suffixIcon={<FiSlack />}
             />
             <DatePicker.RangePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="year"
             />
             <DatePicker.RangePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="year"
                 suffixIcon={<FiSlack />}
             />
             <br />
             <DatePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="year"
                 disabled
             />
             <DatePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="year"
                 suffixIcon={<FiSlack />}
                 disabled
             />
             <DatePicker.RangePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="year"
                 disabled
             />
             <DatePicker.RangePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
                 picker="year"
                 suffixIcon={<FiSlack />}
                 disabled
@@ -756,13 +722,13 @@ export const CustomCellComponent = () => {
             使用 dateRender 可以自定义日期单元格的内容和样式。
             <br />
             <DatePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
+
                 renderExtraFooter={() => 'extra footer'}
                 dateRender={restCustomDateRender}
             />
 
             <DatePicker.RangePicker
-                style={{ marginRight: 16, marginBottom: 16 }}
+
                 renderExtraFooter={() => 'extra footer'}
                 dateRender={restCustomDateRender}
             />

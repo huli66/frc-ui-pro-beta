@@ -44,7 +44,7 @@ import { Loading } from 'frc-ui-pro';
 }
 
 export default {
-    title: '通用/加载中 Loading',
+    title: '通用/Loading 加载中',
     component: Loading,
     parameters: {
         docs: {
@@ -56,7 +56,7 @@ export default {
                     <Subtitle>组件展示</Subtitle>
                     <Primary />
                     <ArgsTable story={PRIMARY_STORY} />
-                    <Stories title={"加载中 Loading"} includePrimary={false} />
+                    <Stories title={"组件总览"} includePrimary={false} />
                 </>
             ),
         },

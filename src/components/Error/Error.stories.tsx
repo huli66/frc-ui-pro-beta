@@ -44,7 +44,7 @@ import { Error } from 'frc-ui-pro';
 }
 
 export default {
-    title: '通用/错误弹窗 Error',
+    title: '通用/Error 错误弹窗',
     component: Error,
     parameters: {
         docs: {
@@ -56,7 +56,7 @@ export default {
                     <Subtitle>组件展示</Subtitle>
                     <Primary />
                     <ArgsTable story={PRIMARY_STORY} />
-                    <Stories title={"错误弹窗 Error"} includePrimary={false} />
+                    <Stories title={"组件总览"} includePrimary={false} />
                 </>
             ),
         },

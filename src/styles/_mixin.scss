@@ -85,7 +85,9 @@
   // normal style -> link clear icon style
   .anticon.ant-input-clear-icon-has-suffix,
   &.anticon.ant-input-clear-icon-has-suffix,
-  .anticon.ant-input-clear-icon {
+  .anticon.ant-input-clear-icon,
+  &.ant-input-textarea-show-count::after,
+  .ant-input-show-count-suffix {
     color: $color;
     font-size: 10px;
   }
@@ -108,7 +110,8 @@
     .anticon.ant-input-clear-icon-has-suffix,
     &.anticon.ant-input-clear-icon-has-suffix,
     .anticon.ant-input-clear-icon,
-    .ant-input-group-addon .ant-input-search-button {
+    .ant-input-group-addon .ant-input-search-button,
+    .ant-input-show-count-suffix {
       color: $hover-color;
     }
   }
@@ -133,11 +136,12 @@
     outline: 0;
   }
 
-  // disabled
+  // // disabled
+  &.disabled,
+  &[disabled],
   &.ant-input-affix-wrapper-disabled,
   .ant-input-search .ant-input-affix-wrapper-disabled,
-  &.disabled,
-  &[disabled] {
+  &.frc-input-text-area-disabled {
     .ant-input {
       cursor: not-allowed !important;
     }
@@ -152,6 +156,22 @@
     // deep
     ::-webkit-input-placeholder {
       color: $disabled-color;
+    }
+    // suffix icon
+    .ant-input-suffix,
+    .ant-input-prefix {
+      cursor: not-allowed !important;
+      color: $disabled-color !important;
+      .ant-input-password-icon,
+      .ant-input-show-count-suffix {
+        cursor: not-allowed !important;
+        color: $disabled-color !important;
+      }
+    }
+    // textArea
+    &::after {
+      cursor: not-allowed !important;
+      color: $disabled-color !important;
     }
   }
 }

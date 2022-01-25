@@ -1,7 +1,7 @@
-import React, {FC, useState, useEffect, useRef} from 'react'
+import React, { FC, useState, useEffect, useRef } from 'react'
 import classNames from 'classnames'
-import Select, {SelectProps} from 'antd/es/select'
-import {FiSearch, FiX, FiCheck} from 'react-icons/fi'
+import Select, { SelectProps } from 'antd/es/select'
+import { FiSearch, FiX, FiCheck } from 'react-icons/fi'
 import ReactDOM from 'react-dom'
 
 export interface FRCSelectProps extends SelectProps {
@@ -101,6 +101,7 @@ FRCSelect.defaultProps = {
   prefixIcon: null,
   menuItemSelectedIcon: <FiCheck />,
   removeMenuItemSelectedIcon: false,
+  placeholder: '请选择',
 }
 
 export default FRCSelect
