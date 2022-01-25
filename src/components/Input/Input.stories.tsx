@@ -101,16 +101,6 @@ export default {
                     <Subheading>方法</Subheading>
                     <Subheading>Input</Subheading>
                     <ArgsTable of={Input} include={["blur", 'focus']} />
-
-                    {/* <Subheading>方法</Subheading>
-                    <Subheading>共同的方法</Subheading>
-                    <ArgsTable of={Input} include={COMMON_METHODS_COLUMNS} />
-
-                    <Subheading>DatePicker</Subheading>
-                    <ArgsTable of={Input} include={DATE_PICKER_PROPERTIES_COLUMNS} />
-
-                    <Subheading>RangePicker</Subheading>
-                    <ArgsTable of={Input} include={RANGE_PICKER_PROPERTIES_COLUMNS} /> */}
                 </>
             ),
         },
