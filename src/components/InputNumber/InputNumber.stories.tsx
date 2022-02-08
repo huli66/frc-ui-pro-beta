@@ -80,7 +80,7 @@ export default {
                     <Subheading>属性</Subheading>
 
                     <Subheading>InputNumber</Subheading>
-                    <ArgsTable of={InputNumber} />
+                    <ArgsTable of={InputNumber} exclude={["blur", 'focus']} />
 
                     <Subheading>方法</Subheading>
                     <ArgsTable of={InputNumber} include={["blur", 'focus']} />

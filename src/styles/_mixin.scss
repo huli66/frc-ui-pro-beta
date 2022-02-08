@@ -26,8 +26,8 @@
   color: $color;
   background: $background;
   &:hover {
-    color: $hover-color;
-    background: $hover-background;
+    color: $hover-color !important;
+    background: $hover-background !important;
   }
   &:active,
   &.active {
@@ -39,7 +39,8 @@
     background: $background;
   }
   &:disabled,
-  &.disabled {
+  &.disabled,
+  &.ant-btn[disabled] {
     * {
       cursor: not-allowed !important;
       color: $disable-color !important;
