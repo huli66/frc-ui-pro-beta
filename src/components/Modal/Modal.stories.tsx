@@ -7,6 +7,8 @@ import { ComponentMeta } from '@storybook/react';
 
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
+import Draggable from 'react-draggable';
+
 import {
     Title,
     Subtitle,
@@ -446,5 +448,187 @@ export const PositionComponent = () => {
 };
 
 PositionComponent.storyName = '自定义位置';
+
+// ----------------------------------------------------------------
+
+export const DestroyAllComponent = () => {
+    function destroyAll() {
+        Modal.destroyAll();
+    }
+
+    const { confirm } = Modal;
+
+    function showConfirm() {
+        for (let i = 0; i < 3; i += 1) {
+            setTimeout(() => {
+                confirm({
+                    icon: <ExclamationCircleOutlined />,
+                    content: <Button onClick={destroyAll}>Click to destroy all</Button>,
+                    onOk() {
+                        console.log('OK');
+                    },
+                    onCancel() {
+                        console.log('Cancel');
+                    },
+                });
+            }, i * 500);
+        }
+    }
+
+    // ------------------------------------------------------------
+
+    return (
+        <>
+            使用 Modal.destroyAll() 可以销毁弹出的确认窗。通常用于路由监听当中，处理路由前进、后退不能销毁确认对话框的问题。
+            <br />
+            <Button onClick={showConfirm}>Confirm</Button>
+        </>
+    );
+};
+
+DestroyAllComponent.storyName = '销毁确认对话框';
+
+// ----------------------------------------------------------------
+
+export const CustomPropsComponent = () => {
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
+
+    const handleOk = () => {
+        setIsModalVisible(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+
+    // ------------------------------------------------------------
+
+    return (
+        <>
+            传入 okFrcButtonProps 和 cancelFrcButtonProps 可分别自定义确定按钮和取消按钮的 props。
+            (confirm 为 okButtonProps 和 cancelButtonProps )
+            <br />
+            <Button type="primary" onClick={showModal}>
+                Open Modal with customized button props
+            </Button>
+
+            <Modal
+                title="Basic Modal"
+                visible={isModalVisible}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                okFrcButtonProps={{ disabled: true }}
+                cancelFrcButtonProps={{ disabled: true }}
+            >
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+            </Modal>
+        </>
+    );
+};
+
+CustomPropsComponent.storyName = '自定义页脚按钮属性';
+
+// ----------------------------------------------------------------
+
+export const DragComponent = () => {
+    const [visible, setVisible] = useState(false);
+    const [disabled, setDisabled] = useState(true);
+    const [bounds, setBounds] = useState({ left: 0, top: 0, bottom: 0, right: 0 });
+
+    const draggleRef = React.createRef<any>();
+
+    const showModal = () => {
+        setVisible(true)
+    };
+
+    const handleOk = (e: any) => {
+        console.log(e);
+        setVisible(false)
+    };
+
+    const handleCancel = (e: any) => {
+        console.log(e);
+        setVisible(false)
+    };
+
+    const onStart = (event: any, uiData: any) => {
+        const { clientWidth, clientHeight } = window.document.documentElement;
+        const targetRect = draggleRef.current?.getBoundingClientRect();
+        if (!targetRect) {
+            return;
+        }
+        setBounds(
+            {
+                left: -targetRect.left + uiData.x,
+                right: clientWidth - (targetRect.right - uiData.x),
+                top: -targetRect.top + uiData.y,
+                bottom: clientHeight - (targetRect.bottom - uiData.y),
+            }
+        )
+    };
+
+    // ------------------------------------------------------------
+
+    return (
+        <>
+            自定义渲染对话框, 可通过 react-draggable 来实现拖拽。
+            ($npm i react-draggable)
+            <br />
+            <Button onClick={showModal}>Open Draggable Modal</Button>
+            <Modal
+                title={
+                    <div
+                        style={{
+                            width: '100%',
+                            cursor: 'move',
+                        }}
+                        onMouseOver={() => {
+                            if (disabled) {
+                                setDisabled(false)
+                            }
+                        }}
+                        onMouseOut={() => {
+                            setDisabled(true)
+                        }}
+                        // fix eslintjsx-a11y/mouse-events-have-key-events
+                        // https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/master/docs/rules/mouse-events-have-key-events.md
+                        onFocus={() => { }}
+                        onBlur={() => { }}
+                    // end
+                    >
+                        Draggable Modal
+                    </div>
+                }
+                visible={visible}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                modalRender={modal => (
+                    <Draggable
+                        disabled={disabled}
+                        bounds={bounds}
+                        onStart={(event, uiData) => onStart(event, uiData)}
+                    >
+                        <div ref={draggleRef}>{modal}</div>
+                    </Draggable>
+                )}
+            >
+                <p>
+                    Just don&apos;t learn physics at school and your life will be full of magic and
+                    miracles.
+                </p>
+                <br />
+                <p>Day before yesterday I saw a rabbit, and yesterday a deer, and today, you.</p>
+            </Modal>
+        </>
+    );
+};
+
+DragComponent.storyName = '自定义渲染对话框';
 
 // ----------------------------------------------------------------

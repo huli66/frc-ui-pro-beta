@@ -4,6 +4,7 @@ import { Confirm, Info, Warning, Error, Success } from './methods';
 import { Modal as AntdModal, ModalFuncProps } from 'antd'
 import { FRCMethodProps } from './methods/confirm'
 
+
 export type FRCModalComponent = FC<FRCModalProps> & {
     confirm: FC<FRCMethodProps>;
     info: FC<FRCMethodProps>;
@@ -11,8 +12,9 @@ export type FRCModalComponent = FC<FRCModalProps> & {
     success: FC<FRCMethodProps>;
     error: FC<FRCMethodProps>;
     destroyAll: () => void;
-    useModal: () => void;
+    // useModal: () => void;
 }
+
 
 const TransModal = Modal as FRCModalComponent
 TransModal.confirm = Confirm
@@ -21,7 +23,7 @@ TransModal.warning = Warning
 TransModal.success = Success
 TransModal.error = Error
 TransModal.destroyAll = AntdModal.destroyAll
-TransModal.useModal = AntdModal.useModal
+// TransModal.useModal = useModalTest
 
 
 export default TransModal

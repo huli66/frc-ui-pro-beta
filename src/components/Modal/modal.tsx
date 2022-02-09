@@ -2,14 +2,13 @@ import React, { FC } from 'react'
 import classNames from 'classnames'
 import AntdModal, { ModalProps } from 'antd/es/modal'
 import Button, { FRCButtonProps as ButtonProps } from '../Button/button'
-
 export interface BaseModalProps {
   /** Modal 完全关闭后的回调 */
   afterClose?: () => void
   /** Modal body 样式 */
   bodyStyle?: React.CSSProperties
   /** cancel 按钮 props */
-  cancelButtonProps?: ButtonProps
+  cancelFrcButtonProps?: ButtonProps
   /** 取消按钮文字 */
   cancelText?: React.ReactNode
   /** 垂直居中展示 Modal */
@@ -29,7 +28,7 @@ export interface BaseModalProps {
   /** 强制渲染 Modal */
   forceRender?: boolean
   /** 指定 Modal 挂载的 HTML 节点, false 为挂载在当前 dom */
-  getContainer?: HTMLElement | false
+  getContainer?: string | false | HTMLElement | (() => HTMLElement);
   /** 是否支持键盘 esc 关闭 */
   keyboard?: boolean
   /** 是否展示遮罩 */
@@ -41,11 +40,11 @@ export interface BaseModalProps {
   /** 自定义渲染对话框 */
   modalRender?: (node: React.ReactNode) => React.ReactNode
   /** ok 按钮 props */
-  okButtonProps?: ButtonProps
+  okFrcButtonProps?: ButtonProps
   /** 确认按钮文字 */
   okText?: React.ReactNode
   /** 确认按钮类型 */
-  okType?: string
+  okBtnType?: 'default' | 'primary' | 'link' | 'lead' | 'gray'
   /** 可用于设置浮层的样式，调整浮层位置等 */
   style?: React.CSSProperties
   /** 标题 */
@@ -59,20 +58,22 @@ export interface BaseModalProps {
   /** 设置 Modal 的 z-index */
   zIndex?: number
   /** 点击遮罩层或右上角叉或取消按钮的回调 */
-  onCancel?: (event: Event) => void
+  onCancel?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   /** 点击确定回调 */
-  onOk?: (event: Event) => void
+  onOk?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
 }
 
-export type FRCModalProps = BaseModalProps & ModalProps
+// Omit: 去重， 由于 antd 也写了 type 注释
+export type FRCModalProps = BaseModalProps & Omit<ModalProps,
+  'okType' | 'getContainer' | 'onOk' | 'onCancel' | 'cancelButtonProps' | 'okButtonProps' | 'modalRender' | 'afterClose'>
 
 export const ModalFooter = (props: FRCModalProps) => {
-  const { onOk, onCancel, confirmLoading } = props
+  const { onOk, onCancel, confirmLoading, okBtnType, okFrcButtonProps, cancelFrcButtonProps } = props
 
   return (
     <>
-      <Button type="gray" onClick={onCancel} style={{ width: 60 }}>取消</Button>
-      <Button loading={confirmLoading} type="primary" onClick={onOk} style={{ width: 120 }}>
+      <Button type="gray" onClick={onCancel} style={{ width: 60 }} {...cancelFrcButtonProps}>取消</Button>
+      <Button loading={confirmLoading} type={okBtnType || "primary"} onClick={onOk} style={{ width: 120 }} {...okFrcButtonProps}>
         确定
       </Button>
     </>
@@ -104,8 +105,18 @@ export const Modal: FC<FRCModalProps> = (props) => {
 // normal
 Modal.defaultProps = {
   width: 320,
-  maskClosable: false,
+  centered: false,
+  closable: true,
+  confirmLoading: false,
+  destroyOnClose: false,
+  focusTriggerAfterClose: true,
+  forceRender: false,
   keyboard: false,
+  mask: true,
+  maskClosable: false,
+  okText: '确定',
+  okBtnType: 'primary',
+  zIndex: 1000
 }
 
 export default Modal

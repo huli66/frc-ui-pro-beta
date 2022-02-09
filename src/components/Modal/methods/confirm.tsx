@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import classNames from 'classnames'
 import Modal, { ModalFuncProps } from 'antd/es/modal'
-import { FRCButtonProps as ButtonProps } from '../../Button/button'
+import { ButtonProps } from 'antd'
 
 interface BaseMethodProps {
   /** Modal 完全关闭后的回调 */
@@ -25,7 +25,7 @@ interface BaseMethodProps {
   /** 内容 */
   content?: React.ReactNode
   /** 指定 Modal 挂载的 HTML 节点, false 为挂载在当前 dom */
-  getContainer?: HTMLElement | false
+  getContainer?: string | false | HTMLElement | (() => HTMLElement);
   /** 自定义图标 */
   icon?: React.ReactNode
   /** 是否支持键盘 esc 关闭 */
@@ -35,7 +35,7 @@ interface BaseMethodProps {
   /** 点击蒙层是否允许关闭 */
   maskClosable?: boolean
   /** 遮罩样式 */
-  maskStyle?: object
+  maskStyle?: React.CSSProperties
   /** ok 按钮 props */
   okButtonProps?: ButtonProps
   /** 确认按钮文字 */
@@ -53,12 +53,13 @@ interface BaseMethodProps {
   /** 设置 Modal 的 z-index */
   zIndex?: number
   /** 取消回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭 */
-  onCancel?: (close: boolean) => void
+  onCancel?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   /** 点击确定回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭 */
-  onOk?: (close: boolean) => void
+  onOk?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
 }
 
-export type FRCMethodProps = BaseMethodProps & ModalFuncProps
+export type FRCMethodProps = BaseMethodProps & Omit<ModalFuncProps,
+  'afterClose' | 'getContainer' | 'onOk' | 'onCancel' | 'cancelButtonProps' | 'okButtonProps'>
 
 export const Confirm: FC<FRCMethodProps> = (props) => {
   const {
