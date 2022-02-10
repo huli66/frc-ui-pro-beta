@@ -245,6 +245,14 @@
       border: none !important;
       cursor: not-allowed !important;
     }
+
+    &.ant-select-multiple{
+      .ant-select-selection-item{
+        padding-inline-end: 6px !important;
+      }
+    }
+
+
     // follow
     &::-webkit-input-placeholder {
       color: $disabled-color;
