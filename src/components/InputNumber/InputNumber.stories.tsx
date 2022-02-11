@@ -73,7 +73,6 @@ export default {
                     <Description>通过鼠标或键盘，输入范围内的数值。</Description>
                     <ImportComponent />
                     <Subtitle>默认 - 组件展示</Subtitle>
-                    <Primary />
                     <Stories title="组件总览" includePrimary={true} />
 
                     <Heading>API</Heading>
@@ -93,13 +92,13 @@ export default {
 
 // ----------------------------------------------------------------
 
-export const Default = (args: any) => <InputNumber {...args} />;
+export const D_Componet = (args: any) => <InputNumber {...args} />;
 
-Default.storyName = '默认 inputNumber';
+D_Componet.storyName = '默认 inputNumber';
 
 // ----------------------------------------------------------------
 
-export const BaseComponent = () => {
+export const _BaseComponent = () => {
     return (<>
         <InputNumber />
         <InputNumber bordered={false} />
@@ -109,11 +108,14 @@ export const BaseComponent = () => {
     </>)
 };
 
-BaseComponent.storyName = '基本用法 inputNumber';
+_BaseComponent.storyName = '基本用法 inputNumber';
+_BaseComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const BeforeOrAfterComponent = () => {
+export const _BeforeOrAfterComponent = () => {
     return (<>
         <InputNumber prefix={<FiSearch />} />
         <InputNumber addonBefore={<FiSearch />} />
@@ -202,11 +204,14 @@ export const BeforeOrAfterComponent = () => {
     </>)
 };
 
-BeforeOrAfterComponent.storyName = '前置/后置标签';
+_BeforeOrAfterComponent.storyName = '前置/后置标签';
+_BeforeOrAfterComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const StringModeComponent = () => {
+export const _StringModeComponent = () => {
     return (<>
         通过 stringMode 开启高精度小数支持，onChange 事件将返回 string 类型。对于旧版浏览器，你需要 BigInt polyfill。
         <br />
@@ -221,11 +226,14 @@ export const StringModeComponent = () => {
     </>)
 };
 
-StringModeComponent.storyName = '高精度小数 stringMode';
+_StringModeComponent.storyName = '高精度小数 stringMode';
+_StringModeComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const FormatterComponent = () => {
+export const _FormatterComponent = () => {
     return (<>
         通过 formatter 格式化数字，以展示具有具体含义的数据，往往需要配合 parser 一起使用。
         <br />
@@ -245,11 +253,14 @@ export const FormatterComponent = () => {
     </>)
 };
 
-FormatterComponent.storyName = '格式化展示 formatter';
+_FormatterComponent.storyName = '格式化展示 formatter';
+_FormatterComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const KeyboardComponent = () => {
+export const _KeyboardComponent = () => {
     return (<>
         使用 keyboard 属性可以控制键盘行为。
         <br />
@@ -257,16 +268,22 @@ export const KeyboardComponent = () => {
     </>)
 };
 
-KeyboardComponent.storyName = '键盘行为 keyboard';
+_KeyboardComponent.storyName = '键盘行为 keyboard';
+_KeyboardComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const OverloadComponent = () => {
+export const _OverloadComponent = () => {
     return (<>
         <InputNumber min={1} max={10} defaultValue={99} />
     </>)
 };
 
-OverloadComponent.storyName = '超出边界';
+_OverloadComponent.storyName = '超出边界';
+_OverloadComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------

@@ -34,6 +34,7 @@ class Socket {
       this.worker.close();
     }
   };
+  
   start = (opt: OptionProps) => {
     const {userId, token, host, path} = opt;
     if (!userId || !token || !Object.prototype.hasOwnProperty.call(window, 'SharedWork')) {
