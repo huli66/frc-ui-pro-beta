@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 import classNames from 'classnames'
-import InputNumber, { InputNumberProps } from 'antd/es/input-number'
+import AntdInputNumber, { InputNumberProps } from 'antd/es/input-number'
 
 export interface BaseInputNumberProps {
   /** 带标签的 input，设置后置标签 */
@@ -55,7 +55,7 @@ export interface BaseInputNumberProps {
 
 export type FRCInputNumberProps = BaseInputNumberProps & InputNumberProps
 
-export const FRCInputNumber: FC<FRCInputNumberProps> = (props) => {
+export const InputNumber: FC<FRCInputNumberProps> = (props) => {
   const [keyDownEnter, setKeyDownEnter] = useState(false)
   const [isFocs, setIsFocs] = useState(false)
 
@@ -96,11 +96,11 @@ export const FRCInputNumber: FC<FRCInputNumberProps> = (props) => {
   }
 
   // main
-  return <InputNumber {...options} />
+  return <AntdInputNumber {...options} />
 }
 
 // normal
-FRCInputNumber.defaultProps = {
+InputNumber.defaultProps = {
   autoFocus: false,
   bordered: true,
   controls: true,
@@ -112,4 +112,4 @@ FRCInputNumber.defaultProps = {
   placeholder: '请输入',
 }
 
-export default FRCInputNumber
+export default InputNumber
