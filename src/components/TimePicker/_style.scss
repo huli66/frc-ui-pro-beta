@@ -24,6 +24,13 @@
 
 // dropdown
 .frc-date-picker-dropdown.ant-picker-dropdown.frc-time-picker-dropdown {
+  .ant-picker-footer {
+    padding-left: 0px !important;
+    .ant-picker-footer-extra {
+      line-height: 32px;
+    }
+  }
+
   .ant-picker-panel-container {
     .ant-picker-time-panel {
       margin-left: 0px;
