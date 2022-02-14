@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect, useRef } from 'react'
 import classNames from 'classnames'
-import Select, { SelectProps } from 'antd/es/select'
+import AntdSelect, { SelectProps } from 'antd/es/select'
 import { FiSearch, FiX, FiCheck } from 'react-icons/fi'
 import ReactDOM from 'react-dom'
 
@@ -145,7 +145,7 @@ const addPrefixNode = (nodes: any, prefixIcon: React.ReactNode) => {
 
 export type FRCSelectProps = BaseSelectProps & SelectProps
 
-export const FRCSelect: FC<FRCSelectProps> = (props) => {
+export const Select: FC<FRCSelectProps> = (props) => {
   const [openDropdown, setOpenDropdown] = useState(false)
   const nodes = useRef(null)
   const {
@@ -203,13 +203,13 @@ export const FRCSelect: FC<FRCSelectProps> = (props) => {
 
   return (
     <div ref={nodes} className="frc-select-container">
-      <Select {...options}>{children}</Select>
+      <AntdSelect {...options}>{children}</AntdSelect>
     </div>
   )
 }
 
 // normal
-FRCSelect.defaultProps = {
+Select.defaultProps = {
   disabled: false,
   listHeight: 200,
   showSearch: false,
@@ -221,4 +221,4 @@ FRCSelect.defaultProps = {
   placeholder: '请选择',
 }
 
-export default FRCSelect
+export default Select

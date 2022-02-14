@@ -1,6 +1,6 @@
 import React, { FC, useRef, useEffect, useState } from 'react'
 import classNames from 'classnames'
-import { TimePicker, TimePickerProps } from 'antd'
+import { TimePicker as AntdTimePicker, TimePickerProps } from 'antd'
 import ReactDOM from 'react-dom'
 import {
   BackwardOutlined,
@@ -113,7 +113,7 @@ const insertFrcBtn = () => {
   })
 }
 
-export const FRCTimePicker: FC<FRCTimePickerProps> = (
+export const TimePicker: FC<FRCTimePickerProps> = (
   props,
 ) => {
   const [dateValue, setDateValue] = useState('')
@@ -172,13 +172,13 @@ export const FRCTimePicker: FC<FRCTimePickerProps> = (
   // main
   return (
     <div ref={nodes} className="frc-date-picker-container">
-      <TimePicker {...options} />
+      <AntdTimePicker {...options} />
     </div>
   )
 }
 
 // normal
-FRCTimePicker.defaultProps = {
+TimePicker.defaultProps = {
   prefixIcon: <ClockCircleOutlined />,
   suffixIcon: false,
   superPrevIcon: <BackwardOutlined />,
@@ -200,4 +200,4 @@ FRCTimePicker.defaultProps = {
   secondStep: 1,
 }
 
-export default FRCTimePicker
+export default TimePicker

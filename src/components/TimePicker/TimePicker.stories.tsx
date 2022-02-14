@@ -141,18 +141,21 @@ Default.storyName = '默认 timePicker';
 
 // ----------------------------------------------------------------
 
-export const FormatComponent = () => {
+export const _FormatComponent = () => {
     const format = 'HH:mm';
     return <>
         <TimePicker defaultValue={moment('12:08', format)} format={format} />
     </>
 }
 
-FormatComponent.storyName = '选择时分';
+_FormatComponent.storyName = '选择时分';
+_FormatComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const ExtraFooterComponent = () => {
+export const _ExtraFooterComponent = () => {
     const [open, setOpen] = React.useState(false);
 
     const handleOpenChange = (open: boolean) => {
@@ -174,11 +177,14 @@ export const ExtraFooterComponent = () => {
     </>
 }
 
-ExtraFooterComponent.storyName = '附加内容';
+_ExtraFooterComponent.storyName = '附加内容';
+_ExtraFooterComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const TwelveFormatComponent = () => {
+export const _TwelveFormatComponent = () => {
     function onChange(time: any, timeString: string) {
         console.log(time, timeString);
     }
@@ -192,11 +198,14 @@ export const TwelveFormatComponent = () => {
     </>
 }
 
-TwelveFormatComponent.storyName = '12 小时制';
+_TwelveFormatComponent.storyName = '12 小时制';
+_TwelveFormatComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const RangeComponent = () => {
+export const _RangeComponent = () => {
     return <>
         通过 TimePicker.RangePicker 使用时间范围选择器。
         <br />
@@ -204,4 +213,7 @@ export const RangeComponent = () => {
     </>
 }
 
-RangeComponent.storyName = '范围选择器';
+_RangeComponent.storyName = '范围选择器';
+_RangeComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};

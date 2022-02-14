@@ -97,7 +97,7 @@ Default.storyName = '默认 radio';
 
 // ----------------------------------------------------------------
 
-export const DisabledComponent = () => {
+export const _DisabledComponent = () => {
     return (
         <>
             <Radio disabled>Radio</Radio>
@@ -106,11 +106,14 @@ export const DisabledComponent = () => {
     )
 };
 
-DisabledComponent.storyName = '禁用 disbled';
+_DisabledComponent.storyName = '禁用 disbled';
+_DisabledComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const GroupComponent = () => {
+export const _GroupComponent = () => {
     const [value, setValue] = React.useState(1);
 
     const onChange = (e: any) => {
@@ -130,11 +133,14 @@ export const GroupComponent = () => {
     )
 };
 
-GroupComponent.storyName = '单选组合 group';
+_GroupComponent.storyName = '单选组合 group';
+_GroupComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const SolidGroupComponent = () => {
+export const _SolidGroupComponent = () => {
     const [solidGroupValue, setSolidGroupValue] = useState(1)
 
     const onSolidGroupChange = (e: any) => {
@@ -185,6 +191,9 @@ export const SolidGroupComponent = () => {
     )
 };
 
-SolidGroupComponent.storyName = '填底的按钮样式';
+_SolidGroupComponent.storyName = '填底的按钮样式';
+_SolidGroupComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------

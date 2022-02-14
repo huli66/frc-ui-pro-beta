@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import classNames from 'classnames'
-import { Radio, RadioProps } from 'antd'
+import { Radio as AntdRadio, RadioProps } from 'antd'
 export interface BaseRadioProps {
   /** 自动获取焦点 */
   autoFocus?: boolean;
@@ -18,7 +18,7 @@ export interface BaseRadioProps {
   focus?: () => void;
 }
 
-export const FRCRadio: FC<BaseRadioProps & RadioProps> = (props) => {
+export const Radio: FC<BaseRadioProps & RadioProps> = (props) => {
   const { className, ...restProps } = props
 
   const classes = classNames('frc-radio', className, {})
@@ -29,14 +29,14 @@ export const FRCRadio: FC<BaseRadioProps & RadioProps> = (props) => {
   }
 
   // main
-  return <Radio {...options} />
+  return <AntdRadio {...options} />
 }
 
 // normal
-FRCRadio.defaultProps = {
+Radio.defaultProps = {
   autoFocus: false,
   defaultChecked: false,
   disabled: false
 }
 
-export default FRCRadio
+export default Radio

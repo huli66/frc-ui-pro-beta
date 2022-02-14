@@ -115,7 +115,7 @@ Default.storyName = '默认 select';
 
 // ----------------------------------------------------------------
 
-export const BaseComponent = () => {
+export const _BaseComponent = () => {
 
     const { Option } = Select;
 
@@ -147,11 +147,14 @@ export const BaseComponent = () => {
     )
 }
 
-BaseComponent.storyName = '基本使用';
+_BaseComponent.storyName = '基本使用';
+_BaseComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const PrefixIconComponent = () => {
+export const _PrefixIconComponent = () => {
     return (
         <>
             <Select
@@ -234,11 +237,14 @@ export const PrefixIconComponent = () => {
     )
 }
 
-PrefixIconComponent.storyName = '前缀图标 prefix';
+_PrefixIconComponent.storyName = '前缀图标 prefix';
+_PrefixIconComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const SearchComponent = () => {
+export const _SearchComponent = () => {
     const { Option } = Select;
 
     function onChange(value: any) {
@@ -286,11 +292,14 @@ export const SearchComponent = () => {
     )
 }
 
-SearchComponent.storyName = '带搜索框 search';
+_SearchComponent.storyName = '带搜索框 search';
+_SearchComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const MultipleComponent = () => {
+export const _MultipleComponent = () => {
     const { Option } = Select;
 
     const children = [];
@@ -359,11 +368,14 @@ export const MultipleComponent = () => {
     )
 }
 
-MultipleComponent.storyName = '多选 select';
+_MultipleComponent.storyName = '多选 select';
+_MultipleComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const CustomRenderComponent = () => {
+export const _CustomRenderComponent = () => {
     const { Option } = Select;
 
     function handleChange(value: any) {
@@ -419,11 +431,14 @@ export const CustomRenderComponent = () => {
     )
 }
 
-CustomRenderComponent.storyName = '定制回填内容';
+_CustomRenderComponent.storyName = '定制回填内容';
+_CustomRenderComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const SortComponent = () => {
+export const _SortComponent = () => {
     const { Option } = Select;
 
     return (
@@ -451,11 +466,14 @@ export const SortComponent = () => {
     )
 }
 
-SortComponent.storyName = '带排序的搜索';
+_SortComponent.storyName = '带排序的搜索';
+_SortComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const TagComponent = () => {
+export const _TagComponent = () => {
     const { Option } = Select;
 
     const children = [];
@@ -478,11 +496,14 @@ export const TagComponent = () => {
     )
 }
 
-TagComponent.storyName = '标签模式 tag';
+_TagComponent.storyName = '标签模式 tag';
+_TagComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const GroupComponent = () => {
+export const _GroupComponent = () => {
     const { Option, OptGroup } = Select;
 
     function handleChange(value: any) {
@@ -601,11 +622,14 @@ export const GroupComponent = () => {
     )
 }
 
-GroupComponent.storyName = '分组 group';
+_GroupComponent.storyName = '分组 group';
+_GroupComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const LinkageComponent = () => {
+export const _LinkageComponent = () => {
     const { Option } = Select;
     const provinceData: any = ['Zhejiang', 'Jiangsu'];
     const cityData: any = {
@@ -647,11 +671,14 @@ export const LinkageComponent = () => {
     )
 }
 
-LinkageComponent.storyName = '联动';
+_LinkageComponent.storyName = '联动';
+_LinkageComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const ApiSearchComponent = () => {
+export const _ApiSearchComponent = () => {
     const { Option } = Select;
 
     let timeout: any;
@@ -733,11 +760,14 @@ export const ApiSearchComponent = () => {
     )
 }
 
-ApiSearchComponent.storyName = '接口搜索';
+_ApiSearchComponent.storyName = '接口搜索';
+_ApiSearchComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const FetchValueComponent = () => {
+export const _FetchValueComponent = () => {
     const { Option } = Select;
 
     function handleChange(value: any) {
@@ -765,11 +795,14 @@ export const FetchValueComponent = () => {
     )
 }
 
-FetchValueComponent.storyName = '获得选项的文本';
+_FetchValueComponent.storyName = '获得选项的文本';
+_FetchValueComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const AutoSegmentComponent = () => {
+export const _AutoSegmentComponent = () => {
     const { Option } = Select;
 
     const children = [];
@@ -794,11 +827,14 @@ export const AutoSegmentComponent = () => {
     )
 }
 
-AutoSegmentComponent.storyName = '自动分词';
+_AutoSegmentComponent.storyName = '自动分词';
+_AutoSegmentComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const ExtendComponent = () => {
+export const _ExtendComponent = () => {
     const { Option } = Select;
 
     let index = 0;
@@ -849,11 +885,14 @@ export const ExtendComponent = () => {
     )
 }
 
-ExtendComponent.storyName = '扩展菜单';
+_ExtendComponent.storyName = '扩展菜单';
+_ExtendComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const CheckedHideComponent = () => {
+export const _CheckedHideComponent = () => {
     const OPTIONS = ['Apples', 'Nails', 'Bananas', 'Helicopters'];
 
     const [selectedItems, setSelectedItems] = React.useState<string[]>([])
@@ -888,11 +927,14 @@ export const CheckedHideComponent = () => {
     )
 }
 
-CheckedHideComponent.storyName = '隐藏已选择选项';
+_CheckedHideComponent.storyName = '隐藏已选择选项';
+_CheckedHideComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const CustomTagComponent = () => {
+export const _CustomTagComponent = () => {
     const options: any = [{ value: 'Gold' }, { value: 'Lime' }, { value: 'Green' }, { value: 'Cyan' }];
 
     function tagRender(props: any) {
@@ -939,11 +981,14 @@ export const CustomTagComponent = () => {
     )
 }
 
-CustomTagComponent.storyName = '自定义选择标签';
+_CustomTagComponent.storyName = '自定义选择标签';
+_CustomTagComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const MaxTagCountComponent = () => {
+export const _MaxTagCountComponent = () => {
     interface ItemProps {
         label: string;
         value: string;
@@ -988,11 +1033,14 @@ export const MaxTagCountComponent = () => {
     )
 }
 
-MaxTagCountComponent.storyName = '响应式 maxTagCount';
+_MaxTagCountComponent.storyName = '响应式 maxTagCount';
+_MaxTagCountComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const RemoveMenuItemSelectedIconComponent = () => {
+export const _RemoveMenuItemSelectedIconComponent = () => {
 
     // ----------------------------------------------------------------
 
@@ -1030,4 +1078,7 @@ export const RemoveMenuItemSelectedIconComponent = () => {
     )
 }
 
-RemoveMenuItemSelectedIconComponent.storyName = '选中隐藏右侧图标';
+_RemoveMenuItemSelectedIconComponent.storyName = '选中隐藏右侧图标';
+_RemoveMenuItemSelectedIconComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};

@@ -93,7 +93,7 @@ Default.storyName = '默认 switch';
 
 // ----------------------------------------------------------------
 
-export const BaseComponent = () => {
+export const _BaseComponent = () => {
     return <>
         <Switch />
         <Switch checked />
@@ -104,11 +104,14 @@ export const BaseComponent = () => {
     </>
 }
 
-BaseComponent.storyName = '基本使用 switch';
+_BaseComponent.storyName = '基本使用 switch';
+_BaseComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const ChildComponent = () => {
+export const _ChildComponent = () => {
     return <>
         <Switch
             checkedChildren="开启"
@@ -186,4 +189,7 @@ export const ChildComponent = () => {
     </>
 }
 
-ChildComponent.storyName = '文字和图标';
+_ChildComponent.storyName = '文字和图标';
+_ChildComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
