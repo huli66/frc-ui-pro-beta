@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import classNames from 'classnames'
-import { Checkbox, CheckboxProps } from 'antd'
+import { Checkbox as AntdCheckbox , CheckboxProps } from 'antd'
 
 export interface BaseCheckboxProps {
   /** 自动获取焦点 */
@@ -23,7 +23,7 @@ export interface BaseCheckboxProps {
 
 export type FrcCheckboxProps = BaseCheckboxProps & CheckboxProps
 
-export const FRCCheckbox: FC<FrcCheckboxProps> = (props) => {
+export const Checkbox: FC<FrcCheckboxProps> = (props) => {
   const { className, ...restProps } = props
 
   const classes = classNames('frc-checkbox', className, {})
@@ -34,15 +34,15 @@ export const FRCCheckbox: FC<FrcCheckboxProps> = (props) => {
   }
 
   // main
-  return <Checkbox {...options} />
+  return <AntdCheckbox {...options} />
 }
 
 // normal
-FRCCheckbox.defaultProps = {
+Checkbox.defaultProps = {
   autoFocus: false,
   defaultChecked: false,
   disabled: false,
   indeterminate: false,
 }
 
-export default FRCCheckbox
+export default Checkbox

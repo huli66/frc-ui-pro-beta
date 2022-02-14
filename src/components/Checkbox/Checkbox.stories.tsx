@@ -105,7 +105,7 @@ Default.storyName = '默认 checkbox';
 
 // ----------------------------------------------------------------
 
-export const ActiveAndDisabled = () => {
+export const _ActiveAndDisabled = () => {
     return <>
         <Checkbox>default</Checkbox>
         <Checkbox checked>checked</Checkbox>
@@ -116,11 +116,14 @@ export const ActiveAndDisabled = () => {
         </Checkbox>
     </>;
 }
-ActiveAndDisabled.storyName = '激活 | 禁用';
+_ActiveAndDisabled.storyName = '激活 | 禁用';
+_ActiveAndDisabled.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const Group = () => {
+export const _GroupComponent = () => {
     const plainOptions = ["Apple", "Pear", "Orange"];
     const options = [
         { label: "Apple", value: "Apple" },
@@ -151,11 +154,14 @@ export const Group = () => {
     )
 }
 
-Group.storyName = '复选框组 group';
+_GroupComponent.storyName = '复选框组 group';
+_GroupComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const Indeterminate = () => {
+export const _IndeterminateComponent = () => {
     const plainOptions = ['Apple', 'Pear', 'Orange'];
     const defaultCheckedList = ['Apple', 'Orange'];
 
@@ -194,4 +200,7 @@ export const Indeterminate = () => {
     )
 }
 
-Indeterminate.storyName = '全选 indeterminate';
+_IndeterminateComponent.storyName = '全选 indeterminate';
+_IndeterminateComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};

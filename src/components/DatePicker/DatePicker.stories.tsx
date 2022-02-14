@@ -181,7 +181,7 @@ Default.storyName = '默认 dataPicker';
 
 const dateFormat = 'YYYY/MM/DD'
 
-export const BaseComponent = () => {
+export const _BaseComponent = () => {
 
     const onChange = (date?: moment.Moment | null, dateString?: string) => {
         console.log(date, dateString);
@@ -214,11 +214,14 @@ export const BaseComponent = () => {
     )
 }
 
-BaseComponent.storyName = '基本用法 datePicker';
+_BaseComponent.storyName = '基本用法 datePicker';
+_BaseComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const RangePickerComponent = () => {
+export const _RangePickerComponent = () => {
 
     const { RangePicker } = DatePicker;
 
@@ -233,11 +236,14 @@ export const RangePickerComponent = () => {
     )
 }
 
-RangePickerComponent.storyName = '范围选择器 rangePicker';
+_RangePickerComponent.storyName = '范围选择器 rangePicker';
+_RangePickerComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const ShowTimeComponent = () => {
+export const _ShowTimeComponent = () => {
 
     const { RangePicker } = DatePicker;
 
@@ -265,11 +271,14 @@ export const ShowTimeComponent = () => {
     )
 }
 
-ShowTimeComponent.storyName = '日期时间选择 showTime';
+_ShowTimeComponent.storyName = '日期时间选择 showTime';
+_ShowTimeComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const FormatComponent = () => {
+export const _FormatComponent = () => {
 
     const { RangePicker } = DatePicker;
 
@@ -303,11 +312,14 @@ export const FormatComponent = () => {
     )
 }
 
-FormatComponent.storyName = '日期格式 format';
+_FormatComponent.storyName = '日期格式 format';
+_FormatComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const WeekFormatComponent = () => {
+export const _WeekFormatComponent = () => {
 
     return (
         <>
@@ -348,11 +360,14 @@ export const WeekFormatComponent = () => {
     )
 }
 
-WeekFormatComponent.storyName = '周选择器';
+_WeekFormatComponent.storyName = '周选择器';
+_WeekFormatComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const MonthFormatComponent = () => {
+export const _MonthFormatComponent = () => {
 
     return (
         <>
@@ -393,11 +408,14 @@ export const MonthFormatComponent = () => {
     )
 }
 
-MonthFormatComponent.storyName = '月份选择器';
+_MonthFormatComponent.storyName = '月份选择器';
+_MonthFormatComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const QuarterFormatComponent = () => {
+export const _QuarterFormatComponent = () => {
 
     return (
         <>
@@ -438,11 +456,14 @@ export const QuarterFormatComponent = () => {
     )
 }
 
-QuarterFormatComponent.storyName = '季度选择器';
+_QuarterFormatComponent.storyName = '季度选择器';
+_QuarterFormatComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const YearFormatComponent = () => {
+export const _YearFormatComponent = () => {
 
     return (
         <>
@@ -483,11 +504,14 @@ export const YearFormatComponent = () => {
     )
 }
 
-YearFormatComponent.storyName = '年份选择器';
+_YearFormatComponent.storyName = '年份选择器';
+_YearFormatComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const PresetRangesComponent = () => {
+export const _PresetRangesComponent = () => {
 
     const { RangePicker } = DatePicker;
 
@@ -522,11 +546,14 @@ export const PresetRangesComponent = () => {
     )
 }
 
-PresetRangesComponent.storyName = '预设范围 ranges';
+_PresetRangesComponent.storyName = '预设范围 ranges';
+_PresetRangesComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const disabledTimeComponent = () => {
+export const _DisabledTimeComponent = () => {
 
     const { RangePicker } = DatePicker;
 
@@ -592,11 +619,14 @@ export const disabledTimeComponent = () => {
     )
 }
 
-disabledTimeComponent.storyName = '不可选择日期和时间';
+_DisabledTimeComponent.storyName = '不可选择日期和时间';
+_DisabledTimeComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const SenvenDayDisabledComponent = () => {
+export const _SenvenDayDisabledComponent = () => {
 
     const [dates, setDates] = useState<any>([]);
     const [hackValue, setHackValue] = useState<any>([]);
@@ -634,11 +664,14 @@ export const SenvenDayDisabledComponent = () => {
     )
 }
 
-SenvenDayDisabledComponent.storyName = '选择不超过七天的范围';
+_SenvenDayDisabledComponent.storyName = '选择不超过七天的范围';
+_SenvenDayDisabledComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const ExtraFooterComponent = () => {
+export const _ExtraFooterComponent = () => {
 
     return (
         <>
@@ -653,11 +686,14 @@ export const ExtraFooterComponent = () => {
     )
 }
 
-ExtraFooterComponent.storyName = '额外的页脚 extra';
+_ExtraFooterComponent.storyName = '额外的页脚 extra';
+_ExtraFooterComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const CustomCellComponent = () => {
+export const _CustomCellComponent = () => {
 
     const restCustomDateRender = (current: any) => {
         // if (current.date() === 5) {
@@ -736,4 +772,7 @@ export const CustomCellComponent = () => {
     )
 }
 
-CustomCellComponent.storyName = '定制日期单元格 dateRender';
+_CustomCellComponent.storyName = '定制日期单元格 dateRender';
+_CustomCellComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};

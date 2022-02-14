@@ -92,9 +92,9 @@ export default {
 
 // ----------------------------------------------------------------
 
-export const D_Componet = (args: any) => <InputNumber {...args} />;
+export const DefaultComponet = (args: any) => <InputNumber {...args} />;
 
-D_Componet.storyName = '默认 inputNumber';
+DefaultComponet.storyName = '默认 inputNumber';
 
 // ----------------------------------------------------------------
 

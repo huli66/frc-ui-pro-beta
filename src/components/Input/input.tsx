@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 import classNames from 'classnames'
-import Input, { InputProps } from 'antd/es/input'
+import AntdInput, { InputProps } from 'antd/es/input'
 import { FiSearch } from 'react-icons/fi'
 
 type InputType = 'default' | 'icon-only'
@@ -43,7 +43,7 @@ interface BaseInputProps {
 
 export type FRCInputProps = BaseInputProps & Omit<InputProps, 'type'>
 
-export const FRCInput: FC<FRCInputProps> = (props) => {
+export const Input: FC<FRCInputProps> = (props) => {
   const [keyDownEnter, setKeyDownEnter] = useState(false)
 
   const {
@@ -86,11 +86,11 @@ export const FRCInput: FC<FRCInputProps> = (props) => {
   }
 
   // main
-  return <Input {...options} />
+  return <AntdInput {...options} />
 }
 
 // normal
-FRCInput.defaultProps = {
+Input.defaultProps = {
   bordered: true,
   placeholder: '请输入...',
   type: 'default',
@@ -98,4 +98,4 @@ FRCInput.defaultProps = {
   showCount: false,
 }
 
-export default FRCInput
+export default Input

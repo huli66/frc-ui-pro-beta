@@ -1,6 +1,6 @@
 import React, { FC, useRef, useEffect, useState } from 'react'
 import classNames from 'classnames'
-import { DatePicker, DatePickerProps, TimePickerProps } from 'antd'
+import { DatePicker as AntdDatePicker, DatePickerProps } from 'antd'
 import { IoCalendarOutline } from 'react-icons/io5'
 import ReactDOM from 'react-dom'
 import {
@@ -130,7 +130,7 @@ const insertFrcBtn = () => {
   })
 }
 
-export const FRCDatePicker: FC<FRCDatePickerProps> = (
+export const DatePicker: FC<FRCDatePickerProps> = (
   props,
 ) => {
   const [dateValue, setDateValue] = useState('')
@@ -186,13 +186,13 @@ export const FRCDatePicker: FC<FRCDatePickerProps> = (
   // main
   return (
     <div ref={nodes} className="frc-date-picker-container">
-      <DatePicker {...options} />
+      <AntdDatePicker {...options} />
     </div>
   )
 }
 
 // normal
-FRCDatePicker.defaultProps = {
+DatePicker.defaultProps = {
   prefixIcon: <IoCalendarOutline />,
   suffixIcon: false,
   showToday: false,
@@ -211,4 +211,4 @@ FRCDatePicker.defaultProps = {
   style: {},
 }
 
-export default FRCDatePicker
+export default DatePicker

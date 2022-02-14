@@ -104,7 +104,7 @@ Default.storyName = '默认 modal';
 
 // ----------------------------------------------------------------
 
-export const DefaultComponent = () => {
+export const _DefaultComponent = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const showModal = () => {
@@ -141,11 +141,14 @@ export const DefaultComponent = () => {
     );
 };
 
-DefaultComponent.storyName = '默认交互';
+_DefaultComponent.storyName = '默认交互';
+_DefaultComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const AsyncCloseComponent = () => {
+export const _AsyncCloseComponent = () => {
     const [visible, setVisible] = React.useState(false);
     const [confirmLoading, setConfirmLoading] = React.useState(false);
     const [modalText, setModalText] = React.useState('Content of the modal');
@@ -186,11 +189,14 @@ export const AsyncCloseComponent = () => {
     );
 };
 
-AsyncCloseComponent.storyName = '异步关闭';
+_AsyncCloseComponent.storyName = '异步关闭';
+_AsyncCloseComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const CustomFooterComponent = () => {
+export const _CustomFooterComponent = () => {
     const [visible, setVisible] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -250,11 +256,14 @@ export const CustomFooterComponent = () => {
     );
 };
 
-CustomFooterComponent.storyName = '自定义页脚 footer';
+_CustomFooterComponent.storyName = '自定义页脚 footer';
+_CustomFooterComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const ConfirmComponent = () => {
+export const _ConfirmComponent = () => {
     const { confirm } = Modal;
 
     function showConfirm() {
@@ -340,11 +349,14 @@ export const ConfirmComponent = () => {
     );
 };
 
-ConfirmComponent.storyName = '确认对话框 confirm';
+_ConfirmComponent.storyName = '确认对话框 confirm';
+_ConfirmComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const MethodsComponent = () => {
+export const _MethodsComponent = () => {
     function info() {
         Modal.info({
             title: 'This is a notification message',
@@ -392,11 +404,14 @@ export const MethodsComponent = () => {
     );
 };
 
-MethodsComponent.storyName = '信息提示 method';
+_MethodsComponent.storyName = '信息提示 method';
+_MethodsComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const PositionComponent = () => {
+export const _PositionComponent = () => {
     const [modalOneVisible, setModalOneVisible] = useState(false);
     const [modalTwoVisible, setModalTwoVisible] = useState(false);
 
@@ -447,11 +462,14 @@ export const PositionComponent = () => {
     );
 };
 
-PositionComponent.storyName = '自定义位置';
+_PositionComponent.storyName = '自定义位置';
+_PositionComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const DestroyAllComponent = () => {
+export const _DestroyAllComponent = () => {
     function destroyAll() {
         Modal.destroyAll();
     }
@@ -486,11 +504,14 @@ export const DestroyAllComponent = () => {
     );
 };
 
-DestroyAllComponent.storyName = '销毁确认对话框';
+_DestroyAllComponent.storyName = '销毁确认对话框';
+_DestroyAllComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const CustomPropsComponent = () => {
+export const _CustomPropsComponent = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const showModal = () => {
@@ -532,11 +553,14 @@ export const CustomPropsComponent = () => {
     );
 };
 
-CustomPropsComponent.storyName = '自定义页脚按钮属性';
+_CustomPropsComponent.storyName = '自定义页脚按钮属性';
+_CustomPropsComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const DragComponent = () => {
+export const _DragComponent = () => {
     const [visible, setVisible] = useState(false);
     const [disabled, setDisabled] = useState(true);
     const [bounds, setBounds] = useState({ left: 0, top: 0, bottom: 0, right: 0 });
@@ -629,6 +653,9 @@ export const DragComponent = () => {
     );
 };
 
-DragComponent.storyName = '自定义渲染对话框';
+_DragComponent.storyName = '自定义渲染对话框';
+_DragComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------

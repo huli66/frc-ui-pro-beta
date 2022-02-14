@@ -116,7 +116,7 @@ Default.storyName = '默认 input';
 
 // ----------------------------------------------------------------
 
-export const BaseComponent = () => {
+export const _BaseComponent = () => {
     return (<>
         <Input placeholder="Enter" />
 
@@ -158,22 +158,28 @@ export const BaseComponent = () => {
     </>)
 };
 
-BaseComponent.storyName = '基本用法 input';
+_BaseComponent.storyName = '基本用法 input';
+_BaseComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const IconOnlyComponent = () => {
+export const _IconOnlyComponent = () => {
     return (<>
         <Input placeholder="Enter" type="icon-only" allowClear />
         <Input placeholder="Enter" type="icon-only" allowClear disabled />
     </>)
 };
 
-IconOnlyComponent.storyName = '图标输入框 icon only';
+_IconOnlyComponent.storyName = '图标输入框 icon only';
+_IconOnlyComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const SearchComponent = () => {
+export const _SearchComponent = () => {
     return (<>
         <Input.Search placeholder="Enter Search" allowClear style={{ width: 240 }} />
         <Input.Search
@@ -200,11 +206,14 @@ export const SearchComponent = () => {
     </>)
 };
 
-SearchComponent.storyName = '搜索输入框 search';
+_SearchComponent.storyName = '搜索输入框 search';
+_SearchComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const LoadingComponent = () => {
+export const _LoadingComponent = () => {
     return (<>
         用于 onSearch 的时候展示 loading。
         <br />
@@ -235,11 +244,14 @@ export const LoadingComponent = () => {
     </>)
 };
 
-LoadingComponent.storyName = '加载中 loading';
+_LoadingComponent.storyName = '加载中 loading';
+_LoadingComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const GroupComponent = () => {
+export const _GroupComponent = () => {
     return (<>
         输入框的组合展现。
         <br />
@@ -265,11 +277,14 @@ export const GroupComponent = () => {
     </>)
 };
 
-GroupComponent.storyName = '输入框组 group';
+_GroupComponent.storyName = '输入框组 group';
+_GroupComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const TextAreaComponent = () => {
+export const _TextAreaComponent = () => {
     return (<>
         用于多行输入。
         <br />
@@ -277,11 +292,14 @@ export const TextAreaComponent = () => {
     </>)
 };
 
-TextAreaComponent.storyName = '文本域 textArea';
+_TextAreaComponent.storyName = '文本域 textArea';
+_TextAreaComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const ShowCountComponent = () => {
+export const _ShowCountComponent = () => {
     return (<>
         <Input showCount maxLength={20} />
         <br />
@@ -293,11 +311,14 @@ export const ShowCountComponent = () => {
     </>)
 };
 
-ShowCountComponent.storyName = '带字数提示 showCount';
+_ShowCountComponent.storyName = '带字数提示 showCount';
+_ShowCountComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const PasswordComponent = () => {
+export const _PasswordComponent = () => {
     return (<>
         <Input.Password placeholder="input password" />
         <Input.Password
@@ -314,6 +335,9 @@ export const PasswordComponent = () => {
     </>)
 };
 
-PasswordComponent.storyName = '密码框 password';
+_PasswordComponent.storyName = '密码框 password';
+_PasswordComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------

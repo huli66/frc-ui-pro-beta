@@ -90,7 +90,7 @@ Default.storyName = '默认 button';
 
 // ----------------------------------------------------------------
 
-export const BaseComponent = () => {
+export const _BaseComponent = () => {
     return (<>
         <Button type="default">Default Button</Button>
         <Button type="primary">Primary Button</Button>
@@ -110,11 +110,14 @@ export const BaseComponent = () => {
     </>)
 };
 
-BaseComponent.storyName = '基本用法 button';
+_BaseComponent.storyName = '基本用法 button';
+_BaseComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const ActiveComponent = () => {
+export const _ActiveComponent = () => {
     return (<>
         <Button type="default" work>
             Default Button
@@ -156,11 +159,14 @@ export const ActiveComponent = () => {
     </>)
 };
 
-ActiveComponent.storyName = '激活状态 button';
+_ActiveComponent.storyName = '激活状态 button';
+_ActiveComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const IconComponent = () => {
+export const _IconComponent = () => {
     return (<>
         <Button type="default" icon={<QuestionCircleOutlined />}>
             Default Button
@@ -213,11 +219,14 @@ export const IconComponent = () => {
     </>)
 };
 
-IconComponent.storyName = '图标 button';
+_IconComponent.storyName = '图标 button';
+_IconComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 
-export const LoadingComponent = () => {
+export const _LoadingComponent = () => {
     return (<>
         <Button type="default" loading>
             Default Button
@@ -275,4 +284,7 @@ export const LoadingComponent = () => {
     </>)
 };
 
-LoadingComponent.storyName = '加载中 button';
+_LoadingComponent.storyName = '加载中 button';
+_LoadingComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
