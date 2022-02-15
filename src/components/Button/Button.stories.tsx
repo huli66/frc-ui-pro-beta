@@ -1,25 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism'
 
-import { QuestionCircleOutlined, ProfileOutlined } from "@ant-design/icons";
+import { QuestionCircleOutlined } from "@ant-design/icons";
 
 import { ComponentMeta } from '@storybook/react';
 
 import {
     Title,
-    Subtitle,
     Description,
-    Primary,
     ArgsTable,
     Stories,
-    PRIMARY_STORY,
     Heading,
     Subheading
 } from '@storybook/addon-docs';
 
 import Button from './index';
+import {FRCButtonProps} from './button'
 
 // ----------------------------------------------------------------
 
@@ -30,7 +28,7 @@ const ImportComponent = () => {
 import { Button } from 'frc-ui-pro';
 
 // 按需引入 icon
-import { QuestionCircleOutlined, ProfileOutlined } from "@ant-design/icons";
+import { QuestionCircleOutlined } from "@ant-design/icons";
 ~~~
 `
 
@@ -84,7 +82,7 @@ export default {
 
 // ----------------------------------------------------------------
 
-export const Default = (args: any) => <Button {...args}>Button</Button>;
+export const Default = (args: FRCButtonProps) => <Button {...args}>Button</Button>;
 
 Default.storyName = '默认 button';
 

@@ -3,20 +3,16 @@ import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { ComponentMeta } from '@storybook/react';
-
 import {
     Title,
-    Subtitle,
     Description,
-    Primary,
     ArgsTable,
     Stories,
-    PRIMARY_STORY,
     Heading,
     Subheading
 } from '@storybook/addon-docs';
-
 import Divider from './index';
+import { FRCDividerProps } from './divider'
 import Button from '../Button'
 
 // ----------------------------------------------------------------
@@ -78,7 +74,7 @@ export default {
 
 // ----------------------------------------------------------------
 
-export const Default = (args: any) => <Divider {...args} />;
+export const Default = (args: FRCDividerProps) => <Divider {...args} />;
 
 Default.storyName = '默认 divider';
 
@@ -139,11 +135,13 @@ export const _VerticalComponent = () => {
     return <>
         使用 type="vertical" 设置为行内的垂直分割线。
         <br />
-        Text
-        <Divider type="vertical" />
-        <Button type="link">Link</Button>
-        <Divider type="vertical" />
-        <Button type="link">Link</Button>
+        <div>
+            Text
+            <Divider type="vertical" />
+            <Button type="link">Link</Button>
+            <Divider type="vertical" />
+            <Button type="link">Link</Button>
+        </div>
     </>
 };
 

@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import classNames from 'classnames'
-import Modal, { ModalFuncProps } from 'antd/es/modal'
+import Modal from 'antd/es/modal'
 
 import { FRCMethodProps } from './confirm'
 

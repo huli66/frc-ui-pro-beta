@@ -44,7 +44,7 @@ interface FRCRangePickerCustomProps {
   /** 待选日期发生变化的回调 */
   onCalendarChange?: (dates: [moment.Moment, moment.Moment], dateStrings: [string, string], info: { range: 'start' | 'end' }) => void
   /** 日期范围发生变化的回调	 */
-  onChange?: (dates: [moment.Moment, moment.Moment], dateStrings: [string, string]) => void
+  onChange?: (dates: [moment.Moment, moment.Moment] | null, dateStrings: [string, string] | null) => void
 }
 
 

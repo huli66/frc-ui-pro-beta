@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import classNames from 'classnames';
 import Button from '../Button'
 
-interface ErrorProps {
+interface BaseErrorProps {
   /** 设置标题文本内容 */
   title?: string;
   /** 设置按钮文本内容 */
@@ -10,14 +10,16 @@ interface ErrorProps {
   /** 设置弹框类名 */
   className?: string;
   /** 设置按钮点击事件 */
-  onClick?: (ev: React.MouseEvent<HTMLElement, MouseEvent>) => {};
+  onClick?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => {};
 }
+
+export type FRCErrorProps = BaseErrorProps
 
 function windowReload() {
   window.location.reload();
 }
 
-export const Error: FC<ErrorProps> = (props) => {
+export const Error: FC<FRCErrorProps> = (props) => {
 
   const { className, title, btnText, onClick, ...restProps } = props;
 

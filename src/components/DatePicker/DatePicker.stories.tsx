@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism'
-import { DatePicker as TestDate } from 'antd'
 
 import { ComponentMeta } from '@storybook/react';
 
@@ -18,12 +17,12 @@ import {
     Primary,
     ArgsTable,
     Stories,
-    PRIMARY_STORY,
     Heading,
     Subheading
 } from '@storybook/addon-docs';
 
 import DatePicker from './index';
+import { FRCDatePickerProps } from './datePicker'
 
 const RangePicker = DatePicker.RangePicker
 
@@ -174,7 +173,7 @@ export default {
 
 // ----------------------------------------------------------------
 
-export const Default = (args: any) => <DatePicker {...args} />;
+export const Default = (args: FRCDatePickerProps) => <DatePicker {...args} />;
 Default.storyName = '默认 dataPicker';
 
 // ----------------------------------------------------------------
@@ -183,7 +182,7 @@ const dateFormat = 'YYYY/MM/DD'
 
 export const _BaseComponent = () => {
 
-    const onChange = (date?: moment.Moment | null, dateString?: string) => {
+    const onChange = (date: moment.Moment | null, dateString: string) => {
         console.log(date, dateString);
     }
 
@@ -247,25 +246,34 @@ export const _ShowTimeComponent = () => {
 
     const { RangePicker } = DatePicker;
 
-    function onChange(value: any, dateString: any) {
+    function onChangeDatePicker(value: moment.Moment | null, dateString: string) {
         console.log('Selected Time: ', value);
         console.log('Formatted Selected Time: ', dateString);
     }
 
-    function onOk(value?: any) {
-        console.log('onOk: ');
+    function onChangeRangePicker(value: [moment.Moment | null, moment.Moment | null] | null, dateString: [string, string] | null) {
+        console.log('Selected Time: ', value);
+        console.log('Formatted Selected Time: ', dateString);
+    }
+
+    function onOkDatePicker(value: moment.Moment | null) {
+        console.log('onOk: ', value);
+    }
+
+    function onOkRangePicker(value: [moment.Moment | null, moment.Moment | null] | null) {
+        console.log('onOk: ', value);
     }
 
     return (
         <>
             增加选择时间功能，当 showTime 为一个对象时，其属性会传递给内建的 TimePicker。
             <br />
-            <DatePicker showTime onChange={onChange} onOk={onOk} />
+            <DatePicker showTime onChange={onChangeDatePicker} onOk={onOkDatePicker} />
             <RangePicker
                 showTime={{ format: 'HH:mm' }}
                 format="YYYY-MM-DD HH:mm"
-                onChange={onChange}
-                onOk={onOk}
+                onChange={onChangeRangePicker}
+                onOk={onOkRangePicker}
             />
         </>
     )
@@ -288,9 +296,12 @@ export const _FormatComponent = () => {
 
     const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 
-    const customFormat = (value?: any) => `custom format: ${value.format(dateFormat)}`;
+    const customFormat = (value: moment.Moment): string => {
+        if (!value) return '';
+        return `custom format: ${value.format(dateFormat)}`
+    };
 
-    const customWeekStartEndFormat = (value?: any) =>
+    const customWeekStartEndFormat = (value: moment.Moment) =>
         `${moment(value).startOf('week').format(weekFormat)} ~ ${moment(value)
             .endOf('week')
             .format(weekFormat)}`;
@@ -515,7 +526,7 @@ export const _PresetRangesComponent = () => {
 
     const { RangePicker } = DatePicker;
 
-    function onChange(dates?: any, dateStrings?: any) {
+    function onChange(dates: [moment.Moment | null, moment.Moment | null] | null, dateStrings: [string, string] | null) {
         if (dates && dateStrings) {
             console.log('From: ', dates[0], ', to: ', dates[1]);
             console.log('From: ', dateStrings[0], ', to: ', dateStrings[1]);
@@ -578,7 +589,7 @@ export const _DisabledTimeComponent = () => {
         };
     }
 
-    function disabledRangeTime(_: any, type: string) {
+    function disabledRangeTime(_: moment.Moment | null, type: string) {
         if (type === 'start') {
             return {
                 disabledHours: () => range(0, 60).splice(4, 20),
@@ -631,8 +642,8 @@ export const _SenvenDayDisabledComponent = () => {
     const [dates, setDates] = useState<any>([]);
     const [hackValue, setHackValue] = useState<any>([]);
     const [value, setValue] = useState<any>();
-    const disabledDate = (current: any) => {
-        if (!dates || dates.length === 0) {
+    const disabledDate = (current: moment.Moment | null) => {
+        if (!dates || dates.length === 0 || !current) {
             return false;
         }
         const tooLate = dates[0] && current.diff(dates[0], 'days') > 7;
@@ -695,7 +706,7 @@ _ExtraFooterComponent.parameters = {
 
 export const _CustomCellComponent = () => {
 
-    const restCustomDateRender = (current: any) => {
+    const restCustomDateRender = (current: moment.Moment) => {
         // if (current.date() === 5) {
         const REST_COLUMNS = ['01/05', '01/06']
         const EXPLAIN_COLUMNS = [

@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import Modal, { FRCModalProps } from './modal';
 import { Confirm, Info, Warning, Error, Success } from './methods';
-import { Modal as AntdModal, ModalFuncProps } from 'antd'
+import { Modal as AntdModal } from 'antd'
 import { FRCMethodProps } from './methods/confirm'
 
 

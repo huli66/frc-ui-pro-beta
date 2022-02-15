@@ -14,6 +14,7 @@ import {
 } from '@storybook/addon-docs';
 
 import Error from './index';
+import { FRCErrorProps } from './error';
 
 const ImportComponent = () => {
     const markdown = `
@@ -63,7 +64,7 @@ export default {
     },
 } as ComponentMeta<typeof Error>;
 
-export const Default = (args: any) => (
+export const Default = (args: FRCErrorProps) => (
     <div style={{ width: "100%", height: 500, overflow: "hidden" }}>
         <Error {...args} />
         <div style={{ width: "100%", height: 500, background: '#136c5e' }}>

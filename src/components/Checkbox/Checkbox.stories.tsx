@@ -1,5 +1,3 @@
-// Button.stories.ts|tsx
-
 import React from 'react';
 import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
@@ -14,12 +12,12 @@ import {
     Primary,
     ArgsTable,
     Stories,
-    PRIMARY_STORY,
     Heading,
     Subheading
 } from '@storybook/addon-docs';
 
 import Checkbox from './index';
+import { FrcCheckboxProps, CheckboxChangeEvent } from './checkbox'
 
 // ----------------------------------------------------------------
 
@@ -100,15 +98,18 @@ export default {
 
 // ----------------------------------------------------------------
 
-export const Default = (args: any) => <Checkbox {...args}>Checkbox</Checkbox>;
+export const Default = (args: FrcCheckboxProps) => <Checkbox {...args}>Checkbox</Checkbox>;
 Default.storyName = '默认 checkbox';
 
 // ----------------------------------------------------------------
 
 export const _ActiveAndDisabled = () => {
+    const onChange = (e: CheckboxChangeEvent) => {
+        console.log('e', e)
+    }
     return <>
-        <Checkbox>default</Checkbox>
-        <Checkbox checked>checked</Checkbox>
+        <Checkbox onChange={onChange}>default</Checkbox>
+        <Checkbox onChange={onChange} checked>checked</Checkbox>
         <br />
         <Checkbox disabled>default</Checkbox>
         <Checkbox checked disabled>
@@ -165,17 +166,20 @@ export const _IndeterminateComponent = () => {
     const plainOptions = ['Apple', 'Pear', 'Orange'];
     const defaultCheckedList = ['Apple', 'Orange'];
 
-    const [checkedList, setCheckedList] = React.useState(defaultCheckedList);
-    const [indeterminate, setIndeterminate] = React.useState(true);
-    const [checkAll, setCheckAll] = React.useState(false);
+    type CheckboxValueType = string | number | boolean
 
-    const onChange = (list: any) => {
-        setCheckedList(list);
-        setIndeterminate(!!list.length && list.length < plainOptions.length);
-        setCheckAll(list.length === plainOptions.length);
+    const [checkedList, setCheckedList] = React.useState<string[]>(defaultCheckedList);
+    const [indeterminate, setIndeterminate] = React.useState<boolean>(true);
+    const [checkAll, setCheckAll] = React.useState<boolean>(false);
+    const onChange = (checkedValue: CheckboxValueType[]) => {
+        setCheckedList(checkedValue as string[]);
+        setIndeterminate(!!checkedValue.length && checkedValue.length < plainOptions.length);
+        setCheckAll(checkedValue.length === plainOptions.length);
     };
 
     const onCheckAllChange = (e: any) => {
+        console.log('e', e);
+
         setCheckedList(e.target.checked ? plainOptions : []);
         setIndeterminate(false);
         setCheckAll(e.target.checked);

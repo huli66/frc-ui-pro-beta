@@ -1,5 +1,3 @@
-// Button.stories.ts|tsx
-
 import React from 'react';
 import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
@@ -14,12 +12,9 @@ import { FiSearch, FiAlertCircle } from 'react-icons/fi'
 
 import {
     Title,
-    Subtitle,
     Description,
-    Primary,
     ArgsTable,
     Stories,
-    PRIMARY_STORY,
     Heading,
     Subheading
 } from '@storybook/addon-docs';

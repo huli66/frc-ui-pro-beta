@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import classNames from 'classnames'
 import AntdModal, { ModalProps } from 'antd/es/modal'
 import Button, { FRCButtonProps as ButtonProps } from '../Button/button'
-export interface BaseModalProps {
+export interface BaseModalProps extends ModalProps {
   /** Modal 完全关闭后的回调 */
   afterClose?: () => void
   /** Modal body 样式 */
@@ -64,8 +64,7 @@ export interface BaseModalProps {
 }
 
 // Omit: 去重， 由于 antd 也写了 type 注释
-export type FRCModalProps = BaseModalProps & Omit<ModalProps,
-  'okType' | 'getContainer' | 'onOk' | 'onCancel' | 'cancelButtonProps' | 'okButtonProps' | 'modalRender' | 'afterClose'>
+export type FRCModalProps = BaseModalProps
 
 export const ModalFooter = (props: FRCModalProps) => {
   const { onOk, onCancel, confirmLoading, okBtnType, okFrcButtonProps, cancelFrcButtonProps } = props

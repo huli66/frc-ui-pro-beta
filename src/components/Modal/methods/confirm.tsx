@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import Modal, { ModalFuncProps } from 'antd/es/modal'
 import { ButtonProps } from 'antd'
 
-interface BaseMethodProps {
+interface BaseMethodProps extends ModalFuncProps {
   /** Modal 完全关闭后的回调 */
   afterClose?: () => void
   /** 指定自动获得焦点的按钮 */
@@ -41,7 +41,7 @@ interface BaseMethodProps {
   /** 确认按钮文字 */
   okText?: string
   /** 确认按钮类型 */
-  okType?: string
+  okType?: "default" | "primary" | "ghost" | "dashed" | "link" | "text" | 'danger'
   /** 可用于设置浮层的样式，调整浮层位置等 */
   style?: React.CSSProperties
   /** 标题 */
@@ -58,8 +58,7 @@ interface BaseMethodProps {
   onOk?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
 }
 
-export type FRCMethodProps = BaseMethodProps & Omit<ModalFuncProps,
-  'afterClose' | 'getContainer' | 'onOk' | 'onCancel' | 'cancelButtonProps' | 'okButtonProps'>
+export type FRCMethodProps = BaseMethodProps
 
 export const Confirm: FC<FRCMethodProps> = (props) => {
   const {

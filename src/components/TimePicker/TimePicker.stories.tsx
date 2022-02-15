@@ -1,21 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism'
-
-import { CloseOutlined, CheckOutlined } from '@ant-design/icons';
-
 import { ComponentMeta } from '@storybook/react';
 import moment from 'moment';
 
 import {
     Title,
-    Subtitle,
     Description,
-    Primary,
     ArgsTable,
     Stories,
-    PRIMARY_STORY,
     Heading,
     Subheading
 } from '@storybook/addon-docs';

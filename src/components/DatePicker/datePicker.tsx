@@ -91,14 +91,14 @@ interface FRCDatePickerCustomProps {
   /** 日期 */
   value?: moment.Moment
   /** 时间发生变化的回调	 */
-  onChange?: (date: moment.Moment, dateString: string) => void
+  onChange?: (value: moment.Moment | null, dateString: string) => void
   /** 点击确定按钮的回调 */
-  onOk?: () => void
+  onOk?: (value: moment.Moment | null) => void
   /** 日期面板变化时的回调 */
   onPanelChange?: (value: moment.Moment, mode: string) => void
 }
 
-export type FRCDatePickerProps = BasePickerProps & FRCDatePickerCustomProps & DatePickerProps
+export type FRCDatePickerProps = BasePickerProps & FRCDatePickerCustomProps & DatePickerProps;
 
 const addPrefixNode = (nodes: any, prefixIcon: React.ReactNode) => {
   const addNode = document.createElement('div')

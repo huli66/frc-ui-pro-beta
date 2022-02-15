@@ -3,8 +3,8 @@ import classNames from 'classnames'
 import { Radio, RadioGroupProps } from 'antd'
 
 const { Group } = Radio
-export interface BaseRadioGroupProps {
-  /** RadioButton 的风格样式，目前有描边和填色两种风格 */
+export interface BaseRadioGroupProps extends RadioGroupProps{
+  /** RadioButton 的风格样式 */
   buttonStyle?: 'solid';
   /** 默认选中的值 */
   defaultValue?: any;
@@ -19,10 +19,15 @@ export interface BaseRadioGroupProps {
   /** 用于设置当前选中的值 */
   value?: any;
   /** 选项变化时的回调函数 */
-  onChange?: (e: Event) => void;
+  onChange?: (e: {
+    target: { checked: boolean },
+    stopPropagation: () => void,
+    preventDefault: () => void,
+    nativeEvent: MouseEvent
+  }) => void;
 }
 
-export type FRCRadioGroupProps = BaseRadioGroupProps & RadioGroupProps
+export type FRCRadioGroupProps = BaseRadioGroupProps
 
 export const FRCRadioGroup: FC<FRCRadioGroupProps> = (props) => {
   const { className, children, ...restProps } = props

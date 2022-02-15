@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import classNames from 'classnames';
 
-export interface LoadingProps {
+export interface BaseLoadingProps {
   /** 设置尺寸 */
   size?: number,
   /** 设置样式 */
@@ -10,7 +10,9 @@ export interface LoadingProps {
   className?: string
 }
 
-export const Loading: FC<LoadingProps> = (props) => {
+export type FRCLoadingProps = BaseLoadingProps
+
+export const Loading: FC<FRCLoadingProps> = (props) => {
   const { size, style, className, ...restProps } = props;
   const css = { ...style };
   if (size && css) {

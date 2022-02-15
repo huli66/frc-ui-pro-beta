@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism'
@@ -10,20 +10,18 @@ import { ComponentMeta } from '@storybook/react';
 
 import {
     Title,
-    Subtitle,
     Description,
-    Primary,
     ArgsTable,
     Stories,
-    PRIMARY_STORY,
     Heading,
     Subheading
 } from '@storybook/addon-docs';
 
+import Input from './index';
+import { FRCInputProps } from './input';
+
 import Button from '../Button';
 import Select from '../Select';
-
-import Input from './index';
 
 // ----------------------------------------------------------------
 
@@ -73,8 +71,6 @@ export default {
                     <Title />
                     <Description>通过鼠标或键盘输入内容，是最基础的表单域的包装。</Description>
                     <ImportComponent />
-                    <Subtitle>默认 - 组件展示</Subtitle>
-                    <Primary />
                     <Stories title="组件总览" includePrimary={true} />
 
                     <Heading>API</Heading>
@@ -110,7 +106,7 @@ export default {
 
 // ----------------------------------------------------------------
 
-export const Default = (args: any) => <Input {...args} />;
+export const Default = (args: FRCInputProps) => <Input {...args} />;
 
 Default.storyName = '默认 input';
 

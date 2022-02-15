@@ -11,17 +11,15 @@ import Draggable from 'react-draggable';
 
 import {
     Title,
-    Subtitle,
     Description,
-    Primary,
     ArgsTable,
     Stories,
-    PRIMARY_STORY,
     Heading,
     Subheading
 } from '@storybook/addon-docs';
 
 import Modal from './index';
+import { FRCModalProps } from './modal';
 
 import Button from '../Button'
 
@@ -75,8 +73,6 @@ export default {
                     <Title />
                     <Description>模态对话框。</Description>
                     <ImportComponent />
-                    <Subtitle>默认 - 组件展示</Subtitle>
-                    {/* <Primary /> */}
                     <Stories title="组件总览" includePrimary={true} />
 
                     <Heading>API</Heading>
@@ -98,7 +94,7 @@ export default {
 
 // ----------------------------------------------------------------
 
-export const Default = (args: any) => <Modal {...args} />;
+export const Default = (args: FRCModalProps) => <Modal {...args} />;
 
 Default.storyName = '默认 modal';
 
@@ -565,25 +561,37 @@ export const _DragComponent = () => {
     const [disabled, setDisabled] = useState(true);
     const [bounds, setBounds] = useState({ left: 0, top: 0, bottom: 0, right: 0 });
 
-    const draggleRef = React.createRef<any>();
+    const draggleRef = React.createRef<Element & HTMLDivElement>();
 
     const showModal = () => {
         setVisible(true)
     };
 
-    const handleOk = (e: any) => {
+    const handleOk = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
         console.log(e);
         setVisible(false)
     };
 
-    const handleCancel = (e: any) => {
+    const handleCancel = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
         console.log(e);
         setVisible(false)
     };
 
-    const onStart = (event: any, uiData: any) => {
+    const onStart = (
+        event:
+            React.MouseEvent<HTMLElement | SVGElement>
+            | React.TouchEvent<HTMLElement | SVGElement>
+            | MouseEvent
+            | TouchEvent,
+        uiData: {
+            node: HTMLElement,
+            x: number, y: number,
+            deltaX: number, deltaY: number,
+            lastX: number, lastY: number
+        }
+    ) => {
         const { clientWidth, clientHeight } = window.document.documentElement;
-        const targetRect = draggleRef.current?.getBoundingClientRect();
+        const targetRect = draggleRef && draggleRef.current?.getBoundingClientRect();
         if (!targetRect) {
             return;
         }

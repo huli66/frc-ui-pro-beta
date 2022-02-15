@@ -4,8 +4,7 @@ import { Checkbox } from 'antd'
 import { CheckboxGroupProps } from 'antd/es/checkbox/Group'
 
 const { Group } = Checkbox
-
-interface BaseCheckboxGroupProps {
+interface BaseCheckboxGroupProps extends CheckboxGroupProps{
   /** 默认选中的选项 */
   defaultValue?: string[]
   /** 整组失效 */
@@ -15,12 +14,12 @@ interface BaseCheckboxGroupProps {
   /** 指定可选项 */
   options?: string[] | number[] | Array<{ label: string; value: string | number }>
   /** 指定选中的选项 */
-  value?: string[]
+  value?: (string | number | boolean)[]
   /** 变化时回调函数 */
-  onChange?: (value: string[]) => void
+  onChange?: (checkedValue: (string | number | boolean)[]) => void
 }
 
-export type FrcCheckboxGroupProps = BaseCheckboxGroupProps & CheckboxGroupProps
+export type FrcCheckboxGroupProps = BaseCheckboxGroupProps
 
 export const FRCCheckboxGroup: FC<FrcCheckboxGroupProps> = (props) => {
   const { className, ...restProps } = props

@@ -14,6 +14,7 @@ import {
 } from '@storybook/addon-docs';
 
 import Loading from './index';
+import { FRCLoadingProps } from './loading';
 
 const ImportComponent = () => {
     const markdown = `
@@ -63,7 +64,7 @@ export default {
     },
 } as ComponentMeta<typeof Loading>;
 
-export const Default = (args: any) => (
+export const Default = (args: FRCLoadingProps) => (
     <div style={{ width: "100%", height: 300, overflow: "hidden" }}>
         <Loading {...args} />
         <div style={{ width: "100%", height: 300, background: '#136c5e' }}>

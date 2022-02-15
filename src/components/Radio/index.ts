@@ -1,7 +1,7 @@
 import {FC} from 'react'
 import FRCRadio from './radio'
 import FRCRadioGroup, {FRCRadioGroupProps} from './radioGroup';
-import {Radio, RadioGroupProps, RadioProps} from 'antd'
+import {Radio, RadioProps} from 'antd'
 import {RadioButtonProps} from 'antd/es/radio/radioButton';
 
 const {Button} = Radio

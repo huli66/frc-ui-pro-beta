@@ -1,8 +1,7 @@
 import React, { FC, useState } from 'react'
 import classNames from 'classnames'
 import AntdInputNumber, { InputNumberProps } from 'antd/es/input-number'
-
-export interface BaseInputNumberProps {
+export interface BaseInputNumberProps extends InputNumberProps {
   /** 带标签的 input，设置后置标签 */
   addonAfter?: React.ReactNode
   /** 带标签的 input，设置前置标签 */
@@ -28,7 +27,7 @@ export interface BaseInputNumberProps {
   /** 最小值 */
   min?: number | string
   /** 指定从 formatter 里转换回数字的方式，和 formatter 搭配使用 */
-  parser?: (string: string) => number
+  parser?: (string: string | undefined) => string | number
   /** 数值精度，配置 formatter 时会以 formatter 为准 */
   precision?: number
   /** 只读 */
@@ -46,14 +45,14 @@ export interface BaseInputNumberProps {
   /** 按下回车的回调 */
   onPressEnter?: (e: React.KeyboardEvent<HTMLInputElement>) => void
   /** 点击上下箭头的回调 */
-  onStep?: (value: number, info: { offset: number, type: 'up' | 'down' }) => void
+  onStep?: (value: number | string, info: { offset: number | string, type: 'up' | 'down' } | null) => void
   /** 移除焦点 */
   blur?: () => void
   /** 获取焦点 */
   focus?: () => void
 }
 
-export type FRCInputNumberProps = BaseInputNumberProps & InputNumberProps
+export type FRCInputNumberProps = BaseInputNumberProps
 
 export const InputNumber: FC<FRCInputNumberProps> = (props) => {
   const [keyDownEnter, setKeyDownEnter] = useState(false)

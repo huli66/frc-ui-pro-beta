@@ -2,7 +2,18 @@ import React, { FC } from 'react'
 import classNames from 'classnames'
 import { Checkbox as AntdCheckbox , CheckboxProps } from 'antd'
 
-export interface BaseCheckboxProps {
+interface CheckboxChangeEventTarget {
+  indeterminate?: boolean;
+  checked: boolean;
+}
+export interface CheckboxChangeEvent {
+  target: CheckboxChangeEventTarget;
+  stopPropagation: () => void;
+  preventDefault: () => void;
+  nativeEvent: MouseEvent;
+}
+
+export interface BaseCheckboxProps extends CheckboxProps{
   /** 自动获取焦点 */
   autoFocus?: boolean
   /** 指定当前是否选中 */
@@ -14,14 +25,14 @@ export interface BaseCheckboxProps {
   /** 设置 indeterminate 状态，只负责样式控制 */
   indeterminate?: boolean
   /** 变化时回调函数 */
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onChange?: ((e: CheckboxChangeEvent) => void) | undefined
   /** 移除焦点 */
   blur?: () => void
   /** 获取焦点 */
   focus?: () => void
 }
 
-export type FrcCheckboxProps = BaseCheckboxProps & CheckboxProps
+export type FrcCheckboxProps = BaseCheckboxProps
 
 export const Checkbox: FC<FrcCheckboxProps> = (props) => {
   const { className, ...restProps } = props

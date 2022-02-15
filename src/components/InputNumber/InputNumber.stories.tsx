@@ -1,26 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism'
 
 import { FiSearch } from 'react-icons/fi'
-import { MenuFoldOutlined, EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 
 import { ComponentMeta } from '@storybook/react';
 
 import {
     Title,
-    Subtitle,
     Description,
-    Primary,
     ArgsTable,
     Stories,
-    PRIMARY_STORY,
     Heading,
     Subheading
 } from '@storybook/addon-docs';
 
 import InputNumber from './index';
+import { FRCInputNumberProps } from './inputNumber';
 
 import Select from '../Select';
 
@@ -31,10 +28,6 @@ const ImportComponent = () => {
     const markdown = `
 ~~~js
 import { InputNumber } from 'frc-ui-pro';
-
-// 按需引入 icon
-import { FiSearch } from 'react-icons/fi'
-import { MenuFoldOutlined, EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 ~~~
 `
 
@@ -72,7 +65,6 @@ export default {
                     <Title />
                     <Description>通过鼠标或键盘，输入范围内的数值。</Description>
                     <ImportComponent />
-                    <Subtitle>默认 - 组件展示</Subtitle>
                     <Stories title="组件总览" includePrimary={true} />
 
                     <Heading>API</Heading>
@@ -92,9 +84,9 @@ export default {
 
 // ----------------------------------------------------------------
 
-export const DefaultComponet = (args: any) => <InputNumber {...args} />;
+export const Default = (args: FRCInputNumberProps) => <InputNumber {...args} />;
 
-DefaultComponet.storyName = '默认 inputNumber';
+Default.storyName = '默认 inputNumber';
 
 // ----------------------------------------------------------------
 
@@ -239,16 +231,16 @@ export const _FormatterComponent = () => {
         <br />
         <InputNumber
             defaultValue={1000}
-            formatter={(value: any) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-            parser={(value: any) => value.replace(/\$\s?|(,*)/g, '')}
+            formatter={(value: number | string | undefined) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+            parser={(value: string | undefined) => value ? value.replace(/\$\s?|(,*)/g, '') : ''}
         />
 
         <InputNumber
             defaultValue={100}
             min={0}
             max={100}
-            formatter={(value: any) => `${value}%`}
-            parser={(value: any) => value.replace('%', '')}
+            formatter={(value: number | string | undefined) => `${value}%`}
+            parser={(value: string | undefined) => value ? value.replace('%', '') : ''}
         />
     </>)
 };
