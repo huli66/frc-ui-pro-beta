@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect, useRef } from 'react'
 import classNames from 'classnames'
-import AntdSelect, { SelectProps } from 'antd/es/select'
+import AntdSelect, { SelectProps, DefaultOptionType } from 'antd/es/select'
 import { FiSearch, FiX, FiCheck } from 'react-icons/fi'
 import ReactDOM from 'react-dom'
 
@@ -10,7 +10,14 @@ interface LabeledValue {
   label: React.ReactNode;
 }
 
-export interface BaseSelectProps {
+export interface LabelInValueType {
+  label: React.ReactNode;
+  value: string | number;
+  /** @deprecated `key` is useless since it should always same as `value` */
+  key?: React.Key;
+}
+
+export interface BaseSelectProps extends SelectProps {
   /** 前缀图标 */
   prefixIcon?: React.ReactNode
   /** 列表下拉时，后缀图标 */
@@ -38,17 +45,17 @@ export interface BaseSelectProps {
   /** 下拉菜单和选择器同宽。默认将设置 min-width，当值小于选择框宽度时会被忽略。false 时会关闭虚拟滚动 */
   dropdownMatchSelectWidth?: boolean | number
   /** 自定义下拉框内容 */
-  dropdownRender?: (originNode: React.ReactNode) => React.ReactNode
+  dropdownRender?: (menu: React.ReactElement) => React.ReactElement
   /** 下拉菜单的 style 属性 */
   dropdownStyle?: React.CSSProperties
   /** 自定义节点 label、value、options 的字段 */
   fieldNames?: object
   /** 是否根据输入项进行筛选。当其为一个函数时，会接收 inputValue option 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false */
-  filterOption?: boolean | ((inputValue: string, option: Object) => void)
+  filterOption?: boolean | ((inputValue: string, option?: DefaultOptionType) => boolean)
   /** 搜索时对筛选结果项的排序函数, 类似Array.sort里的 compareFunction */
   filterSort?: (optionA: Object, optionB: Object) => number
   /** 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 */
-  getPopupContainer?: (triggerNode: React.ReactNode) => void
+  getPopupContainer?: (triggerNode: React.ReactNode) => any
   /** 是否把每个选项的 label 包装到 value 中，会把 Select 的 value 类型从 string 变为 { value: string, label: ReactNode } 的格式 */
   labelInValue?: boolean
   /** 设置弹窗滚动高度 */
@@ -88,7 +95,13 @@ export interface BaseSelectProps {
   /** 自定义的选择框后缀图标 */
   suffixIcon?: React.ReactNode
   /** 自定义 tag 内容 render，仅在 mode 为 multiple 或 tags 时生效 */
-  tagRender?: (props: any) => React.ReactNode
+  tagRender?: (props: {
+    label: React.ReactNode;
+    value: any;
+    disabled: boolean;
+    onClose: (event?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+    closable: boolean;
+  }) => React.ReactElement;
   /** 在 tags 和 multiple 模式下自动分词的分隔符 */
   tokenSeparators?: string[]
   /** 指定当前选中的条目，多选时为一个数组。（value 数组引用未变化时，Select 不会更新） */
@@ -102,7 +115,7 @@ export interface BaseSelectProps {
   /** 清除内容时回调 */
   onClear?: () => void
   /** 取消选中时调用，参数为选中项的 value (或 key) 值，仅在 multiple 或 tags 模式下生效 */
-  onDeselect?: (e: string | number | LabeledValue) => void
+  onDeselect?: (e: string | number | LabelInValueType) => void
   /** 展开下拉菜单的回调 */
   onDropdownVisibleChange?: (open: boolean) => void
   /** 获得焦点时回调 */
@@ -118,7 +131,7 @@ export interface BaseSelectProps {
   /** 文本框值变化时回调	 */
   onSearch?: (value: string) => void
   /** 被选中时调用，参数为选中项的 value (或 key) 值 */
-  onSelect?: (e: string | number | LabeledValue, options: Object) => void
+  onSelect?: (e: string | number | LabelInValueType, options: Object) => void
   /** 取消焦点 */
   blur?: () => void
   /** 获取焦点 */
@@ -143,7 +156,7 @@ const addPrefixNode = (nodes: any, prefixIcon: React.ReactNode) => {
   )
 }
 
-export type FRCSelectProps = BaseSelectProps & SelectProps
+export type FRCSelectProps = BaseSelectProps
 
 export const Select: FC<FRCSelectProps> = (props) => {
   const [openDropdown, setOpenDropdown] = useState(false)

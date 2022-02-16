@@ -15,6 +15,7 @@ import {
 } from '@storybook/addon-docs';
 
 import TimePicker from './index';
+import { FRCTimePickerProps } from './timePicker';
 import Button from '../Button'
 
 // ----------------------------------------------------------------
@@ -129,7 +130,7 @@ export default {
 
 // ----------------------------------------------------------------
 
-export const Default = (args: any) => <TimePicker {...args} />;
+export const Default = (args: FRCTimePickerProps) => <TimePicker {...args} />;
 
 Default.storyName = '默认 timePicker';
 
@@ -179,7 +180,7 @@ _ExtraFooterComponent.parameters = {
 // ----------------------------------------------------------------
 
 export const _TwelveFormatComponent = () => {
-    function onChange(time: any, timeString: string) {
+    function onChange(time: moment.Moment | null, timeString: string) {
         console.log(time, timeString);
     }
 

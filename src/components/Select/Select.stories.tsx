@@ -20,6 +20,7 @@ import {
 } from '@storybook/addon-docs';
 
 import Select from './index';
+import { FRCSelectProps } from './select'
 import Button from '../Button';
 import Input from '../Input';
 
@@ -101,7 +102,7 @@ export default {
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
 
-export const Default = (args: any) => <Select {...args} style={{ width: 180 }}>
+export const Default = (args: FRCSelectProps) => <Select {...args} style={{ width: 180 }}>
     <Select.Option value="Zhejiang">Zhejiang</Select.Option>
     <Select.Option value="Jiangsu">Jiangsu</Select.Option>
 </Select>;
@@ -114,7 +115,15 @@ export const _BaseComponent = () => {
 
     const { Option } = Select;
 
-    function handleChange(value: any) {
+    interface LabeledValue {
+        key?: string;
+        value: string | number;
+        label: React.ReactNode;
+    }
+
+    type valueType = string | string[] | number | number[] | LabeledValue | LabeledValue[];
+
+    function handleChange(value: valueType) {
         console.log(`selected ${value}`);
     }
 
@@ -242,11 +251,19 @@ _PrefixIconComponent.parameters = {
 export const _SearchComponent = () => {
     const { Option } = Select;
 
-    function onChange(value: any) {
+    interface LabeledValue {
+        key?: string;
+        value: string | number;
+        label: React.ReactNode;
+    }
+
+    type valueType = string | string[] | number | number[] | LabeledValue | LabeledValue[];
+
+    function onChange(value: valueType) {
         console.log(`selected ${value}`);
     }
 
-    function onSearch(val: any) {
+    function onSearch(val: string) {
         console.log('search:', val);
     }
 
@@ -258,9 +275,9 @@ export const _SearchComponent = () => {
                 optionFilterProp="children"
                 onChange={onChange}
                 onSearch={onSearch}
-                filterOption={(input: any, option: any) =>
-                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                }
+                filterOption={(input: string, option: any) => {
+                    return (option?.children)?.toString().toLowerCase().indexOf(input.toLowerCase()) === 0
+                }}
             >
                 <Option value="jack">Jack</Option>
                 <Option value="lucy">Lucy</Option>
@@ -275,9 +292,9 @@ export const _SearchComponent = () => {
                 onSearch={onSearch}
                 extendSuffixIcon={<FiAlertCircle />}
                 prefixIcon={<FiSearch />}
-                filterOption={(input: any, option: any) =>
-                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                }
+                filterOption={(input: string, option: any) => {
+                    return (option?.children)?.toString().toLowerCase().indexOf(input.toLowerCase()) === 0
+                }}
             >
                 <Option value="jack">Jack</Option>
                 <Option value="lucy">Lucy</Option>
@@ -297,12 +314,20 @@ _SearchComponent.parameters = {
 export const _MultipleComponent = () => {
     const { Option } = Select;
 
+    interface LabeledValue {
+        key?: string;
+        value: string | number;
+        label: React.ReactNode;
+    }
+
+    type valueType = string | string[] | number | number[] | LabeledValue | LabeledValue[];
+
     const children = [];
     for (let i = 10; i < 36; i++) {
         children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
     }
 
-    function handleChange(value: any) {
+    function handleChange(value: valueType) {
         console.log(`selected ${value}`);
     }
 
@@ -373,7 +398,15 @@ _MultipleComponent.parameters = {
 export const _CustomRenderComponent = () => {
     const { Option } = Select;
 
-    function handleChange(value: any) {
+    interface LabeledValue {
+        key?: string;
+        value: string | number;
+        label: React.ReactNode;
+    }
+
+    type valueType = string | string[] | number | number[] | LabeledValue | LabeledValue[];
+
+    function handleChange(value: valueType) {
         console.log(`selected ${value}`);
     }
 
@@ -443,9 +476,9 @@ export const _SortComponent = () => {
                 style={{ width: 180 }}
                 placeholder="Search to Select"
                 optionFilterProp="children"
-                filterOption={(input: any, option: any) =>
-                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                }
+                filterOption={(input: string, option: any) => {
+                    return (option?.children)?.toString().toLowerCase().indexOf(input.toLowerCase()) === 0
+                }}
                 filterSort={(optionA: any, optionB: any) =>
                     optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
                 }
@@ -476,7 +509,15 @@ export const _TagComponent = () => {
         children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
     }
 
-    function handleChange(value: any) {
+    interface LabeledValue {
+        key?: string;
+        value: string | number;
+        label: React.ReactNode;
+    }
+
+    type valueType = string | string[] | number | number[] | LabeledValue | LabeledValue[];
+
+    function handleChange(value: valueType) {
         console.log(`selected ${value}`);
     }
 
@@ -501,7 +542,15 @@ _TagComponent.parameters = {
 export const _GroupComponent = () => {
     const { Option, OptGroup } = Select;
 
-    function handleChange(value: any) {
+    interface LabeledValue {
+        key?: string;
+        value: string | number;
+        label: React.ReactNode;
+    }
+
+    type valueType = string | string[] | number | number[] | LabeledValue | LabeledValue[];
+
+    function handleChange(value: valueType) {
         console.log(`selected ${value}`);
     }
 
@@ -626,8 +675,8 @@ _GroupComponent.parameters = {
 
 export const _LinkageComponent = () => {
     const { Option } = Select;
-    const provinceData: any = ['Zhejiang', 'Jiangsu'];
-    const cityData: any = {
+    const provinceData: string[] = ['Zhejiang', 'Jiangsu'];
+    const cityData: { [proppName: string]: string[] } = {
         Zhejiang: ['Hangzhou', 'Ningbo', 'Wenzhou'],
         Jiangsu: ['Nanjing', 'Suzhou', 'Zhenjiang'],
     };
@@ -637,12 +686,26 @@ export const _LinkageComponent = () => {
     const [cities, setCities] = React.useState(cityData[provinceData[0]]);
     const [secondCity, setSecondCity] = React.useState(cityData[provinceData[0]][0]);
 
-    const handleProvinceChange = (value: number) => {
+    interface LabeledValue {
+        key?: string;
+        value: string | number;
+        label: React.ReactNode;
+    }
+
+    type valueType = string | string[] | number | number[] | LabeledValue | LabeledValue[];
+
+    const handleProvinceChange = (value: valueType) => {
+        if (typeof value !== 'string' || 'number') {
+            return
+        }
         setCities(cityData[value]);
         setSecondCity(cityData[value][0]);
     };
 
-    const onSecondCityChange = (value: any) => {
+    const onSecondCityChange = (value: valueType) => {
+        if (typeof value !== 'string' || 'number') {
+            return
+        }
         setSecondCity(value);
     };
 
@@ -653,12 +716,12 @@ export const _LinkageComponent = () => {
             省市联动是典型的例子。
             <br />
             <Select defaultValue={provinceData[0]} style={{ width: 120 }} onChange={handleProvinceChange}>
-                {provinceData.map((province: any) => (
+                {provinceData.map((province: string) => (
                     <Option key={province}>{province}</Option>
                 ))}
             </Select>
             <Select style={{ width: 120 }} value={secondCity} onChange={onSecondCityChange}>
-                {cities.map((city: any) => (
+                {cities.map((city: string) => (
                     <Option key={city}>{city}</Option>
                 ))}
             </Select>
@@ -676,10 +739,20 @@ _LinkageComponent.parameters = {
 export const _ApiSearchComponent = () => {
     const { Option } = Select;
 
-    let timeout: any;
-    let currentValue: any;
+    interface LabeledValue {
+        key?: string;
+        value: string | number;
+        label: React.ReactNode;
+    }
 
-    function fetch(value: any, callback: any) {
+    type valueType = string | string[] | number | number[] | LabeledValue | LabeledValue[];
+
+    // ----------------------------------------------------------------
+
+    let timeout: number | null;
+    let currentValue: string | null;
+
+    function fetch(value: string, callback: (data: { value: string, text: string }[] & never[]) => void) {
         if (timeout) {
             clearTimeout(timeout);
             timeout = null;
@@ -696,39 +769,39 @@ export const _ApiSearchComponent = () => {
                 .then(d => {
                     if (currentValue === value) {
                         const { result } = d;
-                        const data: any = [];
-                        result.forEach((r: any) => {
+                        const data: { value: string, text: string }[] = [];
+                        result.forEach((r: string[]) => {
                             data.push({
                                 value: r[0],
                                 text: r[0],
                             });
                         });
-                        callback(data);
+                        callback(data as { value: string, text: string }[] & never[]);
                     }
                 });
         }
 
-        timeout = setTimeout(fake, 300);
+        timeout = window.setTimeout(fake, 300);
     }
 
     // ----------------------------------------------------------------
 
     const [data, setData] = React.useState([]);
-    const [value, setValue] = React.useState(undefined);
+    const [value, setValue] = React.useState<valueType>();
 
-    const handleSearch = (value: any) => {
+    const handleSearch = (value: string) => {
         if (value) {
-            fetch(value, (data: any) => setData(data));
+            fetch(value, (data: { value: string, text: string }[] & never[]) => setData(data));
         } else {
             setData([])
         }
     };
 
-    const handleChange = (value: any) => {
+    const handleChange = (value?: valueType) => {
         setValue(value);
     };
 
-    const options = data.map((d: any) => <Option key={d.value}>{d.text}</Option>);
+    const options = data.map((d: { value: string, text: string }) => <Option key={d.value}>{d.text}</Option>);
 
     // ----------------------------------------------------------------
 
@@ -765,8 +838,16 @@ _ApiSearchComponent.parameters = {
 export const _FetchValueComponent = () => {
     const { Option } = Select;
 
-    function handleChange(value: any) {
-        console.log(value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
+    interface LabeledValue {
+        key?: string;
+        value: string | number;
+        label: React.ReactNode;
+    }
+
+    type valueType = string | string[] | number | number[] | LabeledValue | LabeledValue[];
+
+    function handleChange(value?: valueType) {
+        console.log('value', value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
     }
 
     // ----------------------------------------------------------------
@@ -800,12 +881,20 @@ _FetchValueComponent.parameters = {
 export const _AutoSegmentComponent = () => {
     const { Option } = Select;
 
+    interface LabeledValue {
+        key?: string;
+        value: string | number;
+        label: React.ReactNode;
+    }
+
+    type valueType = string | string[] | number | number[] | LabeledValue | LabeledValue[];
+
     const children = [];
     for (let i = 10; i < 36; i++) {
         children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
     }
 
-    function handleChange(value: any) {
+    function handleChange(value: valueType) {
         console.log(`selected ${value}`);
     }
 
@@ -837,7 +926,7 @@ export const _ExtendComponent = () => {
     const [items, setItems] = React.useState(['jack', 'lucy'])
     const [name, setName] = React.useState('')
 
-    const onNameChange = (event: any) => {
+    const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value)
     };
 
@@ -888,12 +977,20 @@ _ExtendComponent.parameters = {
 // ----------------------------------------------------------------
 
 export const _CheckedHideComponent = () => {
+    interface LabeledValue {
+        key?: string;
+        value: string | number;
+        label: React.ReactNode;
+    }
+
+    type valueType = string | string[] | number | number[] | LabeledValue | LabeledValue[];
+
     const OPTIONS = ['Apples', 'Nails', 'Bananas', 'Helicopters'];
 
     const [selectedItems, setSelectedItems] = React.useState<string[]>([])
 
-    const handleChange = (selectedItems: string[]) => {
-        setSelectedItems(selectedItems)
+    const handleChange = (selectedItems: valueType) => {
+        setSelectedItems(selectedItems as string[])
     };
 
     const filteredOptions = OPTIONS.filter((o) => !selectedItems.includes(o));
@@ -933,8 +1030,9 @@ export const _CustomTagComponent = () => {
     const options: any = [{ value: 'Gold' }, { value: 'Lime' }, { value: 'Green' }, { value: 'Cyan' }];
 
     function tagRender(props: any) {
+        console.log('props', props);
         const { label, value } = props;
-        const onPreventMouseDown = (event: any) => {
+        const onPreventMouseDown = (event: React.MouseEvent) => {
             event.preventDefault();
             event.stopPropagation();
         };
@@ -989,6 +1087,14 @@ export const _MaxTagCountComponent = () => {
         value: string;
     }
 
+    interface LabeledValue {
+        key?: string;
+        value: string | number;
+        label: React.ReactNode;
+    }
+
+    type valueType = string | string[] | number | number[] | LabeledValue | LabeledValue[];
+
     const options: ItemProps[] = [];
 
     for (let i = 10; i < 36; i++) {
@@ -1001,14 +1107,14 @@ export const _MaxTagCountComponent = () => {
 
     // ----------------------------------------------------------------
 
-    const [value, setValue] = React.useState(['a10', 'c12', 'h17', 'j19', 'k20']);
+    const [value, setValue] = React.useState<valueType>(['a10', 'c12', 'h17', 'j19', 'k20']);
 
     const selectProps = {
         mode: 'multiple' as const,
         style: { width: '240px' },
         value,
         options,
-        onChange: (newValue: string[]) => {
+        onChange: (newValue: valueType) => {
             setValue(newValue);
         },
         placeholder: 'Select Item...',

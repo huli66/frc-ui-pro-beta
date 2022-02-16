@@ -17,6 +17,7 @@ import {
 } from '@storybook/addon-docs';
 
 import Switch from './index';
+import {FRCSwitchProps} from './switch-core'
 
 // ----------------------------------------------------------------
 
@@ -84,7 +85,7 @@ export default {
 
 // ----------------------------------------------------------------
 
-export const Default = (args: any) => <Switch {...args} />;
+export const Default = (args: FRCSwitchProps) => <Switch {...args} />;
 
 Default.storyName = '默认 switch';
 
