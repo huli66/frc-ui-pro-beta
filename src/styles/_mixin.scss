@@ -702,3 +702,16 @@
   font-size: $font-size;
   font-weight: $font-weight;
 }
+
+@mixin slider-handle (
+  $height,
+  $height-handle
+) {
+  height: $height;
+  &::before {
+    height: $height-handle;
+  }
+  &::after {
+    height: $height-handle;
+  }
+}
