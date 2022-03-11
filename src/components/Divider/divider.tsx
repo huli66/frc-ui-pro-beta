@@ -2,7 +2,6 @@ import React, { FC } from 'react'
 import classNames from 'classnames'
 import { Divider as AntdDivider, DividerProps } from 'antd'
 
-
 interface BaseDividerProps {
   /** 设置按钮类型 */
   children?: React.ReactNode
@@ -27,8 +26,6 @@ export type FRCDividerProps = BaseDividerProps & DividerProps
 export const Divider: FC<FRCDividerProps> = (props) => {
   const {
     className,
-    // orientation,
-    // orientationMargin,
     ...restProps
   } = props
   // btn, btn-lg, btn-primary
@@ -37,8 +34,6 @@ export const Divider: FC<FRCDividerProps> = (props) => {
 
   const options = {
     className: classes,
-    // orientation,
-    // orientationMargin: orientationMargin || orientation === ('left' || 'right') ? '8px' : undefined,
     ...restProps,
   }
 
