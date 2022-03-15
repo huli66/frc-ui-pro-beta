@@ -7,15 +7,25 @@
   &:hover .ant-slider-rail, .ant-slider-rail {
     background-color: $basic-background;
   }
-  &:hover .ant-slider-track, .ant-slider-track {
-    background-color: $part-plate;
+  .ant-slider-track {
+    background-color: $slider-track-bg;
+    z-index: 1;
+  } 
+  &:hover .ant-slider-track {
+    background-color: $slider-dragging-bg;
   }
+  .ant-slider-track:hover {
+    background-color: $slider-track-bg-hover;
+  }
+
   .ant-slider-handle {
     width: 16px;
     height: $slider-height-md;
     background-color: $slider-handle-bg;
     border: 0;
+    border-radius: 0;
     margin-top: 0;
+    z-index: 2;
     &::before, &::after {
       position: absolute;
       top: 25%;
@@ -32,6 +42,9 @@
     }
     &:focus {
       box-shadow: none;
+    }
+    &:hover {
+      background-color: $slider-dragging-bg;
     }
   }
   &.frc-slider-small {
