@@ -50,7 +50,6 @@ export const Slider: FC<FRCSliderProps> = (props) => {
     ...restProps
   } = props
   const classes = classNames('frc-slider', className, {
-    // [`frc-btn-${type}`]: type,
     [`frc-slider-${size}`]: size,
   })
 

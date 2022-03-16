@@ -1,6 +1,19 @@
 .storybook-demo > .frc-btn {
   margin: 8px 8px 8px 0;
 }
+.frc-slider.ant-slider-disabled {
+  .ant-slider-rail {
+    background-color: #4a4d4c !important;
+  }
+  .ant-slider-handle {
+    &::before, &::after {
+      background-color: $words-disable !important;
+    }
+    &.ant-tooltip-open {
+      background-color: $slider-handle-bg !important;
+    }
+  }
+}
 .frc-slider.ant-slider {
   position: relative;
   color: $words-normal;
@@ -31,7 +44,7 @@
       top: 25%;
       width: 1px;
       content: '';
-      background-color: $slider-handle-bg-before;
+      background-color: $words-normal;
       height: $slider-handle-height;
     }
     &::before {
@@ -43,7 +56,10 @@
     &:focus {
       box-shadow: none;
     }
-    &:hover {
+    // &:hover {
+    //   background-color: $slider-dragging-bg;
+    // }
+    &.ant-tooltip-open {
       background-color: $slider-dragging-bg;
     }
   }

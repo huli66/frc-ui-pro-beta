@@ -14,6 +14,7 @@ import {
     Subheading
 } from '@storybook/addon-docs';
 
+import {Switch} from 'antd';
 import Slider from './index';
 import {FRCSliderProps} from './slider'
 
@@ -77,11 +78,32 @@ export default {
 
 // ----------------------------------------------------------------
 
-export const Default = (args: FRCSliderProps) => <>
-    <Slider defaultValue={30} />
-    <Slider defaultValue={30} size='large' />
-    <Slider defaultValue={30} size='small' />
-    <Slider range defaultValue={[20, 50]} />
-</>;
+export const Default = (args: FRCSliderProps) => {
+    const [disabled, setDisabled] = React.useState<boolean>(false);
+    const handleDisabledChange = (disabled) => {
+        setDisabled(disabled);
+    }
+    return (
+        <>
+            <Slider defaultValue={30} disabled={disabled} />
+            <Slider range defaultValue={[20, 50]} disabled={disabled} />
+            Disabled: <Switch size="small" checked={disabled} onChange={handleDisabledChange} />
+        </>
+    )
+};
 
 Default.storyName = '默认 slider';
+
+// -----------------------------------------------------------------
+
+export const SizeComponent = () => {
+    return (
+        <>
+            <Slider defaultValue={30} />
+            <Slider defaultValue={30} size='large' />
+            <Slider defaultValue={30} size='small' />
+            <Slider range defaultValue={[20, 50]} />
+        </>
+    )
+}
+SizeComponent.storyName = '大小 slider';
