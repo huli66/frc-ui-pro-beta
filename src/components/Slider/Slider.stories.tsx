@@ -80,7 +80,7 @@ export default {
 
 export const Default = (args: FRCSliderProps) => {
     const [disabled, setDisabled] = React.useState<boolean>(false);
-    const handleDisabledChange = (disabled) => {
+    const handleDisabledChange = (disabled: boolean) => {
         setDisabled(disabled);
     }
     return (
