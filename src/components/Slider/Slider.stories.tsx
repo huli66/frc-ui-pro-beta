@@ -184,7 +184,7 @@ StepComponent.storyName = '带输入框的滑块 slider';
 // -----------------------------------------------------------------
 
 export const TipSliderComponent = () => {
-    const formatter = (val: any) => {
+    const formatter = (val: number | undefined) => {
         return `${val}%`;
     }
     return (
