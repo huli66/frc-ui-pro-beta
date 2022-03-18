@@ -16,15 +16,19 @@ export const parameters = {
     },
   },
   backgrounds: {
-    default: 'default',
+    default: 'dark',
     values: [
-      {
-        name: 'default',
-        value: '#000000',
-      },
       {
         name: 'dark',
         value: '#000000',
+      },
+      {
+        name: 'gray',
+        value: '#333333',
+      },
+      {
+        name: 'light',
+        value: '#e8e8e8',
       },
     ],
     grid: {

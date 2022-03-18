@@ -6,16 +6,11 @@ body {
   line-height: $line-height-base !important;
   color: $body-color !important;
   color: #ccc !important;
-  text-align: $body-text-align !important;
-  // background-color: $body-bg !important; // 2
-  // -webkit-text-size-adjust: 100% !important; // 3
-  // -webkit-tap-highlight-color: rgba($new-data, 0) !important; // 4
-  // padding: 20px !important;
   ul {
     padding-inline-start: 20px;
   }
   .docs-story > div {
-    background: #000000;
+    // background: #000000;
     margin: 0;
     background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px !important;
     background-position: 16px 16px, 16px 16px, 16px 16px, 16px 16px !important;
