@@ -112,12 +112,12 @@ SizeComponent.storyName = '大小 slider';
 // -----------------------------------------------------------------
 
 export const StepComponent = () => {
-    const [integerValue, setIntegerValue] = React.useState<number>(1);
-    const handleIntegerChange = (value: number) => {
+    const [integerValue, setIntegerValue] = React.useState(1);
+    const handleIntegerChange = (value: any) => {
         setIntegerValue(value);
     }
-    const [decimalValue, setDecimalValue] = React.useState<number>(0);
-    const handleDecimalChange = (value: number) => {
+    const [decimalValue, setDecimalValue] = React.useState(0);
+    const handleDecimalChange = (value: any) => {
         if (isNaN(value)) {
             return;
         }
@@ -184,7 +184,7 @@ StepComponent.storyName = '带输入框的滑块 slider';
 // -----------------------------------------------------------------
 
 export const TipSliderComponent = () => {
-    const formatter = (val) => {
+    const formatter = (val: any) => {
         return `${val}%`;
     }
     return (
@@ -200,10 +200,10 @@ TipSliderComponent.storyName = '自定义提示 slider';
 // -----------------------------------------------------------------
 
 export const EventSliderComponent = () => {
-    const onChange = (value) => {
+    const onChange = (value: number | [number, number]) => {
         console.log('onChange: ', value);
       }
-    const onAfterChange = (value) => {
+    const onAfterChange = (value: number | [number, number]) => {
         console.log('onAfterChange: ', value);
     }
     return (
