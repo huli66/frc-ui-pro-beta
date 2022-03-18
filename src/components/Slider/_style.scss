@@ -72,6 +72,9 @@
     .ant-slider-handle {
       @include slider-handle($slider-height-sm, calc(0.5 * $slider-handle-height));
     }
+    .ant-slider-step .ant-slider-dot {
+      @include slider-dot(calc($slider-height-sm * 0.5))
+    }
   }
   &.frc-slider-middle {
     .ant-slider-rail, 
@@ -81,6 +84,9 @@
     }
     .ant-slider-handle {
       @include slider-handle($slider-height-md, calc(1 * $slider-handle-height));
+    }
+    .ant-slider-step .ant-slider-dot {
+      @include slider-dot(calc($slider-height-md * 0.5))
     }
   }
   &.frc-slider-large {
@@ -92,5 +98,23 @@
     .ant-slider-handle {
       @include slider-handle($slider-height-lg, calc(2 * $slider-handle-height));
     }
+    .ant-slider-step .ant-slider-dot {
+      @include slider-dot(calc($slider-height-lg * 0.5))
+    }
+  }
+  .ant-slider-step {
+    .ant-slider-dot {
+      top: 25%;
+      border: 0;
+      border-radius: 0;
+      z-index: 1;
+      background-color: #4A4D4C;
+    }
+    .ant-slider-dot-active {
+      background-color: $slider-handle-bg;
+    }
+  }
+  .ant-slider-mark-text {
+    color: $words-normal;
   }
 }

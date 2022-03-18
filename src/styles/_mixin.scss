@@ -715,3 +715,7 @@
     height: $height-handle;
   }
 }
+@mixin slider-dot ($size) {
+  height: $size;
+  width: $size;
+}
