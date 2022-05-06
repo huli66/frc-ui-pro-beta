@@ -1,0 +1,162 @@
+.storybook-demo > .frc-pagination {
+  margin: 8px 8px 8px 0;
+}
+
+
+.frc-pagination.ant-pagination {
+  font-size: $pagination-font-size;
+  line-height: unset;
+  color: $words-supporting;
+
+  // pagination item
+  .ant-pagination-prev, .ant-pagination-next {
+    a{
+      color: $words-supporting;
+      &:hover {
+        color: $words-high-light;
+      }
+    }
+    .ant-pagination-item-link{
+      background: 0, 0;
+      border-color: transparent;
+      color: $words-supporting;
+      &:hover {
+        color: $words-high-light;
+        border-color: transparent;
+      }
+    }
+  }
+  .ant-pagination-prev, .ant-pagination-next, .ant-pagination-jump-prev, .ant-pagination-jump-next {
+    @include pagination-item-base(
+      $pagination-item-width,
+      $pagination-item-height,
+      $pagination-line-height
+    );
+  }
+  .ant-pagination-prev, .ant-pagination-jump-prev, .ant-pagination-jump-next{
+    margin-right: $pagination-item-margin;
+  }
+  .ant-pagination-item{
+    @include pagination-item-base(
+      $pagination-item-width,
+      $pagination-item-height,
+      $pagination-line-height
+    );
+    background-color: $pagination-item-background;
+    border: none;
+    a {
+      color: $words-supporting;
+      &:hover {
+        color: $words-high-light;
+      }
+    }
+    &-active{
+      a{
+        color: $words-high-light;
+      }
+      background-color: $pagination-item-background;
+    }
+  }
+
+  // ellipsis icon
+  .ant-pagination-item-container {
+    .ant-pagination-item-link-icon{
+      color: $words-high-light;
+    }
+    .ant-pagination-item-ellipsis{
+      color: $words-supporting;
+    }
+  }
+
+  // total text
+  .ant-pagination-total-text {
+    height: $pagination-item-height;
+    line-height: 26px;
+  }
+  // pageSize options & quick jump
+  .ant-pagination-options{
+    margin-left: 8px;
+    .ant-select {
+      font-size: $pagination-font-size;
+      border: 1px solid $pagination-border-color;
+      .ant-select-selector {
+        height: $pagination-item-height;
+        background-color: $pagination-item-background;
+        border-width: 0;
+        color: $words-supporting;
+        .ant-select-selection-item {
+          line-height: $pagination-line-height;
+        }
+      }
+      .ant-select-arrow{
+        color: $words-supporting;
+      }
+      .ant-select-dropdown {
+        color: $words-supporting;
+        background-color: $pagination-item-background;
+        .ant-select-item {
+          color: $words-supporting;
+          font-size: $pagination-font-size;
+          &:hover {
+            background-color: $pagination-hover;
+          }
+        }
+        .ant-select-item-option-selected {
+          background-color: transparent;
+          color: $words-high-light;
+        }
+        .ant-select-item-option-active {
+          background-color: $pagination-hover;
+        }
+      }
+      &.ant-select-focused{
+        .ant-select-selector {
+          border-color: $words-high-light;
+          border-right-width: 0;
+          box-shadow: 0 0 0 2px rgba(249,193,82,.2);
+        }
+      }
+    }
+    .ant-pagination-options-quick-jumper {
+      height: $pagination-item-height;
+      line-height: $pagination-line-height;
+      input {
+        margin: 0 $pagination-item-margin;
+        width: 36px;
+        height: $pagination-item-height;
+        padding: 4px 8px;
+        background-color: $pagination-inner-background;
+        border: 1px solid $pagination-border-color;
+        color: $words-supporting;
+        line-height: unset;
+        font-size: $pagination-font-size;
+        &:focus {
+          border-color: $words-high-light;
+          box-shadow: 0 0 0 2px rgba(249,193,82,.2);
+          color: $words-high-light;
+        }
+      }
+    }
+  }
+  
+  // simple 
+  &.ant-pagination-simple {
+    .ant-pagination-simple-pager {
+      margin-right: $pagination-item-margin;
+      input {
+        background-color: $pagination-inner-background;
+        border: 1px solid $pagination-border-color;
+        margin-right: 0;
+        color: $words-high-light;
+        &:focus {
+          border-color: $words-high-light;
+          box-shadow: 0 0 0 2px rgba(249,193,82,.2);
+          color: $words-high-light;
+        }
+      }
+      .ant-pagination-slash{
+        margin: 0 $pagination-item-margin;
+      }
+    }
+  }
+}

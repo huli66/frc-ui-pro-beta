@@ -735,3 +735,14 @@
   height: $size;
   width: $size;
 }
+// ----------------------------------------------------------------
+
+@mixin pagination-item-base(
+  $width,
+  $height,
+  $line-height
+){
+  min-width: $width;
+  height: $height;
+  line-height: $line-height;
+}

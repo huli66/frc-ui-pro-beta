@@ -13,4 +13,5 @@ export { default as Socket } from './components/Socket';
 export { default as Loading } from './components/loading';
 export { default as Error } from './components/Error';
 export { default as Slider } from './components/Slider';
+export { default as Pagination} from './components/Pagination';
 

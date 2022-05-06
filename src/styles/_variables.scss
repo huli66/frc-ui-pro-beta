@@ -555,7 +555,15 @@ $slider-handle-bg:                                 #253330 !default;
 $slider-dragging-bg:                               #0a2420 !default;
 $slider-track-bg:                                  #1e2423 !default;
 $slider-track-bg-hover:                            #241F0C !default;
+// ------------------------------------------------------------------------------
 
-
-
-
+// pagination
+$pagination-item-width:                           24px !default;
+$pagination-item-height:                          24px !default;
+$pagination-item-margin:                          4px !default;
+$pagination-line-height:                          $line-height-base !default;
+$pagination-item-background:                      #1e2423 !default;
+$pagination-border-color:                         #253330 !default;
+$pagination-font-size:                            12px !default;
+$pagination-hover:                                #112320 !default;
+$pagination-inner-background:                     $basic-plate !default;
