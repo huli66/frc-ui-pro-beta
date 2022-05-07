@@ -1,0 +1,166 @@
+.frc-menu.frc-menu-default {
+  @include menu-color($words-normal, $menu-base-background);
+  font-size: $font-size-base;
+  border-color: $menu-base-border-color-background;
+  padding: $menu-base-padding 0;
+  .ant-menu-item .ant-menu-item-icon + span,
+  .ant-menu-submenu-title .ant-menu-item-icon + span,
+  .ant-menu-item .anticon + span,
+  .ant-menu-submenu-title .anticon + span {
+    margin-left: $menu-base-margin-small;
+  }
+  .ant-menu-item-divider {
+    border-color: $words-supporting;
+  }
+  // 禁用
+  .ant-menu-item-disabled > .ant-menu-submenu-title,
+  .ant-menu-submenu-disabled > .ant-menu-submenu-title,
+  .ant-menu-item-disabled,
+  .ant-menu-submenu-disabled {
+    color: $words-disable !important;
+  }
+  .ant-menu-submenu-arrow {
+    color: $words-normal;
+    transform: translateY(-50%) rotate(-90deg);
+  }
+  .ant-menu-submenu-open.ant-menu-submenu-inline
+    > .ant-menu-submenu-title
+    > .ant-menu-submenu-arrow {
+    transform: translate(-3px, 2px) rotate(180deg);
+  }
+  .ant-menu-sub.ant-menu-inline {
+    @include menu-color($words-normal, $menu-base-background);
+  }
+  .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected,
+  .ant-menu-item:hover,
+  .ant-menu-item.ant-menu-item-selected {
+    @include menu-color($words-high-light, $menu-base-background-hover);
+  }
+  .ant-menu-submenu-selected
+    > .ant-menu-submenu-title
+    > .ant-menu-submenu-arrow,
+  .ant-menu-submenu:hover
+    > .ant-menu-submenu-title
+    > .ant-menu-submenu-expand-icon,
+  .ant-menu-submenu:hover > .ant-menu-submenu-title > .ant-menu-submenu-arrow,
+  .ant-menu-submenu-selected {
+    color: $words-high-light;
+  }
+  .ant-menu-item::after {
+    border-right-color: $menu-base-background-transparent;
+  }
+  .ant-menu-item:hover,
+  .ant-menu-item-active,
+  .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
+  .ant-menu-submenu-active,
+  .ant-menu-submenu-title:hover {
+    color: $words-high-light;
+  }
+  .ant-menu-item:active,
+  .ant-menu-submenu-title:active {
+    background: $menu-base-background-transparent;
+  }
+  .ant-menu-submenu > .ant-menu-submenu-title,
+  .ant-menu-item,
+  .ant-menu-sub.ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
+    @include menu-height($menu-item-height, $line-height-base);
+  }
+  .ant-menu-submenu > .ant-menu-submenu-title {
+    margin: 0;
+  }
+  .ant-menu-sub.ant-menu-inline > .ant-menu-item,
+  .ant-menu-sub.ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
+    @include menu-height($menu-item-height, $line-height-base);
+    margin: $menu-base-margin 0;
+    font-size: $font-size-base;
+  }
+  // .ant-menu-sub.ant-menu-inline > .ant-menu-item:nth-child(1),
+  // .ant-menu-sub.ant-menu-inline
+  //   > .ant-menu-submenu
+  //   > .ant-menu-submenu-title:nth-child(1) {
+  //   margin-top: 0;
+  // }
+}
+.frc-menu-default[class~="ant-menu-vertical"] {
+  .ant-menu-submenu-arrow {
+    color: $words-normal;
+    transform: translateY(-50%);
+  }
+}
+
+//注意，这边是menu为弹出层样式，修改为一个颜色
+.ant-menu-horizontal[class~="frc-menu-default"] {
+  padding: 0;
+}
+.ant-menu-horizontal[class~="frc-menu-default"] > .ant-menu-item:hover,
+.ant-menu-horizontal[class~="frc-menu-default"] > .ant-menu-submenu:hover,
+.ant-menu-horizontal[class~="frc-menu-default"] > .ant-menu-item-active,
+.ant-menu-horizontal[class~="frc-menu-default"] > .ant-menu-submenu-active,
+.ant-menu-horizontal[class~="frc-menu-default"] > .ant-menu-item-open,
+.ant-menu-horizontal[class~="frc-menu-default"] > .ant-menu-submenu-open,
+.ant-menu-horizontal[class~="frc-menu-default"] > .ant-menu-item-selected,
+.ant-menu-horizontal[class~="frc-menu-default"] > .ant-menu-submenu-selected {
+  color: $words-high-light !important;
+}
+.ant-menu-horizontal[class~="frc-menu-default"] > .ant-menu-item:hover::after,
+.ant-menu-horizontal[class~="frc-menu-default"]
+  > .ant-menu-submenu:hover::after,
+.ant-menu-horizontal[class~="frc-menu-default"] > .ant-menu-item-active::after,
+.ant-menu-horizontal[class~="frc-menu-default"]
+  > .ant-menu-submenu-active::after,
+.ant-menu-horizontal[class~="frc-menu-default"] > .ant-menu-item-open::after,
+.ant-menu-horizontal[class~="frc-menu-default"] > .ant-menu-submenu-open::after,
+.ant-menu-horizontal[class~="frc-menu-default"]
+  > .ant-menu-item-selected::after,
+.ant-menu-horizontal[class~="frc-menu-default"]
+  > .ant-menu-submenu-selected::after {
+  border-bottom-color: transparent !important;
+}
+.ant-menu-submenu.ant-menu-submenu-popup {
+  .ant-menu-item-disabled,
+  .ant-menu-submenu-disabled {
+    color: $words-disable !important;
+  }
+
+  .ant-menu {
+    @include menu-color($words-normal, $menu-base-background);
+  }
+  .ant-menu-vertical .ant-menu-submenu-selected,
+  .ant-menu-vertical-left .ant-menu-submenu-selected,
+  .ant-menu-vertical-right .ant-menu-submenu-selected {
+    color: $words-high-light;
+  }
+  .ant-menu-submenu-expand-icon,
+  .ant-menu-submenu-arrow {
+    color: $words-normal;
+  }
+  .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    @include menu-color($words-high-light, $menu-base-background);
+  }
+  .ant-menu-submenu:hover
+    > .ant-menu-submenu-title
+    > .ant-menu-submenu-expand-icon,
+  .ant-menu-submenu:hover > .ant-menu-submenu-title > .ant-menu-submenu-arrow,
+  .ant-menu-item:hover,
+  .ant-menu-item-active,
+  .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
+  .ant-menu-submenu-active,
+  .ant-menu-submenu-title:hover {
+    @include menu-color($words-high-light, $menu-base-background-hover);
+  }
+  .ant-menu-vertical > .ant-menu-item,
+  .ant-menu-vertical-left > .ant-menu-item,
+  .ant-menu-vertical-right > .ant-menu-item,
+  .ant-menu-inline > .ant-menu-item,
+  .ant-menu-vertical > .ant-menu-submenu > .ant-menu-submenu-title,
+  .ant-menu-vertical-left > .ant-menu-submenu > .ant-menu-submenu-title,
+  .ant-menu-vertical-right > .ant-menu-submenu > .ant-menu-submenu-title,
+  .ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
+    @include menu-height($menu-item-height, $line-height-base);
+  }
+}
+
+// 通用，全部覆盖的样式
+.ant-menu .ant-menu-item-group-title {
+  color: $words-supporting;
+}
