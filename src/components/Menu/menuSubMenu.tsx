@@ -2,7 +2,7 @@ import React, { FC, ReactNode } from "react";
 import classNames from "classnames";
 import { Menu } from "antd";
 import { SubMenuProps } from "antd/es/menu/SubMenu";
-import { MenuThemeType } from "./interface";
+import { MenuThemeType } from "./menu";
 
 const { SubMenu } = Menu;
 

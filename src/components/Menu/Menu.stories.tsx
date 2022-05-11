@@ -15,7 +15,7 @@ import {
 } from "@storybook/addon-docs";
 
 import Menu from "./index";
-import { FRCMenuProps } from "./menu";
+import { FRCMenuProps, MenuModeType } from "./menu";
 import {
   AppstoreOutlined,
   ContainerOutlined,
@@ -27,7 +27,7 @@ import {
 import Button from "../Button";
 import Radio from "../Radio";
 import { MenuProps } from "antd/lib/menu";
-import { MenuModeType } from "./interface";
+import { RadioChangeEvent } from "antd";
 
 // ----------------------------------------------------------------
 
@@ -128,6 +128,10 @@ export const Default = (args: FRCMenuProps) => (
     <Menu.SubMenu key="SubMenu03" title="Title 03">
       <Menu.Item key="SubMenu0301">Content 05</Menu.Item>
       <Menu.Item key="SubMenu0302">Content 06</Menu.Item>
+      <Menu.SubMenu key="SubMenu0311" title="Title 03">
+        <Menu.Item key="SubMenu030111">Content 05</Menu.Item>
+        <Menu.Item key="SubMenu030222">Content 06</Menu.Item>
+      </Menu.SubMenu>
     </Menu.SubMenu>
   </Menu>
 );
@@ -302,10 +306,10 @@ export const _HasIcon = () => {
           </Menu.Item>
         </Menu.SubMenu>
         <Menu.SubMenu icon={<MailOutlined />} key="SubMenu03" title="Title 03">
-          <Menu.Item icon={<MailOutlined />} key="SubMenu0301">
+          <Menu.Item icon={<MailOutlined />} key="Su21bMenu0301">
             Content 05
           </Menu.Item>
-          <Menu.Item icon={<MailOutlined />} key="SubMenu0302">
+          <Menu.Item icon={<MailOutlined />} key="S121ubMenu030122">
             Content 06
           </Menu.Item>
         </Menu.SubMenu>
@@ -453,7 +457,7 @@ _ExpandOnlyOne.parameters = {
 // ----------------------------------------------------------------
 export const _ChangeMenuType = () => {
   const [mode, setMode] = React.useState<MenuModeType>("inline");
-  const onChange = (e: any) => {
+  const onChange = (e: RadioChangeEvent) => {
     setMode(e.target.value);
   };
   return (

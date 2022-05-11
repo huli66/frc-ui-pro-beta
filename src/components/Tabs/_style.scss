@@ -1,0 +1,138 @@
+.frc-tabs {
+  height: $tabs-item-height;
+  line-height: $tabs-item-line-height;
+  font-size: $font-size-base;
+  font-weight: $font-weight-normal;
+  color: $words-normal;
+  text-align: center;
+  box-sizing: border-box;
+  display: table;
+  border-radius: $border-radius;
+  position: relative;
+  zoom: 1;
+  &::after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+  .frc-tab-pane {
+    height: 100%;
+    min-width: 80px;
+    box-sizing: border-box;
+    padding: 0 $tabs-base-padding;
+    // max-width: ;
+    float: left;
+    background-color: $tabs-base-background-transparent;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    &:hover {
+      background-color: $tabs-base-background-hover;
+      cursor: pointer;
+    }
+  }
+}
+.frc-tabs.frc-tabs-default {
+  background: $element-background;
+  border: 1px solid $tabs-base-border-color-background;
+
+  .frc-tab-pane {
+    &::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: -$tabs-base-padding;
+      transform: translate(-50%, 0);
+      display: block;
+      width: 0;
+      height: 0;
+      border-radius: 0;
+      border-top: 8px solid $tabs-base-background-transparent;
+      border-right: 4px solid $tabs-base-background-transparent;
+      border-bottom: 0px solid $tabs-base-background-transparent;
+      border-left: 4px solid $tabs-base-background-transparent;
+    }
+  }
+
+  .active {
+    background: $tabs-base-border-color-background;
+    &:hover {
+      background-color: $tabs-base-border-color-background;
+    }
+    &::after {
+      border-top-color: $words-high-light;
+    }
+  }
+}
+
+.frc-tabs.frc-tabs-piend {
+  background: $tabs-base-background-transparent;
+  border: 1px solid $tabs-base-background-transparent;
+
+  .frc-tab-pane {
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: -2px;
+      display: block;
+      width: 100%;
+      height: 2px;
+      border-radius: 0;
+      background-image: none;
+    }
+  }
+
+  .active {
+    background: $basic-background;
+    &:hover {
+      background-color: $basic-background;
+    }
+    &::after {
+      background-image: linear-gradient(
+        270deg,
+        $high-light-area-top 0%,
+        $high-light-area-right 100%
+      );
+    }
+  }
+}
+.frc-tabs.frc-tabs-disabled {
+  cursor: not-allowed;
+  color: $words-disable;
+  .frc-tab-pane {
+    color: $words-disable;
+    cursor: not-allowed;
+    &:hover {
+      background-color: $tabs-base-background-transparent;
+      cursor: not-allowed;
+    }
+  }
+  .frc-tab-pane.active {
+    &:hover {
+      background-color: $tabs-base-border-color-background;
+    }
+  }
+  .active {
+    background: $tabs-base-border-color-background;
+    color: $words-disable;
+  }
+}
+.frc-tabs.frc-tabs-default.frc-tabs-disabled {
+  .active {
+    &::after {
+      border-top-color: $tabs-base-border-color-background;
+    }
+  }
+}
+.frc-tabs.frc-tabs-piend.frc-tabs-disabled {
+  .active {
+    &::after {
+      // 这个地方是自己定义的
+      background-image: linear-gradient(
+        270deg,
+        rgba(243, 138, 0, 0.6) 0%,
+        rgba(255, 177, 0, 0.4) 100%
+      );
+    }
+  }
+}

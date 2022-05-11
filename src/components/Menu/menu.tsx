@@ -1,13 +1,34 @@
 import React, { CSSProperties, FC, ReactNode } from "react";
 import classNames from "classnames";
 import { Menu as AntdMenu, MenuProps } from "antd";
-import { SubMenuProps } from "antd/es/menu/SubMenu";
-import { EllipsisOutlined } from "@ant-design/icons";
 import {
-  MenuModeType,
-  MenuThemeType,
-  MenuTriggerActionType,
-} from "./interface";
+  DownOutlined,
+  EllipsisOutlined,
+  RightOutlined,
+} from "@ant-design/icons";
+
+import {
+  MenuDividerProps,
+  MenuItemGroupProps,
+  MenuItemProps,
+  SubMenuProps,
+} from "antd/lib/menu";
+
+// 目前是使用继承方式，文档上的api在对应的继承类中基本上都有
+export interface MenuItemType extends MenuItemProps {}
+export interface SubMenuType extends SubMenuProps {}
+export interface MenuItemGroupType extends MenuItemGroupProps {}
+export interface MenuDividerType extends MenuDividerProps {}
+export type ItemType =
+  | MenuItemType
+  | SubMenuType
+  | MenuItemGroupType
+  | MenuDividerType;
+
+// export type MenuTheme = "default" | "light" | "dark";
+export type MenuThemeType = "default";
+export type MenuModeType = "vertical" | "horizontal" | "inline";
+export type MenuTriggerActionType = "hover" | "click";
 
 interface BaseMenuProps {
   /** 初始展开的 SubMenu 菜单项 key 数组 */
@@ -88,6 +109,9 @@ export const Menu: FC<FRCMenuProps> = (props) => {
     className: classes,
     ...restProps,
   };
+  // 注意这个属性要用这个方法获取值
+  const mode = props.mode;
+  const inlineCollapsed = props.inlineCollapsed;
 
   // main
   return (
@@ -95,6 +119,16 @@ export const Menu: FC<FRCMenuProps> = (props) => {
       inlineIndent={16}
       mode="inline"
       style={{ width: 186 }}
+      expandIcon={
+        mode === "inline" &&
+        !inlineCollapsed &&
+        ((props) => {
+          if (props.isOpen) {
+            return <DownOutlined style={{ fontSize: "10px" }} />;
+          }
+          return <RightOutlined style={{ fontSize: "10px" }} />;
+        })
+      }
       {...options}
     >
       {children}
