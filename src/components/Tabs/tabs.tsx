@@ -7,41 +7,41 @@ export interface itemProps {
   value: string;
 }
 
-export type TabsType = 'default' | 'piend'
+export type TabsType = "default" | "piend";
 export interface TabsTypeProps {
-    default?: TabsType
-};
+  default?: TabsType;
+}
 
 export interface itemsProps {
-    items: itemProps[]
+  items: itemProps[];
 }
 export interface itemProps {
-    key: string,
-    value: string
+  key: string;
+  value: string;
 }
 
 export interface TabsBaseProps {
-    className?: string;
-    children?: any
+  className?: string;
+  children?: any;
 }
 
 export interface IObj {
-    [key: string]: any;
+  [key: string]: any;
 }
 
 interface BaseTabsProps {
-  /** 类型 */
+  /** tabs类型，现在支持"default","piend"两种模式 */
   type?: TabsType;
+  /** 默认选中的key */
+  defaultSelectedKey?: string;
   /** 设置是否禁用 */
   disabled?: boolean;
-  /** 点击事件 */
+  /** 点击事件回调,返回当前选中的项item */
   onSelect?: (item: itemProps) => void;
-  /** items 此方式推荐使用，如果使用，插槽*/
+  /** tabs内容*/
   items?: { key: string; value: string }[];
   /** 样式 */
   style?: CSSProperties;
-  /** 默认选中的key */
-  defaultSelectedKey?: string;
 }
 
 export type FRCTabsProps = BaseTabsProps & TabsBaseProps;
@@ -97,35 +97,6 @@ export const Tabs: FC<FRCTabsProps> = (props) => {
           </div>
         ))}
     </div>
-    // <div {...options}>
-    //   {items?.length
-    //     ? items.map((item: itemProps) => (
-    //         <div
-    //           onClick={() => {
-    //             changeTabPane(item.key);
-    //           }}
-    //           className={
-    //             current === item.key ? "frc-tab-pane active" : "frc-tab-pane"
-    //           }
-    //           key={item.key}
-    //         >
-    //           {item.value}
-    //         </div>
-    //       ))
-    //     : children.length &&
-    //       children.map((item: IObj) => (
-    //         <TabPane
-    //           onClick={() => {
-    //             changeTabPane(item.key);
-    //           }}
-    //           className={current === item.key ? "active" : ""}
-    //           key={item.key}
-    //         >
-    //           {console.log(item)}
-    //           {item.props.children}
-    //         </TabPane>
-    //       ))}
-    // </div>
   );
 };
 
