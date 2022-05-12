@@ -18,6 +18,7 @@ import Tabs from "./index";
 import { FRCTabsProps, itemProps, TabsSizeType, TabsType } from "./tabs";
 import Radio from "../Radio";
 import { RadioChangeEvent } from "antd";
+import InputNumber from "../InputNumber/inputNumber";
 
 const items = [
   { key: "1", value: "Filter001" },
@@ -101,51 +102,31 @@ export const Default = (args: FRCTabsProps) => (
   <>
     <Tabs
       {...args}
+      block
       defaultSelectedKey="1"
       items={[
-        { key: "1", value: "Filter001" },
+        {
+          key: "1",
+          value: "Filter001",
+        },
         { key: "2", value: "Filter002" },
       ]}
       onSelect={onclickCallback}
-      style={{ margin: "24px" }}
+      style={{ margin: "12px 12px 12px 0" }}
     />
     <Tabs
       {...args}
-      style={{ margin: "24px" }}
-      defaultSelectedKey="2"
-      items={[
-        { key: "1", value: "Filter001" },
-        { key: "2", value: "Filter002" },
-      ]}
+      defaultSelectedKey="1"
       type="piend"
-      onSelect={onclickCallback}
-    />
-    <Tabs
-      {...args}
-      disabled
-      style={{ margin: "24px" }}
       items={[
-        { key: "1", value: "Filter001" },
+        {
+          key: "1",
+          value: "Filter001",
+        },
         { key: "2", value: "Filter002" },
       ]}
-      type="piend"
       onSelect={onclickCallback}
     />
-    <Tabs
-      {...args}
-      disabled
-      style={{ margin: "24px" }}
-      items={[
-        { key: "1", value: "Filter001" },
-        { key: "2", value: "Filter002" },
-      ]}
-    />
-    {/* <Tabs {...args}>
-      <Tabs.TabPane key="21">111</Tabs.TabPane>
-      <Tabs.TabPane key="22">2222</Tabs.TabPane>
-      <Tabs.TabPane key="23">33333</Tabs.TabPane>
-      <div>sss</div>
-    </Tabs> */}
   </>
 );
 
@@ -157,6 +138,7 @@ export const _BaseComponent = () => {
   return (
     <>
       <Tabs disabled items={items} style={{ margin: "14px 0" }} />
+      <p></p>
       <Tabs disabled type="piend" items={items} />
     </>
   );
@@ -171,7 +153,7 @@ _BaseComponent.parameters = {
 export const _TypeComponent = () => {
   const [type, setType] = useState<TabsType>("default");
   const onChange = (e: RadioChangeEvent) => {
-    console.log('type', e.target.value);
+    console.log("type", e.target.value);
     setType(e.target.value);
   };
   return (
@@ -184,6 +166,7 @@ export const _TypeComponent = () => {
         <Radio value="default">default</Radio>
         <Radio value="piend">piend</Radio>
       </Radio.Group>
+      <p></p>
       <Tabs type={type} items={items} />
     </>
   );
@@ -200,7 +183,9 @@ export const _DefaultSelectComponent = () => {
   return (
     <>
       <Tabs defaultSelectedKey="2" items={items} />
+      <p></p>
       <Tabs style={{ margin: "24px 0" }} defaultSelectedKey="3" items={items} />
+      <p></p>
       <Tabs type="piend" defaultSelectedKey="4" items={items} />
     </>
   );
@@ -216,7 +201,7 @@ _DefaultSelectComponent.parameters = {
 export const _ChangeSizeComponent = () => {
   const [size, setSize] = useState<TabsSizeType>("default");
   const onChange = (e: RadioChangeEvent) => {
-    console.log('size', e.target.value);
+    console.log("size", e.target.value);
     setSize(e.target.value);
   };
   return (
@@ -230,6 +215,7 @@ export const _ChangeSizeComponent = () => {
         <Radio value="middle">middle</Radio>
         <Radio value="large">large</Radio>
       </Radio.Group>
+      <p></p>
       <Tabs size={size} items={items} />
     </>
   );
@@ -237,5 +223,78 @@ export const _ChangeSizeComponent = () => {
 
 _ChangeSizeComponent.storyName = "尺寸切换 Tabs";
 _ChangeSizeComponent.parameters = {
+  controls: { hideNoControlsWarning: true },
+};
+// ----------------------------------------------------------------
+
+export const _setWidth = () => {
+  const [width, setWidth] = useState<number>(80);
+  const onChange = (value: any) => {
+    console.log("value", value);
+    setWidth(value);
+  };
+  return (
+    <>
+      <InputNumber
+        style={{ margin: "0 24px 24px 0" }}
+        defaultValue={80}
+        onChange={onChange}
+      />
+      <Tabs
+        width={width}
+        items={[
+          {
+            key: "1",
+            value:
+              "This is a repeated title! This is a repeated titleThis is a repeated titleThis is a repeated title",
+          },
+          { key: "2", value: "Filter002" },
+        ]}
+      />
+    </>
+  );
+};
+
+_setWidth.storyName = "设置item宽度";
+_setWidth.parameters = {
+  controls: { hideNoControlsWarning: true },
+};
+
+// ----------------------------------------------------------------
+
+export const _notAutoWidth = () => {
+  const [notAutoWidth, setNotAutoWidth] = useState<boolean>(false);
+  const onChange = (e: RadioChangeEvent) => {
+    console.log("value", e.target.value);
+    setNotAutoWidth(e.target.value);
+  };
+  return (
+    <>
+      <Radio.Group
+        style={{ margin: "0 0 24px 0" }}
+        onChange={onChange}
+        value={notAutoWidth}
+      >
+        <Radio value={false}>false</Radio>
+        <Radio value={true}>true</Radio>
+      </Radio.Group>
+      <p></p>
+      <Tabs
+        notAutoWidth={notAutoWidth}
+        items={[
+          {
+            key: "1",
+            value:
+              "This is a repeated title! This is a repeated titleThis is a repeated titleThis is a repeated title",
+          },
+          { key: "2", value: "Filter002" },
+        ]}
+      />
+    </>
+  );
+};
+
+_notAutoWidth.storyName = "是否不自动填充宽度";
+_notAutoWidth.parameters = {
   controls: { hideNoControlsWarning: true },
 };

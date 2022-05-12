@@ -99,7 +99,8 @@ interface BaseMenuProps {
 export type FRCMenuProps = BaseMenuProps & Omit<MenuProps, "theme">;
 
 export const Menu: FC<FRCMenuProps> = (props) => {
-  const { theme, className, children, ...restProps } = props;
+  const { mode, inlineCollapsed, theme, className, children, ...restProps } =
+    props;
   // 这个地方是为了保留antd自身的两种主题样式
   const classNamePrefix = theme === "default" ? "frc" : "ant";
   const classes = classNames(`${classNamePrefix}-menu`, className, {
@@ -107,17 +108,14 @@ export const Menu: FC<FRCMenuProps> = (props) => {
   });
   const options = {
     className: classes,
+    mode,
+    inlineCollapsed,
     ...restProps,
   };
-  // 注意这个属性要用这个方法获取值
-  const mode = props.mode;
-  const inlineCollapsed = props.inlineCollapsed;
 
   // main
   return (
     <AntdMenu
-      inlineIndent={16}
-      mode="inline"
       style={{ width: 186 }}
       expandIcon={
         mode === "inline" &&

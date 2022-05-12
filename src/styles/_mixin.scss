@@ -720,3 +720,11 @@
   line-height: $line-height;
   font-size: $font-size;
 }
+
+// ----------------------------------------------------------------
+
+@mixin nowrap() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

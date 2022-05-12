@@ -44,6 +44,12 @@ interface BaseTabsProps {
   style?: CSSProperties;
   /** 大小，提供 large default 和 middle 三种大小 */
   size?: TabsSizeType;
+  /** 是否不自动填充宽度，当为true时会根据设定宽度超出...隐藏 */
+  notAutoWidth?: boolean;
+  /** item项的宽度*/
+  width?: number;
+  /** tabs是否独占一行显示*/
+  block?: boolean;
 }
 
 export type FRCTabsProps = BaseTabsProps & TabsBaseProps;
@@ -51,7 +57,10 @@ export type FRCTabsProps = BaseTabsProps & TabsBaseProps;
 export const Tabs: FC<FRCTabsProps> = (props) => {
   const {
     defaultSelectedKey,
+    width,
+    block,
     size,
+    notAutoWidth,
     items,
     onSelect,
     disabled,
@@ -65,6 +74,8 @@ export const Tabs: FC<FRCTabsProps> = (props) => {
     [`frc-tabs-${type}`]: type,
     [`frc-tabs-size-${size}`]: size,
     [`frc-tabs-disabled`]: disabled,
+    [`frc-tabs-not-atuo-width`]: notAutoWidth,
+    [`frc-tabs-block`]: block,
   });
 
   const options = {
@@ -97,7 +108,12 @@ export const Tabs: FC<FRCTabsProps> = (props) => {
             }
             key={item.key}
           >
-            {item.value}
+            <div
+              className="frc-tab-pane-content"
+              style={{ width: width + "px" }}
+            >
+              {item.value}
+            </div>
           </div>
         ))}
     </div>
@@ -108,6 +124,8 @@ export const Tabs: FC<FRCTabsProps> = (props) => {
 Tabs.defaultProps = {
   type: "default",
   size: "default",
+  notAutoWidth: false,
+  block: false,
 };
 
 export default Tabs;
