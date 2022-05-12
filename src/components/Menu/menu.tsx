@@ -25,7 +25,7 @@ export type ItemType =
   | MenuItemGroupType
   | MenuDividerType;
 
-// export type MenuTheme = "default" | "light" | "dark";
+// export type MenuTheme = "default" | "light" | "dark"; 主题就为一种，如果为多种不好改
 export type MenuThemeType = "default";
 export type MenuModeType = "vertical" | "horizontal" | "inline";
 export type MenuTriggerActionType = "hover" | "click";

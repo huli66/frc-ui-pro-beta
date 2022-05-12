@@ -15,7 +15,7 @@ import {
 } from "@storybook/addon-docs";
 
 import Tabs from "./index";
-import { FRCTabsProps, itemProps, TabsType } from "./tabs";
+import { FRCTabsProps, itemProps, TabsSizeType, TabsType } from "./tabs";
 import Radio from "../Radio";
 import { RadioChangeEvent } from "antd";
 
@@ -171,8 +171,8 @@ _BaseComponent.parameters = {
 export const _TypeComponent = () => {
   const [type, setType] = useState<TabsType>("default");
   const onChange = (e: RadioChangeEvent) => {
-    console.log(type, e.target.value);
-    setType(e.target.value === "default" ? "default" : "piend");
+    console.log('type', e.target.value);
+    setType(e.target.value);
   };
   return (
     <>
@@ -208,5 +208,34 @@ export const _DefaultSelectComponent = () => {
 
 _DefaultSelectComponent.storyName = "默认选中项 Tabs";
 _DefaultSelectComponent.parameters = {
+  controls: { hideNoControlsWarning: true },
+};
+
+// ----------------------------------------------------------------
+
+export const _ChangeSizeComponent = () => {
+  const [size, setSize] = useState<TabsSizeType>("default");
+  const onChange = (e: RadioChangeEvent) => {
+    console.log('size', e.target.value);
+    setSize(e.target.value);
+  };
+  return (
+    <>
+      <Radio.Group
+        style={{ margin: "0 0 24px 0" }}
+        onChange={onChange}
+        value={size}
+      >
+        <Radio value="default">default</Radio>
+        <Radio value="middle">middle</Radio>
+        <Radio value="large">large</Radio>
+      </Radio.Group>
+      <Tabs size={size} items={items} />
+    </>
+  );
+};
+
+_ChangeSizeComponent.storyName = "尺寸切换 Tabs";
+_ChangeSizeComponent.parameters = {
   controls: { hideNoControlsWarning: true },
 };

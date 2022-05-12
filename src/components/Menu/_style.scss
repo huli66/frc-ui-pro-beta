@@ -51,6 +51,9 @@
   .ant-menu-submenu-active,
   .ant-menu-submenu-title:hover {
     color: $words-high-light;
+    .ant-menu-submenu-arrow {
+      color: $words-high-light;
+    }
   }
   .ant-menu-item:active,
   .ant-menu-submenu-title:active {

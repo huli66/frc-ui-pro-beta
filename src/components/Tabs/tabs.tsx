@@ -1,6 +1,5 @@
 import React, { FC, useState, CSSProperties } from "react";
 import classNames from "classnames";
-// import TabPane from "./tabPane";
 
 export interface itemProps {
   key: string;
@@ -8,6 +7,7 @@ export interface itemProps {
 }
 
 export type TabsType = "default" | "piend";
+export type TabsSizeType = "default" | "large" | "middle";
 export interface TabsTypeProps {
   default?: TabsType;
 }
@@ -30,18 +30,20 @@ export interface IObj {
 }
 
 interface BaseTabsProps {
-  /** tabs类型，现在支持"default","piend"两种模式 */
+  /** tabs类型，可选default、piend两种类型 */
   type?: TabsType;
   /** 默认选中的key */
   defaultSelectedKey?: string;
   /** 设置是否禁用 */
   disabled?: boolean;
   /** 点击事件回调,返回当前选中的项item */
-  onSelect?: (item: itemProps) => void;
+  onSelect?: (item: { key: string; value: string }) => void;
   /** tabs内容*/
   items?: { key: string; value: string }[];
   /** 样式 */
   style?: CSSProperties;
+  /** 大小，提供 large default 和 middle 三种大小 */
+  size?: TabsSizeType;
 }
 
 export type FRCTabsProps = BaseTabsProps & TabsBaseProps;
@@ -49,6 +51,7 @@ export type FRCTabsProps = BaseTabsProps & TabsBaseProps;
 export const Tabs: FC<FRCTabsProps> = (props) => {
   const {
     defaultSelectedKey,
+    size,
     items,
     onSelect,
     disabled,
@@ -60,6 +63,7 @@ export const Tabs: FC<FRCTabsProps> = (props) => {
   // tabs
   const classes = classNames("frc-tabs", className, {
     [`frc-tabs-${type}`]: type,
+    [`frc-tabs-size-${size}`]: size,
     [`frc-tabs-disabled`]: disabled,
   });
 
@@ -103,6 +107,7 @@ export const Tabs: FC<FRCTabsProps> = (props) => {
 // default
 Tabs.defaultProps = {
   type: "default",
+  size: "default",
 };
 
 export default Tabs;

@@ -1,7 +1,4 @@
 .frc-tabs {
-  height: $tabs-item-height;
-  line-height: $tabs-item-line-height;
-  font-size: $font-size-base;
   font-weight: $font-weight-normal;
   color: $words-normal;
   text-align: center;
@@ -130,9 +127,31 @@
       // 这个地方是自己定义的
       background-image: linear-gradient(
         270deg,
-        rgba(243, 138, 0, 0.6) 0%,
-        rgba(255, 177, 0, 0.4) 100%
+        rgba(243, 138, 0, 0.4) 0%,
+        rgba(255, 177, 0, 0.2) 100%
       );
     }
   }
+}
+.frc-tabs-size-default {
+  @include tabs-size(
+    $tabs-item-default-height,
+    $tabs-item-default-line-height,
+    $font-size-base
+  );
+}
+
+.frc-tabs-size-middle {
+  @include tabs-size(
+    $tabs-item-middle-height,
+    $tabs-item-middle-line-height,
+    $font-size-base
+  );
+}
+.frc-tabs-size-large {
+  @include tabs-size(
+    $tabs-item-large-height,
+    $tabs-item-large-line-height,
+    $font-size-medium
+  );
 }
