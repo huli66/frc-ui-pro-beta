@@ -21,12 +21,9 @@ export interface itemProps {
 }
 
 export interface TabsBaseProps {
+  /** tabs类名 */
   className?: string;
   children?: any;
-}
-
-export interface IObj {
-  [key: string]: any;
 }
 
 interface BaseTabsProps {
