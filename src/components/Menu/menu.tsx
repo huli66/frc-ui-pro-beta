@@ -45,7 +45,7 @@ interface BaseMenuProps {
   inlineCollapsed?: boolean;
   /** inline 模式的菜单缩进宽度 */
   inlineIndent?: number;
-  /** 菜单内容 (版本为2.20及以上才生效，注意类型具体为： ItemType[])*/
+  /** 菜单内容 (在 4.20.0 版本后，我们提供了items的简写方式，有更好的性能和更方便的数据组织方式，开发者不再需要自行拼接 JSX。同时我们废弃了原先的写法，你还是可以在 4.x 继续使用，但会在控制台看到警告，并会在 5.0 后移除，注意类型具体为： ItemType[])*/
   items?: ReactNode;
   /** 菜单类型，现在支持垂直、水平、和内嵌模式三种 */
   mode?: MenuModeType;
@@ -65,7 +65,7 @@ interface BaseMenuProps {
   subMenuCloseDelay?: number;
   /** 用户鼠标进入子菜单后开启延时，单位：秒 */
   subMenuOpenDelay?: number;
-  /** 主题颜色 */
+  /** 主题颜色 (目前只提供一种)*/
   theme?: MenuThemeType;
   /** SubMenu 展开/关闭的触发行为 */
   triggerSubMenuAction?: MenuTriggerActionType;
@@ -106,12 +106,22 @@ export const Menu: FC<FRCMenuProps> = (props) => {
   const classes = classNames(`${classNamePrefix}-menu`, className, {
     [`${classNamePrefix}-menu-${theme}`]: theme,
   });
-  const options = {
-    className: classes,
-    mode,
-    inlineCollapsed,
-    ...restProps,
-  };
+  let options = {};
+  //做判断是inlineCollapsed只在mode==='inline'时才生效
+  if (mode === "inline") {
+    options = {
+      className: classes,
+      mode,
+      inlineCollapsed,
+      ...restProps,
+    };
+  } else {
+    options = {
+      className: classes,
+      mode,
+      ...restProps,
+    };
+  }
 
   // main
   return (

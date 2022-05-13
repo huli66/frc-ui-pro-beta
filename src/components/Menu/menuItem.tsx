@@ -6,7 +6,7 @@ import { MenuItemProps } from "antd/es/menu/MenuItem";
 const { Item } = Menu;
 
 // 扩展位预留，后续有新增可以直接修改
-interface BaseMenuItemProps extends MenuItemProps {
+interface BaseMenuItemProps {
   /** 展示错误状态样式 */
   danger?: boolean;
   /** 是否禁用 */
@@ -21,7 +21,7 @@ interface BaseMenuItemProps extends MenuItemProps {
   title?: string;
 }
 
-export type FrcMenuItemProps = BaseMenuItemProps;
+export type FrcMenuItemProps = BaseMenuItemProps & MenuItemProps;
 
 export const FRCMenuItem: FC<FrcMenuItemProps> = (props) => {
   const { className, children, ...restProps } = props;

@@ -73,6 +73,10 @@
     margin: $menu-base-margin 0;
     font-size: $font-size-base;
   }
+  .ant-menu-item,
+  .ant-menu-submenu {
+    margin: 8px 0 !important;
+  }
 }
 .frc-menu-default[class~="ant-menu-vertical"] {
   .ant-menu-submenu-expand-icon,
@@ -107,7 +111,7 @@
   > .ant-menu-item-selected::after,
 .ant-menu-horizontal[class~="frc-menu-default"]
   > .ant-menu-submenu-selected::after {
-  border-bottom-color: transparent !important;
+  border-bottom-color: $menu-base-background-transparent !important;
 }
 .ant-menu-submenu.ant-menu-submenu-popup {
   .ant-menu-item-disabled,
@@ -163,4 +167,11 @@
 // 通用，全部覆盖的样式
 .ant-menu .ant-menu-item-group-title {
   color: $words-supporting;
+}
+.ant-menu .ant-menu-item.ant-menu-item-disabled:hover {
+  background: $menu-base-background-transparent;
+}
+.ant-menu-inline-collapsed-tooltip .ant-tooltip-inner {
+  color: $words-normal;
+  font-size: $font-size-base;
 }

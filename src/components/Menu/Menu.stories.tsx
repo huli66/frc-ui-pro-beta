@@ -113,59 +113,33 @@ export default {
 } as ComponentMeta<typeof Menu>;
 
 // ----------------------------------------------------------------
-
-export const Default = (args: FRCMenuProps) => (
-  <Menu {...args}>
-    <Menu.SubMenu key="SubMenu01" title="Title 01">
-      <Menu.Item key="SubMenu0101">Content 01</Menu.Item>
-      <Menu.Item key="SubMenu0102">Content 02</Menu.Item>
-      <Menu.Item key="SubMenu0103">Content 03</Menu.Item>
-    </Menu.SubMenu>
-    <Menu.SubMenu key="SubMenu02" title="Title 02">
-      <Menu.Item key="SubMenu0201">Content 03</Menu.Item>
-      <Menu.Item key="SubMenu0202">Content 04</Menu.Item>
-    </Menu.SubMenu>
-    <Menu.SubMenu key="SubMenu03" title="Title 03">
-      <Menu.Item key="SubMenu0301">Content 05</Menu.Item>
-      <Menu.Item key="SubMenu0302">Content 06</Menu.Item>
-      <Menu.SubMenu key="SubMenu0311" title="Title 03">
-        <Menu.Item key="SubMenu030111">Content 05</Menu.Item>
-        <Menu.Item key="SubMenu030222">Content 06</Menu.Item>
-      </Menu.SubMenu>
-    </Menu.SubMenu>
-  </Menu>
-);
+const items = [
+  { label: "菜单项一", key: "item-1" }, // 菜单项务必填写 key
+  {
+    label: "菜单项二",
+    key: "item-2",
+    children: [
+      { label: "子菜单项一", key: "submenu-item-11" },
+      { label: "子菜单项二", key: "submenu-item-22" },
+    ],
+  },
+  {
+    label: "子菜单",
+    key: "submenu",
+    children: [
+      { label: "子菜单项一", key: "submenu-item-1" },
+      { label: "子菜单项二", key: "submenu-item-2" },
+    ],
+  },
+];
+export const Default = (args: FRCMenuProps) => <Menu items={items} {...args} />;
 
 Default.storyName = "默认 menu";
 
 // ----------------------------------------------------------------
 
 export const _TopMenu = () => {
-  return (
-    <Menu mode="horizontal" style={{ width: "250px" }}>
-      <Menu.SubMenu key="SubMenu01" title="Title 01">
-        <Menu.Item key="SubMenu0101">Content 01</Menu.Item>
-        <Menu.Item key="SubMenu0102">Content 02</Menu.Item>
-        <Menu.Item key="SubMenu0103">Content 03</Menu.Item>
-      </Menu.SubMenu>
-      <Menu.SubMenu key="SubMenu02" title="Title 02">
-        <Menu.Item key="SubMenu0201">Content 03</Menu.Item>
-        <Menu.Item key="SubMenu0202">Content 04</Menu.Item>
-      </Menu.SubMenu>
-      <Menu.SubMenu key="SubMenu03" title="Title 03">
-        <Menu.Item key="SubMenu0301">Content 05</Menu.Item>
-        <Menu.Item key="SubMenu0302">Content 06</Menu.Item>
-        <Menu.SubMenu key="SubMenu0311" title="Title 001">
-          <Menu.Item key="SubMenu0301212">Content 01</Menu.Item>
-          <Menu.Item key="SubMenu03022">Content 02</Menu.Item>
-          <Menu.SubMenu key="SubMenu031123" title="Title 0001">
-            <Menu.Item key="SubMenu030121243">Content 01</Menu.Item>
-            <Menu.Item key="SubMenu03025452">Content 02</Menu.Item>
-          </Menu.SubMenu>
-        </Menu.SubMenu>
-      </Menu.SubMenu>
-    </Menu>
-  );
+  return <Menu mode="horizontal" style={{ width: "250px" }} items={items} />;
 };
 _TopMenu.storyName = "顶部导航";
 _TopMenu.parameters = {
@@ -176,31 +150,48 @@ _TopMenu.parameters = {
 
 export const _HasGroupMenu = () => {
   return (
-    <Menu>
-      <Menu.SubMenu key="SubMenu01" title="Title 01">
-        <Menu.Item key="SubMenu0101">Content 01</Menu.Item>
-        <Menu.ItemGroup key="g1" title="ItemGroup 1">
-          <Menu.Item key="SubMenu0102">Content 02</Menu.Item>
-          <Menu.Item key="SubMenu0103">Content 03</Menu.Item>
-        </Menu.ItemGroup>
-        <Menu.ItemGroup key="g2" title="ItemGroup 2">
-          <Menu.Item key="SubMenu1202">Content 02</Menu.Item>
-          <Menu.Item key="SubMenu1203">Content 03</Menu.Item>
-        </Menu.ItemGroup>
-      </Menu.SubMenu>
-      <Menu.SubMenu key="SubMenu02" title="Title 02">
-        <Menu.Item key="SubMenu0201">Content 03</Menu.Item>
-        <Menu.Item key="SubMenu0202">Content 04</Menu.Item>
-      </Menu.SubMenu>
-      <Menu.SubMenu key="SubMenu03" title="Title 03">
-        <Menu.Item key="SubMenu0301">Content 05</Menu.Item>
-        <Menu.Item key="SubMenu0302">Content 06</Menu.Item>
-        <Menu.SubMenu key="SubMenu0311" title="Title 003">
-          <Menu.Item key="SubMenu0301212">Content 01</Menu.Item>
-          <Menu.Item key="SubMenu03022">Content 02</Menu.Item>
-        </Menu.SubMenu>
-      </Menu.SubMenu>
-    </Menu>
+    <Menu
+      items={[
+        {
+          label: "Navigation One",
+          key: "mail",
+        },
+        {
+          label: "Navigation Two",
+          key: "SubMenu",
+          children: [
+            {
+              type: "group",
+              label: "Item 1",
+              children: [
+                {
+                  label: "Option 1",
+                  key: "setting:1",
+                },
+                {
+                  label: "Option 2",
+                  key: "setting:2",
+                },
+              ],
+            },
+            {
+              type: "group",
+              label: "Item 2",
+              children: [
+                {
+                  label: "Option 3",
+                  key: "setting:3",
+                },
+                {
+                  label: "Option 4",
+                  key: "setting:4",
+                },
+              ],
+            },
+          ],
+        },
+      ]}
+    />
   );
 };
 _HasGroupMenu.storyName = "带分组的 Menu";
@@ -211,27 +202,40 @@ _HasGroupMenu.parameters = {
 
 export const _HasDivider = () => {
   return (
-    <Menu>
-      <Menu.SubMenu key="SubMenu01" title="Title 01">
-        <Menu.Item key="SubMenu0101">Content 01</Menu.Item>
-        <Menu.Divider />
-        <Menu.Item key="SubMenu0102">Content 02</Menu.Item>
-        <Menu.Divider />
-        <Menu.Item key="SubMenu0103">Content 03</Menu.Item>
-      </Menu.SubMenu>
-      <Menu.SubMenu key="SubMenu02" title="Title 02">
-        <Menu.Item key="SubMenu0201">Content 03</Menu.Item>
-        <Menu.Item key="SubMenu0202">Content 04</Menu.Item>
-      </Menu.SubMenu>
-      <Menu.SubMenu key="SubMenu03" title="Title 03">
-        <Menu.Item key="SubMenu0301">Content 05</Menu.Item>
-        <Menu.Item key="SubMenu0302">Content 06</Menu.Item>
-        <Menu.SubMenu key="SubMenu0311" title="Title 003">
-          <Menu.Item key="SubMenu0301212">Content 01</Menu.Item>
-          <Menu.Item key="SubMenu03022">Content 02</Menu.Item>
-        </Menu.SubMenu>
-      </Menu.SubMenu>
-    </Menu>
+    <Menu
+      items={[
+        {
+          label: "Navigation One",
+          key: "mail",
+        },
+        {
+          label: "Navigation Two",
+          key: "SubMenu",
+          children: [
+            {
+              label: "item",
+              key: "mail2",
+            },
+            {
+              type: "divider",
+              key: "divider2",
+            },
+            {
+              label: "item2",
+              key: "mail23",
+            },
+            {
+              type: "divider",
+              key: "divider1",
+            },
+            {
+              label: "item3",
+              key: "mail24",
+            },
+          ],
+        },
+      ]}
+    />
   );
 };
 _HasDivider.storyName = "带分割线的 Menu";
@@ -243,31 +247,35 @@ _HasDivider.parameters = {
 
 export const _HasDisabled = () => {
   return (
-    <Menu>
-      <Menu.SubMenu disabled key="SubMenu01" title="Title 01">
-        <Menu.Item key="SubMenu0101">Content 01</Menu.Item>
-        <Menu.Divider />
-        <Menu.Item key="SubMenu0102">Content 02</Menu.Item>
-        <Menu.Divider />
-        <Menu.Item key="SubMenu0103">Content 03</Menu.Item>
-      </Menu.SubMenu>
-      <Menu.SubMenu key="SubMenu02" title="Title 02">
-        <Menu.Item disabled key="SubMenu0201">
-          Content 03
-        </Menu.Item>
-        <Menu.Item key="SubMenu0202">Content 04</Menu.Item>
-      </Menu.SubMenu>
-      <Menu.SubMenu key="SubMenu03" title="Title 03">
-        <Menu.Item key="SubMenu0301">Content 05</Menu.Item>
-        <Menu.Item disabled key="SubMenu0302">
-          Content 06
-        </Menu.Item>
-        <Menu.SubMenu key="SubMenu0311" title="Title 003">
-          <Menu.Item key="SubMenu0301212">Content 01</Menu.Item>
-          <Menu.Item key="SubMenu03022">Content 02</Menu.Item>
-        </Menu.SubMenu>
-      </Menu.SubMenu>
-    </Menu>
+    <Menu
+      items={[
+        {
+          label: "Navigation One",
+          disabled: true,
+          key: "mail",
+        },
+        {
+          label: "Navigation Two",
+          key: "SubMenu",
+          children: [
+            {
+              label: "item",
+              key: "mail2",
+              disabled: true,
+            },
+
+            {
+              label: "item2",
+              key: "mail23",
+            },
+            {
+              label: "item3",
+              key: "mail24",
+            },
+          ],
+        },
+      ]}
+    />
   );
 };
 _HasDisabled.storyName = "带禁用的 Menu";
@@ -279,42 +287,38 @@ _HasDisabled.parameters = {
 
 export const _HasIcon = () => {
   return (
-    <>
-      <Menu>
-        <Menu.SubMenu
-          icon={<AppstoreOutlined />}
-          key="SubMenu01"
-          title="Title 01"
-        >
-          <Menu.Item key="SubMenu0101" icon={<AppstoreOutlined />}>
-            Content 01
-          </Menu.Item>
-          <Menu.Item key="SubMenu0102" icon={<AppstoreOutlined />}>
-            Content 02
-          </Menu.Item>
-        </Menu.SubMenu>
-        <Menu.SubMenu
-          icon={<SettingOutlined />}
-          key="SubMenu02"
-          title="Title 02"
-        >
-          <Menu.Item key="SubMenu0201" icon={<SettingOutlined />}>
-            Content 03
-          </Menu.Item>
-          <Menu.Item key="SubMenu0202" icon={<SettingOutlined />}>
-            Content 04
-          </Menu.Item>
-        </Menu.SubMenu>
-        <Menu.SubMenu icon={<MailOutlined />} key="SubMenu03" title="Title 03">
-          <Menu.Item icon={<MailOutlined />} key="Su21bMenu0301">
-            Content 05
-          </Menu.Item>
-          <Menu.Item icon={<MailOutlined />} key="S121ubMenu030122">
-            Content 06
-          </Menu.Item>
-        </Menu.SubMenu>
-      </Menu>
-    </>
+    <Menu
+      items={[
+        {
+          label: "Navigation One",
+          key: "mail",
+          icon: <MailOutlined />,
+        },
+        {
+          label: "Navigation Two",
+          key: "SubMenu",
+          icon: <AppstoreOutlined />,
+          children: [
+            {
+              label: "item",
+              key: "mail2",
+              icon: <AppstoreOutlined />,
+            },
+
+            {
+              label: "item2",
+              key: "mail23",
+              icon: <SettingOutlined />,
+            },
+            {
+              label: "item3",
+              key: "mail24",
+              icon: <ContainerOutlined />,
+            },
+          ],
+        },
+      ]}
+    />
   );
 };
 _HasIcon.storyName = "带图标的 Menu";
@@ -342,38 +346,39 @@ export const _IsCollapsed = () => {
         {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
       </Button>
       <Menu
+        items={[
+          {
+            label: "Navigation One",
+            key: "mail",
+            icon: <MailOutlined />,
+          },
+          {
+            label: "Navigation Two",
+            key: "SubMenu",
+            icon: <AppstoreOutlined />,
+            children: [
+              {
+                label: "item",
+                key: "mail2",
+                icon: <AppstoreOutlined />,
+              },
+  
+              {
+                label: "item2",
+                key: "mail23",
+                icon: <SettingOutlined />,
+              },
+              {
+                label: "item3",
+                key: "mail24",
+                icon: <ContainerOutlined />,
+              },
+            ],
+          },
+        ]}
         inlineCollapsed={collapsed}
         style={{ width: collapsedWidth + "px" }}
-      >
-        <Menu.SubMenu
-          icon={<AppstoreOutlined />}
-          key="SubMenu01"
-          title="Title 01"
-        >
-          <Menu.Item key="SubMenu0101">Content 01</Menu.Item>
-          <Menu.Item key="SubMenu0102">Content 02</Menu.Item>
-        </Menu.SubMenu>
-        <Menu.SubMenu
-          icon={<SettingOutlined />}
-          key="SubMenu02"
-          title="Title 02"
-        >
-          <Menu.Item key="SubMenu0201">Content 03</Menu.Item>
-          <Menu.Item key="SubMenu0202">Content 04</Menu.Item>
-        </Menu.SubMenu>
-        <Menu.SubMenu icon={<MailOutlined />} key="SubMenu03" title="Title 03">
-          <Menu.Item key="SubMenu0301">Content 05</Menu.Item>
-          <Menu.Item key="SubMenu0302">Content 06</Menu.Item>
-          <Menu.SubMenu
-            icon={<ContainerOutlined />}
-            key="SubMenu0311"
-            title="Title 003"
-          >
-            <Menu.Item key="SubMenu0301212">Content 01</Menu.Item>
-            <Menu.Item key="SubMenu03022">Content 02</Menu.Item>
-          </Menu.SubMenu>
-        </Menu.SubMenu>
-      </Menu>
+      />
     </>
   );
 };
@@ -383,28 +388,7 @@ _IsCollapsed.parameters = {
 };
 // ----------------------------------------------------------------
 export const _SubmenusIsPop = () => {
-  return (
-    <>
-      <Menu mode="vertical">
-        <Menu.SubMenu key="SubMenu01" title="Title 01">
-          <Menu.Item key="SubMenu0101">Content 01</Menu.Item>
-          <Menu.Item key="SubMenu0102">Content 02</Menu.Item>
-        </Menu.SubMenu>
-        <Menu.SubMenu key="SubMenu02" title="Title 02">
-          <Menu.Item key="SubMenu0201">Content 03</Menu.Item>
-          <Menu.Item key="SubMenu0202">Content 04</Menu.Item>
-        </Menu.SubMenu>
-        <Menu.SubMenu key="SubMenu03" title="Title 03">
-          <Menu.Item key="SubMenu0301">Content 05</Menu.Item>
-          <Menu.Item key="SubMenu0302">Content 06</Menu.Item>
-          <Menu.SubMenu key="SubMenu0311" title="Title 003">
-            <Menu.Item key="SubMenu0301212">Content 01</Menu.Item>
-            <Menu.Item key="SubMenu03022">Content 02</Menu.Item>
-          </Menu.SubMenu>
-        </Menu.SubMenu>
-      </Menu>
-    </>
-  );
+  return <Menu items={items} mode="vertical" />;
 };
 
 _SubmenusIsPop.storyName = "子菜单是弹出形式";
@@ -414,9 +398,9 @@ _SubmenusIsPop.parameters = {
 
 // ----------------------------------------------------------------
 // submenu keys of first level
-const rootSubmenuKeys = ["SubMenu01", "SubMenu02", "SubMenu03"];
+const rootSubmenuKeys = ["item-1", "item-2", "submenu"];
 export const _ExpandOnlyOne = () => {
-  const [openKeys, setOpenKeys] = React.useState(["SubMenu01"]);
+  const [openKeys, setOpenKeys] = React.useState(["item-1"]);
   const onOpenChange: MenuProps["onOpenChange"] = (keys) => {
     const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
     if (rootSubmenuKeys.indexOf(latestOpenKey!) === -1) {
@@ -425,28 +409,7 @@ export const _ExpandOnlyOne = () => {
       setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
     }
   };
-  return (
-    <>
-      <Menu openKeys={openKeys} onOpenChange={onOpenChange}>
-        <Menu.SubMenu key="SubMenu01" title="Title 01">
-          <Menu.Item key="SubMenu0101">Content 01</Menu.Item>
-          <Menu.Item key="SubMenu0102">Content 02</Menu.Item>
-        </Menu.SubMenu>
-        <Menu.SubMenu key="SubMenu02" title="Title 02">
-          <Menu.Item key="SubMenu0201">Content 03</Menu.Item>
-          <Menu.Item key="SubMenu0202">Content 04</Menu.Item>
-        </Menu.SubMenu>
-        <Menu.SubMenu key="SubMenu03" title="Title 03">
-          <Menu.Item key="SubMenu0301">Content 05</Menu.Item>
-          <Menu.Item key="SubMenu0302">Content 06</Menu.Item>
-          <Menu.SubMenu key="SubMenu0311" title="Title 003">
-            <Menu.Item key="SubMenu0301212">Content 01</Menu.Item>
-            <Menu.Item key="SubMenu03022">Content 02</Menu.Item>
-          </Menu.SubMenu>
-        </Menu.SubMenu>
-      </Menu>
-    </>
-  );
+  return <Menu items={items} openKeys={openKeys} onOpenChange={onOpenChange} />;
 };
 
 _ExpandOnlyOne.storyName = "只展开当前父级菜单";
@@ -471,24 +434,7 @@ export const _ChangeMenuType = () => {
         <Radio value="vertical">vertical</Radio>
         <Radio value="horizontal">horizontal</Radio>
       </Radio.Group>
-      <Menu mode={mode}>
-        <Menu.SubMenu key="SubMenu01" title="Title 01">
-          <Menu.Item key="SubMenu0101">Content 01</Menu.Item>
-          <Menu.Item key="SubMenu0102">Content 02</Menu.Item>
-        </Menu.SubMenu>
-        <Menu.SubMenu key="SubMenu02" title="Title 02">
-          <Menu.Item key="SubMenu0201">Content 03</Menu.Item>
-          <Menu.Item key="SubMenu0202">Content 04</Menu.Item>
-        </Menu.SubMenu>
-        <Menu.SubMenu key="SubMenu03" title="Title 03">
-          <Menu.Item key="SubMenu0301">Content 05</Menu.Item>
-          <Menu.Item key="SubMenu0302">Content 06</Menu.Item>
-          <Menu.SubMenu key="SubMenu0311" title="Title 003">
-            <Menu.Item key="SubMenu0301212">Content 01</Menu.Item>
-            <Menu.Item key="SubMenu03022">Content 02</Menu.Item>
-          </Menu.SubMenu>
-        </Menu.SubMenu>
-      </Menu>
+      <Menu items={items} mode={mode} />
     </>
   );
 };
@@ -497,6 +443,3 @@ _ChangeMenuType.storyName = "切换菜单类型";
 _ChangeMenuType.parameters = {
   controls: { hideNoControlsWarning: true },
 };
-
-// ----------------------------------------------------------------
-// 单独设置子菜单主题,此版本暂不支持

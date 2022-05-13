@@ -39,33 +39,33 @@
 .frc-tabs.frc-tabs-default {
   background: $element-background;
   border: 1px solid $tabs-base-border-color-background;
-
-  .frc-tab-pane {
-    &::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: -$tabs-base-padding;
-      transform: translate(-50%, 0);
-      display: block;
-      width: 0;
-      height: 0;
-      border-radius: 0;
-      border-top: 8px solid $tabs-base-background-transparent;
-      border-right: 4px solid $tabs-base-background-transparent;
-      border-bottom: 0px solid $tabs-base-background-transparent;
-      border-left: 4px solid $tabs-base-background-transparent;
-    }
-  }
+  // 三角箭头样式
+  // .frc-tab-pane {
+  //   &::after {
+  //     content: "";
+  //     position: absolute;
+  //     left: 50%;
+  //     top: -$tabs-base-padding;
+  //     transform: translate(-50%, 0);
+  //     display: block;
+  //     width: 0;
+  //     height: 0;
+  //     border-radius: 0;
+  //     border-top: 8px solid $tabs-base-background-transparent;
+  //     border-right: 4px solid $tabs-base-background-transparent;
+  //     border-bottom: 0px solid $tabs-base-background-transparent;
+  //     border-left: 4px solid $tabs-base-background-transparent;
+  //   }
+  // }
 
   .active {
     background: $tabs-base-border-color-background;
     &:hover {
       background-color: $tabs-base-border-color-background;
     }
-    &::after {
-      border-top-color: $words-high-light;
-    }
+    // &::after {
+    //   border-top-color: $words-high-light;
+    // }
   }
 }
 
@@ -122,13 +122,13 @@
     color: $words-disable;
   }
 }
-.frc-tabs.frc-tabs-default.frc-tabs-disabled {
-  .active {
-    &::after {
-      border-top-color: $tabs-base-border-color-background;
-    }
-  }
-}
+// .frc-tabs.frc-tabs-default.frc-tabs-disabled {
+//   .active {
+//     &::after {
+//       border-top-color: $tabs-base-border-color-background;
+//     }
+//   }
+// }
 .frc-tabs.frc-tabs-piend.frc-tabs-disabled {
   .active {
     &::after {
