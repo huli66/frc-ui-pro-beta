@@ -243,13 +243,13 @@ export const VerticalSliderComponent = () => {
   return (
     <>
       <div style={style}>
-        <Slider vertical defaultValue={30} />
+        <Slider vertical defaultValue={30} size='small' />
       </div>
       <div style={style}>
         <Slider vertical range step={10} defaultValue={[20, 50]} />
       </div>
       <div style={style}>
-        <Slider vertical range marks={marks} defaultValue={[26, 37]} />
+        <Slider vertical size='large' range marks={marks} defaultValue={[26, 37]} />
       </div>
     </>
   )

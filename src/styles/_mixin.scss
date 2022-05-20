@@ -705,7 +705,7 @@
 
 @mixin slider-handle (
   $height,
-  $height-handle
+  $height-handle,
 ) {
   height: $height;
   &::before {
@@ -713,6 +713,19 @@
   }
   &::after {
     height: $height-handle;
+  }
+}
+@mixin slider-handle-vertical (
+  $width,
+  $width-handle,
+) {
+  width: $width;
+  height: 8px;
+  &::before {
+    width: $width-handle;
+  }
+  &::after {
+    width: $width-handle;
   }
 }
 @mixin slider-dot ($size) {
