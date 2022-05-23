@@ -15,7 +15,7 @@ import {
 } from '@storybook/addon-docs'
 
 import {Switch, Row, Col, InputNumber} from 'antd'
-import {FrownOutlined, SmileOutlined} from '@ant-design/icons'
+// import {FrownOutlined, SmileOutlined} from '@ant-design/icons'
 import Slider from './index'
 import {FRCSliderProps} from './slider'
 
@@ -26,6 +26,7 @@ const ImportComponent = () => {
   const markdown = `
 ~~~js
 import { Slider } from 'frc-ui-pro';
+import { ReverseSliderComponent } from './Slider.stories';
 ~~~
 `
 
@@ -102,6 +103,9 @@ export const SizeComponent = () => {
   )
 }
 SizeComponent.storyName = '大小 slider'
+SizeComponent.parameters = {
+  controls: {hideNoControlsWarning: true}
+}
 
 // -----------------------------------------------------------------
 
@@ -174,6 +178,9 @@ export const StepComponent = () => {
 }
 
 StepComponent.storyName = '带输入框的滑块 slider'
+StepComponent.parameters = {
+  controls: {hideNoControlsWarning: true}
+}
 
 // -----------------------------------------------------------------
 
@@ -190,6 +197,9 @@ export const TipSliderComponent = () => {
 }
 
 TipSliderComponent.storyName = '自定义提示 slider'
+TipSliderComponent.parameters = {
+  controls: {hideNoControlsWarning: true}
+}
 
 // -----------------------------------------------------------------
 
@@ -219,6 +229,9 @@ export const EventSliderComponent = () => {
 }
 
 EventSliderComponent.storyName = '事件 slider'
+EventSliderComponent.parameters = {
+  controls: {hideNoControlsWarning: true}
+}
 
 // -----------------------------------------------------------------
 
@@ -256,6 +269,9 @@ export const VerticalSliderComponent = () => {
 }
 
 VerticalSliderComponent.storyName = '垂直方向的 slider'
+VerticalSliderComponent.parameters = {
+  controls: {hideNoControlsWarning: true}
+}
 
 // -----------------------------------------------------------------
 
@@ -290,6 +306,9 @@ export const MarksSliderComponent = () => {
 }
 
 MarksSliderComponent.storyName = '带标签的滑块 slider'
+MarksSliderComponent.parameters = {
+  controls: {hideNoControlsWarning: true}
+}
 
 // -----------------------------------------------------------------
 
@@ -309,6 +328,9 @@ export const ReverseSliderComponent = () => {
 }
 
 ReverseSliderComponent.storyName = '反向 slider'
+ReverseSliderComponent.parameters = {
+  controls: {hideNoControlsWarning: true}
+}
 
 // -----------------------------------------------------------------
 
@@ -317,6 +339,9 @@ export const TipVisibleComponent = () => (
 )
 
 TipVisibleComponent.storyName = '控制 ToolTip 的显示'
+TipVisibleComponent.parameters = {
+  controls: {hideNoControlsWarning: true}
+}
 
 // -----------------------------------------------------------------
 
@@ -325,3 +350,6 @@ export const DragTrackComponent = () => (
 )
 
 DragTrackComponent.storyName = '范围可拖拽'
+DragTrackComponent.parameters = {
+  controls: {hideNoControlsWarning: true}
+}
