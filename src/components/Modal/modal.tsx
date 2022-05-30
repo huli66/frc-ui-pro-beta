@@ -67,13 +67,13 @@ export interface BaseModalProps extends ModalProps {
 export type FRCModalProps = BaseModalProps
 
 export const ModalFooter = (props: FRCModalProps) => {
-  const { onOk, onCancel, confirmLoading, okBtnType, okFrcButtonProps, cancelFrcButtonProps } = props
+  const { onOk, onCancel, confirmLoading, okBtnType, okFrcButtonProps, cancelFrcButtonProps, okText, cancelText } = props
 
   return (
     <>
-      <Button type="gray" onClick={onCancel} style={{ width: 60 }} {...cancelFrcButtonProps}>取消</Button>
+      <Button type="gray" onClick={onCancel} style={{ width: 60 }} {...cancelFrcButtonProps}>{cancelText || '取消'}</Button>
       <Button loading={confirmLoading} type={okBtnType || "primary"} onClick={onOk} style={{ width: 120 }} {...okFrcButtonProps}>
-        确定
+        {okText || '确定'}
       </Button>
     </>
   )
@@ -91,7 +91,7 @@ export const Modal: FC<FRCModalProps> = (props) => {
 
   const options = {
     className: classes,
-    footer: footer || <ModalFooter {...{ ...restProps }} />,
+    footer: footer === undefined ?  <ModalFooter {...{ ...restProps }} /> : footer,
     ...restProps,
   }
 
