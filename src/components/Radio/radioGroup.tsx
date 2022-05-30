@@ -46,7 +46,7 @@ export const FRCRadioGroup: FC<FRCRadioGroupProps> = (props) => {
 // normal
 FRCRadioGroup.defaultProps = {
   disabled: false,
-  optionType: 'default'
+  // optionType: 'default'
 }
 
 export default FRCRadioGroup
