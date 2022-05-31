@@ -702,3 +702,33 @@
   font-size: $font-size;
   font-weight: $font-weight;
 }
+
+@mixin slider-handle (
+  $height,
+  $height-handle,
+) {
+  height: $height;
+  &::before {
+    height: $height-handle;
+  }
+  &::after {
+    height: $height-handle;
+  }
+}
+@mixin slider-handle-vertical (
+  $width,
+  $width-handle,
+) {
+  width: $width;
+  height: 8px;
+  &::before {
+    width: $width-handle;
+  }
+  &::after {
+    width: $width-handle;
+  }
+}
+@mixin slider-dot ($size) {
+  height: $size;
+  width: $size;
+}
