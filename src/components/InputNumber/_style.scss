@@ -172,6 +172,17 @@
   }
 }
 
+// status error warning
+.frc-input-number.ant-input-number-status-error.ant-input-number, 
+.frc-input-number.ant-input-number-status-warning.ant-input-number {
+  &:not(.ant-input-number-disabled):not(.ant-input-number-borderless) {
+    background: $input-number-background;
+    &:hover {
+      background: $input-number-background-hover;
+    }
+  }
+}
+
 // ----------------------------------------------------------------
 
 // no border

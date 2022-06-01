@@ -556,7 +556,7 @@ export const _GroupComponent = () => {
 
     return (
         <>
-            用 OptGroup 进行选项分组。。
+            用 OptGroup 进行选项分组。
             <br />
             <Select defaultValue="lucy" style={{ width: 200 }} onChange={handleChange}>
                 <OptGroup label="Manager">
@@ -566,101 +566,6 @@ export const _GroupComponent = () => {
                 <OptGroup label="Engineer">
                     <Option value="Yiminghe">yiminghe</Option>
                 </OptGroup>
-            </Select>
-
-            {/* -------------------------------------------------------------------------- */}
-
-            <Select
-                placeholder="custom to group"
-                style={{ marginRight: 16, width: 240 }}
-                allowClear
-                showSearch
-                removeMenuItemSelectedIcon={true}
-                optionLabelProp="label"
-                defaultValue={['china', 'usa', 'japan', 'korea']}
-            >
-                <Select.OptGroup
-                    label={
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <div style={{ fontSize: 12 }}>Category 01</div>
-                            <div>
-                                <Button type="link" style={{ color: '#136C5E' }}>
-                                    Link/More
-                                </Button>
-                            </div>
-                        </div>
-                    }
-                >
-                    <Select.Option value="china" label="China">
-                        <div
-                            style={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                paddingLeft: '10px',
-                            }}
-                        >
-                            <span role="img" aria-label="China">
-                                🇨🇳
-                            </span>
-                            China (中国)
-                        </div>
-                    </Select.Option>
-                    <Select.Option value="usa" label="USA">
-                        <div
-                            style={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                paddingLeft: '10px',
-                            }}
-                        >
-                            <span role="img" aria-label="USA">
-                                🇺🇸
-                            </span>
-                            USA (美国)
-                        </div>
-                    </Select.Option>
-                </Select.OptGroup>
-                <Select.OptGroup
-                    label={
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <div style={{ fontSize: 12 }}>Category 02</div>
-                            <div>
-                                <Button type="link" style={{ color: '#136C5E' }}>
-                                    Link/More
-                                </Button>
-                            </div>
-                        </div>
-                    }
-                >
-                    <Select.Option value="japan" label="Japan">
-                        <div
-                            style={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                paddingLeft: '10px',
-                            }}
-                        >
-                            <span role="img" aria-label="Japan">
-                                🇯🇵
-                            </span>
-                            Japan (日本)
-                        </div>
-                    </Select.Option>
-                    <Select.Option value="korea" label="Korea">
-                        <div
-                            style={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                paddingLeft: '10px',
-                            }}
-                        >
-                            <span role="img" aria-label="Korea">
-                                🇰🇷
-                            </span>
-                            Korea (韩国)
-                        </div>
-                    </Select.Option>
-                </Select.OptGroup>
             </Select>
         </>
     )
@@ -682,30 +587,17 @@ export const _LinkageComponent = () => {
     };
 
     // ----------------------------------------------------------------
+    type valueType = keyof typeof cityData;
 
-    const [cities, setCities] = React.useState(cityData[provinceData[0]]);
-    const [secondCity, setSecondCity] = React.useState(cityData[provinceData[0]][0]);
-
-    interface LabeledValue {
-        key?: string;
-        value: string | number;
-        label: React.ReactNode;
-    }
-
-    type valueType = string | string[] | number | number[] | LabeledValue | LabeledValue[];
+    const [cities, setCities] = React.useState(cityData[provinceData[0] as valueType]);
+    const [secondCity, setSecondCity] = React.useState(cityData[provinceData[0] as valueType][0]);
 
     const handleProvinceChange = (value: valueType) => {
-        if (typeof value !== 'string' || 'number') {
-            return
-        }
         setCities(cityData[value]);
         setSecondCity(cityData[value][0]);
     };
 
-    const onSecondCityChange = (value: valueType) => {
-        if (typeof value !== 'string' || 'number') {
-            return
-        }
+    const onSecondCityChange = (value: string) => {
         setSecondCity(value);
     };
 
