@@ -256,7 +256,7 @@ export const _KeyboardComponent = () => {
     return (<>
         使用 keyboard 属性可以控制键盘行为。
         <br />
-        <InputNumber min={1} max={10} keyboard={false} defaultValue={3} />
+        <InputNumber min={1} max={10} keyboard={true} defaultValue={3} />
     </>)
 };
 

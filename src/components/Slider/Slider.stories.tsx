@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import ReactMarkdown from 'react-markdown'
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import {tomorrow} from 'react-syntax-highlighter/dist/esm/styles/prism'
@@ -14,10 +14,11 @@ import {
   Subheading,
 } from '@storybook/addon-docs'
 
-import {Switch, Row, Col, InputNumber} from 'antd'
-// import {FrownOutlined, SmileOutlined} from '@ant-design/icons'
+import {Row, Col} from 'antd'
 import Slider from './index'
 import {FRCSliderProps} from './slider'
+import InputNumber from '../InputNumber'
+import Switch from '../Switch'
 
 // ----------------------------------------------------------------
 
@@ -110,18 +111,12 @@ SizeComponent.parameters = {
 // -----------------------------------------------------------------
 
 export const StepComponent = () => {
-  const [integerValue, setIntegerValue] = React.useState(1)
-  const handleIntegerChange = (value: any) => {
-    setIntegerValue(value)
-  }
-  const [decimalValue, setDecimalValue] = React.useState(0)
-  const handleDecimalChange = (value: any) => {
-    if (isNaN(value)) {
-      return
-    }
-    setDecimalValue(value)
-  }
+  
   const IntegerStep = () => {
+    const [integerValue, setIntegerValue] = useState(1)
+    const handleIntegerChange = (value: any) => {
+      setIntegerValue(value)
+    }
     return (
       <Row>
         <Col span={12}>
@@ -145,6 +140,13 @@ export const StepComponent = () => {
     )
   }
   const DecimalStep = () => {
+    const [decimalValue, setDecimalValue] = React.useState(0)
+    const handleDecimalChange = (value: any) => {
+      if (isNaN(value)) {
+        return
+      }
+      setDecimalValue(value)
+    }
     return (
       <Row>
         <Col span={12}>

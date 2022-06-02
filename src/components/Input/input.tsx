@@ -1,6 +1,6 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState,useRef } from 'react'
 import classNames from 'classnames'
-import AntdInput, { InputProps } from 'antd/es/input'
+import AntdInput, { InputProps, InputRef } from 'antd/es/input'
 import { FiSearch } from 'react-icons/fi'
 
 type InputType = 'default' | 'icon-only'
@@ -45,13 +45,16 @@ export type FRCInputProps = BaseInputProps & Omit<InputProps, 'type'>
 
 export const Input: FC<FRCInputProps> = (props) => {
   const [keyDownEnter, setKeyDownEnter] = useState(false)
+  const inputRef = useRef<InputRef | null>(null)
 
   const {
     className,
     bordered,
     prefix,
+    suffix,
     type,
     value,
+    showCount,
     onChange,
     onKeyDown,
     ...restProps
@@ -61,14 +64,30 @@ export const Input: FC<FRCInputProps> = (props) => {
     [`frc-input-no-border`]: !bordered,
     [`frc-input-enter`]: keyDownEnter,
     [`frc-input-prefix`]: prefix,
-    [`frc-input-${type}`]: type,
+    [`frc-input-${type}`]: type
   })
+
+  const prefixNode = () => {
+    if (type !== 'icon-only') {
+      return prefix;
+    }
+    const handleIconClick = () => {
+      inputRef.current?.focus();
+    }
+    return (
+      <span onClick={handleIconClick}>
+        {prefix || <FiSearch />}
+      </span>
+    )
+  }
 
   let options = {
     className: classes,
     ...restProps,
     bordered,
-    prefix: !prefix && type === 'icon-only' ? <FiSearch /> : prefix,
+    prefix: prefixNode(),
+    suffix: showCount ? suffix || <span></span> : suffix,
+    showCount,
     type,
     value,
     onKeyDown: (e: any) => {
@@ -82,11 +101,11 @@ export const Input: FC<FRCInputProps> = (props) => {
       if (!e.target.value && e.target.value !== 0) {
         setKeyDownEnter(false)
       }
-    },
+    }
   }
 
   // main
-  return <AntdInput {...options} />
+  return <AntdInput ref={inputRef} {...options} />
 }
 
 // normal
