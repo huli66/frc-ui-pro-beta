@@ -195,7 +195,7 @@ TimePicker.defaultProps = {
   hourStep: 1,
   inputReadOnly: false,
   minuteStep: 1,
-  open: false,
+  // open: false,
   placeholder: '请选择时间',
   secondStep: 1,
 }
