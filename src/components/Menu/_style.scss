@@ -175,3 +175,8 @@
   color: $words-normal;
   font-size: $font-size-base;
 }
+.ant-menu .ant-menu-item,
+.ant-menu-sub .ant-menu-item,.ant-menu 
+.ant-menu-submenu-title {
+  font-size: $font-size-base;
+}
