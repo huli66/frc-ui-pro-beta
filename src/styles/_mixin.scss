@@ -6,6 +6,26 @@
   flex-direction: $direction;
 }
 
+@mixin position-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin position-vertical-center {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@mixin position-horizontal-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
 // button
 @mixin button-size($padding-y, $padding-x, $font-size, $border-raduis) {
   padding: $padding-y $padding-x;
@@ -756,3 +776,125 @@
       @content;
     }
 }
+
+// ---------------------------steps-----------------------------
+
+@mixin steps-item-container-selector {
+  .ant-steps-item.frc-steps-item {
+    .ant-steps-item-container {
+      @content;
+    }
+  }
+}
+
+@mixin steps-item-style (
+  // tail
+  $tail-color,
+  // icon
+  $icon-border-color,
+  $icon-bg-color,
+  $icon-text-color,
+  // custom dot
+  $dot-outer-color,
+  $dot-inner-color,
+  $dot-pointer-color,
+  $dot-large-border-color,
+  // title & description
+  $title-color,
+  $des-color,
+  // selector
+  $selector: ".ant-steps-item-container" 
+) {
+  #{$selector} {
+    .ant-steps-item-tail {
+      padding: 1.5px 0;
+      &::after {
+        background-color: $tail-color;
+        height: $steps-tail-width;
+      }
+    }
+    .ant-steps-item-icon {
+      border-color: $icon-border-color;
+      background-color: $icon-bg-color;
+      .ant-steps-icon {
+        color: $icon-text-color;
+        .ant-steps-icon-dot {
+          background: $icon-border-color;
+        }
+        .frc-custom-dot {
+          background-color:$dot-outer-color;
+          &::before {
+            background-color: $dot-inner-color;
+          }
+          &::after{
+            background-color: $dot-pointer-color;
+          }
+        }
+        .frc-custom-large-dot {
+          border-color: $dot-large-border-color;
+        }
+      }
+    }
+    .ant-steps-item-content {
+      .ant-steps-item-title {
+        font-size: $steps-content-font-size;
+        color: $title-color;
+        .ant-steps-item-subtitle {
+          font-size: $steps-content-font-size;
+          color: $title-color;
+        }
+      }
+      .ant-steps-item-description {
+        color: $des-color;
+      }
+    }
+  }
+}
+
+@mixin steps-vertical-item-tail (
+  $top,
+  $left,
+) {
+  @include steps-item-container-selector {
+    .ant-steps-item-tail {
+      top: $top;
+      left: $left;
+      &::after {
+        height: 100%;
+        width: $steps-tail-width;
+      }
+    }
+  }
+}
+
+@mixin steps-text-updown-item(
+  $item-height,
+  $title-position-bottom,
+  $des-position-top,
+) {
+  .ant-steps-item {
+    position: relative;
+    height: $item-height;
+    .ant-steps-item-container {
+      .ant-steps-item-tail {
+        @include position-vertical-center;
+      }
+      .ant-steps-item-icon {
+        @include position-vertical-center;
+      }
+      .ant-steps-item-content {
+        .ant-steps-item-title {
+          position: absolute;
+          bottom: $title-position-bottom;
+          transform: translateX(-50%);
+        }
+        .ant-steps-item-description {
+          position: absolute;
+          top: $des-position-top;
+        }
+      }
+    }
+  }
+}
+
+
