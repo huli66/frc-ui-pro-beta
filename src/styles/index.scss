@@ -2,55 +2,62 @@
 // @import 'antd/dist/antd.css';
 
 // config
-@import 'variables';
+@import "variables";
 
 // layout
-@import 'reboot';
+@import "reboot";
 
 // mixin
-@import 'mixin';
+@import "mixin";
 
 // button
-@import '../components/Button/style';
+@import "../components/Button/style";
 
 // input
-@import '../components/Input/style';
+@import "../components/Input/style";
 
 // input-number
-@import '../components/InputNumber/style';
+@import "../components/InputNumber/style";
 
 // select
-@import '../components/Select/style';
+@import "../components/Select/style";
 
 // radio
-@import '../components/Radio/style';
+@import "../components/Radio/style";
 
 // checkbox
-@import '../components/Checkbox/style';
+@import "../components/Checkbox/style";
 
 // switch
-@import '../components/Switch/style';
+@import "../components/Switch/style";
 
 // datePicker
-@import '../components/DatePicker/style';
+@import "../components/DatePicker/style";
 
 // timePicker
-@import '../components/TimePicker/style';
+@import "../components/TimePicker/style";
 
 // modal
-@import '../components/Modal/style';
+@import "../components/Modal/style";
 
 // loading
-@import '../components/Loading/style';
+@import "../components/Loading/style";
 
 // error
-@import '../components/Error/style';
+@import "../components/Error/style";
 
 // divider
-@import '../components/Divider/style';
+@import "../components/Divider/style";
 
 // echarts
-@import '../components/Echarts/style';
+@import "../components/Echarts/style";
+
+// menu
+@import "../components/Menu/style";
+
+// tabs
+@import "../components/Tabs/style";
+
 
 // slider
 @import '../components/Slider/style';
