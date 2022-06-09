@@ -737,12 +737,22 @@
 }
 // ----------------------------------------------------------------
 
-@mixin pagination-item-base(
-  $width,
-  $height,
-  $line-height
-){
-  min-width: $width;
-  height: $height;
-  line-height: $line-height;
+@mixin pagination-item-base{
+  min-width: $pagination-item-width;
+  height: $pagination-item-height;
+  line-height: $pagination-line-height;
+  margin-right: $pagination-item-margin;
+}
+
+@mixin pagination-item-a(
+  $normal-color,
+  $hover-color
+) {
+  a {
+      color: $normal-color;
+      &:hover {
+        color: $hover-color;
+      }
+      @content;
+    }
 }

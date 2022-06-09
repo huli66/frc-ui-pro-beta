@@ -10,12 +10,10 @@
 
   // pagination item
   .ant-pagination-prev, .ant-pagination-next {
-    a{
-      color: $words-supporting;
-      &:hover {
-        color: $words-high-light;
-      }
-    }
+    @include pagination-item-a(
+      $words-supporting,
+      $words-high-light
+    );
     .ant-pagination-item-link{
       background: 0, 0;
       border-color: transparent;
@@ -27,29 +25,19 @@
     }
   }
   .ant-pagination-prev, .ant-pagination-next, .ant-pagination-jump-prev, .ant-pagination-jump-next {
-    @include pagination-item-base(
-      $pagination-item-width,
-      $pagination-item-height,
-      $pagination-line-height
-    );
+    @include pagination-item-base;
   }
   .ant-pagination-prev, .ant-pagination-jump-prev, .ant-pagination-jump-next{
     margin-right: $pagination-item-margin;
   }
   .ant-pagination-item{
-    @include pagination-item-base(
-      $pagination-item-width,
-      $pagination-item-height,
-      $pagination-line-height
-    );
+    @include pagination-item-base;
     background-color: $pagination-item-background;
     border: none;
-    a {
-      color: $words-supporting;
-      &:hover {
-        color: $words-high-light;
-      }
-    }
+    @include pagination-item-a(
+      $words-supporting,
+      $words-high-light
+    );
     &-active{
       a{
         color: $words-high-light;
@@ -79,6 +67,7 @@
     .ant-select {
       font-size: $pagination-font-size;
       border: 1px solid $pagination-border-color;
+      border-radius: $pagination-border-radius;
       .ant-select-selector {
         height: $pagination-item-height;
         background-color: $pagination-item-background;
@@ -110,10 +99,11 @@
         }
       }
       &.ant-select-focused{
+        border-color: $words-high-light;
         .ant-select-selector {
           border-color: $words-high-light;
           border-right-width: 0;
-          box-shadow: 0 0 0 2px rgba(249,193,82,.2);
+          box-shadow: none;
         }
       }
     }
@@ -132,7 +122,7 @@
         font-size: $pagination-font-size;
         &:focus {
           border-color: $words-high-light;
-          box-shadow: 0 0 0 2px rgba(249,193,82,.2);
+          box-shadow: none;
           color: $words-high-light;
         }
       }
@@ -150,12 +140,64 @@
         color: $words-high-light;
         &:focus {
           border-color: $words-high-light;
-          box-shadow: 0 0 0 2px rgba(249,193,82,.2);
+          box-shadow: none;
           color: $words-high-light;
         }
       }
       .ant-pagination-slash{
         margin: 0 $pagination-item-margin;
+      }
+    }
+  }
+
+  // disabled
+  &.ant-pagination-disabled {
+    .ant-pagination-prev, .ant-pagination-next {
+      @include pagination-item-a(
+        $pagination-item-disabled-color,
+        $pagination-item-disabled-color
+      ){
+        cursor: not-allowed;
+      }
+      cursor: not-allowed;
+      .ant-pagination-item-link{
+        color: $pagination-item-disabled-color;
+        &:hover {
+          color: $pagination-item-disabled-color;
+        }
+      }
+    }
+    .ant-pagination-item {
+      background-color: $pagination-item-disabled-background;
+      @include pagination-item-a(
+        $pagination-item-disabled-color,
+        $pagination-item-disabled-color
+      );
+      &-active{
+        background-color: $pagination-item-background;
+      }
+    }
+    .ant-pagination-options {
+      .ant-select-selector {
+        background-color:$pagination-item-disabled-background;
+        color:$pagination-item-disabled-color;
+      }
+      .ant-select-arrow{
+        color: $pagination-item-disabled-color;
+      }
+      .ant-pagination-options-quick-jumper {
+        input {
+          background-color:$pagination-item-disabled-background;
+        }
+      }
+    }
+    &.ant-pagination-simple {
+      .ant-pagination-simple-pager {
+        color: $pagination-item-disabled-color;
+        input {
+          background-color: $pagination-item-disabled-background;
+          color: $pagination-item-disabled-color;
+        }
       }
     }
   }

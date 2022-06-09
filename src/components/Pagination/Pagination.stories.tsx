@@ -69,7 +69,7 @@ export default {
                     <Heading>API</Heading>
                     <Subheading>属性</Subheading>
 
-                    <Subheading>Button</Subheading>
+                    <Subheading>Pagination</Subheading>
                     <ArgsTable of={Pagination} />
                 </>
             ),
@@ -80,7 +80,16 @@ export default {
 
 // ----------------------------------------------------------------
 
-export const Default = (args: FRCPaginationProps) => <Pagination total={50} />;
+export const Default = (args: FRCPaginationProps) => {
+    return (
+        <>
+            <Pagination total={50} />
+            disabled
+            <br />
+            <Pagination total={50} disabled />
+        </>
+    )
+};
 
 Default.storyName = '默认 pagination';
 
@@ -89,6 +98,9 @@ Default.storyName = '默认 pagination';
 export const _BaseComponent = () => {
     return (<>
         <Pagination defaultCurrent={6} total={500} />
+        disabled
+        <br />
+        <Pagination disabled defaultCurrent={6} total={500} />
     </>)
 };
 
@@ -102,6 +114,9 @@ _BaseComponent.parameters = {
 export const _QuickJumpComponent = () => {
     return (<>
         <Pagination showQuickJumper defaultCurrent={2} showSizeChanger={false} total={500} />
+        disabled
+        <br />
+        <Pagination showQuickJumper disabled defaultCurrent={2} showSizeChanger={false} total={500} />
     </>)
 };
 
@@ -116,7 +131,6 @@ _QuickJumpComponent.parameters = {
 export const _ShowTotalComponent = () => {
     return (<>
         <Pagination defaultCurrent={6} total={500} showTotal={(total) => `Total ${total} items`} />
-        <Pagination defaultCurrent={6} total={500} showTotal={(total,range) => `${range[0]}-${range[1]} of ${total} items`} />
     </>)
 };
 
@@ -130,10 +144,37 @@ _ShowTotalComponent.parameters = {
 export const _SimpleComponent = () => {
     return (<>
         <Pagination defaultCurrent={2} simple total={500} />
+        disabled
+        <br />
+        <Pagination defaultCurrent={2} disabled simple total={500} />
     </>)
 };
 
 _SimpleComponent.storyName = '简洁 pagination';
 _SimpleComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
+
+// ----------------------------------------------------------------
+
+export const _CustomItemComponent = () => {
+    const itemRender: FRCPaginationProps['itemRender'] = (_, type, originalElement) => {
+        if (type === 'prev') {
+          return <a>上一页</a>;
+        }
+        if (type === 'next') {
+          return <a>下一页</a>;
+        }
+        return originalElement;
+      };
+    return (<>
+        修改上一步和下一步为文字链接。
+        <br />
+        <Pagination total={500} itemRender={itemRender} />
+    </>)
+};
+
+_CustomItemComponent.storyName = '上一步和下一步';
+_CustomItemComponent.parameters = {
     controls: { hideNoControlsWarning: true },
 };
