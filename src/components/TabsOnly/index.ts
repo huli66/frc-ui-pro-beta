@@ -1,8 +1,8 @@
 import { FC } from 'react'
-import Tabs, { FRCTabsProps } from './tabs'
+import TabsOnly, { FRCTabsOnlyProps } from './TabsOnly'
 
-export type FrcTabsCompoent = FC<FRCTabsProps> & {
+export type FrcTabsOnlyCompoent = FC<FRCTabsOnlyProps> & {
 }
 
-const FrcTabs = Tabs as FrcTabsCompoent
+const FrcTabs = TabsOnly as FrcTabsOnlyCompoent
 export default FrcTabs

@@ -1,4 +1,4 @@
-.frc-tabs {
+.frc-tabs-only {
   font-weight: $font-weight-normal;
   color: $words-normal;
   text-align: center;
@@ -36,7 +36,7 @@
     }
   }
 }
-.frc-tabs.frc-tabs-default {
+.frc-tabs-only.frc-tabs-only-default {
   background: $element-background;
   border: 1px solid $tabs-base-border-color-background;
   // 三角箭头样式
@@ -69,7 +69,7 @@
   }
 }
 
-.frc-tabs.frc-tabs-piend {
+.frc-tabs-only.frc-tabs-only-piend {
   background: $tabs-base-background-transparent;
   border: 1px solid $tabs-base-background-transparent;
 
@@ -101,7 +101,7 @@
     }
   }
 }
-.frc-tabs.frc-tabs-disabled {
+.frc-tabs-only.frc-tabs-only-disabled {
   cursor: not-allowed;
   color: $words-disable;
   .frc-tab-pane {
@@ -122,14 +122,14 @@
     color: $words-disable;
   }
 }
-// .frc-tabs.frc-tabs-default.frc-tabs-disabled {
+// .frc-tabs-only.frc-tabs-only-default.frc-tabs-only-disabled {
 //   .active {
 //     &::after {
 //       border-top-color: $tabs-base-border-color-background;
 //     }
 //   }
 // }
-.frc-tabs.frc-tabs-piend.frc-tabs-disabled {
+.frc-tabs-only.frc-tabs-only-piend.frc-tabs-only-disabled {
   .active {
     &::after {
       // 这个地方是自己定义的色值
@@ -141,7 +141,7 @@
     }
   }
 }
-.frc-tabs-size-default {
+.frc-tabs-only-size-default {
   @include tabs-size(
     $tabs-item-default-height,
     $tabs-item-default-line-height,
@@ -149,14 +149,14 @@
   );
 }
 
-.frc-tabs-size-middle {
+.frc-tabs-only-size-middle {
   @include tabs-size(
     $tabs-item-middle-height,
     $tabs-item-middle-line-height,
     $font-size-base
   );
 }
-.frc-tabs-size-large {
+.frc-tabs-only-size-large {
   @include tabs-size(
     $tabs-item-large-height,
     $tabs-item-large-line-height,
@@ -164,7 +164,7 @@
   );
 }
 
-.frc-tabs-not-atuo-width {
+.frc-tabs-only-not-atuo-width {
   .frc-tab-pane {
     .frc-tab-pane-content {
       width: 80px;
@@ -173,6 +173,6 @@
   }
 }
 
-.frc-tabs.frc-tabs-block{
+.frc-tabs-only.frc-tabs-only-block{
   display: table;
 }

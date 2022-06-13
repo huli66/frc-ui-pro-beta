@@ -6,10 +6,10 @@ export interface itemProps {
   value: string;
 }
 
-export type TabsType = "default" | "piend";
-export type TabsSizeType = "default" | "large" | "middle";
-export interface TabsTypeProps {
-  default?: TabsType;
+export type TabsOnlyType = "default" | "piend";
+export type TabsOnlySizeType = "default" | "large" | "middle";
+export interface TabsOnlyTypeProps {
+  default?: TabsOnlyType;
 }
 
 export interface itemsProps {
@@ -20,38 +20,38 @@ export interface itemProps {
   value: string;
 }
 
-export interface TabsBaseProps {
-  /** tabs类名 */
+export interface TabsOnlyBaseProps {
+  /** tabsOnly类名 */
   className?: string;
   children?: any;
 }
 
-interface BaseTabsProps {
-  /** tabs类型，可选default、piend两种类型 */
-  type?: TabsType;
+interface BaseTabsOnlyProps {
+  /** tabsOnly类型，可选default、piend两种类型 */
+  type?: TabsOnlyType;
   /** 默认选中的key */
   defaultSelectedKey?: string;
   /** 设置是否禁用 */
   disabled?: boolean;
   /** 点击事件回调,返回当前选中的项item */
   onSelect?: (item: { key: string; value: string }) => void;
-  /** tabs内容*/
+  /** tabsOnly内容*/
   items?: { key: string; value: string }[];
   /** 样式 */
   style?: CSSProperties;
   /** 大小，提供 large default 和 middle 三种大小 */
-  size?: TabsSizeType;
+  size?: TabsOnlySizeType;
   /** 是否不自动填充宽度，当为true时会根据设定宽度超出...隐藏 */
   notAutoWidth?: boolean;
   /** item项的宽度*/
   width?: number;
-  /** tabs是否独占一行显示*/
+  /** tabsOnly是否独占一行显示*/
   block?: boolean;
 }
 
-export type FRCTabsProps = BaseTabsProps & TabsBaseProps;
+export type FRCTabsOnlyProps = BaseTabsOnlyProps & TabsOnlyBaseProps;
 
-export const Tabs: FC<FRCTabsProps> = (props) => {
+export const TabsOnly: FC<FRCTabsOnlyProps> = (props) => {
   const {
     defaultSelectedKey,
     width,
@@ -66,13 +66,14 @@ export const Tabs: FC<FRCTabsProps> = (props) => {
     type,
     ...restProps
   } = props;
-  // tabs
-  const classes = classNames("frc-tabs", className, {
-    [`frc-tabs-${type}`]: type,
-    [`frc-tabs-size-${size}`]: size,
-    [`frc-tabs-disabled`]: disabled,
-    [`frc-tabs-not-atuo-width`]: notAutoWidth,
-    [`frc-tabs-block`]: block,
+  // tabsOnly frc-tabs-only-only
+  // const classes = classNames("frc-tabs-only", className, {
+    const classes = classNames("frc-tabs-only", className, {
+    [`frc-tabs-only-${type}`]: type,
+    [`frc-tabs-only-size-${size}`]: size,
+    [`frc-tabs-only-disabled`]: disabled,
+    [`frc-tabs-only-not-atuo-width`]: notAutoWidth,
+    [`frc-tabs-only-block`]: block,
   });
 
   const options = {
@@ -118,11 +119,11 @@ export const Tabs: FC<FRCTabsProps> = (props) => {
 };
 
 // default
-Tabs.defaultProps = {
+TabsOnly.defaultProps = {
   type: "default",
   size: "default",
   notAutoWidth: false,
   block: false,
 };
 
-export default Tabs;
+export default TabsOnly;

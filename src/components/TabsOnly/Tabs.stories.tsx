@@ -14,8 +14,8 @@ import {
   Subheading,
 } from "@storybook/addon-docs";
 
-import Tabs from "./index";
-import { FRCTabsProps, itemProps, TabsSizeType, TabsType } from "./tabs";
+import TabsOnly from "./index";
+import { FRCTabsOnlyProps, itemProps, TabsOnlySizeType, TabsOnlyType } from "./TabsOnly";
 import Radio from "../Radio";
 import { RadioChangeEvent } from "antd";
 import InputNumber from "../InputNumber/inputNumber";
@@ -33,7 +33,7 @@ const items = [
 const ImportComponent = () => {
   const markdown = `
 ~~~js
-import { Tabs } from 'frc-ui-pro';
+import { TabsOnly } from 'frc-ui-pro';
 
 // 按需引入 icon
 import { QuestionCircleOutlined } from "@ant-design/icons";
@@ -70,8 +70,8 @@ import { QuestionCircleOutlined } from "@ant-design/icons";
 // ----------------------------------------------------------------
 
 export default {
-  title: "数据显示/Tabs only",
-  component: Tabs,
+  title: "数据显示/TabsOnly",
+  component: TabsOnly,
   parameters: {
     docs: {
       // docs 页面 => 总体布局
@@ -85,22 +85,22 @@ export default {
           <Heading>API</Heading>
           <Subheading>属性</Subheading>
 
-          <Subheading>Tabs</Subheading>
-          <ArgsTable of={Tabs} />
+          <Subheading>TabsOnly</Subheading>
+          <ArgsTable of={TabsOnly} />
         </>
       ),
     },
   },
   // 细分属性 - 分类（用于canvas 页查阅）
-} as ComponentMeta<typeof Tabs>;
+} as ComponentMeta<typeof TabsOnly>;
 
 // ----------------------------------------------------------------
 const onclickCallback = (item: itemProps) => {
   console.log("item", item, item.key, item.value);
 };
-export const Default = (args: FRCTabsProps) => (
+export const Default = (args: FRCTabsOnlyProps) => (
   <>
-    <Tabs
+    <TabsOnly
       {...args}
       block
       defaultSelectedKey="1"
@@ -114,7 +114,7 @@ export const Default = (args: FRCTabsProps) => (
       onSelect={onclickCallback}
       style={{ margin: "12px 12px 12px 0" }}
     />
-    <Tabs
+    <TabsOnly
       {...args}
       defaultSelectedKey="1"
       type="piend"
@@ -130,28 +130,28 @@ export const Default = (args: FRCTabsProps) => (
   </>
 );
 
-Default.storyName = "默认 Tabs";
+Default.storyName = "默认 TabsOnly";
 
 // ----------------------------------------------------------------
 
 export const _BaseComponent = () => {
   return (
     <>
-      <Tabs disabled items={items} style={{ margin: "14px 0" }} />
+      <TabsOnly disabled items={items} style={{ margin: "14px 0" }} />
       <p></p>
-      <Tabs disabled type="piend" items={items} />
+      <TabsOnly disabled type="piend" items={items} />
     </>
   );
 };
 
-_BaseComponent.storyName = "禁用 Tabs";
+_BaseComponent.storyName = "禁用 TabsOnly";
 _BaseComponent.parameters = {
   controls: { hideNoControlsWarning: true },
 };
 // ----------------------------------------------------------------
 
 export const _TypeComponent = () => {
-  const [type, setType] = useState<TabsType>("default");
+  const [type, setType] = useState<TabsOnlyType>("default");
   const onChange = (e: RadioChangeEvent) => {
     console.log("type", e.target.value);
     setType(e.target.value);
@@ -167,12 +167,12 @@ export const _TypeComponent = () => {
         <Radio value="piend">piend</Radio>
       </Radio.Group>
       <p></p>
-      <Tabs type={type} items={items} />
+      <TabsOnly type={type} items={items} />
     </>
   );
 };
 
-_TypeComponent.storyName = "类型切换 Tabs";
+_TypeComponent.storyName = "类型切换 TabsOnly";
 _TypeComponent.parameters = {
   controls: { hideNoControlsWarning: true },
 };
@@ -182,16 +182,16 @@ _TypeComponent.parameters = {
 export const _DefaultSelectComponent = () => {
   return (
     <>
-      <Tabs defaultSelectedKey="2" items={items} />
+      <TabsOnly defaultSelectedKey="2" items={items} />
       <p></p>
-      <Tabs style={{ margin: "24px 0" }} defaultSelectedKey="3" items={items} />
+      <TabsOnly style={{ margin: "24px 0" }} defaultSelectedKey="3" items={items} />
       <p></p>
-      <Tabs type="piend" defaultSelectedKey="4" items={items} />
+      <TabsOnly type="piend" defaultSelectedKey="4" items={items} />
     </>
   );
 };
 
-_DefaultSelectComponent.storyName = "默认选中项 Tabs";
+_DefaultSelectComponent.storyName = "默认选中项 TabsOnly";
 _DefaultSelectComponent.parameters = {
   controls: { hideNoControlsWarning: true },
 };
@@ -199,7 +199,7 @@ _DefaultSelectComponent.parameters = {
 // ----------------------------------------------------------------
 
 export const _ChangeSizeComponent = () => {
-  const [size, setSize] = useState<TabsSizeType>("default");
+  const [size, setSize] = useState<TabsOnlySizeType>("default");
   const onChange = (e: RadioChangeEvent) => {
     console.log("size", e.target.value);
     setSize(e.target.value);
@@ -216,12 +216,12 @@ export const _ChangeSizeComponent = () => {
         <Radio value="large">large</Radio>
       </Radio.Group>
       <p></p>
-      <Tabs size={size} items={items} />
+      <TabsOnly size={size} items={items} />
     </>
   );
 };
 
-_ChangeSizeComponent.storyName = "尺寸切换 Tabs";
+_ChangeSizeComponent.storyName = "尺寸切换 TabsOnly";
 _ChangeSizeComponent.parameters = {
   controls: { hideNoControlsWarning: true },
 };
@@ -240,7 +240,7 @@ export const _setWidth = () => {
         defaultValue={80}
         onChange={onChange}
       />
-      <Tabs
+      <TabsOnly
         width={width}
         items={[
           {
@@ -279,7 +279,7 @@ export const _notAutoWidth = () => {
         <Radio value={true}>true</Radio>
       </Radio.Group>
       <p></p>
-      <Tabs
+      <TabsOnly
         notAutoWidth={notAutoWidth}
         items={[
           {
