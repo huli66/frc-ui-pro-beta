@@ -22,6 +22,7 @@ $words-supporting:          #8F9598 !default;
 $words-disable:             #4A4D4C !default;
 $words-title:               #136C5E !default;
 $words-black:               #000000 !default;
+$words-error:               #ff4d4f !default;
 
 // ----------------------------------------------------------------
 
@@ -530,14 +531,11 @@ $modal-border:                                    2px solid $tittle-word !defaul
 
 // divider
 
-// modal
-
 // basic
 $divider-line-height:                             $line-height-base !default;
 $divider-margin:                                  11px 4px 12px 4px !default;
 $divider-width:                                   calc(100% - 8px) !default;
 $divider-font-family:                             $font-family-base !default;
-
 
 // normal
 $divider-border-top:                              1px solid $basic-btn !default;
@@ -546,6 +544,10 @@ $divider-border-left:                             1px solid $basic-btn !default;
 // text
 $divider-border-top-text:                         0px solid $basic-btn !default;
 $divider-color:                                   $words-disable !default;
+
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
 
 // slider
 $slider-height-sm:                                 4px !default;
@@ -594,7 +596,59 @@ $tabs-item-large-line-height: 32px                !default;
 // tabGroup
 $tab-group-base-padding: 16px                     !default;
 
+// ------------------------------------------------------------------------------
 
+// pagination
+$pagination-item-width:                           24px !default;
+$pagination-item-height:                          24px !default;
+$pagination-item-margin:                          4px !default;
+$pagination-line-height:                          $line-height-base !default;
+$pagination-item-background:                      #1e2423 !default;
+$pagination-border-color:                         #253330 !default;
+$pagination-font-size:                            12px !default;
+$pagination-hover:                                #112320 !default;
+$pagination-inner-background:                     $basic-plate !default;
+$pagination-border-radius:                        2px !default;
+$pagination-item-disabled-background:             $element-background !default;
+$pagination-item-disabled-color:                  $words-disable !default;
 
+// ----------------------------------------------------------------
 
+// steps
+$steps-default-color:                               $words-supporting !default;
+$steps-finish-color:                                $words-high-light !default;
+$steps-process-color:                               $basic-background !default;
+$steps-waite-color:                                 $words-normal !default;
+$steps-error-color:                                 $words-error !default;
+$steps-point-color:                                 $part-plate !default;
+$steps-content-font-size:                           12px !default;
 
+$steps-dot-wrapper-width:                           16px !default;
+$steps-dot-outer-width:                             8px !default;
+$steps-dot-inner-width:                             4px !default;
+$steps-large-width:                                 48px !default;         
+$steps-large-border-width:                          4px !default; 
+$steps-large-line-height:                           40px !default; 
+
+$steps-tail-width:                                  4px !default;
+$steps-tail-left:                                   0 !default;
+$steps-tail-large-top:                              21px !default;
+$steps-tail-vertical-default-top:                   2px !default;
+$steps-tail-vertical-default-left:                  14px !default;
+$steps-tail-vertical-dot-top:                       13.5px !default;
+$steps-tail-vertical-dot-left:                      2.5px !default;
+$steps-tail-vertical-frc-dot-left:                  3.5px !default;
+$steps-tail-vertical-large-top:                     35px !default;
+$steps-tail-vertical-large-left:                    23px !default;
+
+$steps-updown-height:                               120px !default;
+$steps-updown-dot-height:                           80px !default;
+$steps-updown-large-height:                         140px !default;
+$steps-updown-content-gap-top:                      calc(50% + 16px) !default;
+$steps-updown-content-gap-bottom:                   calc(50% + 16px)!default;
+$steps-updown-content-dot-gap-top:                  calc(50% + 8px) !default;
+$steps-updown-content-dot-gap-bottom:               calc(50% + 14px) !default;
+$steps-updown-content-large-gap-top:                calc(50% + 24px) !default;
+$steps-updown-content-large-gap-bottom:             calc(50% + 32px) !default;
+$steps-updown-content-middle-gap-top:               calc(50% + 16px) !default;
+$steps-updown-content-middle-gap-bottom:            calc(50% + 18px) !default;
