@@ -70,7 +70,7 @@ import { QuestionCircleOutlined } from "@ant-design/icons";
 // ----------------------------------------------------------------
 
 export default {
-  title: "数据显示/Tabs 标签页",
+  title: "数据显示/Tabs only",
   component: Tabs,
   parameters: {
     docs: {

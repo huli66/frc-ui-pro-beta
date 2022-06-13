@@ -2,7 +2,7 @@
   @include menu-color($words-normal, $menu-base-background);
   font-size: $font-size-base;
   border-color: $menu-base-border-color-background;
-  padding: $menu-base-padding 0;
+  padding: $menu-small-padding 0;
   .ant-menu-item .ant-menu-item-icon + span,
   .ant-menu-submenu-title .ant-menu-item-icon + span,
   .ant-menu-item .anticon + span,
@@ -176,7 +176,7 @@
   font-size: $font-size-base;
 }
 .ant-menu .ant-menu-item,
-.ant-menu-sub .ant-menu-item,.ant-menu 
-.ant-menu-submenu-title {
+.ant-menu-sub .ant-menu-item,
+.ant-menu .ant-menu-submenu-title {
   font-size: $font-size-base;
 }
