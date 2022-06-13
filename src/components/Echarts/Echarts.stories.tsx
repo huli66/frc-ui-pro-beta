@@ -47,7 +47,7 @@ import { Bar } from 'frc-ui-pro';
 // ----------------------------------------------------------------
 
 export default {
-    title: 'Echarts 图表/Bar 柱状图',
+    title: 'Echarts 图表/Bar 柱状图 (暂不可用)',
     component: Bar,
     parameters: {
         docs: {
