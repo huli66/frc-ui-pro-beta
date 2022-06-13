@@ -10,6 +10,7 @@ $tittle-word:               #136c5e !default;
 $button:                    #252b23 !default;
 $high-light-area-top:       #F38A00 !default;
 $high-light-area-bottom:    #F9C152 !default;
+$high-light-area-right:     #ffb100 !default;
 $new-data:                  #241F0C !default;
 
 // ----------------------------------------------------------------
@@ -557,6 +558,44 @@ $slider-handle-bg:                                 #253330 !default;
 $slider-dragging-bg:                               #0a2420 !default;
 $slider-track-bg:                                  #1e2423 !default;
 $slider-track-bg-hover:                            #241F0C !default;
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+
+
+// menu
+$menu-base-background: #101414                  !default;
+$menu-base-background-hover: #0a2420            !default;
+$menu-base-background-transparent: transparent    !default;
+$menu-base-border-color-background: #253330     !default;
+$menu-small-padding: 8px                          !default;
+$menu-base-padding: 16px                          !default;
+$menu-base-padding-lg: 24px                       !default;
+$menu-base-margin: 8px                            !default;
+$menu-base-margin-small: 6px                      !default;
+$menu-base-text-indent: 8px                       !default;
+$menu-item-height: 24px                           !default;
+
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+
+// tabs
+$tabs-base-background: #101414                  !default;
+$tabs-base-background-hover: #0a2420            !default;
+$tabs-base-background-transparent: transparent    !default;
+$tabs-base-border-color-background: #253330     !default;
+$tabs-base-padding: 16px                          !default;
+$tabs-item-default-height: 24px                   !default;
+$tabs-item-default-line-height: 20px              !default; //如果和高度一样不好看
+$tabs-item-middle-height: 30px                    !default;
+$tabs-item-middle-line-height: 26px               !default;
+$tabs-item-large-height: 36px                     !default;
+$tabs-item-large-line-height: 32px                !default;
+
+// tabGroup
+$tab-group-base-padding: 16px                     !default;
+
 // ------------------------------------------------------------------------------
 
 // pagination

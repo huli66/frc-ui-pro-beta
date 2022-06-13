@@ -9,6 +9,8 @@ export { default as Radio } from './components/Radio'
 export { default as Select } from './components/Select'
 export { default as Switch } from './components/Switch'
 export { default as TimePicker } from './components/TimePicker'
+export { default as Menu } from "./components/Menu";
+export { default as TabsOnly } from "./components/TabsOnly";
 export { default as Socket } from './components/Socket'
 export { default as Loading } from './components/loading'
 export { default as Error } from './components/Error'

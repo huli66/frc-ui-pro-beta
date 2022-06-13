@@ -269,12 +269,11 @@
       cursor: not-allowed !important;
     }
 
-    &.ant-select-multiple{
-      .ant-select-selection-item{
+    &.ant-select-multiple {
+      .ant-select-selection-item {
         padding-inline-end: 6px !important;
       }
     }
-
 
     // follow
     &::-webkit-input-placeholder {
@@ -757,6 +756,31 @@
 }
 // ----------------------------------------------------------------
 
+@mixin menu-height($height, $line-height) {
+  height: $height;
+  line-height: $line-height;
+}
+
+@mixin menu-color($color, $background) {
+  background: $background;
+  color: $color;
+}
+
+// ----------------------------------------------------------------
+
+@mixin tabs-size($height, $line-height, $font-size) {
+  height: $height;
+  line-height: $line-height;
+  font-size: $font-size;
+}
+
+// ----------------------------------------------------------------
+
+@mixin nowrap() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 @mixin pagination-item-base{
   min-width: $pagination-item-width;
   height: $pagination-item-height;

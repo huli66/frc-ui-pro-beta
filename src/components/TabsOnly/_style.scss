@@ -1,0 +1,178 @@
+.frc-tabs-only {
+  font-weight: $font-weight-normal;
+  color: $words-normal;
+  text-align: center;
+  box-sizing: border-box;
+  display: table-cell;
+  border-radius: $border-radius;
+  position: relative;
+  zoom: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  &::after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+  .frc-tab-pane {
+    height: 100%;
+    float: left;
+    box-sizing: border-box;
+    padding: 0;
+    background-color: $tabs-base-background-transparent;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    &:hover {
+      background-color: $tabs-base-background-hover;
+      cursor: pointer;
+    }
+    .frc-tab-pane-content {
+      min-width: 80px;
+      height: 100%;
+      padding: 0 $tabs-base-padding;
+      box-sizing: border-box;
+      @include nowrap;
+    }
+  }
+}
+.frc-tabs-only.frc-tabs-only-default {
+  background: $element-background;
+  border: 1px solid $tabs-base-border-color-background;
+  // 三角箭头样式
+  // .frc-tab-pane {
+  //   &::after {
+  //     content: "";
+  //     position: absolute;
+  //     left: 50%;
+  //     top: -$tabs-base-padding;
+  //     transform: translate(-50%, 0);
+  //     display: block;
+  //     width: 0;
+  //     height: 0;
+  //     border-radius: 0;
+  //     border-top: 8px solid $tabs-base-background-transparent;
+  //     border-right: 4px solid $tabs-base-background-transparent;
+  //     border-bottom: 0px solid $tabs-base-background-transparent;
+  //     border-left: 4px solid $tabs-base-background-transparent;
+  //   }
+  // }
+
+  .active {
+    background: $tabs-base-border-color-background;
+    &:hover {
+      background-color: $tabs-base-border-color-background;
+    }
+    // &::after {
+    //   border-top-color: $words-high-light;
+    // }
+  }
+}
+
+.frc-tabs-only.frc-tabs-only-piend {
+  background: $tabs-base-background-transparent;
+  border: 1px solid $tabs-base-background-transparent;
+
+  .frc-tab-pane {
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: -2px;
+      display: block;
+      width: 100%;
+      height: 2px;
+      border-radius: 0;
+      background-image: none;
+    }
+  }
+
+  .active {
+    background: $basic-background;
+    &:hover {
+      background-color: $basic-background;
+    }
+    &::after {
+      background-image: linear-gradient(
+        270deg,
+        $high-light-area-top 0%,
+        $high-light-area-right 100%
+      );
+    }
+  }
+}
+.frc-tabs-only.frc-tabs-only-disabled {
+  cursor: not-allowed;
+  color: $words-disable;
+  .frc-tab-pane {
+    color: $words-disable;
+    cursor: not-allowed;
+    &:hover {
+      background-color: $tabs-base-background-transparent;
+      cursor: not-allowed;
+    }
+  }
+  .frc-tab-pane.active {
+    &:hover {
+      background-color: $tabs-base-border-color-background;
+    }
+  }
+  .active {
+    background: $tabs-base-border-color-background;
+    color: $words-disable;
+  }
+}
+// .frc-tabs-only.frc-tabs-only-default.frc-tabs-only-disabled {
+//   .active {
+//     &::after {
+//       border-top-color: $tabs-base-border-color-background;
+//     }
+//   }
+// }
+.frc-tabs-only.frc-tabs-only-piend.frc-tabs-only-disabled {
+  .active {
+    &::after {
+      // 这个地方是自己定义的色值
+      background-image: linear-gradient(
+        270deg,
+        rgba(243, 138, 0, 0.4) 0%,
+        rgba(255, 177, 0, 0.2) 100%
+      );
+    }
+  }
+}
+.frc-tabs-only-size-default {
+  @include tabs-size(
+    $tabs-item-default-height,
+    $tabs-item-default-line-height,
+    $font-size-base
+  );
+}
+
+.frc-tabs-only-size-middle {
+  @include tabs-size(
+    $tabs-item-middle-height,
+    $tabs-item-middle-line-height,
+    $font-size-base
+  );
+}
+.frc-tabs-only-size-large {
+  @include tabs-size(
+    $tabs-item-large-height,
+    $tabs-item-large-line-height,
+    $font-size-medium
+  );
+}
+
+.frc-tabs-only-not-atuo-width {
+  .frc-tab-pane {
+    .frc-tab-pane-content {
+      width: 80px;
+      @include nowrap;
+    }
+  }
+}
+
+.frc-tabs-only.frc-tabs-only-block{
+  display: table;
+}
