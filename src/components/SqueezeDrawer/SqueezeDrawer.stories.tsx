@@ -77,11 +77,7 @@ export default {
 // ----------------------------------------------------------------
 
 export const SqueezeDrawerDefault = (args: ISqueezeDrawerProps) => {
-  const contentStyle: React.CSSProperties = {
-    textAlign: 'center',
-    lineHeight: '600px',
-  }
-  const {onClick, ...rest} = args
+  const { onOpenChange, ...rest } = args
   return (
     <div className='suqeeze-drawer-container'>
       <SqueezeDrawer
@@ -96,31 +92,21 @@ SqueezeDrawerDefault.parameters = {};
 
 
 
-// export const _Test = (args: ISqueezeDrawerProps) => {
-//   const [show, setShow] = useState(true)
-//   const onClick = (a?: boolean, b?: boolean) => {
-//     setShow(!show)
-//   }
-//   const contentStyle: React.CSSProperties = {
-//     // width: '400px',
-//     // height: '100%',
-//     textAlign: 'center',
-//     lineHeight: '400px',
-//     // height: '1300px'
-//   }
-//   return (
-//     <div className='suqeeze-drawer-container'>
-//       <SqueezeDrawer
-//         {...args}
-//         mainContent={(<div style={contentStyle}>我是主层级</div>)}
-//         extraContent={(<div style={contentStyle}>我是弹出层级</div>)}
-//         // width={width}
-//         // extraContentVisible={show}
-//         onClick={onClick}
-//       />
-//     </div>
-//   )
-// };
+export const _ControlComponent = () => {
+  const [visible, setVisible] = useState(true)
+  const onHandleClick = (open: boolean) => {
+    console.log('onHandleClick');
+    setVisible(open)
+  }
 
-// _Test.storyName = '测试 squeezeDrawer';
-// _Test.parameters = {};
+  return (
+    <div className='suqeeze-drawer-container'>
+      <SqueezeDrawer extraContentVisible={visible} onOpenChange={onHandleClick} />
+    </div>
+  )
+};
+
+_ControlComponent.storyName = '受控 squeezeDrawer';
+_ControlComponent.parameters = {
+  controls: { hideNoControlsWarning: true },
+};

@@ -1,8 +1,7 @@
-import React, { FC, useRef, useEffect, useState, useCallback } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import 'moment/locale/zh-cn'
 import { ReactElement } from 'react-markdown/lib/react-markdown'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-import './_style.scss'
 
 export interface ISqueezeDrawerProps {
   /** 宽度 */
@@ -14,7 +13,7 @@ export interface ISqueezeDrawerProps {
   /** 主层内容是否显示 */
   extraContentVisible?: boolean
   /** 点击开关回调 */
-  onClick?: (nextExtraContentVisible?: boolean, preExtraContentVisible?: boolean) => (any | undefined)
+  onOpenChange?: (open: boolean) => void
   /** SqueezeDrawer样式 */
   style?: React.CSSProperties
   /** 弹出层样式 */
@@ -27,29 +26,45 @@ export interface ISqueezeDrawerProps {
 
 export const SqueezeDrawer: FC<ISqueezeDrawerProps> = (props) => {
   const {
-    extraContent, mainContent, extraContentVisible, width,
-    onClick, style, extraContentStyle: extraContentStyleProps, mainContentStyle,
+    extraContent,
+    mainContent,
+    extraContentVisible,
+    width,
+    onOpenChange,
+    style,
+    extraContentStyle: extraContentStyleProps,
+    mainContentStyle,
     turnStyle
   } = props
-  const [visible, setVisible] = useState(false)
-  const defaultHandleChange = () => {
-    let nextVisible = visible
-    if (extraContentVisible === undefined) {
-      nextVisible = !visible
-    }
-    setVisible(nextVisible)
-  }
-  useEffect(() => { setVisible(!!extraContentVisible) }, [extraContentVisible])
 
-  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>): any => {
-    const handleOnpenFlagClick = onClick || defaultHandleChange
-    handleOnpenFlagClick(!extraContentVisible, extraContentVisible)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    if (extraContentVisible !== undefined) {
+      setVisible(!!extraContentVisible)
+    }
+  }, [extraContentVisible])
+
+  // ----------------------------------------------------------------------------------
+
+  const handleClick = (): void => {
+    if (onOpenChange) {
+      // 受控组件
+      onOpenChange(!visible)
+    } else {
+      // 默认切换
+      if (extraContentVisible === undefined) {
+        setVisible(!visible)
+      }
+    }
   }
 
   const extraContentStyle = {
     ...extraContentStyleProps,
     width: visible ? width : 0
   }
+
+  // ----------------------------------------------------------------------------------
 
   return (
     <div className="frc-squeeze-drawer" style={style}>
@@ -68,7 +83,7 @@ export const SqueezeDrawer: FC<ISqueezeDrawerProps> = (props) => {
 
 // normal
 SqueezeDrawer.defaultProps = {
-  width: 'fit-content',
+  width: '300px',
   mainContent: (
     <div
       style={{
