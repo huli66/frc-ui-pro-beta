@@ -17,8 +17,6 @@ import {
 import SqueezeDrawer from './index';
 import { ISqueezeDrawerProps } from './squeezeDrawer'
 import './_story.scss'
-import { number } from 'yargs';
-import { CSSObject } from '@emotion/serialize';
 
 // ----------------------------------------------------------------
 
@@ -54,7 +52,7 @@ import { SqueezeDrawer } from 'frc-ui-pro';
 // ----------------------------------------------------------------
 
 export default {
-  title: '布局/SqueezeDrawer 按钮',
+  title: '布局/SqueezeDrawer',
   component: SqueezeDrawer,
   parameters: {
     docs: {
@@ -67,7 +65,6 @@ export default {
           <Stories title="组件总览" includePrimary={true} />
           <Heading>API</Heading>
           <Subheading>属性</Subheading>
-
           <Subheading>SqueezeDrawer</Subheading>
           <ArgsTable of={SqueezeDrawer} />
         </>
@@ -79,33 +76,51 @@ export default {
 
 // ----------------------------------------------------------------
 
-export const Default = (args: ISqueezeDrawerProps) => {
-  const [show, setShow] = useState(true)
-  const onChange = (a?: boolean, b?: boolean) => {
-    setShow(!show)
-  }
-  const width = 200
+export const SqueezeDrawerDefault = (args: ISqueezeDrawerProps) => {
   const contentStyle: React.CSSProperties = {
-    // width: '400px',
-    // height: '100%',
     textAlign: 'center',
     lineHeight: '600px',
-    // height: '1300px'
   }
+  const {onClick, ...rest} = args
   return (
     <div className='suqeeze-drawer-container'>
       <SqueezeDrawer
-        {...args}
-        mainContent={(<div style={contentStyle}>我是主层级</div>)}
-        extraContent={(<div style={contentStyle}>我是弹出层级</div>)}
-        extraContentStyle={{}}
-        // width={width}
-        extraContentVisible={show}
-        onChange={onChange}
+        {...rest}
       />
     </div>
   )
 };
 
-Default.storyName = '默认 squeezeDrawer';
-Default.parameters = {};
+SqueezeDrawerDefault.storyName = '默认 squeezeDrawer';
+SqueezeDrawerDefault.parameters = {};
+
+
+
+// export const _Test = (args: ISqueezeDrawerProps) => {
+//   const [show, setShow] = useState(true)
+//   const onClick = (a?: boolean, b?: boolean) => {
+//     setShow(!show)
+//   }
+//   const contentStyle: React.CSSProperties = {
+//     // width: '400px',
+//     // height: '100%',
+//     textAlign: 'center',
+//     lineHeight: '400px',
+//     // height: '1300px'
+//   }
+//   return (
+//     <div className='suqeeze-drawer-container'>
+//       <SqueezeDrawer
+//         {...args}
+//         mainContent={(<div style={contentStyle}>我是主层级</div>)}
+//         extraContent={(<div style={contentStyle}>我是弹出层级</div>)}
+//         // width={width}
+//         // extraContentVisible={show}
+//         onClick={onClick}
+//       />
+//     </div>
+//   )
+// };
+
+// _Test.storyName = '测试 squeezeDrawer';
+// _Test.parameters = {};
