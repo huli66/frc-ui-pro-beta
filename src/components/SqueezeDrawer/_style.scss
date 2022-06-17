@@ -1,0 +1,43 @@
+.frc-squeeze-drawer{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  // position: relative;
+}
+
+.frc-squeeze-drawer-main-content{
+  display: inline-block;
+  height: 100%;
+  flex: 1;
+  background-color: #000;
+  border-radius: 2px;
+}
+
+.frc-squeeze-drawer-extra-content{
+  display: inline-block;
+  background-color: #253330;
+  width: fit-content;
+  height: 100%;
+  position: relative;
+  border-radius: 2px;
+}
+
+.open-flag{
+  height: 40px;
+  width: 8px;
+  background-color: #1E2423 ;
+  border-radius: 2px;
+  position: absolute;
+  top: 50%;
+  left: -8px;
+  margin-top: -10px;
+  span{
+    width: 8px;
+    height: 40px;
+  }
+  svg{
+    width: 8px;
+    height: 40px;
+    color: #FFEBC8;
+  }
+}
