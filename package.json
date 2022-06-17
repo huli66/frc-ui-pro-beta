@@ -1,6 +1,6 @@
 {
   "name": "frc-ui-pro",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": "sumscope",
   "private": false,
   "main": "dist/src/index.js",
@@ -40,16 +40,16 @@
     "web-vitals": "^2.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "clean": "rimraf ./dist",
-    "build": "npm run clean && npm run build-ts && npm run build-css && npm run cp-public",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "clean": "rimraf ./dist",
+    "clean-docs": "rimraf ./storybook-static",
     "build-ts": "tsc -p tsconfig.build.json",
     "build-css": "node-sass ./src/styles/index.scss ./dist/src/styles/global/index.css",
     "cp-public": "cp -R ./public ./dist",
+    "build": "npm run clean && npm run build-ts && npm run build-css && npm run cp-public",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public",
+    "build-storybook": "npm run clean-docs && build-storybook -s public",
     "prepublishOnly": "npm run build"
   },
   "eslintConfig": {
