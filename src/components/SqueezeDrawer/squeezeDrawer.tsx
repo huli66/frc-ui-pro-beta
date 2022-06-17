@@ -39,11 +39,7 @@ export const SqueezeDrawer: FC<ISqueezeDrawerProps> = (props) => {
 
   const [visible, setVisible] = useState(false)
 
-  useEffect(() => {
-    if (extraContentVisible !== undefined) {
-      setVisible(!!extraContentVisible)
-    }
-  }, [extraContentVisible])
+  useEffect(() => { setVisible(!!extraContentVisible) }, [extraContentVisible])
 
   // ----------------------------------------------------------------------------------
 

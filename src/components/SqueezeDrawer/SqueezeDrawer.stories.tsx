@@ -25,6 +25,29 @@ const ImportComponent = () => {
   const markdown = `
 ~~~js
 import { SqueezeDrawer } from 'frc-ui-pro';
+
+export const _ControlComponent = () => {
+  const [visible, setVisible] = useState(true)
+  const onHandleClick = (open: boolean) => {
+    setVisible(open)
+  }
+
+  return (
+    <div className='suqeeze-drawer-container'>
+      <SqueezeDrawer extraContentVisible={visible} onOpenChange={onHandleClick} />
+    </div>
+  )
+};
+~~~
+
+~~~css
+.suqeeze-drawer-container{
+  width: 100%;
+  height: 400px;
+  background-color: gray;
+  overflow-y: auto;
+  position: relative;
+}
 ~~~
 `
 
@@ -52,7 +75,7 @@ import { SqueezeDrawer } from 'frc-ui-pro';
 // ----------------------------------------------------------------
 
 export default {
-  title: '布局/SqueezeDrawer',
+  title: '布局/SqueezeDrawer 挤压抽屉',
   component: SqueezeDrawer,
   parameters: {
     docs: {
@@ -60,12 +83,12 @@ export default {
       page: () => (
         <>
           <Title />
-          <Description>通过鼠标或键盘，输入范围内的数值。</Description>
+          <Description>点击开关,控制弹出层展示关闭</Description>
           <ImportComponent />
           <Stories title="组件总览" includePrimary={true} />
           <Heading>API</Heading>
           <Subheading>属性</Subheading>
-          <Subheading>SqueezeDrawer</Subheading>
+          <Subheading>SqueezeDrawer 挤压抽屉</Subheading>
           <ArgsTable of={SqueezeDrawer} />
         </>
       ),
@@ -95,7 +118,6 @@ SqueezeDrawerDefault.parameters = {};
 export const _ControlComponent = () => {
   const [visible, setVisible] = useState(true)
   const onHandleClick = (open: boolean) => {
-    console.log('onHandleClick');
     setVisible(open)
   }
 
