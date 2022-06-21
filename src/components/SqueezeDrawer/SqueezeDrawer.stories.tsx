@@ -123,7 +123,7 @@ export const _ControlComponent = () => {
 
   return (
     <div className='suqeeze-drawer-container'>
-      <SqueezeDrawer extraContentVisible={visible} onOpenChange={onHandleClick} />
+      <SqueezeDrawer className='testone' extraContentVisible={visible} onOpenChange={onHandleClick} />
     </div>
   )
 };
