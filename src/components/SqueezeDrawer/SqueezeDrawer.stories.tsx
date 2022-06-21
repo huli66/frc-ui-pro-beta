@@ -45,8 +45,6 @@ export const _ControlComponent = () => {
   width: 100%;
   height: 400px;
   background-color: gray;
-  overflow-y: auto;
-  position: relative;
 }
 ~~~
 `
