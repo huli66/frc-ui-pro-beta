@@ -5,14 +5,14 @@ import { LeftOutlined, RightOutlined, DownOutlined, UpOutlined } from '@ant-desi
 
 export const tuple = <T extends string[]>(...args: T) => args;
 const PlacementTypes = tuple('top', 'right', 'bottom', 'left');
-type placementType = typeof PlacementTypes[number];
+export type placementType = typeof PlacementTypes[number];
 
 export interface ISqueezeDrawerProps {
   /** 弹出层宽度 placement设置为 right 和 left 时生效 */
   width?: number | string,
   /** 弹出层高度 placement设置为 top 和 bottom 时生效 */
   height?: number | string,
-  /** 折叠抽屉的外层类名 */ 
+  /** 折叠抽屉的外层类名 */
   className?: string,
   /** 弹出方向 */
   placement?: placementType,
