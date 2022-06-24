@@ -2,7 +2,6 @@ import React, { ReactEventHandler, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism'
-
 import { ComponentMeta } from '@storybook/react';
 
 import {
@@ -17,7 +16,7 @@ import {
 import DndList from './index';
 import { IDndListProps } from './DndContainer'
 import './_story.scss'
-import { useCallback } from '@storybook/addons';
+import Item from 'antd/lib/list/Item';
 
 // ----------------------------------------------------------------
 
@@ -99,25 +98,24 @@ export default {
 // ----------------------------------------------------------------
 
 export const DndListDefault = (args: IDndListProps) => {
-  const [dataList, setDataList] = useState<any[]>([{ value: 55555 }, { value: 66666 }, { value: 77777 }])
+  const [dataList, setDataList] = useState<any[]>([{ value: 55555,color: 'red' }, { value: 66666,color: 'blue' }, { value: 77777, color: 'yellow' }])
   return (
     <div className='dndlist-container'>
       <DndList
         {...args}
         dataList={dataList}
         type={'yuo'}
-        itemKey={item => item.value}
-        render={item => (<div style={{ height: 100 }}>{item.value}</div>)}
-        drop={(dragItem, dropItem) => {
-          // const newDataList = [...dragDataList]
+        getItemKey={item => item.value}
+        render={(item,index) => (<div style={{ background:item.color,height: 100 }}>{item.value}</div>)}
+        hover={(dragItem, dropItem) => {
           const newDataList = [...dataList]
           const dragItemIndex = newDataList.findIndex(item => dragItem.value === item.value)
-          newDataList.splice(dragItemIndex, 1)
           const dropItemIndex = newDataList.findIndex(item => dropItem.value === item.value)
-          newDataList.splice(dropItemIndex + 1, 0, dragItem)
+          newDataList.splice(dragItemIndex, 1)
+          newDataList.splice(dropItemIndex, 0, dragItem)
           setDataList(newDataList)
         }}
-        listItemStyle={{ background: 'blue',marginBottom: '5px' }}
+        listItemStyle={{ background: 'blue', marginBottom: '5px' }}
       />
     </div>
   )
@@ -125,3 +123,31 @@ export const DndListDefault = (args: IDndListProps) => {
 
 DndListDefault.storyName = '默认 DndList';
 DndListDefault.parameters = {};
+
+export const DndListNotDrag = (args: IDndListProps) => {
+  const [dataList, setDataList] = useState<any[]>([{ value: 55555,color: 'red' }, { value: 66666,color: 'blue' }, { value: 77777, color: 'yellow' }])
+  return (
+    <div className='dndlist-container'>
+      <DndList
+        {...args}
+        dataList={dataList}
+        type={'yuo'}
+        getItemKey={item => item.value}
+        canDrag={(item) => item.value !== 55555}
+        render={(item,index) => (<div style={{ background:item.color,height: 100 }}>{item.value}</div>)}
+        hover={(dragItem, dropItem) => {
+          const newDataList = [...dataList]
+          const dragItemIndex = newDataList.findIndex(item => dragItem.value === item.value)
+          const dropItemIndex = newDataList.findIndex(item => dropItem.value === item.value)
+          newDataList.splice(dragItemIndex, 1)
+          newDataList.splice(dropItemIndex, 0, dragItem)
+          setDataList(newDataList)
+        }}
+        listItemStyle={{ background: 'blue', marginBottom: '5px' }}
+      />
+    </div>
+  )
+};
+
+DndListNotDrag.storyName = '不可拖拽 DndList';
+DndListNotDrag.parameters = {};
