@@ -16,7 +16,6 @@ import {
 import DndList from './index';
 import { IDndListProps } from './DndContainer'
 import './_story.scss'
-import Item from 'antd/lib/list/Item';
 
 // ----------------------------------------------------------------
 
@@ -24,17 +23,28 @@ import Item from 'antd/lib/list/Item';
 const ImportComponent = () => {
   const markdown = `
 ~~~js
-import { SqueezeDrawer } from 'frc-ui-pro';
+import { DndList } from 'frc-ui-pro';
 
-export const _ControlComponent = () => {
-  const [visible, setVisible] = useState(true)
-  const onHandleClick = (open: boolean) => {
-    setVisible(open)
-  }
-
+export const DndListDefault = (args: IDndListProps) => {
+  const [dataList, setDataList] = useState<any[]>([{ value: 55555,color: 'red' }, { value: 66666,color: 'blue' }, { value: 77777, color: 'yellow' }])
   return (
-    <div className='suqeeze-drawer-container'>
-      <SqueezeDrawer extraContentVisible={visible} onOpenChange={onHandleClick} />
+    <div className='dndlist-container'>
+      <DndList
+        {...args}
+        dataList={dataList}
+        type={'yuo'}
+        getItemKey={item => item.value}
+        render={(item,index) => (<div style={{ background:item.color,height: 100 }}>{item.value}</div>)}
+        hover={(dragItem, dropItem) => {
+          const newDataList = [...dataList]
+          const dragItemIndex = newDataList.findIndex(item => dragItem.value === item.value)
+          const dropItemIndex = newDataList.findIndex(item => dropItem.value === item.value)
+          newDataList.splice(dragItemIndex, 1)
+          newDataList.splice(dropItemIndex, 0, dragItem)
+          setDataList(newDataList)
+        }}
+        listItemStyle={{ background: 'blue', marginBottom: '5px' }}
+      />
     </div>
   )
 };
@@ -100,7 +110,7 @@ export default {
 export const DndListDefault = (args: IDndListProps) => {
   const [dataList, setDataList] = useState<any[]>([{ value: 55555,color: 'red' }, { value: 66666,color: 'blue' }, { value: 77777, color: 'yellow' }])
   return (
-    <div className='dndlist-container'>
+    <div className='dndlist-container' style={{width: '400px'}}>
       <DndList
         {...args}
         dataList={dataList}
