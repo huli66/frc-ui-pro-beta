@@ -652,3 +652,20 @@ $steps-updown-content-large-gap-top:                calc(50% + 24px) !default;
 $steps-updown-content-large-gap-bottom:             calc(50% + 32px) !default;
 $steps-updown-content-middle-gap-top:               calc(50% + 16px) !default;
 $steps-updown-content-middle-gap-bottom:            calc(50% + 18px) !default;
+// ----------------------------------------------------------------
+
+// dropdown
+
+$dropdown-default-width:                            120px !default;
+$dropdown-default-height:                           24px !default;
+$dropdown-base-background:                          $element-background !default;
+$dropdown-hover-background:                         $btn-hover !default;
+$dropdown-focus-background:                         $part-plate !default;
+$dropdown-border-color:                           #253330 !default;
+$dropdown-text-normal:                              $words-normal !default;
+$dropdown-text-highlight:                           $words-high-light !default;
+$dropdown-text-disabled:                            $words-disable !default;
+$dropdown-base-margin:                              8px !default;
+$dropdown-min-margin:                               4px !default;
+$dropdown-font-size:                                $font-size-base !default;
+

@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import Select, { OptionProps } from 'antd/es/select'
 
-const { Option } = Select
+const { Option : AntOption } = Select
 
 interface BaseOptionProps {
     /** Option 器类名 */
@@ -16,15 +16,15 @@ interface BaseOptionProps {
 
 export type FRCSelectOptionProps = BaseOptionProps & OptionProps
 
-export const FRCSelectOption: FC<FRCSelectOptionProps> = (props) => {
+export const Option: FC<FRCSelectOptionProps> = (props) => {
     return (
-        <Option {...props} />
+        <AntOption {...props} />
     )
 }
 
 // normal
-FRCSelectOption.defaultProps = {
+Option.defaultProps = {
     disabled: false,
 }
 
-export default FRCSelectOption
+export default Option
