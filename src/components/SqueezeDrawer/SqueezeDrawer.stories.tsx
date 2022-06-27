@@ -2,6 +2,7 @@ import React, { ReactEventHandler, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import Button  from '../Button';
 
 import { ComponentMeta } from '@storybook/react';
 
@@ -25,6 +26,11 @@ const ImportComponent = () => {
   const markdown = `
 ~~~js
 import { SqueezeDrawer } from 'frc-ui-pro';
+
+// 如果你使用了typescript，请申明对应的placement类型：
+// export const tuple = <T extends string[]>(...args: T) => args;
+// const PlacementTypes = tuple('top', 'right', 'bottom', 'left');
+// export type placementType = typeof PlacementTypes[number];
 
 export const _ControlComponent = () => {
   const [visible, setVisible] = useState(true)
@@ -128,5 +134,34 @@ export const _ControlComponent = () => {
 
 _ControlComponent.storyName = '受控 squeezeDrawer';
 _ControlComponent.parameters = {
+  controls: { hideNoControlsWarning: true },
+};
+
+const tuple = <T extends string[]>(...args: T) => args;
+const PlacementTypes = tuple('top', 'right', 'bottom', 'left');
+type placementType = typeof PlacementTypes[number];
+
+export const _PlacementComponent = () => {
+  const [visible, setVisible] = useState(true)
+  const onHandleClick = (open: boolean) => {
+    setVisible(open)
+  }
+  const [placement, setPlacement] = useState<placementType>('left')
+
+  return (
+    <div>
+      <Button onClick={()=>setPlacement('left')}>左侧弹出</Button>
+      <Button onClick={()=>setPlacement('top')}>上方弹出</Button>
+      <Button onClick={()=>setPlacement('right')}>右侧弹出</Button>
+      <Button onClick={()=>setPlacement('bottom')}>下方弹出</Button>
+      <div className='suqeeze-drawer-container'>
+        <SqueezeDrawer className='testone' placement={placement} extraContentVisible={visible} onOpenChange={onHandleClick} />
+      </div>
+    </div>
+  )
+};
+
+_PlacementComponent.storyName = '方向选择 squeezeDrawer';
+_PlacementComponent.parameters = {
   controls: { hideNoControlsWarning: true },
 };
