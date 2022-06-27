@@ -18,5 +18,5 @@ export { default as Slider } from './components/Slider';
 export { default as Pagination} from './components/Pagination';
 export { default as SqueezeDrawer} from './components/SqueezeDrawer';
 export { default as Steps} from './components/Steps'
-export { default as DndList} from './components/dndlist'
+export { default as DndList} from './components/Dndlist'
 

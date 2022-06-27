@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useRef } from 'react';
 import { DragSourceMonitor, DropTargetMonitor, useDrag, useDrop } from 'react-dnd';
 
 export type obj = { [propname: string]: any }
