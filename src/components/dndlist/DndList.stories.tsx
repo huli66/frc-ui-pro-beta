@@ -13,8 +13,8 @@ import {
   Subheading
 } from '@storybook/addon-docs';
 
-import DndList from './index';
-import { IDndListProps } from './DndContainer'
+import DndList from '.';
+import { IDndListProps } from './dndContainer'
 import './_story.scss'
 
 // ----------------------------------------------------------------

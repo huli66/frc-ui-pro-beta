@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
-import DndContainer, { IDndListProps, obj } from './DndContainer';
+import DndContainer, { IDndListProps } from './dndContainer';
 
 export const DndList: FC<IDndListProps> = (props) => {
   return (
