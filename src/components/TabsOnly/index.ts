@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import TabsOnly, { FRCTabsOnlyProps } from './TabsOnly'
+import TabsOnly, { FRCTabsOnlyProps } from './tabsOnly'
 
 export type FrcTabsOnlyCompoent = FC<FRCTabsOnlyProps> & {
 }

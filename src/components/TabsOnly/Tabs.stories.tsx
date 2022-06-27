@@ -14,8 +14,8 @@ import {
   Subheading,
 } from "@storybook/addon-docs";
 
-import TabsOnly from "./index";
-import { FRCTabsOnlyProps, itemProps, TabsOnlySizeType, TabsOnlyType } from "./TabsOnly";
+import TabsOnly from ".";
+import { FRCTabsOnlyProps, itemProps, TabsOnlySizeType, TabsOnlyType } from "./tabsOnly";
 import Radio from "../Radio";
 import { RadioChangeEvent } from "antd";
 import InputNumber from "../InputNumber/inputNumber";
@@ -70,7 +70,7 @@ import { QuestionCircleOutlined } from "@ant-design/icons";
 // ----------------------------------------------------------------
 
 export default {
-  title: "数据显示/TabsOnly",
+  title: "数据显示/TabsOnly 按钮切换",
   component: TabsOnly,
   parameters: {
     docs: {
@@ -78,7 +78,7 @@ export default {
       page: () => (
         <>
           <Title />
-          <Description>通过鼠标或键盘，输入范围内的数值。</Description>
+          <Description>选项卡切换组件，(仅按钮)。</Description>
           <ImportComponent />
           <Stories title="组件总览" includePrimary={true} />
 
