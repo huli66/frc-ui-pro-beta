@@ -1,0 +1,212 @@
+.storybook-demo {
+  display: flex;
+}
+
+
+.storybook-demo>.center {
+  display: block;
+  margin: auto;
+  margin-top: 50px;
+}
+
+.storybook-demo>.center .tooltip-base {
+  display: inline-block;
+  margin: 5px;
+  border: 1px solid white;
+  padding: 10px;
+  border-radius: 2px;
+  width: 60px;
+  text-align: center;
+}
+
+.storybook-demo>.center .tooltip-base.no-arrow {
+  width: fit-content;
+  margin: 50px;
+}
+
+.storybook-demo>.center .top_panel,
+.storybook-demo>.center .bottom_panel {
+  margin-left: 65px;
+}
+
+.storybook-demo>.center .left_panel {
+  float: left;
+}
+
+.storybook-demo>.center .right_panel {
+  margin-left: 270px;
+}
+
+// ----------------------------------------------------------------
+
+.frc-tooltip {
+  position: absolute;
+  z-index: 1000;
+  display: inline-block;
+  visibility: visible;
+  padding: 0 8px;
+  background: #121A19;
+  border: 1px solid #3B9078;
+  box-shadow: 0 0 24px 0 rgba(255, 235, 200, 0.30);
+  border-radius: 2px;
+}
+
+.frc-tooltip.frc-tooltip-passive {
+  border-width: 2px;
+  background: #172422;
+}
+
+.frc-tooltip.frc-tooltip-without-arrow .rc-tooltip-arrow {
+  display: none;
+}
+.frc-tooltip.frc-tooltip-passive-without-arrow{
+  top: 100px !important;
+  left: 45% !important;
+}
+
+.rc-tooltip-hidden {
+  display: none;
+}
+
+.rc-tooltip-inner {
+  text-align: left;
+  text-decoration: none;
+
+  font-family: Roboto-Medium;
+  font-size: 12px;
+  color: #FFEBC8;
+  text-align: center;
+  line-height: 24px;
+  font-weight: 500;
+}
+
+.rc-tooltip-arrow,
+.rc-tooltip-arrow-inner {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+}
+
+.frc-tooltip-placement-top .rc-tooltip-arrow,
+.frc-tooltip-placement-topLeft .rc-tooltip-arrow,
+.frc-tooltip-placement-topRight .rc-tooltip-arrow {
+  bottom: -7px;
+  margin-left: -6px;
+  border-width: 6px 6px 0;
+  border-top-color: #3B9078;
+}
+
+.frc-tooltip-placement-top .rc-tooltip-arrow-inner,
+.frc-tooltip-placement-topLeft .rc-tooltip-arrow-inner,
+.frc-tooltip-placement-topRight .rc-tooltip-arrow-inner {
+  bottom: 2px;
+  margin-left: -6px;
+  border-width: 6px 6px 0;
+  border-top-color: #121A19;
+}
+
+.frc-tooltip-placement-top .rc-tooltip-arrow {
+  left: 50%;
+}
+
+.frc-tooltip-placement-topLeft .rc-tooltip-arrow {
+  left: 15%;
+}
+
+.frc-tooltip-placement-topRight .rc-tooltip-arrow {
+  right: 15%;
+}
+
+.frc-tooltip-placement-right .rc-tooltip-arrow,
+.frc-tooltip-placement-rightTop .rc-tooltip-arrow,
+.frc-tooltip-placement-rightBottom .rc-tooltip-arrow {
+  left: -7px;
+  margin-top: -6px;
+  border-width: 6px 6px 6px 0;
+  border-right-color: #3B9078;
+}
+
+.frc-tooltip-placement-right .rc-tooltip-arrow-inner,
+.frc-tooltip-placement-rightTop .rc-tooltip-arrow-inner,
+.frc-tooltip-placement-rightBottom .rc-tooltip-arrow-inner {
+  left: 2px;
+  margin-top: -6px;
+  border-width: 6px 6px 6px 0;
+  border-right-color: #121A19;
+}
+
+.frc-tooltip-placement-right .rc-tooltip-arrow {
+  top: 50%;
+}
+
+.frc-tooltip-placement-rightTop .rc-tooltip-arrow {
+  top: 15%;
+  margin-top: 0;
+}
+
+.frc-tooltip-placement-rightBottom .rc-tooltip-arrow {
+  bottom: 15%;
+}
+
+.frc-tooltip-placement-left .rc-tooltip-arrow,
+.frc-tooltip-placement-leftTop .rc-tooltip-arrow,
+.frc-tooltip-placement-leftBottom .rc-tooltip-arrow {
+  right: -7px;
+  margin-top: -6px;
+  border-width: 6px 0 6px 6px;
+  border-left-color: #3B9078;
+}
+
+.frc-tooltip-placement-left .rc-tooltip-arrow-inner,
+.frc-tooltip-placement-leftTop .rc-tooltip-arrow-inner,
+.frc-tooltip-placement-leftBottom .rc-tooltip-arrow-inner {
+  right: 2px;
+  margin-top: -6px;
+  border-width: 6px 0 6px 6px;
+  border-left-color: #121A19;
+}
+
+.frc-tooltip-placement-left .rc-tooltip-arrow {
+  top: 50%;
+}
+
+.frc-tooltip-placement-leftTop .rc-tooltip-arrow {
+  top: 15%;
+  margin-top: 0;
+}
+
+.frc-tooltip-placement-leftBottom .rc-tooltip-arrow {
+  bottom: 15%;
+}
+
+.frc-tooltip-placement-bottom .rc-tooltip-arrow,
+.frc-tooltip-placement-bottomLeft .rc-tooltip-arrow,
+.frc-tooltip-placement-bottomRight .rc-tooltip-arrow {
+  top: -7px;
+  margin-left: -6px;
+  border-width: 0 6px 6px;
+  border-bottom-color: #3B9078;
+}
+
+.frc-tooltip-placement-bottom .rc-tooltip-arrow-inner,
+.frc-tooltip-placement-bottomLeft .rc-tooltip-arrow-inner,
+.frc-tooltip-placement-bottomRight .rc-tooltip-arrow-inner {
+  top: 2px;
+  margin-left: -6px;
+  border-width: 0 6px 6px;
+  border-bottom-color: #121A19;
+}
+
+.frc-tooltip-placement-bottom .rc-tooltip-arrow {
+  left: 50%;
+}
+
+.frc-tooltip-placement-bottomLeft .rc-tooltip-arrow {
+  left: 15%;
+}
+
+.frc-tooltip-placement-bottomRight .rc-tooltip-arrow {
+  right: 15%;
+}
