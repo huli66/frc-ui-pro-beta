@@ -1,4 +1,4 @@
-import React, { ReactEventHandler, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism'
