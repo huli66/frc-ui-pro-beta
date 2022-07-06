@@ -33,8 +33,15 @@
   float: left;
 }
 
+.storybook-demo>.center .left_panel>* {
+  display: block;
+}
+
 .storybook-demo>.center .right_panel {
   margin-left: 270px;
+}
+.storybook-demo>.center .right_panel>* {
+  display: block;
 }
 
 // ----------------------------------------------------------------
@@ -59,7 +66,8 @@
 .frc-tooltip.frc-tooltip-without-arrow .rc-tooltip-arrow {
   display: none;
 }
-.frc-tooltip.frc-tooltip-passive-without-arrow{
+
+.frc-tooltip.frc-tooltip-passive-without-arrow {
   top: 100px !important;
   left: 45% !important;
 }

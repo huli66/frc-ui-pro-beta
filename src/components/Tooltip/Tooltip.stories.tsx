@@ -93,13 +93,25 @@ export const _ActiveComponent = () => {
                 </Tooltip>
             </div>
             <div className='left_panel'>
-                <Tooltip type="active" content='这里是提示文本' hasArrow={true} placement='left'>
-                    <span className='tooltip-base'>左</span>
+                <Tooltip type="active" content={<span>这里是提示文本<br />这里是提示文本</span>} hasArrow={true} placement='leftTop'>
+                    <span className='tooltip-base'>左上</span>
+                </Tooltip>
+                <Tooltip type="active" content={<span>这里是提示文本<br />这里是提示文本</span>} hasArrow={true} placement='left'>
+                    <span className='tooltip-base'>左中</span>
+                </Tooltip>
+                <Tooltip type="active" content={<span>这里是提示文本<br />这里是提示文本</span>} hasArrow={true} placement='leftBottom'>
+                    <span className='tooltip-base'>左下</span>
                 </Tooltip>
             </div>
             <div className='right_panel'>
-                <Tooltip type="active" content='这里是提示文本' hasArrow={true} placement='right'>
-                    <span className='tooltip-base'>右</span>
+                <Tooltip type="active" content={<span>这里是提示文本<br />这里是提示文本</span>} hasArrow={true} placement='rightTop'>
+                    <span className='tooltip-base'>右上</span>
+                </Tooltip>
+                <Tooltip type="active" content={<span>这里是提示文本<br />这里是提示文本</span>} hasArrow={true} placement='right'>
+                    <span className='tooltip-base'>右中</span>
+                </Tooltip>
+                <Tooltip type="active" content={<span>这里是提示文本<br />这里是提示文本</span>} hasArrow={true} placement='rightBottom'>
+                    <span className='tooltip-base'>右下</span>
                 </Tooltip>
             </div>
             <div className='bottom_panel'>

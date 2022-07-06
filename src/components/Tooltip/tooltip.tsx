@@ -6,7 +6,7 @@ import { message } from 'antd'
 
 export type ToolTipType = 'active' | 'passive'
 export type ToolTipArrowContent = '' | '{<div className="rc-tooltip-arrow-inner"></div>}'
-export type ToolTipPlacementType = 'left' | 'right' | 'top' | 'bottom' | 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight'
+export type ToolTipPlacementType = 'left' | 'right' | 'top' | 'bottom' | 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight' | 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom'
 
 interface BaseTooltipProps {
   /** 设置提示主动或被动触发 */
