@@ -61,7 +61,7 @@ export default {
             page: () => (
                 <>
                     <Title />
-                    <Description>提示框，分为主动和被动两种形式</Description>
+                    <Description>提示框，分为主动和被动两种形式 </Description>
                     <ImportComponent />
                     <Stories title="组件总览" includePrimary={true} />
 
