@@ -61,7 +61,7 @@ export default {
             page: () => (
                 <>
                     <Title />
-                    <Description>主动触发（鼠标跟随Tips）</Description>
+                    <Description>提示框，分为主动和被动两种形式</Description>
                     <ImportComponent />
                     <Stories title="组件总览" includePrimary={true} />
 
@@ -126,9 +126,24 @@ export const _ActiveComponent = () => {
                     <span className='tooltip-base'>下右</span>
                 </Tooltip>
             </div>
-            <Tooltip type="active" hasArrow={false} content={<div><div><span>提示文本</span><Button>按钮</Button><Icon type="frown" /></div> <div><span style={{ background: '#263735' }}>估值收益率(%)</span><span style={{ color: '#F9C152' }}>2.3700</span></div></div>}>
+            <Tooltip
+                type="active"
+                hasArrow={false}
+                content={<div><div><span>提示文本</span><Button>按钮</Button><Icon type="frown" /></div> <div><span style={{ background: '#263735' }}>估值收益率(%)</span><span style={{ color: '#F9C152' }}>2.3700</span></div></div>}
+                destroyTooltipOnHide={true}
+                onVisibleChange={(visible) => { console.log(visible) }}>
                 <div className='tooltip-base no-arrow'>
                     <span>无箭头</span>
+                </div>
+            </Tooltip>
+            <Tooltip mouseEnterDelay={1} type="active" hasArrow={false} content={<span>提示文本</span>}>
+                <div className='tooltip-base no-arrow'>
+                    <span>延迟1s显示</span>
+                </div>
+            </Tooltip>
+            <Tooltip mouseLeaveDelay={1} type="active" hasArrow={false} content={<span>提示文本</span>}>
+                <div className='tooltip-base no-arrow'>
+                    <span>延迟1s消失</span>
                 </div>
             </Tooltip>
         </div >
@@ -171,7 +186,8 @@ export const _PassiveComponent = () => {
                 content={<div><span>提示文本、提示文本 点击确定关闭提示</span><Button type="gray" style={{ margin: '0 0 0 10px' }} onClick={closeToolTip1}>确定</Button></div>}
                 hasArrow={true}
                 placement='left'
-                visible={isTooltip1Visible}>
+                visible={isTooltip1Visible}
+            >
                 <Button type="primary" onClick={showTooltip1}>
                     有箭头
                 </Button>
