@@ -1,8 +1,7 @@
-import React, { FC, useRef } from 'react'
+import React, { FC } from 'react'
 import classNames from 'classnames'
 import RcTooltip from 'rc-tooltip/lib/Tooltip'
 import { TooltipProps as RcTooltipProps } from 'rc-tooltip/lib/Tooltip'
-import { message } from 'antd'
 
 export type ToolTipType = 'active' | 'passive'
 export type ToolTipArrowContent = '' | '{<div className="rc-tooltip-arrow-inner"></div>}'
@@ -46,6 +45,10 @@ export const Tooltip: FC<FRCTooltipProps> = (props) => {
     overlay: content,
     arrowContent: (!hasArrow ? null : <div className="rc-tooltip-arrow-inner"></div>),
     placement: placement,
+    align: {
+      // offset: [10, 5],
+      // targetOffset: [0.1, 0],
+    },
     ...restProps,
   }
 
