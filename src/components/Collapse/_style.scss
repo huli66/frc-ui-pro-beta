@@ -20,6 +20,8 @@
 
 .frc-collapse-drawer-bottom {
     flex: 1;
+    height: 0;
+    overflow: hidden;
     width: 100%;
     background-color: #172422;
 }
