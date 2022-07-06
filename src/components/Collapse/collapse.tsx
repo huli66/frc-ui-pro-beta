@@ -1,63 +1,173 @@
-import React, { FC, useState } from 'react'
+import { useEffect } from '@storybook/addons'
+import { ReactElement } from 'react-markdown/lib/react-markdown'
+import React, { FC, useRef, useState } from 'react'
 export interface ICollapseProps {
     /** 折叠抽屉的外层类名 */
     className?: string,
+    /** 主层初始高度 */
+    mainContentInit?: number,
+    /** 主层内容 */
+    mainContent?: ReactElement,
+    /** 侧层内容 */
+    extraContent?: ReactElement
+    /** 排列方式 */
+    arrangement?: boolean
 }
 
 export const Collapse: FC<ICollapseProps> = (props) => {
-    const { className } = props
-    const [ topHeight, setTopHeight ]  = useState(200)
-    const getTopHeight = () => {
+    const { className, mainContent, extraContent, arrangement, mainContentInit } = props
+    const [topSize, setTopSize] = useState(mainContentInit)
+    const getTopStyle = (arrangement: boolean) => {
         let style: React.CSSProperties = {}
-        style = {
-            ...style
+        if (arrangement === true) {
+            style.width = '0'
+            style.width = topSize + 'px'
+        } else {
+            style.height = topSize + 'px'
         }
-        style.height = topHeight + 'px'
-        console.log('style.height',topHeight);
-        
+        console.log('style.size', topSize);
+
         return style
     }
-    function changeHeightStart(el:any) {
-        const hrbox = document.getElementById('frc-hrbox')   
-        if((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))){
-            const diff = el.changedTouches[0].clientY - hrbox!.offsetTop
-            document.ontouchmove = function(e) {
-                let newTopHeight = e.changedTouches[0].clientY - diff
-                if ( hrbox!.parentElement!.offsetHeight > newTopHeight && newTopHeight > 0) {
-                    setTopHeight(newTopHeight)
+    const hrBox: any = useRef(null)
+
+    // useEffect(() => {
+    //     console.log(hrBox.current);
+    // }, [])
+
+    function changeHeightStart(el: any) {
+        // let Client = 'clientY'
+        // let OffsetX = 'offsetTop'
+        // let OffsetY = 'offsetHeight'
+        // if (arrangement) {
+        //     Client = 'clientX' 
+        //     OffsetX = 'offsetLeft' 
+        //     OffsetY = 'offsetWidth' 
+        // }
+
+        if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
+            const diff = el.changedTouches[0].clientY - hrBox.current.offsetTop
+            document.ontouchmove = function (e: TouchEvent) {
+                let newTopSize = e.changedTouches[0].clientY - diff
+                if (hrBox.current.parentElement!.offsetHeight > newTopSize && newTopSize > 0) {
+                    setTopSize(newTopSize)
                 }
                 document.onmouseup = function () {
-                    document.onmousemove = null  
+                    document.onmousemove = null
                 }
             }
-        } else{
-            let diff = el.clientY - hrbox!.offsetTop
-            document.onmousemove = function(e) {
-                let newTopHeight = e.clientY - diff
-                if ( hrbox!.parentElement!.offsetHeight > newTopHeight && newTopHeight > 0) {
-                    setTopHeight(newTopHeight)
+        } else {
+            let diff = el.clientY - hrBox.current.offsetTop
+            document.onmousemove = function (e) {
+                let newTopSize = e.clientY - diff
+                if (hrBox.current.parentElement!.offsetHeight > newTopSize && newTopSize > 0) {
+                    setTopSize(newTopSize)
                 }
                 document.onmouseup = function () {
-                    document.onmousemove = null     
-                    diff = el.clientY - hrbox!.offsetTop
+                    document.onmousemove = null
                 }
             }
         }
     }
 
+    // function changeHeightStart(el: any) {
+    //         if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
+    //             const diff = el.changedTouches[0].clientX - hrBox.current.offsetLeft
+    //             document.ontouchmove = function (e) {
+    //                 let newTopSize = e.changedTouches[0].clientX - diff
+    //                 if (hrBox.current.parentElement!.offsetWidth > newTopSize && newTopSize > 0) {
+    //                     setTopSize(newTopSize)
+    //                 }
+    //                 document.onmouseup = function () {
+    //                     document.onmousemove = null
+    //                 }
+    //             }
+    //         } else {
+    //             let diff = el.clientX - hrBox.current.offsetLeft
+    //             document.onmousemove = function (e) {
+    //                 let newTopSize = e.clientX - diff
+    //                 if (hrBox.current.parentElement!.offsetWidth > newTopSize && newTopSize > 0) {
+    //                     setTopSize(newTopSize)
+    //                 }
+    //                 document.onmouseup = function () {
+    //                     document.onmousemove = null
+    //                     diff = el.clientX - hrBox.current.offsetLeft
+    //                 }
+    //             }
+    //     }
+    // }
+    const getContainerStyle = (arrangement: boolean) => {
+        let style: React.CSSProperties = {}
+        if (arrangement === true) {
+          style.flexDirection = 'row'
+        }
+        return style
+    }
+    const getBottomStyle = (arrangement: boolean) => {
+        let style: React.CSSProperties = {}
+        if (arrangement === true) {
+          style.height = '100%'
+        }
+        return style
+    }
+    const getHrStyle = (arrangement: boolean) => {
+        let style: React.CSSProperties = {}
+        if (arrangement === true) {
+          style.width = '4px'
+          style.height = '100%'
+          style.borderRight = '1px solid #000'
+          style.borderLeft = '1px solid #000'
+          style.cursor = 'ew-resize'
+        }
+        return style
+    }
+    const getHrArrStyle = (arrangement: boolean) => {
+        let style: React.CSSProperties = {}
+        if (arrangement === true) {
+          style.width = '2px'
+          style.height = '40px'
+        }
+        return style
+    }
     return (
         <div className={`${className} frc-collapse-drawer`}>
-            <div className='content-container'>
-                <div id='frc-topbox' className='frc-collapse-drawer-top' style={getTopHeight()}>
-                    上面盒子上面盒子上面盒子上面盒子上面盒子上面盒子上面盒子上面盒子上面盒子上面盒子上面盒子上面盒子上面盒子上面盒子上面盒子上面盒子上面盒子上面盒子上面盒子上面盒子上面盒子上面盒子上面盒子上面盒子上面盒子上面盒子上面盒子上面盒子上面盒子上面盒子上面盒子
+            <div className='content-container' style={getContainerStyle(arrangement!)}>
+                <div className='frc-collapse-drawer-top' style={getTopStyle(arrangement!)}>
+                    {mainContent}
                 </div>
-                <div id='frc-hrbox' className='frc-collapse-drawer-hr' onMouseDown={changeHeightStart} onTouchStart={ changeHeightStart }>
-                    <div className='frc-collapse-drawer-hr-arr'></div>
+                <div className='frc-collapse-drawer-hr' style={getHrStyle(arrangement!)} ref={hrBox} onMouseDown={changeHeightStart} onTouchStart={changeHeightStart}>
+                    <div className='frc-collapse-drawer-hr-arr' style={getHrArrStyle(arrangement!)}></div>
                 </div>
-                <div className='frc-collapse-drawer-bottom'>
-                    下面盒子下面盒子下面盒子下面盒子下面盒子下面盒子下面盒子下面盒子下面盒子下面盒子下面盒子下面盒子下面盒子下面盒子下面盒子下面盒子下面盒子下面盒子下面盒子下面盒子下面盒子下面盒子下面盒子下面盒子下面盒子下面盒子下面盒子下面盒子下面盒子下面盒子下面盒子
+                <div className='frc-collapse-drawer-bottom' style={getBottomStyle(arrangement!)}>
+                    {extraContent}
                 </div>
             </div>
+        </div>
+    )
+}
+
+// normal
+Collapse.defaultProps = {
+    arrangement: false,
+    mainContentInit: 200,
+    mainContent: (
+        <div
+            style={{
+                textAlign: 'center',
+                height: '100%',
+                width: '100%'
+            }}>
+            我是主层级
+        </div>
+    ),
+    extraContent: (
+        <div
+            style={{
+                textAlign: 'center',
+                height: '100%',
+                width: '100%'
+            }}>
+            我是次层级
         </div>
     )
 }

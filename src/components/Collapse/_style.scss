@@ -9,11 +9,13 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    // flex-direction: row;
     overflow: auto;
 }
 
 .frc-collapse-drawer-top {
-    height: 50%;
+    height: 100%;
+    // width: 0;
     width: 100%;
     background-color: #172422;
 }
@@ -21,6 +23,7 @@
 .frc-collapse-drawer-bottom {
     flex: 1;
     height: 0;
+    // height: 100%;
     overflow: hidden;
     width: 100%;
     background-color: #172422;
@@ -30,10 +33,15 @@
     position: relative;
     height: 4px;
     width: 100%;
+    // width: 4px;
+    // height: 100%;
     border-top: 1px solid #000;
     border-bottom: 1px solid #000;
+    // border-left: 1px solid #000;
+    // border-right: 1px solid #000;
     background-color: #000;
     cursor: ns-resize;
+    // cursor: ew-resize;
 }
 
 .frc-collapse-drawer-hr:hover {
@@ -47,12 +55,15 @@
     transform: translate(-50%, -50%);
     width: 40px;
     height: 2px;
+    // width: 2px;
+    // height: 40px;
     background: #325850;
     border-radius: 2px;
 }
 
 .frc-collapse-drawer-hr:hover>.frc-collapse-drawer-hr-arr {
     height: 4px;
+    // width: 4px;
     background-color: #133E38;
 }
 
