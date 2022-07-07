@@ -31,10 +31,6 @@ export const Collapse: FC<ICollapseProps> = (props) => {
     }
     const hrBox: any = useRef(null)
 
-    // useEffect(() => {
-    //     console.log(hrBox.current);
-    // }, [])
-
     function changeHeightStart(el: any) {
         if (arrangement) {
             if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
@@ -102,33 +98,15 @@ export const Collapse: FC<ICollapseProps> = (props) => {
         }
         return style
     }
-    const getHrStyle = (arrangement: boolean) => {
-        let style: React.CSSProperties = {}
-        if (arrangement === true) {
-          style.width = '4px'
-          style.height = '100%'
-          style.borderRight = '1px solid #000'
-          style.borderLeft = '1px solid #000'
-          style.cursor = 'ew-resize'
-        }
-        return style
-    }
-    const getHrArrStyle = (arrangement: boolean) => {
-        let style: React.CSSProperties = {}
-        if (arrangement === true) {
-          style.width = '2px'
-          style.height = '40px'
-        }
-        return style
-    }
+  
     return (
         <div className={`${className} frc-collapse-drawer`}>
             <div className='content-container' style={getContainerStyle(arrangement!)}>
                 <div className='frc-collapse-drawer-top' style={getTopStyle(arrangement!)}>
                     {mainContent}
                 </div>
-                <div className='frc-collapse-drawer-hr' style={getHrStyle(arrangement!)} ref={hrBox} onMouseDown={changeHeightStart} onTouchStart={changeHeightStart}>
-                    <div className='frc-collapse-drawer-hr-arr' style={getHrArrStyle(arrangement!)}></div>
+                <div className={ arrangement ? 'frc-collapse-drawer-hr-row' : 'frc-collapse-drawer-hr'} ref={hrBox} onMouseDown={changeHeightStart} onTouchStart={changeHeightStart}>
+                    <div className={ arrangement ? 'frc-collapse-drawer-hr-row-arr' : 'frc-collapse-drawer-hr-arr'} ></div>
                 </div>
                 <div className='frc-collapse-drawer-bottom' style={getBottomStyle(arrangement!)}>
                     {extraContent}
@@ -140,7 +118,7 @@ export const Collapse: FC<ICollapseProps> = (props) => {
 
 // normal
 Collapse.defaultProps = {
-    arrangement: true,
+    arrangement: false,
     mainContentInit: 200,
     mainContent: (
         <div
