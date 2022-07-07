@@ -70,9 +70,15 @@
   padding-top: 7px;
 }
 
+.frc-tooltip.frc-tooltip-passive {
+  max-width: none;
+}
+
 .frc-tooltip.frc-tooltip-passive-without-arrow {
   top: 100px !important;
-  left: 45% !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  animation: none;
 }
 
 .frc-tooltip .ant-tooltip-content {
@@ -82,7 +88,6 @@
   box-shadow: 0 0 24px 0 rgba(255, 235, 200, 0.30);
   border-radius: 2px;
 }
-
 
 .frc-tooltip.frc-tooltip-passive .ant-tooltip-content {
   border-width: 2px;
@@ -94,7 +99,6 @@
   min-width: 5px;
   min-height: 5px;
   background: none;
-
   font-family: Roboto-Medium;
   font-size: 12px;
   color: #FFEBC8;

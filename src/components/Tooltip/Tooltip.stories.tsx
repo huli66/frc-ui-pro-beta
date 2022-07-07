@@ -183,7 +183,7 @@ export const _PassiveComponent = () => {
         <div className='center'>
             <Tooltip
                 type="passive"
-                content={<div><span>提示文本、提示文本 点击确定关闭提示</span><Button type="gray" style={{ margin: '0 0 0 10px' }} onClick={closeToolTip1}>确定</Button></div>}
+                content={<div><span>提示文本、提示文本 点击确定关闭提示</span><Button type="gray" style={{ margin: '0 0 0 10px', display: 'inline-block' }} onClick={closeToolTip1}>确定</Button></div>}
                 hasArrow={true}
                 placement='left'
                 visible={isTooltip1Visible}
@@ -198,7 +198,7 @@ export const _PassiveComponent = () => {
             </Button>
             <Tooltip
                 type="passive"
-                content='系统提示文本'
+                content='系统提示文本提示文本、提示文本 系统提示文本提示文本、提示文本系统提示文本提示文本、提示文本 2s后消失'
                 hasArrow={false}
                 placement='right'
                 visible={isTooltip2Visible}
