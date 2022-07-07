@@ -36,66 +36,58 @@ export const Collapse: FC<ICollapseProps> = (props) => {
     // }, [])
 
     function changeHeightStart(el: any) {
-        // let Client = 'clientY'
-        // let OffsetX = 'offsetTop'
-        // let OffsetY = 'offsetHeight'
-        // if (arrangement) {
-        //     Client = 'clientX' 
-        //     OffsetX = 'offsetLeft' 
-        //     OffsetY = 'offsetWidth' 
-        // }
-
-        if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
-            const diff = el.changedTouches[0].clientY - hrBox.current.offsetTop
-            document.ontouchmove = function (e: TouchEvent) {
-                let newTopSize = e.changedTouches[0].clientY - diff
-                if (hrBox.current.parentElement!.offsetHeight > newTopSize && newTopSize > 0) {
-                    setTopSize(newTopSize)
+        if (arrangement) {
+            if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
+                const diff = el.changedTouches[0].clientX - hrBox.current.offsetLeft
+                document.ontouchmove = function (e) {
+                    let newTopSize = e.changedTouches[0].clientX - diff
+                    if (hrBox.current.parentElement!.offsetWidth > newTopSize && newTopSize > 0) {
+                        setTopSize(newTopSize)
+                    }
+                    document.onmouseup = function () {
+                        document.onmousemove = null
+                    }
                 }
-                document.onmouseup = function () {
-                    document.onmousemove = null
+            } else {
+                let diff = el.clientX - hrBox.current.offsetLeft
+                document.onmousemove = function (e) {
+                    let newTopSize = e.clientX - diff
+                    if (hrBox.current.parentElement!.offsetWidth > newTopSize && newTopSize > 0) {
+                        setTopSize(newTopSize)
+                    }
+                    document.onmouseup = function () {
+                        document.onmousemove = null
+                        diff = el.clientX - hrBox.current.offsetLeft
+                    }
                 }
             }
         } else {
-            let diff = el.clientY - hrBox.current.offsetTop
-            document.onmousemove = function (e) {
-                let newTopSize = e.clientY - diff
-                if (hrBox.current.parentElement!.offsetHeight > newTopSize && newTopSize > 0) {
-                    setTopSize(newTopSize)
+            if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
+                const diff = el.changedTouches[0].clientY - hrBox.current.offsetTop
+                document.ontouchmove = function (e: TouchEvent) {
+                    let newTopSize = e.changedTouches[0].clientY - diff
+                    if (hrBox.current.parentElement!.offsetHeight > newTopSize && newTopSize > 0) {
+                        setTopSize(newTopSize)
+                    }
+                    document.onmouseup = function () {
+                        document.onmousemove = null
+                    }
                 }
-                document.onmouseup = function () {
-                    document.onmousemove = null
+            } else {
+                let diff = el.clientY - hrBox.current.offsetTop
+                document.onmousemove = function (e) {
+                    let newTopSize = e.clientY - diff
+                    if (hrBox.current.parentElement!.offsetHeight > newTopSize && newTopSize > 0) {
+                        setTopSize(newTopSize)
+                    }
+                    document.onmouseup = function () {
+                        document.onmousemove = null
+                    }
                 }
             }
         }
+ 
     }
-
-    // function changeHeightStart(el: any) {
-    //         if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
-    //             const diff = el.changedTouches[0].clientX - hrBox.current.offsetLeft
-    //             document.ontouchmove = function (e) {
-    //                 let newTopSize = e.changedTouches[0].clientX - diff
-    //                 if (hrBox.current.parentElement!.offsetWidth > newTopSize && newTopSize > 0) {
-    //                     setTopSize(newTopSize)
-    //                 }
-    //                 document.onmouseup = function () {
-    //                     document.onmousemove = null
-    //                 }
-    //             }
-    //         } else {
-    //             let diff = el.clientX - hrBox.current.offsetLeft
-    //             document.onmousemove = function (e) {
-    //                 let newTopSize = e.clientX - diff
-    //                 if (hrBox.current.parentElement!.offsetWidth > newTopSize && newTopSize > 0) {
-    //                     setTopSize(newTopSize)
-    //                 }
-    //                 document.onmouseup = function () {
-    //                     document.onmousemove = null
-    //                     diff = el.clientX - hrBox.current.offsetLeft
-    //                 }
-    //             }
-    //     }
-    // }
     const getContainerStyle = (arrangement: boolean) => {
         let style: React.CSSProperties = {}
         if (arrangement === true) {
@@ -148,7 +140,7 @@ export const Collapse: FC<ICollapseProps> = (props) => {
 
 // normal
 Collapse.defaultProps = {
-    arrangement: false,
+    arrangement: true,
     mainContentInit: 200,
     mainContent: (
         <div
