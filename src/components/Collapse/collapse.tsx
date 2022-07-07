@@ -1,4 +1,3 @@
-import { useEffect } from '@storybook/addons'
 import { ReactElement } from 'react-markdown/lib/react-markdown'
 import React, { FC, useRef, useState } from 'react'
 export interface ICollapseProps {
@@ -17,6 +16,7 @@ export interface ICollapseProps {
 export const Collapse: FC<ICollapseProps> = (props) => {
     const { className, mainContent, extraContent, arrangement, mainContentInit } = props
     const [topSize, setTopSize] = useState(mainContentInit)
+    const hrBox: any = useRef(null)
     const getTopStyle = (arrangement: boolean) => {
         let style: React.CSSProperties = {}
         if (arrangement === true) {
@@ -26,10 +26,8 @@ export const Collapse: FC<ICollapseProps> = (props) => {
             style.height = topSize + 'px'
         }
         console.log('style.size', topSize);
-
         return style
     }
-    const hrBox: any = useRef(null)
 
     function changeHeightStart(el: any) {
         if (arrangement) {
