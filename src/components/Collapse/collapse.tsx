@@ -25,7 +25,6 @@ export const Collapse: FC<ICollapseProps> = (props) => {
         } else {
             style.height = topSize + 'px'
         }
-        console.log('style.size', topSize);
         return style
     }
 
@@ -38,8 +37,8 @@ export const Collapse: FC<ICollapseProps> = (props) => {
                     if (hrBox.current.parentElement!.offsetWidth > newTopSize && newTopSize > 0) {
                         setTopSize(newTopSize)
                     }
-                    document.onmouseup = function () {
-                        document.onmousemove = null
+                    document.ontouchend = function () {
+                        document.ontouchmove = null
                     }
                 }
             } else {
@@ -63,8 +62,8 @@ export const Collapse: FC<ICollapseProps> = (props) => {
                     if (hrBox.current.parentElement!.offsetHeight > newTopSize && newTopSize > 0) {
                         setTopSize(newTopSize)
                     }
-                    document.onmouseup = function () {
-                        document.onmousemove = null
+                    document.ontouchend = function () {
+                        document.ontouchmove = null
                     }
                 }
             } else {
