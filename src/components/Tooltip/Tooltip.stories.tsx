@@ -18,6 +18,7 @@ import {
 } from '@storybook/addon-docs';
 
 import Tooltip from './index';
+import { FRCTooltipProps } from './tooltip'
 
 // ----------------------------------------------------------------
 
@@ -75,6 +76,12 @@ export default {
         },
     },
 } as ComponentMeta<typeof Tooltip>;
+
+// ----------------------------------------------------------------
+
+export const Default = (args: FRCTooltipProps) => <Tooltip {...args}>Tooltip</Tooltip>;
+
+Default.storyName = '默认 tooltip';
 
 // ----------------------------------------------------------------
 

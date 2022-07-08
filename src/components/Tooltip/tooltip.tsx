@@ -88,6 +88,7 @@ Tooltip.defaultProps = {
   destroyTooltipOnHide: false,
   mouseEnterDelay: 0.1,
   mouseLeaveDelay: 0.1,
+  content: '文字提示',
 }
 
 export default Tooltip
