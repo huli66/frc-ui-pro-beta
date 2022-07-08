@@ -53,7 +53,7 @@ import { Tooltip } from 'frc-ui-pro';
 // ----------------------------------------------------------------
 
 export default {
-    title: 'Tooltip 文字提示',
+    title: '数据显示/Tooltip 文字提示',
     component: Tooltip,
     parameters: {
         docs: {
@@ -200,7 +200,6 @@ export const _PassiveComponent = () => {
                 type="passive"
                 content='系统提示文本提示文本、提示文本 系统提示文本提示文本、提示文本系统提示文本提示文本、提示文本 2s后消失'
                 hasArrow={false}
-                placement='right'
                 visible={isTooltip2Visible}
             >
                 <span></span>

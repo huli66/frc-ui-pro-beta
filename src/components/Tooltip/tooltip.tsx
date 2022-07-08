@@ -14,7 +14,7 @@ interface BaseTooltipProps {
   placement?: ToolTipPlacementType
   /** 设置tooltip是否携带箭头 */
   hasArrow?: boolean
-  /** 用与手动控制提示是否可见 */
+  /** 用于手动控制提示是否可见 */
   visible?: boolean
   /** 该值将合并到placement的配置中,设置内容参考dom-align*/
   align?: object
