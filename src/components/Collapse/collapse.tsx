@@ -50,7 +50,6 @@ export const Collapse: FC<ICollapseProps> = (props) => {
                     }
                     document.onmouseup = function () {
                         document.onmousemove = null
-                        diff = el.clientX - hrBox.current.offsetLeft
                     }
                 }
             }
