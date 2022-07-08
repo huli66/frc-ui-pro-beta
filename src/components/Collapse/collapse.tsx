@@ -116,7 +116,6 @@ export const Collapse: FC<ICollapseProps> = (props) => {
 
 // normal
 Collapse.defaultProps = {
-    arrangement: false,
     mainContentInit: 200,
     mainContent: (
         <div

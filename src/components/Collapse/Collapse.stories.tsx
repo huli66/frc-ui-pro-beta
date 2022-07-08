@@ -83,13 +83,31 @@ export default {
 
 export const CollapseDefault = (args: ICollapseProps) => {
   const { ...rest } = args
+  
   return (
     <div className='collapse-drawer-container'>
       <Collapse
-        { ...rest}
+        {...rest}
       />
     </div>
   )
 };
 
-CollapseDefault.storyName = 'Collapse';
+CollapseDefault.storyName = 'CollapseVertical';
+
+// ----------------------------------------------------------------
+
+export const CollapseHorizontal = (args: ICollapseProps) => {
+  const { ...rest } = args
+  
+  return (
+    <div className='collapse-drawer-container'>
+    <Collapse
+      {...rest}
+      arrangement
+    />
+  </div>
+  )
+};
+
+CollapseHorizontal.storyName = 'CollapseHorizontal';
