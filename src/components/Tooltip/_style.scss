@@ -46,77 +46,88 @@
 
 // ----------------------------------------------------------------
 
-.frc-tooltip.ant-tooltip-placement-top,
-.frc-tooltip.ant-tooltip-placement-topLeft,
-.frc-tooltip.ant-tooltip-placement-topRight {
-  padding-bottom: 7px;
-}
 
-.frc-tooltip.ant-tooltip-placement-left,
-.frc-tooltip.ant-tooltip-placement-leftTop,
-.frc-tooltip.ant-tooltip-placement-leftBottom {
-  padding-right: 7px;
-}
+.frc-tooltip {
+  &.ant-tooltip {
+    max-width: $tooltip-max-width-active;
+  }
 
-.frc-tooltip.ant-tooltip-placement-right,
-.frc-tooltip.ant-tooltip-placement-rightTop,
-.frc-tooltip.ant-tooltip-placement-rightBottom {
-  padding-left: 7px;
-}
+  &.ant-tooltip-placement-top,
+  &.frc-tooltip.ant-tooltip-placement-topLeft,
+  &.frc-tooltip.ant-tooltip-placement-topRight {
+    padding-bottom: $tooltip-target-gap;
+  }
 
-.frc-tooltip.ant-tooltip-placement-bottom,
-.frc-tooltip.ant-tooltip-placement-bottomLeft,
-.frc-tooltip.ant-tooltip-placement-bottomRight {
-  padding-top: 7px;
-}
+  &.frc-tooltip.ant-tooltip-placement-left,
+  &.frc-tooltip.ant-tooltip-placement-leftTop,
+  &.frc-tooltip.ant-tooltip-placement-leftBottom {
+    padding-right: $tooltip-target-gap;
+  }
 
-.frc-tooltip.frc-tooltip-passive {
-  max-width: none;
-}
+  &.frc-tooltip.ant-tooltip-placement-right,
+  &.frc-tooltip.ant-tooltip-placement-rightTop,
+  &.frc-tooltip.ant-tooltip-placement-rightBottom {
+    padding-left: $tooltip-target-gap;
+  }
 
-.frc-tooltip.frc-tooltip-passive-without-arrow {
-  top: 100px !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  animation: none;
-}
+  &.frc-tooltip.ant-tooltip-placement-bottom,
+  &.frc-tooltip.ant-tooltip-placement-bottomLeft,
+  &.frc-tooltip.ant-tooltip-placement-bottomRight {
+    padding-top: $tooltip-target-gap;
+  }
 
-.frc-tooltip .ant-tooltip-content {
-  padding: 0 8px;
-  background: #121A19;
-  border: 1px solid #3B9078;
-  box-shadow: 0 0 24px 0 rgba(255, 235, 200, 0.30);
-  border-radius: 2px;
-}
+  &.frc-tooltip-passive {
+    max-width: $tooltip-max-width-passive;
 
-.frc-tooltip.frc-tooltip-passive .ant-tooltip-content {
-  border-width: 2px;
-  background: #172422;
-}
+    .ant-tooltip-content {
+      border-width: $tooltip-border-width-passive;
+      background-color: $tooltip-background-color-passive;
+    }
+  }
 
-.frc-tooltip .ant-tooltip-content .ant-tooltip-inner {
-  padding: 0;
-  min-width: 5px;
-  min-height: 5px;
-  background: none;
-  font-family: Roboto-Medium;
-  font-size: 12px;
-  color: #FFEBC8;
-  text-align: center;
-  line-height: 24px;
-  font-weight: 500;
-}
+  &.frc-tooltip-passive-without-arrow {
+    top: $tooltip-top-passive-without-arrow  !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    animation: none;
+  }
 
-.frc-tooltip.frc-tooltip-without-arrow .ant-tooltip-arrow {
-  display: none;
-}
+  .ant-tooltip-content {
+    padding: 0 8px;
+    background: $tooltip-background-color-active;
+    border-width: $tooltip-border-width-active;
+    border-style: $tooltip-border-style;
+    border-color: $tooltip-border-color;
+    box-shadow: $tooltip-box-shadow;
+    border-radius: $tooltip-border-radius;
 
-.frc-tooltip .ant-tooltip-arrow .ant-tooltip-arrow-content {
-  --antd-arrow-background-color: none;
-  background-color: #121A19;
-  border: 1px solid #3B9078
-}
+    .ant-tooltip-inner {
+      padding: 0;
+      min-width: 5px;
+      min-height: 5px;
+      background: none;
+      font-family: $font-family-base;
+      font-size: $font-size-base;
+      color: $words-normal;
+      text-align: center;
+      line-height: $line-height-base;
+      font-weight: $font-weight-base;
+    }
+  }
 
-.frc-tooltip.frc-tooltip-passive .ant-tooltip-arrow .ant-tooltip-arrow-content {
-  border-width: 2px;
+  &.frc-tooltip-without-arrow .ant-tooltip-arrow {
+    display: none;
+  }
+
+  .ant-tooltip-arrow .ant-tooltip-arrow-content {
+    --antd-arrow-background-color: none;
+    background-color: #121A19;
+    border-width: $tooltip-border-width-active;
+    border-style: $tooltip-border-style;
+    border-color: $tooltip-border-color;
+  }
+
+  &.frc-tooltip-passive .ant-tooltip-arrow .ant-tooltip-arrow-content {
+    border-width: $tooltip-border-width-passive;
+  }
 }
