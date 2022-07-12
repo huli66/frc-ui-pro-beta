@@ -1,11 +1,11 @@
-import { FC } from 'react'
-import FRCInput, { FRCInputProps } from './input'
+import { FC, ForwardRefExoticComponent, RefAttributes } from 'react'
+import FRCInput, { FRCInputProps,InputRef } from './input'
 import FRCSearch, { FRCSearchProps } from './search'
 import FRCGroup, { FRCGroupProps } from './group'
 import FRCTextArea, { FRCTextAreaProps } from './textArea'
 import FRCPassword, { FRCPasswordProps }from './password'
 
-export type FrcInputComponent = FC<FRCInputProps> & {
+export type FrcInputComponent = ForwardRefExoticComponent<FRCInputProps & RefAttributes<InputRef>> & {
   Search: FC<FRCSearchProps>
   Group: FC<FRCGroupProps>
   TextArea: FC<FRCTextAreaProps>
