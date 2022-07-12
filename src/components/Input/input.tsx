@@ -1,4 +1,4 @@
-import React, { FC, useState,useRef } from 'react'
+import React, { useState,useRef, forwardRef } from 'react'
 import classNames from 'classnames'
 import AntdInput, { InputProps, InputRef } from 'antd/es/input'
 import { FiSearch } from 'react-icons/fi'
@@ -43,7 +43,30 @@ interface BaseInputProps {
 
 export type FRCInputProps = BaseInputProps & Omit<InputProps, 'type'>
 
-export const Input: FC<FRCInputProps> = (props) => {
+export type {InputRef};
+
+export function fillRef<T>(ref: React.Ref<T>, node: T) {
+  if (typeof ref === 'function') {
+    ref(node);
+  } else if (typeof ref === 'object' && ref && 'current' in ref) {
+    (ref as any).current = node;
+  }
+}
+
+export function composeRef<T>(...refs: React.Ref<T>[]): React.Ref<T> {
+  const refList = refs.filter(ref => ref);
+  if (refList.length <= 1) {
+    return refList[0];
+  }
+
+  return (node: T) => {
+    refs.forEach(ref => {
+      fillRef(ref, node);
+    });
+  };
+}
+
+export const Input= forwardRef<InputRef,FRCInputProps> ((props,ref) => {
   const [keyDownEnter, setKeyDownEnter] = useState(false)
   const inputRef = useRef<InputRef | null>(null)
 
@@ -105,8 +128,9 @@ export const Input: FC<FRCInputProps> = (props) => {
   }
 
   // main
-  return <AntdInput ref={inputRef} {...options} />
-}
+  return <AntdInput ref={composeRef(ref,inputRef)} {...options} />
+})
+
 
 // normal
 Input.defaultProps = {
