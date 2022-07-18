@@ -19,7 +19,7 @@ import { IDragCollapseProps } from './dragCollapse'
 const ImportComponent = () => {
   const markdown = `
 ~~~js
-import { Collapse } from 'frc-ui-pro';
+import { DragCollapse } from 'frc-ui-pro';
 ~~~
 `
 
@@ -55,7 +55,7 @@ export default {
       page: () => (
         <>
           <Title />
-          <Description>拖动控制条,改变容器高度</Description>
+          <Description>拖动控制条,改变容器大小</Description>
           <ImportComponent />
           <Stories title="组件总览" includePrimary={true} />
           <Heading>API</Heading>
