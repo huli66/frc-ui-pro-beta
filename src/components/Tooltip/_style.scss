@@ -48,10 +48,6 @@
 
 
 .frc-tooltip {
-  &.ant-tooltip {
-    max-width: $tooltip-max-width-active;
-  }
-
   &.ant-tooltip-placement-top,
   &.frc-tooltip.ant-tooltip-placement-topLeft,
   &.frc-tooltip.ant-tooltip-placement-topRight {
@@ -76,26 +72,29 @@
     padding-top: $tooltip-target-gap;
   }
 
-  &.frc-tooltip-passive {
-    max-width: $tooltip-max-width-passive;
 
+  &.frc-tooltip-border-thick {
     .ant-tooltip-content {
-      border-width: $tooltip-border-width-passive;
-      background-color: $tooltip-background-color-passive;
+      border-width: 2px;
+
+      .ant-tooltip-arrow .ant-tooltip-arrow-content{
+        border-width: 2px;
+      }
     }
   }
-
-  &.frc-tooltip-passive-without-arrow {
-    top: $tooltip-top-passive-without-arrow  !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    animation: none;
+  &.frc-tooltip-border-thin {
+    .ant-tooltip-content {
+      border-width: 1px;
+      .ant-tooltip-arrow .ant-tooltip-arrow-content{
+        border-width: 1px;
+      }
+    }
   }
 
   .ant-tooltip-content {
     padding: 0 8px;
-    background: $tooltip-background-color-active;
-    border-width: $tooltip-border-width-active;
+    background: $tooltip-background-color;
+    border-width: 1px;
     border-style: $tooltip-border-style;
     border-color: $tooltip-border-color;
     box-shadow: $tooltip-box-shadow;
@@ -122,12 +121,8 @@
   .ant-tooltip-arrow .ant-tooltip-arrow-content {
     --antd-arrow-background-color: none;
     background-color: #121A19;
-    border-width: $tooltip-border-width-active;
+    border-width: 1px;
     border-style: $tooltip-border-style;
     border-color: $tooltip-border-color;
-  }
-
-  &.frc-tooltip-passive .ant-tooltip-arrow .ant-tooltip-arrow-content {
-    border-width: $tooltip-border-width-passive;
   }
 }

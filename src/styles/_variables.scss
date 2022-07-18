@@ -681,15 +681,4 @@ $tooltip-border-style:                              solid !default;
 $tooltip-border-color:                            #3B9078 !default;
 $tooltip-box-shadow:                                0 0 24px 0 rgba(255, 235, 200, 0.30) !default;
 $tooltip-border-radius:                             $border-radius !default;
-
-// active
-$tooltip-max-width-active:                          300px !default;
-$tooltip-border-width-active:                      1px !default;
-$tooltip-background-color-active:                #121A19 !default;
-
-
-// passive
-$tooltip-max-width-passive:                         none !default;
-$tooltip-border-width-passive:                      2px !default;
-$tooltip-background-color-passive:                #172422 !default;
-$tooltip-top-passive-without-arrow:                 100px;//顶距
+$tooltip-background-color:                        #121A19 !default;
