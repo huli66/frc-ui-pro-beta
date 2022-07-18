@@ -1,9 +1,7 @@
 import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism'
-
 import { ComponentMeta } from '@storybook/react';
-
 import {
   Title,
   Description,
@@ -13,9 +11,8 @@ import {
   Subheading
 } from '@storybook/addon-docs';
 
-import Collapse from './index';
-import { ICollapseProps } from './collapse'
-import './_story.scss'
+import DragCollapse from './index';
+import { IDragCollapseProps } from './dragCollapse'
 // ----------------------------------------------------------------
 
 // 引用示例代码
@@ -23,13 +20,6 @@ const ImportComponent = () => {
   const markdown = `
 ~~~js
 import { Collapse } from 'frc-ui-pro';
-~~~
-
-~~~css
-.collapse-drawer-container{
-  width: 100%;
-  height: 400px;
-}
 ~~~
 `
 
@@ -57,8 +47,8 @@ import { Collapse } from 'frc-ui-pro';
 // ----------------------------------------------------------------
 
 export default {
-  title: '布局/Collapse',
-  component: Collapse,
+  title: '布局/DragCollapse 拖拽抽屉',
+  component: DragCollapse,
   parameters: {
     docs: {
       // docs 页面 => 总体布局
@@ -70,44 +60,51 @@ export default {
           <Stories title="组件总览" includePrimary={true} />
           <Heading>API</Heading>
           <Subheading>属性</Subheading>
-          <Subheading>Collapse</Subheading>
-          <ArgsTable of={Collapse} />
+          <Subheading>DragCollapse</Subheading>
+          <ArgsTable of={DragCollapse} />
         </>
       ),
     },
   },
   // 细分属性 - 分类（用于canvas 页查阅）
-} as ComponentMeta<typeof Collapse>;
+} as ComponentMeta<typeof DragCollapse>;
 
 // ----------------------------------------------------------------
 
-export const CollapseDefault = (args: ICollapseProps) => {
-  const { ...rest } = args
-  
+export const Default = (args: IDragCollapseProps) => {
+  const containerStyle = {
+    width: '100%',
+    height: '400px'
+  }
   return (
-    <div className='collapse-drawer-container'>
-      <Collapse
-        {...rest}
+    <div style={containerStyle}>
+      <DragCollapse
+        {...args}
       />
     </div>
   )
 };
 
-CollapseDefault.storyName = 'CollapseVertical';
+Default.storyName = '默认 DragCollapse';
 
 // ----------------------------------------------------------------
 
-export const CollapseHorizontal = (args: ICollapseProps) => {
-  const { ...rest } = args
-  
+export const _Horizontal = () => {
+  const containerStyle = {
+    width: '100%',
+    height: '400px'
+  }
   return (
-    <div className='collapse-drawer-container'>
-    <Collapse
-      {...rest}
-      arrangement
+    <div style={containerStyle}>
+    <DragCollapse
+      mode="horizontal"
+      mainContentInit={400}
     />
   </div>
   )
 };
 
-CollapseHorizontal.storyName = 'CollapseHorizontal';
+_Horizontal.storyName = '横向抽屉 horizontal';
+_Horizontal.parameters = {
+  controls: { hideNoControlsWarning: true },
+};
