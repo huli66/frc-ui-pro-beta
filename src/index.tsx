@@ -20,4 +20,8 @@ export { default as DndList} from './components/DndList'
 export { default as SqueezeDrawer} from './components/SqueezeDrawer'
 export { default as Dropdown } from './components/Dropdown'
 export { default as Icon } from './components/Icon'
+<<<<<<< HEAD
 export { default as DragCollapse } from './components/DragCollapse'
+=======
+export { default as Tooltip } from './components/Tooltip'
+>>>>>>> 4696ab40af73763c892b1ebe1158fe2452654b0a
