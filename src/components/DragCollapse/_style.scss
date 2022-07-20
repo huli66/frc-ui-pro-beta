@@ -1,0 +1,107 @@
+.frc-dcollapse-drawer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.content-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.content-row-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    overflow: auto;
+}
+
+.frc-dcollapse-drawer-top {
+    height: 100%;
+    width: 100%;
+    background-color: #172422;
+}
+
+.frc-dcollapse-drawer-bottom {
+    flex: 1;
+    height: 0;
+    overflow: hidden;
+    width: 100%;
+    background-color: #172422;
+}
+
+.frc-dcollapse-drawer-row-bottom {
+    flex: 1;
+    height: 0;
+    overflow: hidden;
+    width: 100%;
+    background-color: #172422;
+    height: 100%;
+}
+
+.frc-dcollapse-drawer-hr {
+    position: relative;
+    height: 4px;
+    width: 100%;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    background-color: #000;
+    cursor: ns-resize;
+}
+
+.frc-dcollapse-drawer-hr-row {
+    position: relative;
+    width: 4px;
+    height: 100%;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    background-color: #000;
+    cursor: ew-resize;
+}
+
+.frc-dcollapse-drawer-hr:hover,
+.frc-dcollapse-drawer-hr-row:hover
+ {
+    background: #133E38;
+}
+
+.frc-dcollapse-drawer-hr-arr {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 2px;
+    background: #325850;
+    border-radius: 2px;
+}
+
+.frc-dcollapse-drawer-hr-row-arr {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 2px;
+    height: 40px;
+    background: #325850;
+    border-radius: 2px;
+}
+
+.frc-dcollapse-drawer-hr:hover>.frc-dcollapse-drawer-hr-arr {
+    height: 4px;
+    background-color: #133E38;
+}
+
+.frc-dcollapse-drawer-hr-row:hover>.frc-dcollapse-drawer-hr-row-arr {
+    width: 4px;
+    background-color: #133E38;
+}
+
+.frc-dcollapse-drawer-hr:active>.frc-dcollapse-drawer-hr-arr,
+.frc-dcollapse-drawer-hr-row:active>.frc-dcollapse-drawer-hr-row-arr {
+    background-color: #263735;
+}
