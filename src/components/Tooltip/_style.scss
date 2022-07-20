@@ -48,6 +48,7 @@
 
 
 .frc-tooltip {
+
   &.ant-tooltip-placement-top,
   &.frc-tooltip.ant-tooltip-placement-topLeft,
   &.frc-tooltip.ant-tooltip-placement-topRight {
@@ -77,15 +78,17 @@
     .ant-tooltip-content {
       border-width: 2px;
 
-      .ant-tooltip-arrow .ant-tooltip-arrow-content{
+      .ant-tooltip-arrow .ant-tooltip-arrow-content {
         border-width: 2px;
       }
     }
   }
+
   &.frc-tooltip-border-thin {
     .ant-tooltip-content {
       border-width: 1px;
-      .ant-tooltip-arrow .ant-tooltip-arrow-content{
+
+      .ant-tooltip-arrow .ant-tooltip-arrow-content {
         border-width: 1px;
       }
     }
@@ -111,6 +114,7 @@
       text-align: center;
       line-height: $line-height-base;
       font-weight: $font-weight-base;
+      box-shadow: unset;
     }
   }
 
