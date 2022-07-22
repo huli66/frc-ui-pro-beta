@@ -76,6 +76,7 @@ export const Default = (args: IDragCollapseProps) => {
     width: '100%',
     height: '400px'
   }
+
   return (
     <div style={containerStyle}>
       <DragCollapse
@@ -94,11 +95,17 @@ export const _Horizontal = () => {
     width: '100%',
     height: '400px'
   }
+
+  function getBoxWidth(e: number) {
+    console.log(e);
+  }
+
   return (
     <div style={containerStyle}>
     <DragCollapse
       mode="horizontal"
       mainContentInit={400}
+      onDragChange={ getBoxWidth }
     />
   </div>
   )

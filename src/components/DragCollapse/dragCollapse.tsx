@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from 'react'
+import React, { FC, useRef, useState, useEffect } from 'react'
 export interface IDragCollapseProps {
     /** 折叠抽屉的外层类名 */
     className?: string,
@@ -10,10 +10,13 @@ export interface IDragCollapseProps {
     extraContent?: React.ReactNode
     /** 主层初始高度 */
     mainContentInit?: number,
+    /** 拖拽抽屉时的回调 */
+    onDragChange?: (e: number) => void,
+
 }
 
 export const DragCollapse: FC<IDragCollapseProps> = (props) => {
-    const { className, mainContent, extraContent, mode, mainContentInit } = props
+    const { className, mainContent, extraContent, mode, mainContentInit, onDragChange } = props
     const [topSize, setTopSize] = useState(mainContentInit)
     const hrBox: any = useRef(null)
     const getTopStyle = (mode: any) => {
@@ -52,6 +55,12 @@ export const DragCollapse: FC<IDragCollapseProps> = (props) => {
             }
         }
     }
+
+    useEffect(() => {
+        if(onDragChange && topSize){
+            onDragChange(topSize)
+        }
+    },[topSize])
 
     return (
         <div className={`${className} frc-dcollapse-drawer`}>
