@@ -1,15 +1,21 @@
-import { FC, ForwardRefExoticComponent, RefAttributes } from 'react'
+import { ForwardRefExoticComponent, RefAttributes } from 'react'
 import FRCInput, { FRCInputProps,InputRef } from './input'
-import FRCSearch, { FRCSearchProps } from './search'
-import FRCGroup, { FRCGroupProps } from './group'
-import FRCTextArea, { FRCTextAreaProps } from './textArea'
-import FRCPassword, { FRCPasswordProps }from './password'
+import FRCSearch from './search'
+import FRCGroup from './group'
+import FRCTextArea from './textArea'
+import FRCPassword from './password'
+
+export type { FRCInputProps, InputRef } from './input'
+export type { FRCSearchProps } from './search'
+export type { FRCGroupProps } from './group'
+export type { FRCTextAreaProps, TextAreaRef } from './textArea'
+export type { FRCPasswordProps } from './password'
 
 export type FrcInputComponent = ForwardRefExoticComponent<FRCInputProps & RefAttributes<InputRef>> & {
-  Search: FC<FRCSearchProps>
-  Group: FC<FRCGroupProps>
-  TextArea: FC<FRCTextAreaProps>
-  Password: FC<FRCPasswordProps>
+  Search: typeof FRCSearch
+  Group: typeof FRCGroup
+  TextArea: typeof FRCTextArea
+  Password: typeof FRCPassword
 }
 
 const TransInput = FRCInput as FrcInputComponent

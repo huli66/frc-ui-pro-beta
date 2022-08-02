@@ -1,4 +1,4 @@
-import React, { FC, useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState,forwardRef } from 'react'
 import classNames from 'classnames'
 import { DatePicker as AntdDatePicker, DatePickerProps } from 'antd'
 import { IoCalendarOutline } from 'react-icons/io5'
@@ -11,6 +11,7 @@ import {
 } from '@ant-design/icons'
 import 'moment/locale/zh-cn'
 import locale from 'antd/es/date-picker/locale/zh_CN'
+import {PickerRef} from './interface'
 
 export interface BasePickerProps {
   /** 是否显示清除按钮 */
@@ -130,8 +131,9 @@ const insertFrcBtn = () => {
   })
 }
 
-export const DatePicker: FC<FRCDatePickerProps> = (
+export const DatePicker = forwardRef<PickerRef ,FRCDatePickerProps>((
   props,
+  ref
 ) => {
   const [dateValue, setDateValue] = useState('')
   const nodes = useRef(null)
@@ -186,10 +188,10 @@ export const DatePicker: FC<FRCDatePickerProps> = (
   // main
   return (
     <div ref={nodes} className="frc-date-picker-container">
-      <AntdDatePicker {...options} />
+      <AntdDatePicker ref={ref as any} {...options} />
     </div>
   )
-}
+})
 
 // normal
 DatePicker.defaultProps = {

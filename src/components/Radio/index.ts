@@ -11,6 +11,8 @@ export type FrcRadioComponent = FC<RadioProps> & {
   Button: FC<RadioButtonProps>
 }
 
+export type { RadioProps, RadioButtonProps, FRCRadioGroupProps}
+
 const TransRadio = FRCRadio as FrcRadioComponent
 
 TransRadio.Group = FRCRadioGroup

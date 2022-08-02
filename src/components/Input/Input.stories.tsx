@@ -17,8 +17,7 @@ import {
     Subheading
 } from '@storybook/addon-docs';
 
-import Input from './index';
-import { FRCInputProps } from './input';
+import Input, { FRCInputProps, InputRef } from './index';
 
 import Button from '../Button';
 import Select from '../Select';
@@ -77,7 +76,7 @@ export default {
                     <Subheading>属性</Subheading>
 
                     <Subheading>Input</Subheading>
-                    <ArgsTable of={Input} />
+                    <ArgsTable of={Input}  exclude={["blur", 'focus']}/>
                     <Description>Input 的其他属性和 React 自带的 input 一致。</Description>
 
                     <Subheading>Input.TextArea</Subheading>
@@ -163,8 +162,8 @@ _BaseComponent.parameters = {
 
 export const _IconOnlyComponent = () => {
     return (<>
-        <Input placeholder="Enter" type="icon-only" allowClear />
-        <Input placeholder="Enter" type="icon-only" allowClear disabled />
+        <Input placeholder="Enter" performance="icon-only" allowClear />
+        <Input placeholder="Enter" performance="icon-only" allowClear disabled />
     </>)
 };
 
@@ -316,6 +315,7 @@ _ShowCountComponent.parameters = {
 
 export const _PasswordComponent = () => {
     return (<>
+        <Input type="password" placeholder="input password" />
         <Input.Password placeholder="input password" />
         <Input.Password
             placeholder="input password"
@@ -337,3 +337,23 @@ _PasswordComponent.parameters = {
 };
 
 // ----------------------------------------------------------------
+
+export const _ZRefComponent = () => {
+    const inputRef = React.useRef<InputRef>(null);
+
+    const hanldeClick = () => {
+        inputRef.current?.focus();
+    }
+
+    return (
+        <>
+            <Input ref={inputRef} />
+            <Button onClick={hanldeClick}>input focus</Button>
+        </>
+    )
+}
+
+_ZRefComponent.storyName = 'Input methods';
+_ZRefComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};

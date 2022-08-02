@@ -1,8 +1,10 @@
-import React, { FC } from 'react'
+import React, { forwardRef } from 'react'
 import classNames from 'classnames'
-import Input, { TextAreaProps, InputProps } from 'antd/es/input'
+import Input, { TextAreaProps, InputProps, InputRef} from 'antd/es/input'
 
 const { TextArea } = Input
+
+export type TextAreaRef = Omit<InputRef, 'setSelectionRange' | 'select' | 'input'>
 
 interface BaseTextAreaProps {
   /** 可以点击清除图标删除内容 */
@@ -27,7 +29,7 @@ interface BaseTextAreaProps {
 
 export type FRCTextAreaProps = BaseTextAreaProps & TextAreaProps & InputProps
 
-export const FRCTextArea: FC<FRCTextAreaProps> = (props) => {
+export const FRCTextArea = forwardRef<TextAreaRef, FRCTextAreaProps>((props, ref) => {
 
   const {
     className,
@@ -48,8 +50,8 @@ export const FRCTextArea: FC<FRCTextAreaProps> = (props) => {
   }
 
   // main
-  return <TextArea {...options} />
-}
+  return <TextArea ref={ref} {...options} />
+})
 
 // normal
 FRCTextArea.defaultProps = {

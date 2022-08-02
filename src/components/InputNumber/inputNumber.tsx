@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { useState, forwardRef } from 'react'
 import classNames from 'classnames'
 import AntdInputNumber, { InputNumberProps } from 'antd/es/input-number'
 export interface BaseInputNumberProps extends InputNumberProps {
@@ -54,7 +54,7 @@ export interface BaseInputNumberProps extends InputNumberProps {
 
 export type FRCInputNumberProps = BaseInputNumberProps
 
-export const InputNumber: FC<FRCInputNumberProps> = (props) => {
+export const InputNumber = forwardRef<HTMLInputElement, FRCInputNumberProps>((props, ref) => {
   const [keyDownEnter, setKeyDownEnter] = useState(false)
   const [isFocs, setIsFocs] = useState(false)
 
@@ -95,8 +95,8 @@ export const InputNumber: FC<FRCInputNumberProps> = (props) => {
   }
 
   // main
-  return <AntdInputNumber {...options} />
-}
+  return <AntdInputNumber ref={ref} {...options} />
+})
 
 // normal
 InputNumber.defaultProps = {

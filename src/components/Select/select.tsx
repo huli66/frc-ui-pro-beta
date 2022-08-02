@@ -1,9 +1,10 @@
-import React, { FC, useState, useEffect, useRef } from 'react'
+import React, {useState, useEffect, useRef, forwardRef } from 'react'
 import classNames from 'classnames'
-import AntdSelect, { SelectProps, DefaultOptionType } from 'antd/es/select'
+import AntdSelect, { SelectProps, DefaultOptionType, RefSelectProps as SelectRef } from 'antd/es/select'
 import { FiSearch, FiX, FiCheck } from 'react-icons/fi'
 import ReactDOM from 'react-dom'
 
+export type {SelectRef}
 interface LabeledValue {
   key?: string;
   value: string | number;
@@ -121,11 +122,11 @@ export interface BaseSelectProps extends SelectProps {
   /** 获得焦点时回调 */
   onFocus?: () => void
   /** 按键按下时回调 */
-  onInputKeyDown?: () => void
+  onInputKeyDown?: React.KeyboardEventHandler<HTMLInputElement | HTMLTextAreaElement>
   /** 鼠标移入时回调 */
-  onMouseEnter?: () => void
+  onMouseEnter?: React.MouseEventHandler<HTMLDivElement>
   /** 鼠标移出时回调 */
-  onMouseLeave?: () => void
+  onMouseLeave?: React.MouseEventHandler<HTMLDivElement>
   /** 下拉列表滚动时的回调 */
   onPopupScroll?: () => void
   /** 文本框值变化时回调	 */
@@ -158,7 +159,7 @@ const addPrefixNode = (nodes: any, prefixIcon: React.ReactNode) => {
 
 export type FRCSelectProps = BaseSelectProps
 
-export const Select: FC<FRCSelectProps> = (props) => {
+export const Select = forwardRef<SelectRef, FRCSelectProps>((props, ref) => {
   const [openDropdown, setOpenDropdown] = useState(false)
   const nodes = useRef(null)
   const {
@@ -216,10 +217,10 @@ export const Select: FC<FRCSelectProps> = (props) => {
 
   return (
     <div ref={nodes} className="frc-select-container">
-      <AntdSelect {...options}>{children}</AntdSelect>
+      <AntdSelect ref={ref} {...options}>{children}</AntdSelect>
     </div>
   )
-}
+})
 
 // normal
 Select.defaultProps = {

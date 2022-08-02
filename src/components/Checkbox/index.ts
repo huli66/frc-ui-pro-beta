@@ -1,9 +1,12 @@
-import {FC} from 'react'
-import FRCCheckbox, {FrcCheckboxProps} from './checkbox'
-import FRCCheckboxGroup, {FrcCheckboxGroupProps} from './checkboxGroup'
+import { ForwardRefExoticComponent, RefAttributes } from 'react'
+import FRCCheckbox, { FRCCheckboxProps } from './checkbox'
+import FRCCheckboxGroup from './checkboxGroup'
 
-export type FRCCheckboxComponent = FC<FrcCheckboxProps> & {
-  Group: FC<FrcCheckboxGroupProps>
+export type { FRCCheckboxProps }
+export type { FRCCheckboxGroupProps } from './checkboxGroup'
+
+export type FRCCheckboxComponent = ForwardRefExoticComponent<FRCCheckboxProps & RefAttributes<HTMLInputElement>> & {
+  Group: typeof FRCCheckboxGroup
 }
 
 const TransCheckbox = FRCCheckbox as FRCCheckboxComponent

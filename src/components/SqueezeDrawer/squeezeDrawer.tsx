@@ -3,11 +3,9 @@ import 'moment/locale/zh-cn'
 import { ReactElement } from 'react-markdown/lib/react-markdown'
 import { LeftOutlined, RightOutlined, DownOutlined, UpOutlined } from '@ant-design/icons';
 
-export const tuple = <T extends string[]>(...args: T) => args;
-const PlacementTypes = tuple('top', 'right', 'bottom', 'left');
-export type placementType = typeof PlacementTypes[number];
+export type PlacementType = 'top' | 'right' | 'bottom' | 'left';
 
-export interface ISqueezeDrawerProps {
+export interface FRCSqueezeDrawerProps {
   /** 弹出层宽度 placement设置为 right 和 left 时生效 */
   width?: number | string,
   /** 弹出层高度 placement设置为 top 和 bottom 时生效 */
@@ -15,7 +13,7 @@ export interface ISqueezeDrawerProps {
   /** 折叠抽屉的外层类名 */
   className?: string,
   /** 弹出方向 */
-  placement?: placementType,
+  placement?: PlacementType,
   /** 弹出层内容 */
   extraContent?: ReactElement,
   /** 主层内容 */
@@ -38,7 +36,7 @@ export interface ISqueezeDrawerProps {
   turnStyle?: React.CSSProperties
 }
 
-export const SqueezeDrawer: FC<ISqueezeDrawerProps> = (props) => {
+export const SqueezeDrawer: FC<FRCSqueezeDrawerProps> = (props) => {
   const {
     extraContent, mainContent, extraContentVisible, className,
     width, height, style: styleProps, extraContentStyle: extraContentStyleProps,
@@ -68,7 +66,7 @@ export const SqueezeDrawer: FC<ISqueezeDrawerProps> = (props) => {
     left: 'row-reverse' as 'row-reverse'
   }
 
-  const handleSetFlagIcon = (currentPlacement: placementType, currentVisible: boolean) => {
+  const handleSetFlagIcon = (currentPlacement: PlacementType, currentVisible: boolean) => {
     let flagIcon = <LeftOutlined />
     if (currentPlacement === 'top') {
       flagIcon = (currentVisible ? <UpOutlined /> : <DownOutlined />)
@@ -85,7 +83,7 @@ export const SqueezeDrawer: FC<ISqueezeDrawerProps> = (props) => {
     return flagIcon
   }
 
-  const getStyle = (currentPlacement: placementType, currentVisible: boolean) => {
+  const getStyle = (currentPlacement: PlacementType, currentVisible: boolean) => {
     let style: React.CSSProperties = {}
     style = {
       ...style,
@@ -94,28 +92,13 @@ export const SqueezeDrawer: FC<ISqueezeDrawerProps> = (props) => {
     return style
   }
 
-  const getContentContainerStyle = (currentPlacement: placementType, currentVisible: boolean) => {
+  const getContentContainerStyle = (currentPlacement: PlacementType, currentVisible: boolean) => {
     let style: React.CSSProperties = {}
-    if (currentPlacement === 'top') {
-      style.flexDirection = styleOfPlacement.top
-    }
-    if (currentPlacement === 'bottom') {
-      style.flexDirection = styleOfPlacement.bottom
-    }
-    if (currentPlacement === 'right') {
-      style.flexDirection = styleOfPlacement.right
-    }
-    if (currentPlacement === 'left') {
-      style.flexDirection = styleOfPlacement.left
-    }
-    // style = {
-    //   ...style,
-    //   ...styleProps
-    // }
+    style.flexDirection = styleOfPlacement[currentPlacement]
     return style
   }
 
-  const getMainContentStyle = (currentPlacement: placementType, currentVisible: boolean) => {
+  const getMainContentStyle = (currentPlacement: PlacementType, currentVisible: boolean) => {
     let style: React.CSSProperties = {}
     style = {
       ...style,
@@ -124,7 +107,7 @@ export const SqueezeDrawer: FC<ISqueezeDrawerProps> = (props) => {
     return style
   }
 
-  const getExtraContentStyle = (currentPlacement: placementType, currentVisible: boolean) => {
+  const getExtraContentStyle = (currentPlacement: PlacementType, currentVisible: boolean) => {
     let style: React.CSSProperties = {}
     if (currentPlacement === 'top') {
       style.height = currentVisible ? height : 0
@@ -145,7 +128,7 @@ export const SqueezeDrawer: FC<ISqueezeDrawerProps> = (props) => {
     return style
   }
 
-  const getTurnStyle = (currentPlacement: placementType, currentVisible: boolean) => {
+  const getTurnStyle = (currentPlacement: PlacementType, currentVisible: boolean) => {
     let style: React.CSSProperties = {}
     if (currentPlacement === 'top') {
       style.top = currentVisible ? height : 0

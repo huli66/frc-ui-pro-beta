@@ -68,14 +68,11 @@ export default {
                     <Subheading>属性</Subheading>
 
                     <Subheading>Radio/Radio.Button</Subheading>
-                    <ArgsTable of={Radio} exclude={["blur", 'focus']} />
+                    <ArgsTable of={Radio} />
 
                     <Subheading>RadioGroup</Subheading>
                     <Description>单选框组合，用于包裹一组 Radio。</Description>
-                    <ArgsTable of={RadioGroup} exclude={["blur", 'focus']} />
-
-                    <Subheading>方法</Subheading>
-                    <ArgsTable of={Radio} include={["blur", 'focus']} />
+                    <ArgsTable of={RadioGroup} />
                 </>
             ),
         },
