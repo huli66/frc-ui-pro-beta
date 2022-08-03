@@ -88,15 +88,16 @@ Default.storyName = '默认 tooltip';
 
 export const _BaseComponent = () => {
 
-    return (<>
-        <div className='center'>
-            <Tooltip title="提示文本"
-                placement='bottom'>
-                <Button>基本用法</Button>
-            </Tooltip>
+    return (
+        <div className='tlt-wrapper'>
+            <div className='center'>
+                <Tooltip title="提示文本"
+                    placement='bottom'>
+                    <Button>基本用法</Button>
+                </Tooltip>
+            </div>
         </div>
-
-    </>)
+    )
 };
 
 _BaseComponent.storyName = '基本用法 tooltip';
@@ -107,55 +108,58 @@ _BaseComponent.parameters = {
 // ----------------------------------------------------------------
 
 export const _DirectionComponent = () => {
-    return (<>
-        <div className='center'>
-            <div className='top_panel'>
-                <Tooltip title='这里是提示文本' hasArrow={true} placement='topLeft'>
-                    <span className='tooltip-base'>上左</span>
-                </Tooltip>
-                <Tooltip title='这里是提示文本' hasArrow={true} placement='top'>
-                    <span className='tooltip-base'>上中</span>
-                </Tooltip>
-                <Tooltip title='这里是提示文本' hasArrow={true} placement='topRight'>
-                    <span className='tooltip-base'>上右</span>
-                </Tooltip>
-            </div>
-            <div className='left_panel'>
-                <Tooltip title={<span>这里是提示文本<br />这里是提示文本</span>} hasArrow={true} placement='leftTop'>
-                    <span className='tooltip-base'>左上</span>
-                </Tooltip>
-                <Tooltip title={<span>这里是提示文本<br />这里是提示文本</span>} hasArrow={true} placement='left'>
-                    <span className='tooltip-base'>左中</span>
-                </Tooltip>
-                <Tooltip title={<span>这里是提示文本<br />这里是提示文本</span>} hasArrow={true} placement='leftBottom'>
-                    <span className='tooltip-base'>左下</span>
-                </Tooltip>
-            </div>
-            <div className='right_panel'>
-                <Tooltip title={<span>这里是提示文本<br />这里是提示文本</span>} hasArrow={true} placement='rightTop'>
-                    <span className='tooltip-base'>右上</span>
-                </Tooltip>
-                <Tooltip title={<span>这里是提示文本<br />这里是提示文本</span>} hasArrow={true} placement='right'>
-                    <span className='tooltip-base'>右中</span>
-                </Tooltip>
-                <Tooltip title={<span>这里是提示文本<br />这里是提示文本</span>} hasArrow={true} placement='rightBottom'>
-                    <span className='tooltip-base'>右下</span>
-                </Tooltip>
-            </div>
-            <div className='bottom_panel'>
+    return (
+        <div className='tlt-wrapper'>
 
-                <Tooltip title='这里是提示文本' hasArrow={true} placement='bottomLeft'>
-                    <span className='tooltip-base'>下左</span>
-                </Tooltip>
-                <Tooltip title='这里是提示文本' hasArrow={true} placement='bottom'>
-                    <span className='tooltip-base'>下中</span>
-                </Tooltip>
-                <Tooltip title='这里是提示文本' hasArrow={true} placement='bottomRight'>
-                    <span className='tooltip-base'>下右</span>
-                </Tooltip>
-            </div>
-        </div >
-    </>)
+            <div className='center'>
+                <div className='top_panel'>
+                    <Tooltip title='这里是提示文本' hasArrow={true} placement='topLeft'>
+                        <span className='tooltip-base'>上左</span>
+                    </Tooltip>
+                    <Tooltip title='这里是提示文本' hasArrow={true} placement='top'>
+                        <span className='tooltip-base'>上中</span>
+                    </Tooltip>
+                    <Tooltip title='这里是提示文本' hasArrow={true} placement='topRight'>
+                        <span className='tooltip-base'>上右</span>
+                    </Tooltip>
+                </div>
+                <div className='left_panel'>
+                    <Tooltip title={<span>这里是提示文本<br />这里是提示文本</span>} hasArrow={true} placement='leftTop'>
+                        <span className='tooltip-base'>左上</span>
+                    </Tooltip>
+                    <Tooltip title={<span>这里是提示文本<br />这里是提示文本</span>} hasArrow={true} placement='left'>
+                        <span className='tooltip-base'>左中</span>
+                    </Tooltip>
+                    <Tooltip title={<span>这里是提示文本<br />这里是提示文本</span>} hasArrow={true} placement='leftBottom'>
+                        <span className='tooltip-base'>左下</span>
+                    </Tooltip>
+                </div>
+                <div className='right_panel'>
+                    <Tooltip title={<span>这里是提示文本<br />这里是提示文本</span>} hasArrow={true} placement='rightTop'>
+                        <span className='tooltip-base'>右上</span>
+                    </Tooltip>
+                    <Tooltip title={<span>这里是提示文本<br />这里是提示文本</span>} hasArrow={true} placement='right'>
+                        <span className='tooltip-base'>右中</span>
+                    </Tooltip>
+                    <Tooltip title={<span>这里是提示文本<br />这里是提示文本</span>} hasArrow={true} placement='rightBottom'>
+                        <span className='tooltip-base'>右下</span>
+                    </Tooltip>
+                </div>
+                <div className='bottom_panel'>
+
+                    <Tooltip title='这里是提示文本' hasArrow={true} placement='bottomLeft'>
+                        <span className='tooltip-base'>下左</span>
+                    </Tooltip>
+                    <Tooltip title='这里是提示文本' hasArrow={true} placement='bottom'>
+                        <span className='tooltip-base'>下中</span>
+                    </Tooltip>
+                    <Tooltip title='这里是提示文本' hasArrow={true} placement='bottomRight'>
+                        <span className='tooltip-base'>下右</span>
+                    </Tooltip>
+                </div>
+            </div >
+        </div>
+    )
 };
 
 _DirectionComponent.storyName = '弹出方向 tooltip';
@@ -167,40 +171,41 @@ _DirectionComponent.parameters = {
 
 export const _WithoutArrowComponent = () => {
 
-    return (<>
-        <div className='center'>
-            <Tooltip
-                hasArrow={false}
-                title={<div><div><span>提示文本</span><Button>按钮</Button><Icon type="frown" /></div> <div><span style={{ background: '#263735' }}>估值收益率(%)</span><span style={{ color: '#F9C152' }}>2.3700</span></div></div>}
-                destroyTooltipOnHide={true}
-                onVisibleChange={(visible) => { console.log(visible) }}>
-                <div className='tooltip-base no-arrow'>
-                    <span>无箭头</span>
-                </div>
-            </Tooltip>
-            <Tooltip placement="topLeft" title="提示文本">
-                <div className='tooltip-base' style={{ width: 'fit-content' }}>
-                    <span>Align edge / 边缘对齐</span>
-                </div>
-            </Tooltip>
-            <Tooltip placement="topLeft" title="提示文本" arrowPointAtCenter>
-                <div className='tooltip-base' style={{ width: 'fit-content' }}>
-                    <span>Arrow points to center / 箭头指向中心</span>
-                </div>
-            </Tooltip>
-            <Tooltip mouseEnterDelay={1} hasArrow={false} title={<span>提示文本</span>}>
-                <div className='tooltip-base no-arrow'>
-                    <span>延迟1s显示</span>
-                </div>
-            </Tooltip>
-            <Tooltip mouseLeaveDelay={1} hasArrow={false} title={<span>提示文本</span>}>
-                <div className='tooltip-base no-arrow'>
-                    <span>延迟1s消失</span>
-                </div>
-            </Tooltip>
+    return (
+        <div className='tlt-wrapper'>
+            <div className='center'>
+                <Tooltip
+                    hasArrow={false}
+                    title={<div><div><span>提示文本</span><Button>按钮</Button><Icon type="frown" /></div> <div><span style={{ background: '#263735' }}>估值收益率(%)</span><span style={{ color: '#F9C152' }}>2.3700</span></div></div>}
+                    destroyTooltipOnHide={true}
+                    onVisibleChange={(visible) => { console.log(visible) }}>
+                    <div className='tooltip-base no-arrow'>
+                        <span>无箭头</span>
+                    </div>
+                </Tooltip>
+                <Tooltip placement="topLeft" title="提示文本">
+                    <div className='tooltip-base' style={{ width: 'fit-content' }}>
+                        <span>Align edge / 边缘对齐</span>
+                    </div>
+                </Tooltip>
+                <Tooltip placement="topLeft" title="提示文本" arrowPointAtCenter>
+                    <div className='tooltip-base' style={{ width: 'fit-content' }}>
+                        <span>Arrow points to center / 箭头指向中心</span>
+                    </div>
+                </Tooltip>
+                <Tooltip mouseEnterDelay={1} hasArrow={false} title={<span>提示文本</span>}>
+                    <div className='tooltip-base no-arrow'>
+                        <span>延迟1s显示</span>
+                    </div>
+                </Tooltip>
+                <Tooltip mouseLeaveDelay={1} hasArrow={false} title={<span>提示文本</span>}>
+                    <div className='tooltip-base no-arrow'>
+                        <span>延迟1s消失</span>
+                    </div>
+                </Tooltip>
+            </div>
         </div>
-
-    </>)
+    )
 };
 
 _WithoutArrowComponent.storyName = '箭头和延时 tooltip';
@@ -226,40 +231,41 @@ export const _ManualComponent = () => {
 
     const showTooltip2 = () => {
         setIsTooltip2Visible(true);
-        let timer = setTimeout(
+        setTimeout(
             () => {
                 setIsTooltip2Visible(false)
             },
             duration
         );
     };
-    return (<>
-        <div className='center'>
-            <Tooltip
-                title={<div><span>提示文本、提示文本 点击确定关闭提示</span><Button type="gray" style={{ margin: '0 0 0 10px', display: 'inline-block' }} onClick={closeToolTip1}>确定</Button></div>}
-                hasArrow={true}
-                placement='left'
-                visible={isTooltip1Visible}
-            >
-                <Button type="primary" onClick={showTooltip1}>
-                    手动关闭
+    return (
+        <div className='tlt-wrapper'>
+            <div className='center'>
+                <Tooltip
+                    title={<div><span>提示文本、提示文本 点击确定关闭提示</span><Button type="gray" style={{ margin: '0 0 0 10px', display: 'inline-block' }} onClick={closeToolTip1}>确定</Button></div>}
+                    hasArrow={true}
+                    placement='left'
+                    visible={isTooltip1Visible}
+                >
+                    <Button type="primary" onClick={showTooltip1}>
+                        手动关闭
+                    </Button>
+                </Tooltip>
+
+                <Button type="primary" style={{ margin: '0 0 0 20px' }} onClick={showTooltip2}>
+                    定时关闭
                 </Button>
-            </Tooltip>
-
-            <Button type="primary" style={{ margin: '0 0 0 20px' }} onClick={showTooltip2}>
-                定时关闭
-            </Button>
-            <Tooltip
-                title='系统提示文本提示文本、提示文本2s后消失'
-                hasArrow={false}
-                placement='bottom'
-                visible={isTooltip2Visible}
-            >
-                <span>目标元素</span>
-            </Tooltip>
+                <Tooltip
+                    title='系统提示文本提示文本、提示文本2s后消失'
+                    hasArrow={false}
+                    placement='bottom'
+                    visible={isTooltip2Visible}
+                >
+                    <span>目标元素</span>
+                </Tooltip>
+            </div>
         </div>
-
-    </>)
+    )
 };
 
 _ManualComponent.storyName = '手动显隐 tooltip';

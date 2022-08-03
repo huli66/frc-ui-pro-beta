@@ -12,10 +12,6 @@ export interface BaseRadioProps extends RadioProps{
   disabled?: boolean;
   /** 根据 value 进行比较，判断是否选中 */
   value?: any;
-  /** 移除焦点 */
-  blur?: () => void;
-  /** 获取焦点 */
-  focus?: () => void;
 }
 
 export type FRCRadioProps = BaseRadioProps

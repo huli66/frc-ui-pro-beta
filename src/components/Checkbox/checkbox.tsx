@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { forwardRef } from 'react'
 import classNames from 'classnames'
 import { Checkbox as AntdCheckbox , CheckboxProps } from 'antd'
 
@@ -26,16 +26,13 @@ export interface BaseCheckboxProps extends CheckboxProps{
   indeterminate?: boolean
   /** 变化时回调函数 */
   onChange?: ((e: CheckboxChangeEvent) => void) | undefined
-  /** 移除焦点 */
-  blur?: () => void
-  /** 获取焦点 */
-  focus?: () => void
 }
 
-export type FrcCheckboxProps = BaseCheckboxProps
+export type FRCCheckboxProps = BaseCheckboxProps
 
-export const Checkbox: FC<FrcCheckboxProps> = (props) => {
+export const Checkbox = forwardRef<HTMLInputElement, FRCCheckboxProps>((props, ref) => {
   const { className, ...restProps } = props
+  const antCheckboxRef = React.useRef<any>(null)
 
   const classes = classNames('frc-checkbox', className, {})
 
@@ -44,9 +41,11 @@ export const Checkbox: FC<FrcCheckboxProps> = (props) => {
     ...restProps,
   }
 
+  React.useImperativeHandle(ref, () => antCheckboxRef.current.input)
+
   // main
-  return <AntdCheckbox {...options} />
-}
+  return <AntdCheckbox ref={antCheckboxRef} {...options} />
+})
 
 // normal
 Checkbox.defaultProps = {

@@ -1,4 +1,4 @@
-import React, { FC, useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState, forwardRef } from 'react'
 import classNames from 'classnames'
 import { DatePicker } from 'antd'
 import { RangePickerProps } from 'antd/es/date-picker/index'
@@ -12,7 +12,8 @@ import {
 } from '@ant-design/icons'
 import 'moment/locale/zh-cn'
 import locale from 'antd/es/date-picker/locale/zh_CN'
-import { BasePickerProps } from "./datePicker";
+import { BasePickerProps } from "./datePicker"
+import { PickerRef } from './interface'
 
 const { RangePicker } = DatePicker
 
@@ -80,7 +81,7 @@ const insertFrcBtn = () => {
   })
 }
 
-export const FRCRangePicker: FC<FRCRangePickerProps> = (props) => {
+export const FRCRangePicker = forwardRef<PickerRef, FRCRangePickerProps>((props, ref) => {
   const [dateValue, setDateValue] = useState(['', ''])
   const nodes = useRef(null)
 
@@ -135,10 +136,10 @@ export const FRCRangePicker: FC<FRCRangePickerProps> = (props) => {
   // main
   return (
     <div ref={nodes} className="frc-date-picker-container">
-      <RangePicker {...options} />
+      <RangePicker ref={ref as any} {...options} />
     </div>
   )
-}
+})
 
 // normal
 FRCRangePicker.defaultProps = {

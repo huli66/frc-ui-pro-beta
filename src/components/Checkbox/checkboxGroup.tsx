@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { forwardRef } from 'react'
 import classNames from 'classnames'
 import { Checkbox } from 'antd'
 import { CheckboxGroupProps } from 'antd/es/checkbox/Group'
@@ -19,9 +19,9 @@ interface BaseCheckboxGroupProps extends CheckboxGroupProps{
   onChange?: (checkedValue: (string | number | boolean)[]) => void
 }
 
-export type FrcCheckboxGroupProps = BaseCheckboxGroupProps
+export type FRCCheckboxGroupProps = BaseCheckboxGroupProps
 
-export const FRCCheckboxGroup: FC<FrcCheckboxGroupProps> = (props) => {
+export const FRCCheckboxGroup = forwardRef<HTMLDivElement, FRCCheckboxGroupProps>((props, ref) => {
   const { className, ...restProps } = props
 
   const classes = classNames('frc-checkbox-group', className, {})
@@ -32,8 +32,8 @@ export const FRCCheckboxGroup: FC<FrcCheckboxGroupProps> = (props) => {
   }
 
   // main
-  return <Group {...options} />
-}
+  return <Group ref={ref} {...options} />
+})
 
 // normal
 FRCCheckboxGroup.defaultProps = {

@@ -14,8 +14,7 @@ import {
     Subheading
 } from '@storybook/addon-docs';
 
-import TimePicker from './index';
-import { FRCTimePickerProps } from './timePicker';
+import TimePicker, {FRCTimePickerProps} from './index';
 import Button from '../Button'
 
 // ----------------------------------------------------------------

@@ -2,11 +2,12 @@ import React, { useState,useRef, forwardRef } from 'react'
 import classNames from 'classnames'
 import AntdInput, { InputProps, InputRef } from 'antd/es/input'
 import { FiSearch } from 'react-icons/fi'
+import { composeRef } from '../../utils'
 
 type InputType = 'default' | 'icon-only'
 interface BaseInputProps {
   /** 交互类型 */
-  type?: InputType
+  performance?: InputType
   /** 带标签的 input，设置后置标签 */
   addonAfter?: React.ReactNode
   /** 带标签的 input，设置前置标签 */
@@ -41,30 +42,9 @@ interface BaseInputProps {
   focus?: (option?: { preventScroll?: boolean, cursor?: 'start' | 'end' | 'all' }) => void
 }
 
-export type FRCInputProps = BaseInputProps & Omit<InputProps, 'type'>
+export type FRCInputProps = BaseInputProps & InputProps
 
 export type {InputRef};
-
-export function fillRef<T>(ref: React.Ref<T>, node: T) {
-  if (typeof ref === 'function') {
-    ref(node);
-  } else if (typeof ref === 'object' && ref && 'current' in ref) {
-    (ref as any).current = node;
-  }
-}
-
-export function composeRef<T>(...refs: React.Ref<T>[]): React.Ref<T> {
-  const refList = refs.filter(ref => ref);
-  if (refList.length <= 1) {
-    return refList[0];
-  }
-
-  return (node: T) => {
-    refs.forEach(ref => {
-      fillRef(ref, node);
-    });
-  };
-}
 
 export const Input= forwardRef<InputRef,FRCInputProps> ((props,ref) => {
   const [keyDownEnter, setKeyDownEnter] = useState(false)
@@ -75,7 +55,7 @@ export const Input= forwardRef<InputRef,FRCInputProps> ((props,ref) => {
     bordered,
     prefix,
     suffix,
-    type,
+    performance,
     value,
     showCount,
     onChange,
@@ -87,11 +67,11 @@ export const Input= forwardRef<InputRef,FRCInputProps> ((props,ref) => {
     [`frc-input-no-border`]: !bordered,
     [`frc-input-enter`]: keyDownEnter,
     [`frc-input-prefix`]: prefix,
-    [`frc-input-${type}`]: type
+    [`frc-input-${performance}`]: performance
   })
 
   const prefixNode = () => {
-    if (type !== 'icon-only') {
+    if (performance !== 'icon-only') {
       return prefix;
     }
     const handleIconClick = () => {
@@ -111,7 +91,6 @@ export const Input= forwardRef<InputRef,FRCInputProps> ((props,ref) => {
     prefix: prefixNode(),
     suffix: showCount ? suffix || <span></span> : suffix,
     showCount,
-    type,
     value,
     onKeyDown: (e: any) => {
       onKeyDown && onKeyDown(e)
@@ -136,7 +115,7 @@ export const Input= forwardRef<InputRef,FRCInputProps> ((props,ref) => {
 Input.defaultProps = {
   bordered: true,
   placeholder: '请输入...',
-  type: 'default',
+  performance: 'default',
   disabled: false,
   showCount: false,
 }

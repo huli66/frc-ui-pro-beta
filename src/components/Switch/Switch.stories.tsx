@@ -16,8 +16,7 @@ import {
     Subheading
 } from '@storybook/addon-docs';
 
-import Switch from './index';
-import {FRCSwitchProps} from './switch-core'
+import Switch, {FRCSwitchProps} from './index';
 
 // ----------------------------------------------------------------
 
@@ -72,10 +71,7 @@ export default {
                     <Subheading>属性</Subheading>
 
                     <Subheading>Radio/Radio.Button</Subheading>
-                    <ArgsTable of={Switch} exclude={["blur", 'focus']} />
-
-                    <Subheading>方法</Subheading>
-                    <ArgsTable of={Switch} include={["blur", 'focus']} />
+                    <ArgsTable of={Switch}/>
                 </>
             ),
         },

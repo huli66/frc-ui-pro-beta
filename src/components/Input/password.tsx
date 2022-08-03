@@ -1,6 +1,6 @@
-import React, { FC } from 'react'
+import React, { forwardRef } from 'react'
 import classNames from 'classnames'
-import Input, { PasswordProps, InputProps } from 'antd/es/input'
+import Input, { PasswordProps, InputProps, InputRef } from 'antd/es/input'
 
 const { Password } = Input
 
@@ -13,7 +13,7 @@ interface BasePasswordProps {
 
 export type FRCPasswordProps = BasePasswordProps & PasswordProps & InputProps
 
-export const FRCPassword: FC<FRCPasswordProps> = (props) => {
+export const FRCPassword = forwardRef<InputRef, FRCPasswordProps>((props,ref) => {
 
   const {
     className,
@@ -29,8 +29,8 @@ export const FRCPassword: FC<FRCPasswordProps> = (props) => {
   }
 
   // main
-  return <Password {...options} />
-}
+  return <Password ref={ref} {...options} />
+})
 
 // normal
 FRCPassword.defaultProps = {

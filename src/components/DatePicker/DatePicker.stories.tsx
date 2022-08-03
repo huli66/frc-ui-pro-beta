@@ -21,8 +21,8 @@ import {
     Subheading
 } from '@storybook/addon-docs';
 
-import DatePicker from './index';
-import { FRCDatePickerProps } from './datePicker'
+import DatePicker,{ FRCDatePickerProps, PickerRef } from './index';
+import Button from '../Button';
 
 const RangePicker = DatePicker.RangePicker
 
@@ -785,5 +785,28 @@ export const _CustomCellComponent = () => {
 
 _CustomCellComponent.storyName = '定制日期单元格 dateRender';
 _CustomCellComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
+
+// ----------------------------------------------------------------
+
+export const _ZRefComponent = () => {
+
+    const dateRef = React.useRef<PickerRef>(null)
+
+    const handleClick = () => {
+        dateRef.current?.focus()
+    }
+
+    return (
+        <>
+            <DatePicker ref={dateRef} />
+            <Button onClick={handleClick}>DatePicker focus</Button>
+        </>
+    )
+}
+
+_ZRefComponent.storyName = 'DatePicker methods';
+_ZRefComponent.parameters = {
     controls: { hideNoControlsWarning: true },
 };

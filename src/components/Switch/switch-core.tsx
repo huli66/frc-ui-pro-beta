@@ -24,10 +24,6 @@ interface BaseSwitch {
   onChange?: (checked: boolean, event: Event) => void
   /** 点击时回调函数 */
   onClick?: (checked: boolean, event: Event) => void
-  /** 移除焦点 */
-  blur?: () => void
-  /** 获取焦点 */
-  focus?: () => void
 }
 
 export type FRCSwitchProps = BaseSwitch & SwitchProps

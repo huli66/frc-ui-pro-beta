@@ -1,6 +1,6 @@
-import React, { FC, useState } from 'react'
+import React, { useState, forwardRef } from 'react'
 import classNames from 'classnames'
-import Input, { SearchProps } from 'antd/es/input'
+import Input, { SearchProps, InputRef } from 'antd/es/input'
 import { FiSearch } from 'react-icons/fi'
 
 const { Search } = Input
@@ -15,7 +15,7 @@ export interface BaseInputProps {
 
 export type FRCSearchProps = BaseInputProps & SearchProps
 
-export const FRCSearch: FC<FRCSearchProps> = (props) => {
+export const FRCSearch = forwardRef<InputRef, FRCSearchProps>((props, ref) => {
   const [keyDownEnter, setKeyDownEnter] = useState(false)
 
   const {
@@ -58,8 +58,8 @@ export const FRCSearch: FC<FRCSearchProps> = (props) => {
   }
 
   // main
-  return <Search {...options} />
-}
+  return <Search ref={ref} {...options} />
+})
 
 // normal
 FRCSearch.defaultProps = {

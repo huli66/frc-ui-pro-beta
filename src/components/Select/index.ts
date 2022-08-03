@@ -1,16 +1,21 @@
-import { FC } from 'react'
-import FRCSelect, { FRCSelectProps } from './select'
-import FRCSelectOption, { FRCSelectOptionProps } from './option'
-import OptGroup, { FRCSelectOptGroupProps } from './optGroup'
+import { RefAttributes, ForwardRefExoticComponent } from 'react'
+import FRCSelect, { FRCSelectProps, SelectRef } from './select'
+import FRCSelectOption from './option'
+import OptGroup from './optGroup'
 
 import Select from 'antd/es/select'
 
+export type { FRCSelectProps, SelectRef }
+export type { FRCSelectOptionProps } from './option'
+export type { FRCSelectOptGroupProps } from './optGroup'
+
+
 const { OptGroup: AntdOptGroup } = Select
 
-export type FrcSelectComponent = FC<FRCSelectProps> & {
-  Option: FC<FRCSelectOptionProps>
-  OptGroup: FC<FRCSelectOptGroupProps>
-  OptGroupApi: FC<FRCSelectOptGroupProps>
+export type FrcSelectComponent = ForwardRefExoticComponent<FRCSelectProps & RefAttributes<SelectRef>> & {
+  Option: typeof FRCSelectOption
+  OptGroup: typeof AntdOptGroup
+  OptGroupApi: typeof OptGroup
 }
 
 const TransSelect = FRCSelect as FrcSelectComponent

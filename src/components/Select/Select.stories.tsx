@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism'
@@ -19,8 +19,7 @@ import {
     Subheading
 } from '@storybook/addon-docs';
 
-import Select from './index';
-import { FRCSelectProps } from './select'
+import Select,{ FRCSelectProps, SelectRef } from './index';
 import Button from '../Button';
 import Input from '../Input';
 
@@ -1073,5 +1072,35 @@ export const _RemoveMenuItemSelectedIconComponent = () => {
 
 _RemoveMenuItemSelectedIconComponent.storyName = '选中隐藏右侧图标';
 _RemoveMenuItemSelectedIconComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
+
+// ----------------------------------------------------------------
+
+export const _ZRefComponent = () => {
+    const selectRef = React.useRef<SelectRef>(null);
+
+    const options = [
+        { label: 'Apple', value: 'Apple'},
+        { label: 'Banana', value: 'Banana'},
+        { label: 'Orange', value: 'Orange'},
+    ]
+
+    const handleClick = useCallback(() => {
+        selectRef.current?.focus();
+    },[]);
+
+    // ----------------------------------------------------------------
+
+    return (
+        <>
+            <Select ref={selectRef} options={options} showSearch />
+            <Button onClick={handleClick}>select focus</Button>
+        </>
+    )
+}
+
+_ZRefComponent.storyName = 'Select Methods';
+_ZRefComponent.parameters = {
     controls: { hideNoControlsWarning: true },
 };

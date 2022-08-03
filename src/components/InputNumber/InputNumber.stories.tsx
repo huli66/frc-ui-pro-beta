@@ -16,10 +16,10 @@ import {
     Subheading
 } from '@storybook/addon-docs';
 
-import InputNumber from './index';
-import { FRCInputNumberProps } from './inputNumber';
+import InputNumber, {FRCInputNumberProps} from './index';
 
 import Select from '../Select';
+import Button from '../Button';
 
 // ----------------------------------------------------------------
 
@@ -275,6 +275,25 @@ export const _OverloadComponent = () => {
 
 _OverloadComponent.storyName = '超出边界';
 _OverloadComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
+
+// ----------------------------------------------------------------
+
+export const _ZRefComponent = () => {
+    const ref = React.useRef<HTMLInputElement>(null);
+    const handleClick = () => {
+        ref.current?.focus();
+    }
+    return (
+    <>
+        <InputNumber ref={ref} min={1} max={10}  />
+        <Button onClick={handleClick}>Input Number focus</Button>
+    </>)
+};
+
+_ZRefComponent.storyName = 'InputNumber methods';
+_ZRefComponent.parameters = {
     controls: { hideNoControlsWarning: true },
 };
 

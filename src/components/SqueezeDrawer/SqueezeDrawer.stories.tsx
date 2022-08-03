@@ -15,8 +15,7 @@ import {
   Subheading
 } from '@storybook/addon-docs';
 
-import SqueezeDrawer from './index';
-import { ISqueezeDrawerProps } from './squeezeDrawer'
+import SqueezeDrawer,{FRCSqueezeDrawerProps,PlacementType} from './index';
 import './_story.scss'
 
 // ----------------------------------------------------------------
@@ -26,11 +25,6 @@ const ImportComponent = () => {
   const markdown = `
 ~~~js
 import { SqueezeDrawer } from 'frc-ui-pro';
-
-// 如果你使用了typescript，请申明对应的placement类型：
-// export const tuple = <T extends string[]>(...args: T) => args;
-// const PlacementTypes = tuple('top', 'right', 'bottom', 'left');
-// export type placementType = typeof PlacementTypes[number];
 
 export const _ControlComponent = () => {
   const [visible, setVisible] = useState(true)
@@ -103,7 +97,7 @@ export default {
 
 // ----------------------------------------------------------------
 
-export const SqueezeDrawerDefault = (args: ISqueezeDrawerProps) => {
+export const SqueezeDrawerDefault = (args: FRCSqueezeDrawerProps) => {
   const { onOpenChange, ...rest } = args
   return (
     <div className='suqeeze-drawer-container'>
@@ -137,16 +131,12 @@ _ControlComponent.parameters = {
   controls: { hideNoControlsWarning: true },
 };
 
-const tuple = <T extends string[]>(...args: T) => args;
-const PlacementTypes = tuple('top', 'right', 'bottom', 'left');
-type placementType = typeof PlacementTypes[number];
-
 export const _PlacementComponent = () => {
   const [visible, setVisible] = useState(true)
   const onHandleClick = (open: boolean) => {
     setVisible(open)
   }
-  const [placement, setPlacement] = useState<placementType>('left')
+  const [placement, setPlacement] = useState<PlacementType>('left')
 
   return (
     <div>

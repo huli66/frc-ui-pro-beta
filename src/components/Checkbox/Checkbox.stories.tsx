@@ -16,8 +16,8 @@ import {
     Subheading
 } from '@storybook/addon-docs';
 
-import Checkbox from './index';
-import { FrcCheckboxProps, CheckboxChangeEvent } from './checkbox'
+import Checkbox, {FRCCheckboxProps} from './index';
+import { CheckboxChangeEvent } from './checkbox'
 
 // ----------------------------------------------------------------
 
@@ -71,34 +71,18 @@ export default {
                     <Heading>API</Heading>
                     <Subheading>属性</Subheading>
                     <Subheading>Checkbox</Subheading>
-                    <ArgsTable of={Checkbox} exclude={["blur", 'focus']} />
+                    <ArgsTable of={Checkbox} />
                     <Subheading>Checkbox Group</Subheading>
                     <ArgsTable of={CheckboxGroup} />
-                    <Subheading>方法</Subheading>
-                    <Subheading>Checkbox</Subheading>
-                    <ArgsTable of={Checkbox} include={["blur", 'focus']} />
                 </>
             ),
-        },
-    },
-    // 细分属性 - 分类（用于canvas 页查阅）
-    argTypes: {
-        blur: {
-            table: {
-                category: '方法',
-            },
-        },
-        focus: {
-            table: {
-                category: '方法',
-            },
         },
     }
 } as ComponentMeta<typeof Checkbox>;
 
 // ----------------------------------------------------------------
 
-export const Default = (args: FrcCheckboxProps) => <Checkbox {...args}>Checkbox</Checkbox>;
+export const Default = (args: FRCCheckboxProps) => <Checkbox {...args}>Checkbox</Checkbox>;
 Default.storyName = '默认 checkbox';
 
 // ----------------------------------------------------------------
