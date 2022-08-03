@@ -28,7 +28,7 @@
   );
 
   @include button-style(
-    linear-gradient($btn-background-normal-top, $btn-background-normal-bottom),
+    $button-linear-180,
     $words-normal,
     $btn-background-hover,
     $words-normal,
@@ -107,7 +107,7 @@
 
   &.frc-btn-work-high-light {
     color: $words-black;
-    background: linear-gradient($high-light-area-top, $high-light-area-bottom);
+    background: $high-light-area-linear-180;
   }
 }
 

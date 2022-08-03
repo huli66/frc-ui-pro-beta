@@ -1,166 +1,234 @@
-// primary
-$basic-background:          #060707 !default;
-$element-background:        #0c0f0e !default;
-$basic-plate:               #101414 !default;
-$part-plate:                #1e2423 !default;
-$basic-btn:                 #253330 !default;
-$btn-hover:                 #0a2420 !default;
-$tittle-word:               #136c5e !default;
-// 渐变色
-$button:                    #252b23 !default;
-$high-light-area-top:       #F38A00 !default;
-$high-light-area-bottom:    #F9C152 !default;
-$high-light-area-right:     #ffb100 !default;
-$new-data:                  #241F0C !default;
+// 全局色彩 - 与 'UI设计稿' 的 '色彩 Color' 保持一致
 
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+
+// primary
+$basic-background:                                 #060707 !default;
+$element-background:                               #121A19 !default;
+$basic-plate:                                      #172422 !default;
+$part-plate:                                       #263735 !default;
+$basic-btn:                                        #325850 !default;
+$basic-filter:                                     #325850 !default;
+$basic-title:                                      #325850 !default;
+$btn-hover:                                        #133E38 !default;
+$mouse-hover:                                      #133E38 !default;
+$tittle-word:                                      #3B9078 !default;
+$new-data:                                         #241F0C !default;
+// - linear
+$button-linear-0:                                  linear-gradient(0deg, #3B9078, #325850) !default;
+$button-linear-90:                                 linear-gradient(90deg, #3B9078, #325850) !default;
+$button-linear-180:                                linear-gradient(180deg, #3B9078, #325850) !default;
+$button-linear-270:                                linear-gradient(270deg, #3B9078, #325850) !default;
+$button-linear-360:                                linear-gradient(360deg, #3B9078, #325850) !default;
+$high-light-area-linear-0:                         linear-gradient(0deg, #F9C152, #F38A00) !default;
+$high-light-area-linear-90:                        linear-gradient(90deg, #F9C152, #F38A00) !default;
+$high-light-area-linear-180:                       linear-gradient(180deg, #F9C152, #F38A00) !default;
+$high-light-area-linear-270:                       linear-gradient(270deg, #F9C152, #F38A00) !default;
+$high-light-area-linear-360:                       linear-gradient(360deg, #F9C152, #F38A00) !default;
+
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
 // ----------------------------------------------------------------
 
 // words color
-$words-normal:              #FFEBC8 !default;
-$words-high-light:          #F9C152 !default;
-$words-supporting:          #8F9598 !default;
-$words-disable:             #4A4D4C !default;
-$words-title:               #136C5E !default;
-$words-black:               #000000 !default;
-$words-error:               #ff4d4f !default;
+$words-normal:                                     #FFEBC8 !default;
+$words-high-light:                                 #F9C152 !default;
+$words-supporting:                                 #8F9598 !default;
+$words-disable:                                    #585B5A !default;
+$words-title:                                      #3B9078 !default;
+$words-black:                                      #000000 !default;
+$words-error:                                      #ff4d4f !default;
 
 // ----------------------------------------------------------------
-
-$white:                     #ffffff !default;
-$gray-100:                  #f8f9fa !default;
-$gray-200:                  #e9ecef !default;
-$gray-300:                  #dee2e6 !default;
-$gray-400:                  #ced4da !default;
-$gray-500:                  #adb5bd !default;
-$gray-600:                  #6c757d !default;
-$gray-700:                  #495057 !default;
-$gray-800:                  #343a40 !default;
-$gray-900:                  #212529 !default;
-$black:                     #000000 !default;
-
+// ----------------------------------------------------------------
 // ----------------------------------------------------------------
 
-// 字体大小
-$font-size-base:              12px !default; 
-$font-size-max:               32px !default;
-$font-size-lg:                24px !default;
-$font-size-medium:            16px !default;
-$font-size-sm:                10px !default;
-$font-size-root:              null !default;
+// client
+// - guoli - 国立
+$broker-guoli:                                     #457194 !default;
+$broker-guoli-linear-0:                            linear-gradient(0deg,   #7BAAC6, #457194) !default;
+$broker-guoli-linear-90:                           linear-gradient(90deg,  #7BAAC6, #457194) !default;
+$broker-guoli-linear-180:                          linear-gradient(180deg, #7BAAC6, #457194) !default;
+$broker-guoli-linear-270:                          linear-gradient(270deg, #7BAAC6, #457194) !default;
+$broker-guoli-linear-360:                          linear-gradient(360deg, #7BAAC6, #457194) !default;
+// - guoji - 国际
+$broker-guoji:                                     #BD5555 !default;
+$broker-guoji-linear-0:                            linear-gradient(0deg,   #E08E8E, #BD5555) !default;
+$broker-guoji-linear-90:                           linear-gradient(90deg,  #E08E8E, #BD5555) !default;
+$broker-guoji-linear-180:                          linear-gradient(180deg, #E08E8E, #BD5555) !default;
+$broker-guoji-linear-270:                          linear-gradient(270deg, #E08E8E, #BD5555) !default;
+$broker-guoji-linear-360:                          linear-gradient(360deg, #E08E8E, #BD5555) !default;
+// - pingan - 平安
+$broker-pingan:                                    #F76920 !default;
+$broker-pingan-linear-0:                           linear-gradient(0deg,   #FCA243, #F76920) !default;
+$broker-pingan-linear-90:                          linear-gradient(90deg,  #FCA243, #F76920) !default;
+$broker-pingan-linear-180:                         linear-gradient(180deg, #FCA243, #F76920) !default;
+$broker-pingan-linear-270:                         linear-gradient(270deg, #FCA243, #F76920) !default;
+$broker-pingan-linear-360:                         linear-gradient(360deg, #FCA243, #F76920) !default;
+// - xintang - 信唐
+$broker-xintang:                                   #8C5AA5 !default;
+$broker-xintang-linear-0:                          linear-gradient(0deg,   #C093D1, #8C5AA5) !default;
+$broker-xintang-linear-90:                         linear-gradient(90deg,  #C093D1, #8C5AA5) !default;
+$broker-xintang-linear-180:                        linear-gradient(180deg, #C093D1, #8C5AA5) !default;
+$broker-xintang-linear-270:                        linear-gradient(270deg, #C093D1, #8C5AA5) !default;
+$broker-xintang-linear-360:                        linear-gradient(360deg, #C093D1, #8C5AA5) !default;
+// - zhongcheng - 中诚
+$broker-xintang:                                   #708D20 !default;
+$broker-xintang-linear-0:                          linear-gradient(0deg,   #A9C143, #708D20) !default;
+$broker-xintang-linear-90:                         linear-gradient(90deg,  #A9C143, #708D20) !default;
+$broker-xintang-linear-180:                        linear-gradient(180deg, #A9C143, #708D20) !default;
+$broker-xintang-linear-270:                        linear-gradient(270deg, #A9C143, #708D20) !default;
+$broker-xintang-linear-360:                        linear-gradient(360deg, #A9C143, #708D20) !default;
+// - shangtian - 上田
+$broker-shangtian:                                 #067E6B !default;
+$broker-shangtian-linear-0:                        linear-gradient(0deg,   #0EB5A4, #067E6B) !default;
+$broker-shangtian-linear-90:                       linear-gradient(90deg,  #0EB5A4, #067E6B) !default;
+$broker-shangtian-linear-180:                      linear-gradient(180deg, #0EB5A4, #067E6B) !default;
+$broker-shangtian-linear-270:                      linear-gradient(270deg, #0EB5A4, #067E6B) !default;
+$broker-shangtian-linear-360:                      linear-gradient(360deg, #0EB5A4, #067E6B) !default;
+// - shangjiaosuo - 上交所
+$broker-shangjiaosuo:                              #BA6752 !default;
+$broker-shangjiaosuo-linear-0:                     linear-gradient(0deg,   #EF9680, #BA6752) !default;
+$broker-shangjiaosuo-linear-90:                    linear-gradient(90deg,  #EF9680, #BA6752) !default;
+$broker-shangjiaosuo-linear-180:                   linear-gradient(180deg, #EF9680, #BA6752) !default;
+$broker-shangjiaosuo-linear-270:                   linear-gradient(270deg, #EF9680, #BA6752) !default;
+$broker-shangjiaosuo-linear-360:                   linear-gradient(360deg, #EF9680, #BA6752) !default;
+// - cfets - Cfets
+$broker-cfets:                                     #3E3EFF !default;
+$broker-cfets-linear-0:                            linear-gradient(0deg,   #7272FF, #3E3EFF) !default;
+$broker-cfets-linear-90:                           linear-gradient(90deg,  #7272FF, #3E3EFF) !default;
+$broker-cfets-linear-180:                          linear-gradient(180deg, #7272FF, #3E3EFF) !default;
+$broker-cfets-linear-270:                          linear-gradient(270deg, #7272FF, #3E3EFF) !default;
+$broker-cfets-linear-360:                          linear-gradient(360deg, #7272FF, #3E3EFF) !default;
 
 // ----------------------------------------------------------------
-
-// 字体
-$font-family-sans-serif:      Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
-$font-family-base:            $font-family-sans-serif !default;
-
+// ----------------------------------------------------------------
 // ----------------------------------------------------------------
 
-// 字重
-$font-weight-lighter:         lighter !default;
-$font-weight-light:           300 !default;
-$font-weight-normal:          400 !default;
-$font-weight-bold:            700 !default;
-$font-weight-bolder:          bolder !default;
-$font-weight-base:            500 !default;
+// charts
+$charts-h1:                                        #B8002A !default;
+$charts-h2:                                        #E6433F !default;
+$charts-h3:                                        #F28036 !default;
+$charts-h4:                                        #FAC246 !default;
+$charts-h5:                                        #FC8E9F !default;
+$charts-h6:                                        #FABE95 !default;
+$charts-h7:                                        #F7CF86 !default;
+$charts-h8:                                        #FFEBC8 !default;
+$charts-h9:                                        #B3319B !default;
+$charts-h10:                                       #7846FA !default;
+$charts-h11:                                       #1600FF !default;
+$charts-h12:                                       #8D5B33 !default;
+$charts-h13:                                       #79B070 !default;
+$charts-h14:                                       #2DA93C !default;
+$charts-h15:                                       #5CD5DF !default;
+$charts-h16:                                       #4CA3FB !default;
 
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+
+// font
+// - 大小
+$font-size-base:                                   12px !default; 
+$font-size-max:                                    32px !default;
+$font-size-lg:                                     24px !default;
+$font-size-medium:                                 16px !default;
+$font-size-sm:                                     10px !default;
+$font-size-root:                                   null !default;
+// - 字体
+$font-family-sans-serif:                           Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+$font-family-base:                                 $font-family-sans-serif !default;
+// - 字重
+$font-weight-lighter:                              lighter !default;
+$font-weight-light:                                300 !default;
+$font-weight-normal:                               400 !default;
+$font-weight-bold:                                 700 !default;
+$font-weight-bolder:                               bolder !default;
+$font-weight-base:                                 500 !default;
+
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
 // ----------------------------------------------------------------
 
 // 行高
-$line-height-base:            24px !default;
-$line-height-lg:              32px !default;
-$line-height-sm:              16px !default;
-$line-height-border:          22px !default;
+$line-height-base:                                 24px !default;
+$line-height-lg:                                   32px !default;
+$line-height-sm:                                   16px !default;
+$line-height-border:                               22px !default;
 
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
 // ----------------------------------------------------------------
 
 // 链接
-$link-color:                              $words-normal !default;
-$link-hover-color:                        $words-high-light !default;
-$link-pressed-color:                      $words-high-light !default;
-$link-disable-color:                      $words-disable !default;
+$link-color:                                       $words-normal !default;
+$link-hover-color:                                 $words-high-light !default;
+$link-pressed-color:                               $words-high-light !default;
+$link-disable-color:                               $words-disable !default;
+$link-decoration-none:                             none !default;
+$link-decoration:                                  underline !default;
+$link-hover-decoration:                            underline !default;
 
-$link-decoration-none:                    none !default;
-$link-decoration:                         underline !default;
-$link-hover-decoration:                   underline !default;
-
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
 // ----------------------------------------------------------------
 
 // body
-$body-bg:                   $basic-background !default;
-$body-color:                $words-normal !default;
-$body-text-align:           null !default;
+$body-bg:                                          $basic-background !default;
+$body-color:                                       $words-normal !default;
+$body-text-align:                                  null !default;
 
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
 // ----------------------------------------------------------------
 
 // 边框 和 border radius
+$border-width:                                     1px !default;
+$border-radius:                                    2px !default;
+$border-radius-lg:                                 4px !default;
 
-$border-width:                1px !default;
-$border-radius:               2px !default;
-$border-radius-lg:            4px !default;
-
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
 // ----------------------------------------------------------------
 
 // button
 // 按钮
 // 按钮基本属性
-$btn-font-weight:             $font-weight-base;
-$btn-padding-y:               0px !default;
-$btn-padding-x:               6px !default;
-$btn-font-family:             $font-family-base !default;
-$btn-font-size:               $font-size-base !default;
-$btn-line-height:             $line-height-base !default;
+$btn-font-weight:                                  $font-weight-base;
+$btn-padding-y:                                    0px !default;
+$btn-padding-x:                                    6px !default;
+$btn-font-family:                                  $font-family-base !default;
+$btn-font-size:                                    $font-size-base !default;
+$btn-line-height:                                  $line-height-base !default;
+$btn-border-width:                                 $border-width !default;
 
-// 按钮颜色
+// normal
+$btn-background-normal-top:                        #213D38 !default;
+$btn-background-normal-bottom:                     #18302C !default;
+$btn-background-hover:                             #0A2420 !default;
+$btn-background-active:                            #1E2423 !default;
 
-// ----------------------------------------------------------------
+// primary
+$btn-background-primary:                           #253330 !default;
+$btn-background-primary-hover:                     $btn-background-hover !default;
+$btn-background-primary-active:                    $btn-background-active !default;
 
-// type - normal
-$btn-background-normal-top:      #213D38 !default;
-$btn-background-normal-bottom:   #18302C !default;
-// hover
-$btn-background-hover:           #0A2420 !default;
-// active
-$btn-background-active:          #1E2423 !default;
+// lead
+$btn-padding-lead-y:                               0px !default;
+$btn-padding-lead-left:                            9px !default;
+$btn-padding-lead-right:                           2px !default;
 
-// ----------------------------------------------------------------
+// gray
+$btn-background-gray:                              #4A4D4C !default;
+$btn-background-gray-hover:                        #1E1E1E !default;
+$btn-background-gray-active:                       #1E2423  !default;
 
-// type - primary
-$btn-background-primary:         #253330 !default;
-// hover
-$btn-background-primary-hover:   $btn-background-hover !default;
-// active
-$btn-background-primary-active:  $btn-background-active !default;
-
-// ----------------------------------------------------------------
-
-// type - lead
-$btn-padding-lead-y:               0px !default;
-$btn-padding-lead-left:            9px !default;
-$btn-padding-lead-right:           2px !default;
-
-// ----------------------------------------------------------------
-
-// type - gray
-$btn-background-gray:         #4A4D4C !default;
-// hover
-$btn-background-gray-hover:   #1E1E1E !default;
-// active
-$btn-background-gray-active:  #1E2423  !default;
-
-// ----------------------------------------------------------------
-
-// 按钮边框
-$btn-border-width:               $border-width !default;
-
-// ----------------------------------------------------------------
-
-// type - gray
-$btn-background-link:         transparent !default;
-// hover
-$btn-background-link-hover:   transparent !default;
-// active
-$btn-background-link-active:  transparent  !default;
+// link
+$btn-background-link:                              transparent !default;
+$btn-background-link-hover:                        transparent !default;
+$btn-background-link-active:                       transparent  !default;
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
@@ -168,101 +236,110 @@ $btn-background-link-active:  transparent  !default;
 
 //input
 
-$input-padding-y:                          0px !default;
-$input-padding-x:                          6px !default;
-$input-font-family:                        $font-family-base !default;
-$input-font-size:                          $font-size-base !default;
-$input-font-weight:                        500 !default;
-$input-line-height:                        $line-height-border !default;
-$input-border-radius:                      $border-radius !default;
-
-$input-background:                         #0C0F0E !default;
-$input-color:                              $words-supporting !default;
-$input-border:                             1px solid $basic-btn !default;
-
-$input-background-hover:                   $btn-hover !default;
-
-$input-color-focus:                        $words-high-light !default;
-$input-border-focus:                       1px solid $words-high-light !default;
-
-$input-background-disabled:                $input-background !default;
-$input-color-disabled:                     $words-disable !default;
-$input-border-disabled:                    $input-border !default;
-
-// ----------------------------------------------------------------
-
-// icon-only
-
 // normal
-$input-background-icon-only:               transparent !default;
-$input-color-icon-only:                    $words-normal !default;
-$input-border-icon-only:                   1px solid transparent !default;
+$input-padding-y:                                  0px !default;
+$input-padding-x:                                  6px !default;
+$input-font-family:                                $font-family-base !default;
+$input-font-size:                                  $font-size-base !default;
+$input-font-weight:                                500 !default;
+$input-line-height:                                $line-height-border !default;
+$input-border-radius:                              $border-radius !default;
+$input-background:                                 $element-background !default;
+$input-color:                                      $words-supporting !default;
+$input-border:                                     1px solid $basic-btn !default;
 
 // hover
-$input-background-icon-only-hover:         $input-background-hover !default;
-$input-color-icon-only-hover:              $words-normal !default;
-$input-border-icon-only-hover:             1px solid $input-background-hover !default;
+$input-background-hover:                           $btn-hover !default;
 
 // focus
-$input-background-icon-only-focus:         $input-background !default;
-$input-color-icon-only-focus:              $input-color-focus !default;
-$input-border-icon-only-focus:             1px solid $input-color-focus !default;
+$input-color-focus:                                $words-high-light !default;
+$input-border-focus:                               1px solid $words-high-light !default;
 
 // disabled
-$input-background-icon-only-disabled:      $input-background-icon-only !default;
-$input-color-icon-only-disabled:           $input-color-disabled !default;
-$input-border-icon-only-disabled:          1px solid transparent !default;
+$input-background-disabled:                        $input-background !default;
+$input-color-disabled:                             $words-disable !default;
+$input-border-disabled:                            $input-border !default;
 
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+
+// icon-only - input
+
+// normal
+$input-background-icon-only:                       transparent !default;
+$input-color-icon-only:                            $words-normal !default;
+$input-border-icon-only:                           1px solid transparent !default;
+
+// hover
+$input-background-icon-only-hover:                 $input-background-hover !default;
+$input-color-icon-only-hover:                      $words-normal !default;
+$input-border-icon-only-hover:                     1px solid $input-background-hover !default;
+
+// focus
+$input-background-icon-only-focus:                 $input-background !default;
+$input-color-icon-only-focus:                      $input-color-focus !default;
+$input-border-icon-only-focus:                     1px solid $input-color-focus !default;
+
+// disabled
+$input-background-icon-only-disabled:              $input-background-icon-only !default;
+$input-color-icon-only-disabled:                   $input-color-disabled !default;
+$input-border-icon-only-disabled:                  1px solid transparent !default;
+
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
 // ----------------------------------------------------------------
 
 // search - input
 
 // normal
-$input-search-background:                  $element-background !default;
-$input-search-color:                       $words-supporting !default;
-$input-search-border:                      1px solid $basic-btn !default;
+$input-search-background:                          $element-background !default;
+$input-search-color:                               $words-supporting !default;
+$input-search-border:                              1px solid $basic-btn !default;
 
 // hover
-$input-search-background-hover:            #0A2420 !default;
-$input-search-color-hover:                 $words-supporting !default;
-$input-search-border-hover:                1px solid $basic-btn !default;
+$input-search-background-hover:                    #0A2420 !default;
+$input-search-color-hover:                         $words-supporting !default;
+$input-search-border-hover:                        1px solid $basic-btn !default;
 
 // focus
-$input-search-background-focus:            $element-background !default;
-$input-search-color-focus:                 $words-high-light !default;
-$input-search-border-focus:                1px solid $words-high-light !default;
+$input-search-background-focus:                    $element-background !default;
+$input-search-color-focus:                         $words-high-light !default;
+$input-search-border-focus:                        1px solid $words-high-light !default;
 
 // disabled
-$input-search-background-disabled:         $basic-btn !default;
-$input-search-color-disabled:              $words-disable !default;
-$input-search-border-disabled:             1px solid $basic-btn !default;
+$input-search-background-disabled:                 $basic-btn !default;
+$input-search-color-disabled:                      $words-disable !default;
+$input-search-border-disabled:                     1px solid $basic-btn !default;
 
 // ----------------------------------------------------------------
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
 
-// input-number
+// input-number - input
 
 // basic
-$input-number-line-height:                 $input-line-height;
+$input-number-line-height:                         $input-line-height;
 
 // normal
-$input-number-background:                  $element-background !default;
-$input-number-color:                       $input-search-color !default;
-$input-number-border:                      $input-search-border !default;
+$input-number-background:                          $element-background !default;
+$input-number-color:                               $input-search-color !default;
+$input-number-border:                              $input-search-border !default;
 
 // hover
-$input-number-background-hover:            $btn-hover !default;
-$input-number-color-hover:                 $input-search-color-hover !default;
-$input-number-border-hover:                $input-search-border-hover !default;
+$input-number-background-hover:                    $btn-hover !default;
+$input-number-color-hover:                         $input-search-color-hover !default;
+$input-number-border-hover:                        $input-search-border-hover !default;
 
 // focus
-$input-number-background-focus:            $element-background !default;
-$input-number-color-focus:                 $input-search-color-focus !default;
-$input-number-border-focus:                $input-search-border-focus !default;
+$input-number-background-focus:                    $element-background !default;
+$input-number-color-focus:                         $input-search-color-focus !default;
+$input-number-border-focus:                        $input-search-border-focus !default;
 
 // disabled
-$input-number-background-disabled:         $element-background !default;
-$input-number-color-disabled:              $input-search-color-disabled !default;
-$input-number-border-disabled:             $input-search-border-disabled !default;
+$input-number-background-disabled:                 $element-background !default;
+$input-number-color-disabled:                      $input-search-color-disabled !default;
+$input-number-border-disabled:                     $input-search-border-disabled !default;
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
@@ -271,31 +348,31 @@ $input-number-border-disabled:             $input-search-border-disabled !defaul
 // select
 
 // basic
-$select-line-height:                        $line-height-border !default;
-$select-font-size:                          $font-size-base !default;
-$select-radius:                             $border-radius !default;
-$select-padding:                            0 4px !default;
-$select-font-weight:                        $font-weight-base !default;
+$select-line-height:                               $line-height-border !default;
+$select-font-size:                                 $font-size-base !default;
+$select-radius:                                    $border-radius !default;
+$select-padding:                                   0 4px !default;
+$select-font-weight:                               $font-weight-base !default;
 
 // normal
-$select-background:                         $element-background !default;
-$select-color:                              $words-normal !default;
-$select-border:                             1px solid $basic-btn !default;
+$select-background:                                $element-background !default;
+$select-color:                                     $words-normal !default;
+$select-border:                                    1px solid $basic-btn !default;
 
 // hover
-$select-background-hover:                   $btn-hover !default;
-$select-color-hover:                        $words-normal !default;
-$select-border-hover:                       1px solid $basic-btn !default;
+$select-background-hover:                          $btn-hover !default;
+$select-color-hover:                               $words-normal !default;
+$select-border-hover:                              1px solid $basic-btn !default;
 
 // focus
-$select-background-focus:                   $element-background !default;
-$select-color-focus:                        $words-normal !default;
-$select-border-focus:                       1px solid $words-high-light !default;
+$select-background-focus:                          $element-background !default;
+$select-color-focus:                               $words-normal !default;
+$select-border-focus:                              1px solid $words-high-light !default;
 
 // disabled
-$select-background-disabled:                $element-background !default;
-$select-color-disabled:                     $words-disable !default;
-$select-border-disabled:                    1px solid $basic-btn !default;
+$select-background-disabled:                       $element-background !default;
+$select-color-disabled:                            $words-disable !default;
+$select-border-disabled:                           1px solid $basic-btn !default;
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
@@ -304,81 +381,81 @@ $select-border-disabled:                    1px solid $basic-btn !default;
 // radio
 
 // basic
-$radio-line-height:                         $line-height-base !default;
-$radio-font-size:                           $font-size-base !default;
-$radio-font-weight:                         $font-weight-base !default;
+$radio-line-height:                                $line-height-base !default;
+$radio-font-size:                                  $font-size-base !default;
+$radio-font-weight:                                $font-weight-base !default;
 
 // normal
-$radio-background:                          transparent !default;
-$radio-color:                               $words-normal !default;
-$radio-border:                              none !default;
+$radio-background:                                 transparent !default;
+$radio-color:                                      $words-normal !default;
+$radio-border:                                     none !default;
 
-$radio-background-icon:                     $element-background !default;
-$radio-border-icon:                         1px solid $basic-btn !default;
+$radio-background-icon:                            $element-background !default;
+$radio-border-icon:                                1px solid $basic-btn !default;
 
 // hover
-$radio-background-hover:                    transparent !default;
-$radio-color-hover:                         $words-normal !default;
-$radio-border-hover:                        none !default;
+$radio-background-hover:                           transparent !default;
+$radio-color-hover:                                $words-normal !default;
+$radio-border-hover:                               none !default;
 
-$radio-background-hover-icon:               $btn-hover !default;
-$radio-border-hover-icon:                   1px solid $basic-btn !default;
+$radio-background-hover-icon:                      $btn-hover !default;
+$radio-border-hover-icon:                          1px solid $basic-btn !default;
 
 // active
-$radio-background-active:                   transparent !default;
-$radio-color-active:                        $words-normal !default;
-$radio-border-active:                       none !default;
+$radio-background-active:                          transparent !default;
+$radio-color-active:                               $words-normal !default;
+$radio-border-active:                              none !default;
 
-$radio-background-active-icon:              $part-plate !default;
-$radio-border-active-icon:                  1px solid $basic-btn !default;
+$radio-background-active-icon:                     $part-plate !default;
+$radio-border-active-icon:                         1px solid $basic-btn !default;
 
 // focus
-$radio-background-focus:                    transparent !default;
-$radio-color-focus:                         $words-high-light !default;
-$radio-border-focus:                        none !default;
+$radio-background-focus:                           transparent !default;
+$radio-color-focus:                                $words-high-light !default;
+$radio-border-focus:                               none !default;
 
-$radio-background-focus-icon:               $element-background !default;
-$radio-border-focus-icon:                   1px solid $words-high-light !default;
+$radio-background-focus-icon:                      $element-background !default;
+$radio-border-focus-icon:                          1px solid $words-high-light !default;
 
 // disable
-$radio-background-disabled:                 transparent !default;
-$radio-color-disabled:                      $words-disable !default;
-$radio-border-disabled:                     none !default;
+$radio-background-disabled:                        transparent !default;
+$radio-color-disabled:                             $words-disable !default;
+$radio-border-disabled:                            none !default;
 
-$radio-background-disabled-icon:            $element-background !default;
-$radio-border-disabled-icon:                1px solid $basic-btn !default;
-$radio-background-disabled-icon-inner:      $basic-btn !default;
+$radio-background-disabled-icon:                   $element-background !default;
+$radio-border-disabled-icon:                       1px solid $basic-btn !default;
+$radio-background-disabled-icon-inner:             $basic-btn !default;
 
 // ----------------------------------------------------------------
 
 // radio - buttonType
 
 // normal
-$radio-solid-background:                    $element-background !default;
-$radio-solid-color:                         $words-normal !default;
-$radio-solid-border:                        none !default;
+$radio-solid-background:                           $element-background !default;
+$radio-solid-color:                                $words-normal !default;
+$radio-solid-border:                               none !default;
 
 // hover
-$radio-solid-background-hover:              $btn-hover !default;
-$radio-solid-color-hover:                   $words-normal !default;
-$radio-solid-border-hover:                  none !default;
+$radio-solid-background-hover:                     $btn-hover !default;
+$radio-solid-color-hover:                          $words-normal !default;
+$radio-solid-border-hover:                         none !default;
 
 // active
-$radio-solid-background-active:             $part-plate !default;
-$radio-solid-color-active:                  $words-normal !default;
-$radio-solid-border-active:                 none !default;
+$radio-solid-background-active:                    $part-plate !default;
+$radio-solid-color-active:                         $words-normal !default;
+$radio-solid-border-active:                        none !default;
 
 // focus
-$radio-solid-background-focus:              $basic-btn !default;
-$radio-solid-color-focus:                   $words-normal !default;
-$radio-solid-border-focus:                  none !default;
+$radio-solid-background-focus:                     $basic-btn !default;
+$radio-solid-color-focus:                          $words-normal !default;
+$radio-solid-border-focus:                         none !default;
 
 // disable
-$radio-solid-background-disabled:           $element-background !default;
-$radio-solid-color-disabled:                $words-disable !default;
-$radio-solid-border-disabled:               none !default;
+$radio-solid-background-disabled:                  $element-background !default;
+$radio-solid-color-disabled:                       $words-disable !default;
+$radio-solid-border-disabled:                      none !default;
 
-$radio-solid-background-disabled-checked:   $basic-btn !default;
+$radio-solid-background-disabled-checked:          $basic-btn !default;
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
@@ -387,50 +464,50 @@ $radio-solid-background-disabled-checked:   $basic-btn !default;
 // checkbox
 
 // basic
-$checkbox-line-height:                         $line-height-base !default;
-$checkbox-font-size:                           $font-size-base !default;
-$checkbox-font-weight:                         $font-weight-base !default;
+$checkbox-line-height:                             $line-height-base !default;
+$checkbox-font-size:                               $font-size-base !default;
+$checkbox-font-weight:                             $font-weight-base !default;
 
 // normal
-$checkbox-background:                          transparent !default;
-$checkbox-color:                               $words-normal !default;
-$checkbox-border:                              none !default;
+$checkbox-background:                              transparent !default;
+$checkbox-color:                                   $words-normal !default;
+$checkbox-border:                                  none !default;
 
-$checkbox-background-icon:                     $element-background !default;
-$checkbox-border-icon:                         1px solid $basic-btn !default;
+$checkbox-background-icon:                         $element-background !default;
+$checkbox-border-icon:                             1px solid $basic-btn !default;
 
 // hover
-$checkbox-background-hover:                    transparent !default;
-$checkbox-color-hover:                         $words-normal !default;
-$checkbox-border-hover:                        none !default;
+$checkbox-background-hover:                        transparent !default;
+$checkbox-color-hover:                             $words-normal !default;
+$checkbox-border-hover:                            none !default;
 
-$checkbox-background-hover-icon:               $btn-hover !default;
-$checkbox-border-hover-icon:                   1px solid $basic-btn !default;
+$checkbox-background-hover-icon:                   $btn-hover !default;
+$checkbox-border-hover-icon:                       1px solid $basic-btn !default;
 
 // active
-$checkbox-background-active:                   transparent !default;
-$checkbox-color-active:                        $words-normal !default;
-$checkbox-border-active:                       none !default;
+$checkbox-background-active:                       transparent !default;
+$checkbox-color-active:                            $words-normal !default;
+$checkbox-border-active:                           none !default;
 
-$checkbox-background-active-icon:              $part-plate !default;
-$checkbox-border-active-icon:                  2px solid $basic-btn !default;
+$checkbox-background-active-icon:                  $part-plate !default;
+$checkbox-border-active-icon:                      2px solid $basic-btn !default;
 
 // focus
-$checkbox-background-focus:                    transparent !default;
-$checkbox-color-focus:                         $words-high-light !default;
-$checkbox-border-focus:                        none !default;
+$checkbox-background-focus:                        transparent !default;
+$checkbox-color-focus:                             $words-high-light !default;
+$checkbox-border-focus:                            none !default;
 
-$checkbox-background-focus-icon:               $element-background !default;
-$checkbox-border-focus-icon:                   1px solid $words-high-light !default;
+$checkbox-background-focus-icon:                   $element-background !default;
+$checkbox-border-focus-icon:                       1px solid $words-high-light !default;
 
 // disable
-$checkbox-background-disabled:                 transparent !default;
-$checkbox-color-disabled:                      $words-disable !default;
-$checkbox-border-disabled:                     none !default;
+$checkbox-background-disabled:                     transparent !default;
+$checkbox-color-disabled:                          $words-disable !default;
+$checkbox-border-disabled:                         none !default;
 
-$checkbox-background-disabled-icon:            $element-background !default;
-$checkbox-border-disabled-icon:                1px solid $basic-btn !default;
-$checkbox-background-disabled-icon-inner:      $basic-btn !default;
+$checkbox-background-disabled-icon:                $element-background !default;
+$checkbox-border-disabled-icon:                    1px solid $basic-btn !default;
+$checkbox-background-disabled-icon-inner:          $basic-btn !default;
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
@@ -439,37 +516,37 @@ $checkbox-background-disabled-icon-inner:      $basic-btn !default;
 // switch
 
 // basic
-$switch-width:                               $line-height-base !default;
-$switch-height:                              $line-height-sm !default;
-$switch-line-height:                         $line-height-sm !default;
+$switch-width:                                     $line-height-base !default;
+$switch-height:                                    $line-height-sm !default;
+$switch-line-height:                               $line-height-sm !default;
 
 // normal
-$switch-background:                          $element-background !default;
-$switch-color:                               $words-normal !default;
-$switch-border:                              1px solid $basic-btn !default;
+$switch-background:                                $element-background !default;
+$switch-color:                                     $words-normal !default;
+$switch-border:                                    1px solid $basic-btn !default;
 
-$switch-background-icon:                     $basic-btn !default;
+$switch-background-icon:                           $basic-btn !default;
 
 // hover
-$switch-background-hover:                    $btn-hover !default;
-$switch-color-hover:                         $words-normal !default;
+$switch-background-hover:                          $btn-hover !default;
+$switch-color-hover:                               $words-normal !default;
 
 // active
-$switch-background-active:                   $part-plate !default;
-$switch-color-active:                        $words-normal !default;
+$switch-background-active:                         $part-plate !default;
+$switch-color-active:                              $words-normal !default;
 
 // focus
-$switch-color-focus:                         $words-high-light !default;
-$switch-border-focus:                        1px solid $words-high-light !default;
+$switch-color-focus:                               $words-high-light !default;
+$switch-border-focus:                              1px solid $words-high-light !default;
 
-$switch-background-focus-icon:               $words-high-light !default;
+$switch-background-focus-icon:                     $words-high-light !default;
 
 // disable
-$switch-background-disabled:                 $element-background !default;
-$switch-color-disabled:                      $words-disable !default;
-$switch-border-disabled:                     1px solid $basic-btn !default;
+$switch-background-disabled:                       $element-background !default;
+$switch-color-disabled:                            $words-disable !default;
+$switch-border-disabled:                           1px solid $basic-btn !default;
 
-$switch-background-disabled-icon:            $basic-btn !default;
+$switch-background-disabled-icon:                  $basic-btn !default;
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
@@ -478,31 +555,31 @@ $switch-background-disabled-icon:            $basic-btn !default;
 // datePicker
 
 // basic
-$date-picker-line-height:                         $line-height-border !default;
+$date-picker-line-height:                          $line-height-border !default;
 
 // normal
-$date-picker-background:                          $element-background !default;
-$date-picker-color:                               $words-normal !default;
-$date-picker-border:                              1px solid $basic-btn !default;
+$date-picker-background:                           $element-background !default;
+$date-picker-color:                                $words-normal !default;
+$date-picker-border:                               1px solid $basic-btn !default;
 
-$date-picker-color-icon:                          $words-normal !default;
+$date-picker-color-icon:                           $words-normal !default;
 
 // hover
-$date-picker-background-hover:                    $btn-hover !default;
-$date-picker-color-hover:                         $words-normal !default;
-$date-picker-border-hover:                        1px solid $basic-btn !default;
+$date-picker-background-hover:                     $btn-hover !default;
+$date-picker-color-hover:                          $words-normal !default;
+$date-picker-border-hover:                         1px solid $basic-btn !default;
 
 // focus
-$date-picker-background-focus:                    $element-background !default;
-$date-picker-color-focus:                         $words-high-light !default;
-$date-picker-border-focus:                        1px solid $words-high-light !default;
+$date-picker-background-focus:                     $element-background !default;
+$date-picker-color-focus:                          $words-high-light !default;
+$date-picker-border-focus:                         1px solid $words-high-light !default;
 
 // disable
-$date-picker-background-disabled:                 $element-background !default;
-$date-picker-color-disabled:                      $words-disable !default;
-$date-picker-border-disabled:                     1px solid $basic-btn !default;
+$date-picker-background-disabled:                  $element-background !default;
+$date-picker-color-disabled:                       $words-disable !default;
+$date-picker-border-disabled:                      1px solid $basic-btn !default;
 
-$date-picker-color-icon-disabled:                 $words-disable !default;
+$date-picker-color-icon-disabled:                  $words-disable !default;
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
@@ -511,19 +588,19 @@ $date-picker-color-icon-disabled:                 $words-disable !default;
 // modal
 
 // basic
-$modal-line-height:                               $line-height-base !default;
-$modal-min-height:                                $line-height-base !default;
-$modal-border-radius:                             $border-radius-lg !default;
-$modal-font-weight:                               $font-weight-base !default;
+$modal-line-height:                                $line-height-base !default;
+$modal-min-height:                                 $line-height-base !default;
+$modal-border-radius:                              $border-radius-lg !default;
+$modal-font-weight:                                $font-weight-base !default;
 
-$modal-font-size-title:                           $font-size-medium !default;
-$modal-font-size-text:                            $font-size-base !default;
+$modal-font-size-title:                            $font-size-medium !default;
+$modal-font-size-text:                             $font-size-base !default;
 
 
 // normal
-$modal-background:                                $basic-plate !default;
-$modal-color:                                     $words-normal !default;
-$modal-border:                                    2px solid $tittle-word !default;
+$modal-background:                                 $basic-plate !default;
+$modal-color:                                      $words-normal !default;
+$modal-border:                                     2px solid $tittle-word !default;
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
@@ -532,18 +609,18 @@ $modal-border:                                    2px solid $tittle-word !defaul
 // divider
 
 // basic
-$divider-line-height:                             $line-height-base !default;
-$divider-margin:                                  11px 4px 12px 4px !default;
-$divider-width:                                   calc(100% - 8px) !default;
-$divider-font-family:                             $font-family-base !default;
+$divider-line-height:                              $line-height-base !default;
+$divider-margin:                                   11px 4px 12px 4px !default;
+$divider-width:                                    calc(100% - 8px) !default;
+$divider-font-family:                              $font-family-base !default;
 
 // normal
-$divider-border-top:                              1px solid $basic-btn !default;
-$divider-border-left:                             1px solid $basic-btn !default;
+$divider-border-top:                               1px solid $basic-btn !default;
+$divider-border-left:                              1px solid $basic-btn !default;
 
 // text
-$divider-border-top-text:                         0px solid $basic-btn !default;
-$divider-color:                                   $words-disable !default;
+$divider-border-top-text:                          0px solid $basic-btn !default;
+$divider-color:                                    $words-disable !default;
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
@@ -554,120 +631,120 @@ $slider-height-sm:                                 4px !default;
 $slider-height-md:                                 8px !default;
 $slider-height-lg:                                 16px !default;
 $slider-handle-height:                             4px !default;
-$slider-handle-bg:                                 #253330 !default;
-$slider-dragging-bg:                               #0a2420 !default;
-$slider-track-bg:                                  #1e2423 !default;
-$slider-track-bg-hover:                            #241F0C !default;
-// ----------------------------------------------------------------
-// ----------------------------------------------------------------
-// ----------------------------------------------------------------
+$slider-handle-bg:                                 $basic-btn !default;
+$slider-dragging-bg:                               $mouse-hover !default;
+$slider-track-bg:                                  $part-plate !default;
+$slider-track-bg-hover:                            $new-data !default;
 
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
 
 // menu
-$menu-base-background: #101414                  !default;
-$menu-base-background-hover: #0a2420            !default;
-$menu-base-background-transparent: transparent    !default;
-$menu-base-border-color-background: #253330     !default;
-$menu-small-padding: 8px                          !default;
-$menu-base-padding: 16px                          !default;
-$menu-base-padding-lg: 24px                       !default;
-$menu-base-margin: 8px                            !default;
-$menu-base-margin-small: 6px                      !default;
-$menu-base-text-indent: 8px                       !default;
-$menu-item-height: 24px                           !default;
+$menu-base-background:                             #101414 !default;
+$menu-base-background-hover:                       #0a2420 !default;
+$menu-base-background-transparent:                 transparent !default;
+$menu-base-border-color-background:                #253330 !default;
+$menu-small-padding:                               8px !default;
+$menu-base-padding:                                16px !default;
+$menu-base-padding-lg:                             24px !default;
+$menu-base-margin:                                 8px !default;
+$menu-base-margin-small:                           6px !default;
+$menu-base-text-indent:                            8px !default;
+$menu-item-height:                                 24px !default;
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
 
 // tabs
-$tabs-base-background: #101414                  !default;
-$tabs-base-background-hover: #0a2420            !default;
-$tabs-base-background-transparent: transparent    !default;
-$tabs-base-border-color-background: #253330     !default;
-$tabs-base-padding: 16px                          !default;
-$tabs-item-default-height: 24px                   !default;
-$tabs-item-default-line-height: 20px              !default; //如果和高度一样不好看
-$tabs-item-middle-height: 30px                    !default;
-$tabs-item-middle-line-height: 26px               !default;
-$tabs-item-large-height: 36px                     !default;
-$tabs-item-large-line-height: 32px                !default;
+$tabs-base-background:                             #101414 !default;
+$tabs-base-background-hover:                       #0a2420 !default;
+$tabs-base-background-transparent:                 transparent !default;
+$tabs-base-border-color-background:                #253330 !default;
+$tabs-base-padding:                                16px !default;
+$tabs-item-default-height:                         24px !default;
+$tabs-item-default-line-height:                    20px !default; //如果和高度一样不好看
+$tabs-item-middle-height:                          30px !default;
+$tabs-item-middle-line-height:                     26px !default;
+$tabs-item-large-height:                           36px !default;
+$tabs-item-large-line-height:                      32px !default;
 
 // tabGroup
-$tab-group-base-padding: 16px                     !default;
+$tab-group-base-padding:                           16px !default;
 
 // ------------------------------------------------------------------------------
 
 // pagination
-$pagination-item-width:                           24px !default;
-$pagination-item-height:                          24px !default;
-$pagination-item-margin:                          4px !default;
-$pagination-line-height:                          $line-height-base !default;
-$pagination-item-background:                      #1e2423 !default;
-$pagination-border-color:                         #253330 !default;
-$pagination-font-size:                            12px !default;
-$pagination-hover:                                #112320 !default;
-$pagination-inner-background:                     $basic-plate !default;
-$pagination-border-radius:                        2px !default;
-$pagination-item-disabled-background:             $element-background !default;
-$pagination-item-disabled-color:                  $words-disable !default;
+$pagination-item-width:                            24px !default;
+$pagination-item-height:                           24px !default;
+$pagination-item-margin:                           4px !default;
+$pagination-line-height:                           $line-height-base !default;
+$pagination-item-background:                       #1e2423 !default;
+$pagination-border-color:                          #253330 !default;
+$pagination-font-size:                             12px !default;
+$pagination-hover:                                 #112320 !default;
+$pagination-inner-background:                      $basic-plate !default;
+$pagination-border-radius:                         2px !default;
+$pagination-item-disabled-background:              $element-background !default;
+$pagination-item-disabled-color:                   $words-disable !default;
 
 // ----------------------------------------------------------------
 
 // steps
-$steps-default-color:                               $words-supporting !default;
-$steps-finish-color:                                $words-high-light !default;
-$steps-process-color:                               $basic-background !default;
-$steps-waite-color:                                 $words-normal !default;
-$steps-error-color:                                 $words-error !default;
-$steps-point-color:                                 $part-plate !default;
-$steps-content-font-size:                           12px !default;
+$steps-default-color:                              $words-supporting !default;
+$steps-finish-color:                               $words-high-light !default;
+$steps-process-color:                              $basic-background !default;
+$steps-waite-color:                                $words-normal !default;
+$steps-error-color:                                $words-error !default;
+$steps-point-color:                                $part-plate !default;
+$steps-content-font-size:                          12px !default;
 
-$steps-dot-wrapper-width:                           16px !default;
-$steps-dot-outer-width:                             8px !default;
-$steps-dot-inner-width:                             4px !default;
-$steps-large-width:                                 48px !default;         
-$steps-large-border-width:                          4px !default; 
-$steps-large-line-height:                           40px !default; 
+$steps-dot-wrapper-width:                          16px !default;
+$steps-dot-outer-width:                            8px !default;
+$steps-dot-inner-width:                            4px !default;
+$steps-large-width:                                48px !default;         
+$steps-large-border-width:                         4px !default; 
+$steps-large-line-height:                          40px !default; 
 
-$steps-tail-width:                                  4px !default;
-$steps-tail-left:                                   0 !default;
-$steps-tail-large-top:                              21px !default;
-$steps-tail-vertical-default-top:                   2px !default;
-$steps-tail-vertical-default-left:                  14px !default;
-$steps-tail-vertical-dot-top:                       13.5px !default;
-$steps-tail-vertical-dot-left:                      2.5px !default;
-$steps-tail-vertical-frc-dot-left:                  3.5px !default;
-$steps-tail-vertical-large-top:                     35px !default;
-$steps-tail-vertical-large-left:                    23px !default;
+$steps-tail-width:                                 4px !default;
+$steps-tail-left:                                  0 !default;
+$steps-tail-large-top:                             21px !default;
+$steps-tail-vertical-default-top:                  2px !default;
+$steps-tail-vertical-default-left:                 14px !default;
+$steps-tail-vertical-dot-top:                      13.5px !default;
+$steps-tail-vertical-dot-left:                     2.5px !default;
+$steps-tail-vertical-frc-dot-left:                 3.5px !default;
+$steps-tail-vertical-large-top:                    35px !default;
+$steps-tail-vertical-large-left:                   23px !default;
 
-$steps-updown-height:                               120px !default;
-$steps-updown-dot-height:                           80px !default;
-$steps-updown-large-height:                         140px !default;
-$steps-updown-content-gap-top:                      calc(50% + 16px) !default;
-$steps-updown-content-gap-bottom:                   calc(50% + 16px)!default;
-$steps-updown-content-dot-gap-top:                  calc(50% + 8px) !default;
-$steps-updown-content-dot-gap-bottom:               calc(50% + 14px) !default;
-$steps-updown-content-large-gap-top:                calc(50% + 24px) !default;
-$steps-updown-content-large-gap-bottom:             calc(50% + 32px) !default;
-$steps-updown-content-middle-gap-top:               calc(50% + 16px) !default;
-$steps-updown-content-middle-gap-bottom:            calc(50% + 18px) !default;
+$steps-updown-height:                              120px !default;
+$steps-updown-dot-height:                          80px !default;
+$steps-updown-large-height:                        140px !default;
+$steps-updown-content-gap-top:                     calc(50% + 16px) !default;
+$steps-updown-content-gap-bottom:                  calc(50% + 16px)!default;
+$steps-updown-content-dot-gap-top:                 calc(50% + 8px) !default;
+$steps-updown-content-dot-gap-bottom:              calc(50% + 14px) !default;
+$steps-updown-content-large-gap-top:               calc(50% + 24px) !default;
+$steps-updown-content-large-gap-bottom:            calc(50% + 32px) !default;
+$steps-updown-content-middle-gap-top:              calc(50% + 16px) !default;
+$steps-updown-content-middle-gap-bottom:           calc(50% + 18px) !default;
 // ----------------------------------------------------------------
 
 // dropdown
 
-$dropdown-default-width:                            120px !default;
-$dropdown-default-height:                           24px !default;
-$dropdown-base-background:                          $element-background !default;
-$dropdown-hover-background:                         $btn-hover !default;
-$dropdown-focus-background:                         $part-plate !default;
-$dropdown-border-color:                           #253330 !default;
-$dropdown-text-normal:                              $words-normal !default;
-$dropdown-text-highlight:                           $words-high-light !default;
-$dropdown-text-disabled:                            $words-disable !default;
-$dropdown-base-margin:                              8px !default;
-$dropdown-min-margin:                               4px !default;
-$dropdown-font-size:                                $font-size-base !default;
+$dropdown-default-width:                           120px !default;
+$dropdown-default-height:                          24px !default;
+$dropdown-base-background:                         $element-background !default;
+$dropdown-hover-background:                        $btn-hover !default;
+$dropdown-focus-background:                        $part-plate !default;
+$dropdown-border-color:                            #253330 !default;
+$dropdown-text-normal:                             $words-normal !default;
+$dropdown-text-highlight:                          $words-high-light !default;
+$dropdown-text-disabled:                           $words-disable !default;
+$dropdown-base-margin:                             8px !default;
+$dropdown-min-margin:                              4px !default;
+$dropdown-font-size:                               $font-size-base !default;
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
@@ -676,9 +753,9 @@ $dropdown-font-size:                                $font-size-base !default;
 // tooltip
 
 // basic
-$tooltip-target-gap:                                7px !default;
-$tooltip-border-style:                              solid !default;
-$tooltip-border-color:                            #3B9078 !default;
-$tooltip-box-shadow:                                0 0 24px 0 rgba(255, 235, 200, 0.30) !default;
-$tooltip-border-radius:                             $border-radius !default;
-$tooltip-background-color:                        #121A19 !default;
+$tooltip-target-gap:                               7px !default;
+$tooltip-border-style:                             solid !default;
+$tooltip-border-color:                             #3B9078 !default;
+$tooltip-box-shadow:                               0 0 24px 0 rgba(255, 235, 200, 0.30) !default;
+$tooltip-border-radius:                            $border-radius !default;
+$tooltip-background-color:                         #121A19 !default;
