@@ -628,13 +628,14 @@ $divider-line-height:                              $line-height-base !default;
 $divider-margin:                                   11px 4px 12px 4px !default;
 $divider-width:                                    calc(100% - 8px) !default;
 $divider-font-family:                              $font-family-base !default;
+$divider-border-color:                             $part-plate !default;
 
 // normal
-$divider-border-top:                               1px solid $basic-btn !default;
-$divider-border-left:                              1px solid $basic-btn !default;
+$divider-border-top:                               1px solid $divider-border-color !default;
+$divider-border-left:                              1px solid $divider-border-color !default;
 
 // text
-$divider-border-top-text:                          0px solid $basic-btn !default;
+$divider-border-top-text:                          0px solid $divider-border-color !default;
 $divider-color:                                    $words-disable !default;
 
 // ----------------------------------------------------------------

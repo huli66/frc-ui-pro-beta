@@ -28,7 +28,7 @@ export const Divider: FC<FRCDividerProps> = (props) => {
     className,
     ...restProps
   } = props
-  // btn, btn-lg, btn-primary
+
   const classes = classNames('frc-divider', className, {
   })
 
