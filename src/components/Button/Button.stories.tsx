@@ -3,7 +3,7 @@ import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism'
 
-import { QuestionCircleOutlined } from "@ant-design/icons";
+import { QuestionCircleOutlined, ProfileOutlined } from "@ant-design/icons";
 
 import { ComponentMeta } from '@storybook/react';
 
@@ -16,8 +16,7 @@ import {
     Subheading
 } from '@storybook/addon-docs';
 
-import Button from './index';
-import {FRCButtonProps} from './button'
+import Button, { FRCButtonProps } from './index';
 
 // ----------------------------------------------------------------
 
@@ -88,7 +87,7 @@ Default.storyName = '默认 button';
 
 // ----------------------------------------------------------------
 
-export const _BaseComponent = () => {
+export const _ABaseComponent = () => {
     return (<>
         <Button type="default">Default Button</Button>
         <Button type="primary">Primary Button</Button>
@@ -97,6 +96,8 @@ export const _BaseComponent = () => {
         <Button type="link" href="https://google.com">
             Link Button
         </Button>
+        <Button icon={<ProfileOutlined style={{fontSize:18,paddingTop:3}} />} />
+        <Button type='text'>Text Button</Button>
         <br />
         <Button type="default" disabled>Default Button</Button>
         <Button type="primary" disabled>Primary Button</Button>
@@ -105,11 +106,13 @@ export const _BaseComponent = () => {
         <Button type="link" href="https://google.com" disabled>
             Link Button
         </Button>
+        <Button icon={<ProfileOutlined style={{fontSize:18}} />} disabled />
+        <Button type='text' disabled>Text Button</Button>
     </>)
 };
 
-_BaseComponent.storyName = '基本用法 button';
-_BaseComponent.parameters = {
+_ABaseComponent.storyName = '基本用法 button';
+_ABaseComponent.parameters = {
     controls: { hideNoControlsWarning: true },
 };
 
@@ -120,10 +123,10 @@ export const _ActiveComponent = () => {
         <Button type="default" work>
             Default Button
         </Button>
-        <Button type="primary" work>
-            Primary Button
+        <Button type="default" work workType="high-light">
+            Default Button
         </Button>
-        <Button type="primary" work workType="high-light">
+        <Button type="primary" work>
             Primary Button
         </Button>
         <Button type="lead" work>
@@ -135,14 +138,16 @@ export const _ActiveComponent = () => {
         <Button type="link" href="https://google.com" work>
             Link Button
         </Button>
+        <Button icon={<ProfileOutlined style={{fontSize:18,paddingTop:3}} />} work />
+        <Button type='text' work>Text Button</Button>
         <br />
         <Button type="default" work disabled>
             Default Button
         </Button>
-        <Button type="primary" work disabled>
-            Primary Button
+        <Button type="default" work workType="high-light" disabled>
+            Default Button
         </Button>
-        <Button type="primary" work workType="high-light" disabled>
+        <Button type="primary" work disabled>
             Primary Button
         </Button>
         <Button type="lead" work disabled>
@@ -154,6 +159,8 @@ export const _ActiveComponent = () => {
         <Button type="link" href="https://google.com" work disabled>
             Link Button
         </Button>
+        <Button icon={<ProfileOutlined style={{fontSize:18,paddingTop:3}} />} work disabled />
+        <Button type='text' work disabled>Text Button</Button>
     </>)
 };
 
@@ -185,19 +192,20 @@ export const _IconComponent = () => {
         >
             Link Button
         </Button>
+        <Button type='text' icon={<QuestionCircleOutlined />}>Text Button</Button>
         <br />
         <Button type="default" icon={<QuestionCircleOutlined />} work>
             Default Button
         </Button>
-        <Button type="primary" icon={<QuestionCircleOutlined />} work>
-            Primary Button
-        </Button>
         <Button
-            type="primary"
+            type="default"
             icon={<QuestionCircleOutlined />}
             work
             workType="high-light"
         >
+            Default Button
+        </Button>
+        <Button type="primary" icon={<QuestionCircleOutlined />} work>
             Primary Button
         </Button>
         <Button type="lead" icon={<QuestionCircleOutlined />} work>
@@ -214,10 +222,11 @@ export const _IconComponent = () => {
         >
             Link Button
         </Button>
+        <Button type='text' icon={<QuestionCircleOutlined />} work>Text Button</Button>
     </>)
 };
 
-_IconComponent.storyName = '图标 button';
+_IconComponent.storyName = '带图标 button';
 _IconComponent.parameters = {
     controls: { hideNoControlsWarning: true },
 };

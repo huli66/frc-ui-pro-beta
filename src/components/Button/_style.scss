@@ -34,17 +34,18 @@
     $words-normal,
     $btn-background-active,
     $words-normal,
-    $btn-background-primary,
+    $btn-background-disabled,
     $words-disable
   );
 
-  &.frc-btn-work-default,
-  &.frc-btn-work-high-light {
+  &.frc-btn-work-default {
     color: $words-high-light;
-    background: linear-gradient(
-      $btn-background-normal-top,
-      $btn-background-normal-bottom
-    );
+    background: $button-linear-180;
+  }
+
+  &.frc-btn-work-high-light {
+    color: $words-black;
+    background: $high-light-area-linear-180;
   }
 
   &.frc-btn-icon-only {
@@ -96,19 +97,24 @@
     $words-normal,
     $btn-background-active,
     $words-normal,
-    $btn-background-primary,
+    $btn-background-disabled,
     $words-disable
   );
 
-  &.frc-btn-work-default {
-    color: $words-high-light;
-    background: $btn-background-primary;
+  &.frc-btn-work-default,
+  &.frc-btn-work-high-light {
+    @include button-style(
+      $btn-background-primary,
+      $words-high-light,
+      $btn-background-hover,
+      $words-normal,
+      $btn-background-active,
+      $words-normal,
+      $btn-background-disabled,
+      $words-disable
+    );
   }
 
-  &.frc-btn-work-high-light {
-    color: $words-black;
-    background: $high-light-area-linear-180;
-  }
 }
 
 // lead
@@ -126,19 +132,17 @@
     flex-direction: row;
     align-items: center;
   }
-  &.frc-btn-work-default {
-    @include button-style(
-      $btn-background-primary,
-      $words-normal,
-      $btn-background-hover,
-      $words-normal,
-      $btn-background-active,
-      $words-normal,
-      $btn-background-primary,
-      $words-disable
-    );
-  }
-
+  @include button-style(
+    $btn-background-primary,
+    $words-normal,
+    $btn-background-hover,
+    $words-normal,
+    $btn-background-active,
+    $words-normal,
+    $btn-background-disabled,
+    $words-disable
+  );
+  &.frc-btn-work-default,
   &.frc-btn-work-high-light {
     @include button-style(
       $btn-background-primary,
@@ -147,7 +151,7 @@
       $words-normal,
       $btn-background-active,
       $words-normal,
-      $btn-background-primary,
+      $btn-background-disabled,
       $words-disable
     );
   }
@@ -162,21 +166,10 @@
     $words-normal,
     $btn-background-gray-active,
     $words-normal,
-    $btn-background-primary,
-    $words-disable
+    $btn-background-gray,
+    $words-supporting
   );
-  &.frc-btn-work-default {
-    @include button-style(
-      $btn-background-gray,
-      $words-normal,
-      $btn-background-gray-hover,
-      $words-normal,
-      $btn-background-gray-active,
-      $words-normal,
-      $btn-background-primary,
-      $words-disable
-    );
-  }
+  &.frc-btn-work-default,
   &.frc-btn-work-high-light {
     @include button-style(
       $btn-background-gray,
@@ -185,9 +178,9 @@
       $words-normal,
       $btn-background-gray-active,
       $words-normal,
-      $btn-background-primary,
-      $words-disable
-    );
+      $btn-background-gray,
+      $words-supporting
+  );
   }
 }
 
@@ -219,6 +212,35 @@
       $link-hover-color,
       transparent,
       $link-disable-color
+    );
+  }
+}
+
+// text
+.frc-btn.frc-btn-text {
+  background-color: transparent;
+  @include button-style(
+    transparent,
+    $words-normal,
+    $btn-background-hover,
+    $words-normal,
+    $btn-background-active,
+    $words-normal,
+    transparent,
+    $words-disable
+  );
+
+  &.frc-btn-work-default,
+  &.frc-btn-work-high-light {
+    @include button-style(
+      $btn-background-primary,
+      $words-high-light,
+      $btn-background-hover,
+      $words-normal,
+      $btn-background-active,
+      $words-normal,
+      transparent,
+      $words-disable
     );
   }
 }

@@ -4,7 +4,7 @@ import {Button as AntdButton,  ButtonProps } from 'antd'
 
 import { CaretRightOutlined } from '@ant-design/icons'
 
-export type ButtonType = 'default' | 'primary' | 'link' | 'lead' | 'gray'
+export type ButtonType = 'default' | 'primary' | 'link' | 'lead' | 'gray' | 'text'
 export type ButtonWorkType = 'default' | 'high-light'
 
 interface BaseButtonProps {
@@ -26,7 +26,7 @@ interface BaseButtonProps {
   target?: string
   /** 设置激活状态 */
   work?: boolean
-  /** 设置激活状态类型，work 存在时生效（目前仅 type = primary 有两种激活状态） */
+  /** 设置激活状态类型，work 存在时生效（目前仅 type = default 有两种激活状态） */
   workType?: ButtonWorkType
   /** 点击按钮时的回调 */
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void

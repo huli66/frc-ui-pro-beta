@@ -39,7 +39,7 @@ $words-high-light:                                 #F9C152 !default;
 $words-supporting:                                 #8F9598 !default;
 $words-disable:                                    #585B5A !default;
 $words-title:                                      #3B9078 !default;
-$words-black:                                      #000000 !default;
+$words-black:                                      #060707 !default;
 $words-error:                                      #ff4d4f !default;
 
 // ----------------------------------------------------------------
@@ -205,31 +205,40 @@ $btn-font-size:                                    $font-size-base !default;
 $btn-line-height:                                  $line-height-base !default;
 $btn-border-width:                                 $border-width !default;
 
-// normal
-$btn-background-normal-top:                        #213D38 !default;
-$btn-background-normal-bottom:                     #18302C !default;
-$btn-background-hover:                             #0A2420 !default;
-$btn-background-active:                            #1E2423 !default;
+// ----------------------------------------------------------------
 
-// primary
-$btn-background-primary:                           #253330 !default;
+// type - normal
+$btn-background-hover:                             $btn-hover !default;
+$btn-background-active:                            $part-plate !default;
+$btn-background-disabled:                          $part-plate !default;
+
+// ----------------------------------------------------------------
+
+// type - primary
+$btn-background-primary:                           $basic-btn !default;
 $btn-background-primary-hover:                     $btn-background-hover !default;
 $btn-background-primary-active:                    $btn-background-active !default;
 
-// lead
+// ----------------------------------------------------------------
+
+// type - lead
 $btn-padding-lead-y:                               0px !default;
 $btn-padding-lead-left:                            9px !default;
 $btn-padding-lead-right:                           2px !default;
 
-// gray
-$btn-background-gray:                              #4A4D4C !default;
-$btn-background-gray-hover:                        #1E1E1E !default;
-$btn-background-gray-active:                       #1E2423  !default;
+// ----------------------------------------------------------------
 
-// link
+// type - gray
+$btn-background-gray:                              $words-disable !default;
+$btn-background-gray-hover:                        $btn-background-hover !default;
+$btn-background-gray-active:                       $btn-background-active  !default;
+
+// ----------------------------------------------------------------
+
+// type - link
 $btn-background-link:                              transparent !default;
 $btn-background-link-hover:                        transparent !default;
-$btn-background-link-active:                       transparent  !default;
+$btn-background-link-active:                       transparent !default;
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
