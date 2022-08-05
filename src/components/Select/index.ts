@@ -9,8 +9,10 @@ export type { FRCSelectProps, SelectRef }
 export type { FRCSelectOptionProps } from './option'
 export type { FRCSelectOptGroupProps } from './optGroup'
 
-
 const { OptGroup: AntdOptGroup } = Select
+
+// build error: private name 'AntdOptGroup'
+export { AntdOptGroup }
 
 export type FrcSelectComponent = ForwardRefExoticComponent<FRCSelectProps & RefAttributes<SelectRef>> & {
   Option: typeof FRCSelectOption

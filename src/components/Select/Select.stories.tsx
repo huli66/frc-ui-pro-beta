@@ -140,6 +140,9 @@ export const _BaseComponent = () => {
             <Select defaultValue="lucy" style={{ width: 180 }} disabled>
                 <Option value="lucy">Lucy</Option>
             </Select>
+            <Select defaultValue="lucy" style={{ width: 180 }} showArrow={false}>
+                <Option value="lucy">Lucy</Option>
+            </Select>
             <Select defaultValue="lucy" style={{ width: 180 }} loading>
                 <Option value="lucy">Lucy</Option>
             </Select>
@@ -358,6 +361,17 @@ export const _MultipleComponent = () => {
                 defaultValue={['a10', 'c12']}
                 onChange={handleChange}
                 loading
+            >
+                {children}
+            </Select>
+            <Select
+                mode="multiple"
+                allowClear
+                style={{ width: '180px' }}
+                placeholder="Please select"
+                defaultValue={['a10', 'c12']}
+                onChange={handleChange}
+                showSearch
             >
                 {children}
             </Select>
@@ -711,7 +725,6 @@ export const _ApiSearchComponent = () => {
                 onSearch={handleSearch}
                 onChange={handleChange}
                 notFoundContent={null}
-
             >
                 {options}
             </Select>

@@ -39,6 +39,11 @@
   input {
     height: auto !important;
   }
+  &.ant-select-show-search {
+    &:hover {
+      background-color: $input-search-background-hover;
+    }
+  }
   .ant-select-selector {
     padding: $select-padding;
     margin-right: 14px;
@@ -96,8 +101,7 @@
 
 // select-dropdown
 .frc-select.ant-select-dropdown {
-  background-color: $select-background;
-  border: 1px solid $select-background-hover;
+  @include dropdown-box-wrapper;
   // item
   .ant-select-item {
     color: $select-color;
@@ -107,10 +111,19 @@
     padding: 0 8px;
     font-weight: $select-font-weight;
   }
+
+  // now active
+  .ant-select-item-option-active {
+    background-color: $select-background-hover;
+  }
+  
   // prve active
   .ant-select-item-option-selected {
     background-color: transparent;
     color: $words-high-light !important;
+    &:hover {
+      background-color: $select-background-hover;
+    }
     .ant-select-item-option-state {
       color: $words-high-light !important;
       display: flex;
@@ -118,10 +131,12 @@
       justify-content: center;
     }
   }
-  // now active
-  .ant-select-item-option-active {
-    background-color: $select-background-hover;
+
+  // disabled
+  .ant-select-item-option-disabled {
+    color: $words-disable;
   }
+
   // scrollbar
   .rc-virtual-list-scrollbar {
     width: 4px !important;
