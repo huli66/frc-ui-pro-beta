@@ -25,6 +25,11 @@
   transform: translateX(-50%);
 }
 
+@mixin dropdown-box-wrapper {
+  border: 1px solid $border-dropdown-color;
+  box-shadow: $box-shadow;
+  background-color: $element-background;
+}
 
 // button
 @mixin button-size($padding-y, $padding-x, $font-size, $border-raduis) {
@@ -680,7 +685,8 @@
     color: $color;
   }
   &.frc-date-picker-work {
-    input {
+    input, 
+    .ant-picker-range-separator * {
       color: $focus-color;
     }
   }

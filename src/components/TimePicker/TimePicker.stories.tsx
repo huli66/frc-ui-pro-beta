@@ -135,6 +135,25 @@ Default.storyName = '默认 timePicker';
 
 // ----------------------------------------------------------------
 
+export const _BaseComponent = () => {
+    const format = 'HH:mm';
+    return (
+        <>
+            <TimePicker  />
+            <TimePicker disabled />
+            <TimePicker defaultValue={moment('12:08',format)} />
+            <TimePicker defaultValue={moment('12:08',format)} work />
+        </>
+    )
+}
+
+_BaseComponent.storyName = '基本使用';
+_BaseComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
+
+// ----------------------------------------------------------------
+
 export const _FormatComponent = () => {
     const format = 'HH:mm';
     return <>
@@ -204,6 +223,9 @@ export const _RangeComponent = () => {
         通过 TimePicker.RangePicker 使用时间范围选择器。
         <br />
         <TimePicker.RangePicker />
+        <TimePicker.RangePicker disabled />
+        <TimePicker.RangePicker defaultValue={[moment('06:08', 'HH:mm'),moment('12:08', 'HH:mm')]} />
+        <TimePicker.RangePicker work defaultValue={[moment('06:08', 'HH:mm'),moment('12:08', 'HH:mm')]} />
     </>
 }
 

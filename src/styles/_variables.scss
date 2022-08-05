@@ -189,7 +189,14 @@ $body-text-align:                                  null !default;
 $border-width:                                     1px !default;
 $border-radius:                                    2px !default;
 $border-radius-lg:                                 4px !default;
+$border-dropdown-color:                            #3B9078 !default;
 
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+
+// box阴影
+$box-shadow:                                      0 0 24px 0 rgba(255,235,200,0.30) !default;
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
@@ -589,10 +596,12 @@ $date-picker-background-focus:                     $element-background !default;
 $date-picker-color-focus:                          $words-high-light !default;
 $date-picker-border-focus:                         1px solid $words-high-light !default;
 
+// selected
+$date-picker-background-selected:                  $part-plate !default;
 // disable
 $date-picker-background-disabled:                  $element-background !default;
 $date-picker-color-disabled:                       $words-disable !default;
-$date-picker-border-disabled:                      1px solid $basic-btn !default;
+$date-picker-border-disabled:                      1px solid $part-plate !default;
 
 $date-picker-color-icon-disabled:                  $words-disable !default;
 

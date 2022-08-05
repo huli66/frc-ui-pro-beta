@@ -178,8 +178,6 @@ Default.storyName = '默认 dataPicker';
 
 // ----------------------------------------------------------------
 
-const dateFormat = 'YYYY/MM/DD'
-
 export const _BaseComponent = () => {
 
     const onChange = (date: moment.Moment | null, dateString: string) => {
@@ -195,8 +193,14 @@ export const _BaseComponent = () => {
             />
             <DatePicker
                 onChange={onChange}
-                defaultValue={moment('2015/01/01', dateFormat)}
+                defaultValue={moment('2015/01/01')}
                 locale={locale}
+            />
+            <DatePicker
+                onChange={onChange}
+                defaultValue={moment('2015/01/01')}
+                locale={locale}
+                work
             />
             <DatePicker
                 onChange={onChange}
@@ -205,7 +209,7 @@ export const _BaseComponent = () => {
             />
             <DatePicker
                 onChange={onChange}
-                defaultValue={moment('2015/01/01', dateFormat)}
+                defaultValue={moment('2015/01/01')}
                 disabled
                 suffixIcon={<FiSlack />}
             />
@@ -220,7 +224,7 @@ _BaseComponent.parameters = {
 
 // ----------------------------------------------------------------
 
-export const _RangePickerComponent = () => {
+export const _CRangePickerComponent = () => {
 
     const { RangePicker } = DatePicker;
 
@@ -231,12 +235,20 @@ export const _RangePickerComponent = () => {
             <RangePicker picker="week" />
             <RangePicker picker="month" />
             <RangePicker picker="year" />
+            <RangePicker
+                defaultValue={[moment('2022/01/01'), moment('2022/08/01')]}
+                work
+            />
+            <RangePicker
+                defaultValue={[moment('2022/01/01'), moment('2022/08/01')]}
+                disabled
+            />
         </>
     )
 }
 
-_RangePickerComponent.storyName = '范围选择器 rangePicker';
-_RangePickerComponent.parameters = {
+_CRangePickerComponent.storyName = '范围选择器 rangePicker';
+_CRangePickerComponent.parameters = {
     controls: { hideNoControlsWarning: true },
 };
 
@@ -540,7 +552,8 @@ export const _PresetRangesComponent = () => {
             <RangePicker
                 ranges={{
                     Today: [moment(), moment()],
-                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'This Week': [moment().startOf('week'), moment().endOf('week')],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')]
                 }}
                 onChange={onChange}
             />

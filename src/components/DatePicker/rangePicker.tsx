@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, forwardRef } from 'react'
+import React, { useRef, useEffect, forwardRef } from 'react'
 import classNames from 'classnames'
 import { DatePicker } from 'antd'
 import { RangePickerProps } from 'antd/es/date-picker/index'
@@ -12,8 +12,7 @@ import {
 } from '@ant-design/icons'
 import 'moment/locale/zh-cn'
 import locale from 'antd/es/date-picker/locale/zh_CN'
-import { BasePickerProps } from "./datePicker"
-import { PickerRef } from './interface'
+import { BasePickerProps,PickerRef } from './interface'
 
 const { RangePicker } = DatePicker
 
@@ -46,6 +45,8 @@ interface FRCRangePickerCustomProps {
   onCalendarChange?: (dates: [moment.Moment, moment.Moment], dateStrings: [string, string], info: { range: 'start' | 'end' }) => void
   /** 日期范围发生变化的回调	 */
   onChange?: (dates: [moment.Moment, moment.Moment] | null, dateStrings: [string, string] | null) => void
+  /** 设置激活状态 */
+  work?: boolean
 }
 
 
@@ -82,7 +83,6 @@ const insertFrcBtn = () => {
 }
 
 export const FRCRangePicker = forwardRef<PickerRef, FRCRangePickerProps>((props, ref) => {
-  const [dateValue, setDateValue] = useState(['', ''])
   const nodes = useRef(null)
 
   const {
@@ -91,8 +91,8 @@ export const FRCRangePicker = forwardRef<PickerRef, FRCRangePickerProps>((props,
     dropdownClassName,
     showTime,
     suffixIcon,
-    onChange,
     onOpenChange,
+    work,
     ...restProps
   } = props
 
@@ -102,7 +102,7 @@ export const FRCRangePicker = forwardRef<PickerRef, FRCRangePickerProps>((props,
   }, [prefixIcon])
 
   const classes = classNames('frc-date-picker', className, {
-    [`frc-date-picker-work`]: dateValue,
+    [`frc-date-picker-work`]: work,
     [`frc-date-picker-suffix-icon`]: suffixIcon,
   })
 
@@ -118,10 +118,6 @@ export const FRCRangePicker = forwardRef<PickerRef, FRCRangePickerProps>((props,
     dropdownClassName: classesDropdown,
     showTime,
     suffixIcon,
-    onChange: (dates: any, dateStrings: [string, string]) => {
-      onChange && onChange(dates, dateStrings)
-      setDateValue(dateStrings)
-    },
     onOpenChange: (open: boolean) => {
       onOpenChange && onOpenChange(open)
       open &&

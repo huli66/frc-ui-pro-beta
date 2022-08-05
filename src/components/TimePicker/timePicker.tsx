@@ -1,4 +1,4 @@
-import React, { FC, useRef, useEffect, useState } from 'react'
+import React, { FC, useRef, useEffect } from 'react'
 import classNames from 'classnames'
 import { TimePicker as AntdTimePicker, TimePickerProps } from 'antd'
 import ReactDOM from 'react-dom'
@@ -79,6 +79,8 @@ interface FRCTimePickerCustomProps {
   blur?: () => void
   /** 获取焦点 */
   focus?: () => void
+  /** 设置激活状态 */
+  work?: boolean
 }
 
 export type FRCTimePickerProps = FRCTimePickerCustomProps & TimePickerProps
@@ -116,7 +118,6 @@ const insertFrcBtn = () => {
 export const TimePicker: FC<FRCTimePickerProps> = (
   props,
 ) => {
-  const [dateValue, setDateValue] = useState('')
   const nodes = useRef(null)
 
   const {
@@ -126,7 +127,7 @@ export const TimePicker: FC<FRCTimePickerProps> = (
     showTime,
     suffixIcon,
     format,
-    onChange,
+    work,
     onOpenChange,
     ...restProps
   } = props
@@ -137,7 +138,7 @@ export const TimePicker: FC<FRCTimePickerProps> = (
   }, [prefixIcon])
 
   const classes = classNames('frc-date-picker frc-time-picker', className, {
-    [`frc-date-picker-work`]: dateValue,
+    [`frc-date-picker-work`]: work,
     [`frc-date-picker-suffix-icon`]: suffixIcon
   })
 
@@ -156,10 +157,6 @@ export const TimePicker: FC<FRCTimePickerProps> = (
     showTime,
     suffixIcon,
     format,
-    onChange: (value: any, dateString: string) => {
-      onChange && onChange(value, dateString)
-      setDateValue(dateString)
-    },
     onOpenChange: (open: boolean) => {
       onOpenChange && onOpenChange(open)
       open && setTimeout(() => {

@@ -1,4 +1,4 @@
-import React, { FC, useRef, useEffect, useState } from 'react'
+import React, { FC, useRef, useEffect } from 'react'
 import classNames from 'classnames'
 import { TimePicker } from 'antd'
 import { TimeRangePickerProps } from 'antd/es/time-picker'
@@ -24,6 +24,8 @@ interface FRCRangeTimePickerCustomProps {
   showTime?: boolean
   /** 始末时间是否自动排序 */
   order?: number
+  /** 设置激活状态 */
+  work?: boolean
 }
 
 export type FRCRangeTimePickerProps = FRCRangeTimePickerCustomProps & TimeRangePickerProps
@@ -59,7 +61,6 @@ const insertFrcBtn = () => {
 }
 
 export const FRCRangeTimePicker: FC<FRCRangeTimePickerProps> = (props) => {
-  const [dateValue, setDateValue] = useState(['', ''])
   const nodes = useRef(null)
 
   const {
@@ -70,8 +71,8 @@ export const FRCRangeTimePicker: FC<FRCRangeTimePickerProps> = (props) => {
     suffixIcon,
     format,
     popupClassName,
-    onChange,
     onOpenChange,
+    work,
     ...restProps
   } = props
 
@@ -81,7 +82,7 @@ export const FRCRangeTimePicker: FC<FRCRangeTimePickerProps> = (props) => {
   }, [prefixIcon])
 
   const classes = classNames('frc-date-picker frc-time-picker', className, {
-    [`frc-date-picker-work`]: dateValue,
+    [`frc-date-picker-work`]: work,
     [`frc-date-picker-suffix-icon`]: suffixIcon
   })
 
@@ -99,10 +100,6 @@ export const FRCRangeTimePicker: FC<FRCRangeTimePickerProps> = (props) => {
     popupClassName: classesDropdown,
     suffixIcon,
     format,
-    onChange: (dates: any, dateStrings: [string, string]) => {
-      onChange && onChange(dates, dateStrings)
-      setDateValue(dateStrings)
-    },
     onOpenChange: (open: boolean) => {
       onOpenChange && onOpenChange(open)
       open &&

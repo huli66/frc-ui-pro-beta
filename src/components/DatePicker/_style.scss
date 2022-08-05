@@ -94,9 +94,7 @@
     display: none;
   }
   .ant-picker-panel-container {
-    background: $date-picker-background;
-    box-shadow: none;
-    border: 1px solid $btn-hover;
+    @include dropdown-box-wrapper;
     padding: 0 4px;
     // normal
     .ant-picker-panel {
@@ -231,7 +229,6 @@
       .ant-picker-footer {
         border-top-color: $basic-btn;
         text-align: left;
-        padding-left: 8px;
         line-height: 28px;
         .ant-picker-ranges {
           padding: 0;
@@ -246,9 +243,16 @@
         }
         .ant-picker-today-btn,
         .ant-picker-now-btn {
+          display:inline-block;
+          height: 24px;
+          line-height: 24px;
           font-size: 12px;
           text-decoration: none !important;
           color: $words-normal;
+          padding:0 12px;
+          &:hover {
+            background-color: $btn-hover;
+          }
         }
         .ant-picker-footer-extra {
           // border-top: 1px solid $basic-btn;
@@ -299,7 +303,7 @@
       // time
       .ant-picker-time-panel {
         margin-left: 4px;
-        padding-left: 4px;
+        padding-left: 8px;
         border-left-color: $basic-btn;
         // header
         .ant-picker-header {
@@ -315,19 +319,18 @@
               border-left-color: $basic-btn;
             }
             .ant-picker-time-panel-cell {
-              .ant-picker-time-panel-cell-inner {
-                color: $words-normal;
-                font-size: 12px;
-                padding: 0;
-                text-align: center;
-                &:hover {
-                  background: $basic-plate;
+              &.ant-picker-time-panel-cell-selected {
+                .ant-picker-time-panel-cell-inner {
+                  background: $date-picker-background-selected;
                   color: $words-high-light;
                 }
               }
-              &.ant-picker-time-panel-cell-selected {
-                .ant-picker-time-panel-cell-inner {
-                  background: $basic-plate;
+              .ant-picker-time-panel-cell-inner {
+                color: $words-normal;
+                font-size: 12px;
+                padding: 0 0 0 12px;
+                &:hover {
+                  background: $date-picker-background-hover;
                   color: $words-high-light;
                 }
               }
@@ -370,7 +373,7 @@
               .ant-picker-cell-inner {
                 color: $words-high-light;
                 border-radius: 2px;
-                background: $btn-hover !important;
+                background: $date-picker-background-selected !important;
               }
             }
           }
@@ -431,6 +434,16 @@
             margin-top: 3px;
             padding-left: 12.5px;
             padding-right: 12.5px;
+          }
+        }
+        .ant-picker-preset .ant-tag{
+          font-size: 12px;
+          text-decoration: none !important;
+          color: $words-normal;
+          background: transparent;
+          border: none;
+          &:hover {
+            background:$btn-hover;
           }
         }
       }
