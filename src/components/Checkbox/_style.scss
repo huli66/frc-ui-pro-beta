@@ -27,6 +27,7 @@
     $checkbox-border-active,
     $checkbox-background-active-icon,
     $checkbox-border-active-icon,
+    $checkbox-background-active-icon-inner,
     // focus
     $checkbox-background-focus,
     $checkbox-color-focus,
@@ -40,7 +41,8 @@
     $checkbox-background-disabled-icon,
     $checkbox-border-disabled-icon,
     // disabled - inner
-    $checkbox-background-disabled-icon-inner
+    $checkbox-background-disabled-icon-inner,
+    $checkbox-border-disabled-icon-inner
   );
   .ant-checkbox {
     top: 0;

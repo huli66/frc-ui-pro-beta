@@ -2,6 +2,7 @@ import React, { useState, forwardRef } from 'react'
 import classNames from 'classnames'
 import Input, { SearchProps, InputRef } from 'antd/es/input'
 import { FiSearch } from 'react-icons/fi'
+import Icon from '../Icon';
 
 const { Search } = Input
 export interface BaseInputProps {
@@ -24,6 +25,8 @@ export const FRCSearch = forwardRef<InputRef, FRCSearchProps>((props, ref) => {
     prefix,
     loading,
     value,
+    allowClear,
+    disabled,
     onChange,
     onKeyDown,
     ...restProps
@@ -34,15 +37,31 @@ export const FRCSearch = forwardRef<InputRef, FRCSearchProps>((props, ref) => {
     [`frc-input-enter`]: keyDownEnter,
     [`frc-input-prefix`]: prefix,
     [`frc-input-search-loading`]: loading,
+    [`frc-input-search-disabled`]: disabled,
   })
+
+  const calAllowClear = (arrow: boolean | { clearIcon?: React.ReactNode } | undefined) => {
+    if (typeof arrow === 'boolean') {
+      return arrow ? {
+        clearIcon:
+          <div className="frc-input-clear-icon-box">
+            <Icon className="frc-clear-icon" type="close-square" />
+          </div >
+      } : false
+    }
+
+    return arrow
+  }
 
   let options = {
     className: classes,
     ...restProps,
+    allowClear: calAllowClear(allowClear),
     bordered,
     prefix,
     loading,
     value,
+    disabled,
     onKeyDown: (e: any) => {
       onKeyDown && onKeyDown(e)
       if (e.code === 'Enter') {
@@ -66,7 +85,8 @@ FRCSearch.defaultProps = {
   bordered: true,
   enterButton: <FiSearch />,
   loading: false,
-  type: 'default'
+  type: 'default',
+  allowClear: false,
 }
 
 export default FRCSearch

@@ -164,6 +164,7 @@
   &.disabled,
   &[disabled],
   &.ant-input-affix-wrapper-disabled,
+  &.ant-input-group-wrapper.ant-input-search-with-button.frc-input-search-disabled,
   .ant-input-search .ant-input-affix-wrapper-disabled,
   &.frc-input-text-area-disabled {
     .ant-input {
@@ -196,6 +197,15 @@
     &::after {
       cursor: not-allowed !important;
       color: $disabled-color !important;
+    }
+    .ant-input-wrapper.ant-input-group{
+      .ant-input-group-addon{
+        .ant-input-search-button{
+          cursor: not-allowed !important;
+          color: $disabled-color !important;
+          background: $input-search-background-btn-disabled !important;
+        }
+      }
     }
   }
 }
@@ -307,6 +317,7 @@
   $active-border,
   $active-background-icon,
   $active-border-icon,
+  $active-background-icon-inner,
   // focus
   $focus-background,
   $focus-color,
@@ -319,7 +330,8 @@
   $disabled-border,
   $disabled-background-icon,
   $disabled-border-icon,
-  $disabled-background-icon-inner
+  $disabled-background-icon-inner,
+  $disabled-border-icon-inner
 ) {
   background: $background;
   color: $color;
@@ -376,7 +388,7 @@
         background: $active-background-icon;
         border: $active-border-icon;
         &::after {
-          background-color: $disabled-background-icon-inner;
+          background-color: $active-background-icon-inner; // radio icon -> background
           transform: scale(0.5);
           opacity: 1;
         }
@@ -473,7 +485,7 @@
       &.ant-checkbox-checked.ant-checkbox-disabled {
         .ant-checkbox-inner {
           &::after {
-            border: $active-border-icon;
+            border: $disabled-border-icon-inner;
             border-top: 0;
             border-left: 0;
             opacity: 1;

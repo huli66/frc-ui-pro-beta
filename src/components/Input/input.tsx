@@ -1,8 +1,9 @@
-import React, { useState,useRef, forwardRef } from 'react'
+import React, { useState, useRef, forwardRef } from 'react'
 import classNames from 'classnames'
 import AntdInput, { InputProps, InputRef } from 'antd/es/input'
 import { FiSearch } from 'react-icons/fi'
 import { composeRef } from '../../utils'
+import Icon from '../Icon';
 
 type InputType = 'default' | 'icon-only'
 interface BaseInputProps {
@@ -13,7 +14,7 @@ interface BaseInputProps {
   /** 带标签的 input，设置前置标签 */
   addonBefore?: React.ReactNode
   /** 可以点击清除图标删除内容 */
-  allowClear?: boolean
+  allowClear?: boolean | { clearIcon: React.ReactNode }
   /** 是否有边框 */
   bordered?: boolean
   /** 输入框默认内容 */
@@ -44,9 +45,9 @@ interface BaseInputProps {
 
 export type FRCInputProps = BaseInputProps & InputProps
 
-export type {InputRef};
+export type { InputRef };
 
-export const Input= forwardRef<InputRef,FRCInputProps> ((props,ref) => {
+export const Input = forwardRef<InputRef, FRCInputProps>((props, ref) => {
   const [keyDownEnter, setKeyDownEnter] = useState(false)
   const inputRef = useRef<InputRef | null>(null)
 
@@ -60,6 +61,7 @@ export const Input= forwardRef<InputRef,FRCInputProps> ((props,ref) => {
     showCount,
     onChange,
     onKeyDown,
+    allowClear,
     ...restProps
   } = props
 
@@ -78,15 +80,30 @@ export const Input= forwardRef<InputRef,FRCInputProps> ((props,ref) => {
       inputRef.current?.focus();
     }
     return (
-      <span onClick={handleIconClick}>
+      <span onClick={handleIconClick} style={{ height: 12 }}>
         {prefix || <FiSearch />}
       </span>
     )
   }
 
+
+  const calAllowClear = (arrow: boolean | { clearIcon: React.ReactNode } | undefined) => {
+    if (typeof arrow === 'boolean') {
+      return arrow ? {
+        clearIcon:
+          <div className="frc-input-clear-icon-box">
+            <Icon className="frc-clear-icon" type="close-square" />
+          </div >
+      } : false
+    }
+
+    return arrow
+  }
+
   let options = {
     className: classes,
     ...restProps,
+    allowClear: calAllowClear(allowClear),
     bordered,
     prefix: prefixNode(),
     suffix: showCount ? suffix || <span></span> : suffix,
@@ -107,7 +124,7 @@ export const Input= forwardRef<InputRef,FRCInputProps> ((props,ref) => {
   }
 
   // main
-  return <AntdInput ref={composeRef(ref,inputRef)} {...options} />
+  return <AntdInput ref={composeRef(ref, inputRef)} {...options} />
 })
 
 
@@ -118,6 +135,7 @@ Input.defaultProps = {
   performance: 'default',
   disabled: false,
   showCount: false,
+  allowClear: false,
 }
 
 export default Input

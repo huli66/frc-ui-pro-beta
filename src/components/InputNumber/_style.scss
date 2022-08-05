@@ -9,6 +9,7 @@
 .frc-input-number.ant-input-number-affix-wrapper,
 .frc-input-number.ant-input-number-group-wrapper {
   // basic size
+  padding: 3px 4px;
   @include input-number-style(
     // normal
     $input-number-background,
@@ -31,6 +32,7 @@
   outline: 0;
   box-shadow: none;
   font-size: $font-size-base;
+  border-radius: 2px;
   // right btn
   .ant-input-number-handler-wrap {
     opacity: 1;
@@ -59,8 +61,13 @@
     // input
     .ant-input-number-input {
       height: auto;
-      padding: 0 4px;
+      padding: 0px;
+      border-radius: 0px;
     }
+  }
+
+  &::selection, *::selection{
+    background: $words-high-light !important;
   }
 }
 
@@ -85,6 +92,7 @@
     $input-number-border-disabled
   );
   .ant-input-number {
+    padding: 0 4px;
     @include input-number-style(
       // normal
       none,
@@ -115,9 +123,13 @@
 
 // addonBefore and addonAfter
 .frc-input-number.ant-input-number-group-wrapper {
+  padding: 3px 0px;
   .ant-input-number,
   .ant-input-number-affix-wrapper {
     padding-inline-start: 0px;
+    padding: 0;
+    border-radius: 0;
+    line-height: $input-number-line-height;
     @include input-number-style(
       // normal
       none,
@@ -148,7 +160,7 @@
       z-index: 10;
     }
   }
-  border-radius: 2px;
+  
   line-height: $input-number-line-height;
   .ant-input-number-wrapper.ant-input-number-group {
     display: inline-flex;
@@ -167,6 +179,15 @@
       line-height: $input-number-line-height;
       > svg {
         margin: 0 4px;
+      }
+    }
+    // 前后缀
+    .ant-input-number.frc-input-number{
+      .ant-input-number-input-wrap{
+        .ant-input-number-input{
+          line-height: $input-number-line-height;
+          border-radius: 0px;
+        }
       }
     }
   }

@@ -16,6 +16,7 @@ $btn-hover:                                        #133E38 !default;
 $mouse-hover:                                      #133E38 !default;
 $tittle-word:                                      #3B9078 !default;
 $new-data:                                         #241F0C !default;
+$baisc-disable:                                    #585B5A !default;
 // - linear
 $button-linear-0:                                  linear-gradient(0deg, #3B9078, #325850) !default;
 $button-linear-90:                                 linear-gradient(90deg, #3B9078, #325850) !default;
@@ -237,12 +238,12 @@ $btn-background-link-active:                       transparent  !default;
 //input
 
 // normal
-$input-padding-y:                                  0px !default;
+$input-padding-y:                                  3px !default;
 $input-padding-x:                                  6px !default;
 $input-font-family:                                $font-family-base !default;
 $input-font-size:                                  $font-size-base !default;
 $input-font-weight:                                500 !default;
-$input-line-height:                                $line-height-border !default;
+$input-line-height:                                $line-height-sm !default;
 $input-border-radius:                              $border-radius !default;
 $input-background:                                 $element-background !default;
 $input-color:                                      $words-supporting !default;
@@ -258,7 +259,7 @@ $input-border-focus:                               1px solid $words-high-light !
 // disabled
 $input-background-disabled:                        $input-background !default;
 $input-color-disabled:                             $words-disable !default;
-$input-border-disabled:                            $input-border !default;
+$input-border-disabled:                            1px solid $part-plate !default;
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
@@ -294,11 +295,11 @@ $input-border-icon-only-disabled:                  1px solid transparent !defaul
 
 // normal
 $input-search-background:                          $element-background !default;
-$input-search-color:                               $words-supporting !default;
+$input-search-color:                               $words-normal !default;
 $input-search-border:                              1px solid $basic-btn !default;
 
 // hover
-$input-search-background-hover:                    #0A2420 !default;
+$input-search-background-hover:                    $mouse-hover !default;
 $input-search-color-hover:                         $words-supporting !default;
 $input-search-border-hover:                        1px solid $basic-btn !default;
 
@@ -310,7 +311,8 @@ $input-search-border-focus:                        1px solid $words-high-light !
 // disabled
 $input-search-background-disabled:                 $basic-btn !default;
 $input-search-color-disabled:                      $words-disable !default;
-$input-search-border-disabled:                     1px solid $basic-btn !default;
+$input-search-border-disabled:                     1px solid $part-plate !default;
+$input-search-background-btn-disabled:             $part-plate !default;
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
@@ -408,6 +410,7 @@ $radio-border-active:                              none !default;
 
 $radio-background-active-icon:                     $part-plate !default;
 $radio-border-active-icon:                         1px solid $basic-btn !default;
+$radio-background-active-icon-inner:               $basic-btn !default;
 
 // focus
 $radio-background-focus:                           transparent !default;
@@ -423,8 +426,9 @@ $radio-color-disabled:                             $words-disable !default;
 $radio-border-disabled:                            none !default;
 
 $radio-background-disabled-icon:                   $element-background !default;
-$radio-border-disabled-icon:                       1px solid $basic-btn !default;
-$radio-background-disabled-icon-inner:             $basic-btn !default;
+$radio-border-disabled-icon:                       1px solid $baisc-disable !default;
+$radio-background-disabled-icon-inner:             $baisc-disable !default;
+$radio-border-disabled-icon-inner:                 2px solid $baisc-disable !default;
 
 // ----------------------------------------------------------------
 
@@ -491,6 +495,7 @@ $checkbox-border-active:                           none !default;
 
 $checkbox-background-active-icon:                  $part-plate !default;
 $checkbox-border-active-icon:                      2px solid $basic-btn !default;
+$checkbox-background-active-icon-inner:            $basic-btn !default;
 
 // focus
 $checkbox-background-focus:                        transparent !default;
@@ -506,8 +511,9 @@ $checkbox-color-disabled:                          $words-disable !default;
 $checkbox-border-disabled:                         none !default;
 
 $checkbox-background-disabled-icon:                $element-background !default;
-$checkbox-border-disabled-icon:                    1px solid $basic-btn !default;
-$checkbox-background-disabled-icon-inner:          $basic-btn !default;
+$checkbox-border-disabled-icon:                    1px solid $baisc-disable !default;
+$checkbox-background-disabled-icon-inner:          $baisc-disable !default;
+$checkbox-border-disabled-icon-inner:              2px solid $baisc-disable !default;
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
@@ -544,9 +550,9 @@ $switch-background-focus-icon:                     $words-high-light !default;
 // disable
 $switch-background-disabled:                       $element-background !default;
 $switch-color-disabled:                            $words-disable !default;
-$switch-border-disabled:                           1px solid $basic-btn !default;
+$switch-border-disabled:                           1px solid $baisc-disable !default;
 
-$switch-background-disabled-icon:                  $basic-btn !default;
+$switch-background-disabled-icon:                  $baisc-disable !default;
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------

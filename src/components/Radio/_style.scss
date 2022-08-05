@@ -26,6 +26,7 @@
     $radio-border-active,
     $radio-background-active-icon,
     $radio-border-active-icon,
+    $radio-background-active-icon-inner,
     // focus
     $radio-background-focus,
     $radio-color-focus,
@@ -39,7 +40,8 @@
     $radio-background-disabled-icon,
     $radio-border-disabled-icon,
     // disabled - inner
-    $radio-background-disabled-icon-inner
+    $radio-background-disabled-icon-inner,
+    $radio-border-disabled-icon-inner
   );
   .ant-radio {
     top: 0;

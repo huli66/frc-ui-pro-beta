@@ -58,6 +58,35 @@
       outline: 0;
     }
   }
+  &::selection, *::selection{
+    background: $words-high-light !important;
+  }
+}
+
+// 有嵌套的 input -> v1.2.0 设计稿
+.frc-input{
+  &.ant-input-affix-wrapper{
+    .ant-input{
+      border-radius: 0px;
+      line-height: $input-line-height;
+    }
+  }
+  &.frc-input.ant-input-search{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    .ant-input-wrapper.ant-input-group{
+      .ant-input-affix-wrapper{
+        padding-top: 3px;
+        padding-bottom: 3px;
+        line-height: $input-line-height;
+        border: none !important;
+        .ant-input{
+          border-radius: 0px;
+          line-height: $input-line-height;
+        }
+      }
+    }
+  }
 }
 
 // icon-only
@@ -173,7 +202,7 @@
       padding: 0 5px;
       font-size: 12px;
       line-height: 0;
-      color: $words-disable;
+      color: $input-search-color;
     }
   }
 
@@ -206,7 +235,7 @@
 // no border
 .frc-input.frc-input-no-border {
   // border: none !important;
-  line-height: $line-height-base;
+  line-height: $input-line-height;
   @include input-style(
     // normal
     $input-background,
@@ -304,4 +333,20 @@
     $input-color-disabled,
     none
   );
+}
+
+// ----------------------------------------------------------------
+
+// clear icon
+.frc-input-clear-icon-box{
+  height: 10px;
+  width: 10px;
+  display: flex;
+  place-content: center;
+  background: $words-normal;
+  align-items: center;
+  .frc-clear-icon{
+    color: $basic-btn;
+    font-size: 18px;
+  }
 }
