@@ -794,12 +794,12 @@
 
 // ----------------------------------------------------------------
 
-@mixin nowrap() {
+@mixin text-ellipsis {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-@mixin pagination-item-base{
+@mixin pagination-item-base {
   min-width: $pagination-item-width;
   height: $pagination-item-height;
   line-height: $pagination-line-height;

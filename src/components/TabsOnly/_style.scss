@@ -1,79 +1,73 @@
 .frc-tabs-only {
+  display: inline-flex;
   font-weight: $font-weight-normal;
   color: $words-normal;
   text-align: center;
   box-sizing: border-box;
-  display: table-cell;
   border-radius: $border-radius;
-  position: relative;
-  zoom: 1;
-  display: inline-flex;
   align-items: center;
   justify-content: center;
-  &::after {
-    display: block;
-    content: "";
-    clear: both;
-  }
+ 
   .frc-tab-pane {
     height: 100%;
-    float: left;
     box-sizing: border-box;
-    padding: 0;
-    background-color: $tabs-base-background-transparent;
     transition: all 0.3s ease-in-out;
     position: relative;
+    cursor: pointer;
     &:hover {
       background-color: $tabs-base-background-hover;
-      cursor: pointer;
+    }
+    &:active {
+      background-color: $tabs-base-background-active;
     }
     .frc-tab-pane-content {
       min-width: 80px;
       height: 100%;
       padding: 0 $tabs-base-padding;
       box-sizing: border-box;
-      @include nowrap;
+      @include text-ellipsis;
+    }
+  }
+
+  &.frc-tabs-only-disabled {
+    .frc-tab-pane {
+      cursor: not-allowed;
+      color: $words-disable;
     }
   }
 }
+
+// type default
 .frc-tabs-only.frc-tabs-only-default {
   background: $element-background;
-  border: 1px solid $tabs-base-border-color-background;
-  // 三角箭头样式
-  // .frc-tab-pane {
-  //   &::after {
-  //     content: "";
-  //     position: absolute;
-  //     left: 50%;
-  //     top: -$tabs-base-padding;
-  //     transform: translate(-50%, 0);
-  //     display: block;
-  //     width: 0;
-  //     height: 0;
-  //     border-radius: 0;
-  //     border-top: 8px solid $tabs-base-background-transparent;
-  //     border-right: 4px solid $tabs-base-background-transparent;
-  //     border-bottom: 0px solid $tabs-base-background-transparent;
-  //     border-left: 4px solid $tabs-base-background-transparent;
-  //   }
-  // }
+  border: 1px solid $tabs-base-background;
 
-  .active {
-    background: $tabs-base-border-color-background;
-    &:hover {
-      background-color: $tabs-base-border-color-background;
+  .frc-tab-pane-active {
+    background: $tabs-base-background;
+  }
+
+  // disabled 
+  &.frc-tabs-only-disabled {
+    border-color: $tabs-base-background-disabled;
+    .frc-tab-pane {
+      &:hover {
+        background-color: transparent;
+      }
     }
-    // &::after {
-    //   border-top-color: $words-high-light;
-    // }
+   .frc-tab-pane-active {
+      background-color: $tabs-base-background-disabled;
+      &:hover {
+        background-color: $tabs-base-background-disabled;
+      }
+    }
   }
 }
 
+// type piend
 .frc-tabs-only.frc-tabs-only-piend {
-  background: $tabs-base-background-transparent;
-  border: 1px solid $tabs-base-background-transparent;
 
   .frc-tab-pane {
+    border-radius: $border-radius;
     &::after {
       content: "";
       position: absolute;
@@ -87,57 +81,82 @@
     }
   }
 
-  .active {
-    background: $basic-background;
+  .frc-tab-pane-active {
+    background-color: $element-background;
+    border-radius: 0;
     &:hover {
-      background-color: $basic-background;
+      background-color:$tabs-base-background-hover;
     }
     &::after {
       background-image: $high-light-area-linear-90;
     }
   }
+
+  &.frc-tabs-only-disabled {
+    .frc-tab-pane {
+      &:hover {
+        background-color: transparent;
+      }
+      &:active {
+        background-color: transparent;
+      }
+    }
+    .frc-tab-pane-active {
+      &:hover {
+        background-color:$element-background;
+      }
+      &::after {
+        // 这个地方是自己定义的色值
+        background-image: linear-gradient(
+          270deg,
+          rgba(243, 138, 0, 0.4) 0%,
+          rgba(255, 177, 0, 0.2) 100%
+        );
+      }
+    }
+  }
 }
-.frc-tabs-only.frc-tabs-only-disabled {
-  cursor: not-allowed;
-  color: $words-disable;
+
+// type solid
+.frc-tabs-only.frc-tabs-only-solid {
   .frc-tab-pane {
-    color: $words-disable;
-    cursor: not-allowed;
+    background-color: $element-background;
+    border: 1px solid transparent;
+    border-radius: $border-radius;
+    &:not(:last-of-type) {
+      margin-right: 4px;
+    }
     &:hover {
-      background-color: $tabs-base-background-transparent;
-      cursor: not-allowed;
+      background-color: $tabs-base-background-hover;
+    }
+    &:active {
+      background-color: $tabs-base-background-active;
     }
   }
-  .frc-tab-pane.active {
-    &:hover {
-      background-color: $tabs-base-border-color-background;
+  .frc-tab-pane-active {
+    border: 1px solid $words-high-light;
+    color: $words-high-light;
+  }
+  // disabled
+  &.frc-tabs-only-disabled {
+    .frc-tab-pane {
+      &:hover {
+        background-color: $element-background;
+      }
+      &:active {
+        background-color: $element-background;
+      }
     }
-  }
-  .active {
-    background: $tabs-base-border-color-background;
-    color: $words-disable;
-  }
-}
-// .frc-tabs-only.frc-tabs-only-default.frc-tabs-only-disabled {
-//   .active {
-//     &::after {
-//       border-top-color: $tabs-base-border-color-background;
-//     }
-//   }
-// }
-.frc-tabs-only.frc-tabs-only-piend.frc-tabs-only-disabled {
-  .active {
-    &::after {
-      // 这个地方是自己定义的色值
-      background-image: linear-gradient(
-        270deg,
-        rgba(243, 138, 0, 0.4) 0%,
-        rgba(255, 177, 0, 0.2) 100%
-      );
+    .frc-tab-pane-active {
+      color: $words-disable;
+      border: 1px solid $tabs-base-background-disabled;
     }
   }
 }
-.frc-tabs-only-size-default {
+
+
+// size
+.frc-tabs-only.frc-tabs-only-size-small {
   @include tabs-size(
     $tabs-item-default-height,
     $tabs-item-default-line-height,
@@ -145,14 +164,14 @@
   );
 }
 
-.frc-tabs-only-size-middle {
+.frc-tabs-only.frc-tabs-only-size-middle {
   @include tabs-size(
     $tabs-item-middle-height,
     $tabs-item-middle-line-height,
     $font-size-base
   );
 }
-.frc-tabs-only-size-large {
+.frc-tabs-only.frc-tabs-only-size-large {
   @include tabs-size(
     $tabs-item-large-height,
     $tabs-item-large-line-height,
@@ -160,15 +179,13 @@
   );
 }
 
+// text-ellipsis
 .frc-tabs-only-not-atuo-width {
   .frc-tab-pane {
     .frc-tab-pane-content {
       width: 80px;
-      @include nowrap;
+      @include text-ellipsis;
     }
   }
 }
 
-.frc-tabs-only.frc-tabs-only-block{
-  display: table;
-}

@@ -683,10 +683,11 @@ $menu-item-height:                                 24px !default;
 // ----------------------------------------------------------------
 
 // tabs
-$tabs-base-background:                             #101414 !default;
-$tabs-base-background-hover:                       #0a2420 !default;
-$tabs-base-background-transparent:                 transparent !default;
+$tabs-base-background:                             $basic-filter !default;
+$tabs-base-background-hover:                       $btn-hover !default;
 $tabs-base-border-color-background:                #253330 !default;
+$tabs-base-background-active:                      $part-plate !default;
+$tabs-base-background-disabled:                    $part-plate !default;
 $tabs-base-padding:                                16px !default;
 $tabs-item-default-height:                         24px !default;
 $tabs-item-default-line-height:                    20px !default; //如果和高度一样不好看

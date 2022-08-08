@@ -14,18 +14,10 @@ import {
   Subheading,
 } from "@storybook/addon-docs";
 
-import TabsOnly from ".";
-import { FRCTabsOnlyProps, itemProps, TabsOnlySizeType, TabsOnlyType } from "./tabsOnly";
+import TabsOnly, {FRCTabsOnlyProps, TabItem} from "./index";
 import Radio from "../Radio";
 import { RadioChangeEvent } from "antd";
 import InputNumber from "../InputNumber/inputNumber";
-
-const items = [
-  { key: "1", value: "Filter001" },
-  { key: "2", value: "Filter002" },
-  { key: "3", value: "Filter003" },
-  { key: "4", value: "Filter004" },
-];
 
 // ----------------------------------------------------------------
 
@@ -95,37 +87,19 @@ export default {
 } as ComponentMeta<typeof TabsOnly>;
 
 // ----------------------------------------------------------------
-const onclickCallback = (item: itemProps) => {
-  console.log("item", item, item.key, item.value);
-};
+
 export const Default = (args: FRCTabsOnlyProps) => (
   <>
     <TabsOnly
       {...args}
-      block
-      defaultSelectedKey="1"
+      defaultValue="1"
       items={[
         {
           key: "1",
-          value: "Filter001",
+          label: "Filter001",
         },
-        { key: "2", value: "Filter002" },
+        { key: "2", label: "Filter002" },
       ]}
-      onSelect={onclickCallback}
-      style={{ margin: "12px 12px 12px 0" }}
-    />
-    <TabsOnly
-      {...args}
-      defaultSelectedKey="1"
-      type="piend"
-      items={[
-        {
-          key: "1",
-          value: "Filter001",
-        },
-        { key: "2", value: "Filter002" },
-      ]}
-      onSelect={onclickCallback}
     />
   </>
 );
@@ -135,99 +109,119 @@ Default.storyName = "默认 TabsOnly";
 // ----------------------------------------------------------------
 
 export const _BaseComponent = () => {
+  const items: TabItem[] = [
+    { key: "1", label: "Filter001" },
+    { key: "2", label: "Filter002" },
+    { key: "3", label: "Filter003" },
+    { key: "4", label: "Filter004" },
+  ];
   return (
     <>
-      <TabsOnly disabled items={items} style={{ margin: "14px 0" }} />
-      <p></p>
-      <TabsOnly disabled type="piend" items={items} />
+      <TabsOnly items={items} defaultValue="1" />
+      <br />
+      <br />
+      <TabsOnly type="piend" defaultValue="1" items={items} />
+      <br />
+      <br />
+      <TabsOnly type="solid" defaultValue="1" items={items} />
     </>
   );
 };
 
-_BaseComponent.storyName = "禁用 TabsOnly";
+_BaseComponent.storyName = "基本使用 TabsOnly";
 _BaseComponent.parameters = {
   controls: { hideNoControlsWarning: true },
 };
 // ----------------------------------------------------------------
-
-export const _TypeComponent = () => {
-  const [type, setType] = useState<TabsOnlyType>("default");
-  const onChange = (e: RadioChangeEvent) => {
-    console.log("type", e.target.value);
-    setType(e.target.value);
-  };
+export const _DisableComponent = () => {
+  const items: TabItem[] = [
+    { key: "1", label: "Filter001" },
+    { key: "2", label: "Filter002" },
+    { key: "3", label: "Filter003" },
+    { key: "4", label: "Filter004" },
+  ];
   return (
     <>
-      <Radio.Group
-        style={{ margin: "0 0 24px 0" }}
-        onChange={onChange}
-        value={type}
-      >
-        <Radio value="default">default</Radio>
-        <Radio value="piend">piend</Radio>
-      </Radio.Group>
-      <p></p>
-      <TabsOnly type={type} items={items} />
+      <TabsOnly disabled defaultValue="1" items={items} />
+      <br />
+      <br />
+      <TabsOnly disabled defaultValue="1" type="piend" items={items} />
+      <br />
+      <br />
+      <TabsOnly disabled type="solid" defaultValue="1" items={items} />
     </>
   );
 };
 
-_TypeComponent.storyName = "类型切换 TabsOnly";
-_TypeComponent.parameters = {
+_DisableComponent.storyName = "禁用 TabsOnly";
+_DisableComponent.parameters = {
   controls: { hideNoControlsWarning: true },
 };
 
 // ----------------------------------------------------------------
 
-export const _DefaultSelectComponent = () => {
+export const _ControlComponent = () => {
+  const [curTab, setCurTab] = React.useState<React.Key>("1");
+
+  const items: TabItem[] = [
+    { key: "1", label: "Filter001" },
+    { key: "2", label: "Filter002" },
+    { key: "3", label: "Filter003" },
+    { key: "4", label: "Filter004" },
+  ];
+
+  const handleChange = (val:React.Key) => {
+    setCurTab(val);
+  }
+
   return (
     <>
-      <TabsOnly defaultSelectedKey="2" items={items} />
-      <p></p>
-      <TabsOnly style={{ margin: "24px 0" }} defaultSelectedKey="3" items={items} />
-      <p></p>
-      <TabsOnly type="piend" defaultSelectedKey="4" items={items} />
+      <TabsOnly items={items} value={curTab} onChange={handleChange} />
+      <br />
+      <br />
+      <TabsOnly type="piend" items={items} value={curTab} onChange={handleChange} />
+      <br />
+      <br />
+      <TabsOnly type="solid" items={items} value={curTab} onChange={handleChange} />
     </>
   );
 };
 
-_DefaultSelectComponent.storyName = "默认选中项 TabsOnly";
-_DefaultSelectComponent.parameters = {
+_ControlComponent.storyName = "受控 TabsOnly";
+_ControlComponent.parameters = {
   controls: { hideNoControlsWarning: true },
 };
 
 // ----------------------------------------------------------------
 
 export const _ChangeSizeComponent = () => {
-  const [size, setSize] = useState<TabsOnlySizeType>("default");
-  const onChange = (e: RadioChangeEvent) => {
-    console.log("size", e.target.value);
-    setSize(e.target.value);
-  };
+  const items: TabItem[] = [
+    { key: "1", label: "Filter001" },
+    { key: "2", label: "Filter002" },
+    { key: "3", label: "Filter003" },
+    { key: "4", label: "Filter004" },
+  ];
+  
   return (
     <>
-      <Radio.Group
-        style={{ margin: "0 0 24px 0" }}
-        onChange={onChange}
-        value={size}
-      >
-        <Radio value="default">default</Radio>
-        <Radio value="middle">middle</Radio>
-        <Radio value="large">large</Radio>
-      </Radio.Group>
-      <p></p>
-      <TabsOnly size={size} items={items} />
+      <TabsOnly size="small" defaultValue="1" items={items} />
+      <br />
+      <br />
+      <TabsOnly size="middle" defaultValue="1" items={items} />
+      <br />
+      <br />
+      <TabsOnly size="large" defaultValue="1" items={items} />
     </>
   );
 };
 
-_ChangeSizeComponent.storyName = "尺寸切换 TabsOnly";
+_ChangeSizeComponent.storyName = "不同尺寸 TabsOnly";
 _ChangeSizeComponent.parameters = {
   controls: { hideNoControlsWarning: true },
 };
 // ----------------------------------------------------------------
 
-export const _setWidth = () => {
+export const _SetWidth = () => {
   const [width, setWidth] = useState<number>(80);
   const onChange = (value: any) => {
     console.log("value", value);
@@ -242,27 +236,28 @@ export const _setWidth = () => {
       />
       <TabsOnly
         width={width}
+        defaultValue="1"
         items={[
           {
             key: "1",
-            value:
+            label:
               "This is a repeated title! This is a repeated titleThis is a repeated titleThis is a repeated title",
           },
-          { key: "2", value: "Filter002" },
+          { key: "2", label: "Filter002" },
         ]}
       />
     </>
   );
 };
 
-_setWidth.storyName = "设置item宽度";
-_setWidth.parameters = {
+_SetWidth.storyName = "设置item宽度";
+_SetWidth.parameters = {
   controls: { hideNoControlsWarning: true },
 };
 
 // ----------------------------------------------------------------
 
-export const _notAutoWidth = () => {
+export const _NotAutoWidth = () => {
   const [notAutoWidth, setNotAutoWidth] = useState<boolean>(false);
   const onChange = (e: RadioChangeEvent) => {
     console.log("value", e.target.value);
@@ -278,23 +273,24 @@ export const _notAutoWidth = () => {
         <Radio value={false}>false</Radio>
         <Radio value={true}>true</Radio>
       </Radio.Group>
-      <p></p>
+      <br />
       <TabsOnly
         notAutoWidth={notAutoWidth}
+        defaultValue="1"
         items={[
           {
             key: "1",
-            value:
+            label:
               "This is a repeated title! This is a repeated titleThis is a repeated titleThis is a repeated title",
           },
-          { key: "2", value: "Filter002" },
+          { key: "2", label: "Filter002" },
         ]}
       />
     </>
   );
 };
 
-_notAutoWidth.storyName = "是否不自动填充宽度";
-_notAutoWidth.parameters = {
+_NotAutoWidth.storyName = "是否不自动填充宽度";
+_NotAutoWidth.parameters = {
   controls: { hideNoControlsWarning: true },
 };

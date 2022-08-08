@@ -1,116 +1,101 @@
-import React, { FC, useState, CSSProperties } from "react";
+import React, { FC, useState, CSSProperties, useEffect } from "react";
 import classNames from "classnames";
 
-export interface itemProps {
-  key: string;
-  value: string;
+export interface TabItem {
+  key: React.Key;
+  label: string;
 }
 
-export type TabsOnlyType = "default" | "piend";
-export type TabsOnlySizeType = "default" | "large" | "middle";
-export interface TabsOnlyTypeProps {
-  default?: TabsOnlyType;
-}
+export type TabsOnlyType = "default" | "piend" | "solid";
+export type TabsOnlySizeType = "small" | "large" | "middle";
 
-export interface itemsProps {
-  items: itemProps[];
-}
-export interface itemProps {
-  key: string;
-  value: string;
-}
 
-export interface TabsOnlyBaseProps {
+export interface FRCTabsOnlyProps {
   /** tabsOnly类名 */
   className?: string;
-  children?: any;
-}
-
-interface BaseTabsOnlyProps {
-  /** tabsOnly类型，可选default、piend两种类型 */
+  /** tabsOnly类型 */
   type?: TabsOnlyType;
-  /** 默认选中的key */
-  defaultSelectedKey?: string;
+  /** 默认选中的value */
+  defaultValue?: React.Key;
+  /** 选中的value */
+  value?: React.Key;
   /** 设置是否禁用 */
   disabled?: boolean;
-  /** 点击事件回调,返回当前选中的项item */
-  onSelect?: (item: { key: string; value: string }) => void;
+  /** 选中tab某一项时的回调函数 */
+  onChange?: (value: React.Key) => void;
   /** tabsOnly内容*/
-  items?: { key: string; value: string }[];
-  /** 样式 */
+  items?: TabItem[];
+  /** 外层样式 */
   style?: CSSProperties;
-  /** 大小，提供 large default 和 middle 三种大小 */
+  /** tab item size */
   size?: TabsOnlySizeType;
   /** 是否不自动填充宽度，当为true时会根据设定宽度超出...隐藏 */
   notAutoWidth?: boolean;
   /** item项的宽度*/
   width?: number;
-  /** tabsOnly是否独占一行显示*/
-  block?: boolean;
 }
-
-export type FRCTabsOnlyProps = BaseTabsOnlyProps & TabsOnlyBaseProps;
 
 export const TabsOnly: FC<FRCTabsOnlyProps> = (props) => {
   const {
-    defaultSelectedKey,
+    defaultValue,
+    value,
     width,
-    block,
     size,
     notAutoWidth,
     items,
-    onSelect,
+    onChange,
     disabled,
-    children,
     className,
     type,
-    ...restProps
+    style
   } = props;
-  // tabsOnly frc-tabs-only-only
-  // const classes = classNames("frc-tabs-only", className, {
-    const classes = classNames("frc-tabs-only", className, {
+ 
+  const classes = classNames("frc-tabs-only", className, {
     [`frc-tabs-only-${type}`]: type,
     [`frc-tabs-only-size-${size}`]: size,
     [`frc-tabs-only-disabled`]: disabled,
     [`frc-tabs-only-not-atuo-width`]: notAutoWidth,
-    [`frc-tabs-only-block`]: block,
   });
 
-  const options = {
-    className: classes,
-    ...restProps,
+  const [current, setCurrent] = useState<React.Key | undefined>(defaultValue);
+
+  const changeTabPane = (item: TabItem) => {
+    if (current === item.key) {
+      return ;
+    }
+    if (disabled) {
+      return ;
+    }
+    if (onChange) {
+      onChange(item.key);
+    }else {
+      setCurrent(item.key);
+    }
   };
-  const [current, setCurrent] = useState<string>(
-    defaultSelectedKey ||
-      (items && items![0].key) ||
-      (children && children![0].key) ||
-      ""
-  );
-  const changeTabPane = (item: itemProps) => {
-    if (current === item.key) return false; //禁止重复点击
-    if (disabled) return false; //禁止禁用点击
-    setCurrent(item.key);
-    if (onSelect) onSelect(item);
-  };
+
+  useEffect(() => {
+    if('value' in props) {
+      setCurrent(value)
+    }
+  }, [value, props]);
+
   // main
   return (
-    <div {...options}>
-      {items?.length &&
-        items.map((item: itemProps) => (
+    <div className={classes} style={style}>
+      {!!items?.length &&
+        items.map((item) => (
           <div
             onClick={() => {
               changeTabPane(item);
             }}
-            className={
-              current === item.key ? "frc-tab-pane active" : "frc-tab-pane"
-            }
+            className={`frc-tab-pane ${current === item.key ? 'frc-tab-pane-active':''}`}
             key={item.key}
           >
             <div
               className="frc-tab-pane-content"
-              style={{ width: width + "px" }}
+              style={{ width }}
             >
-              {item.value}
+              {item.label}
             </div>
           </div>
         ))}
@@ -121,9 +106,8 @@ export const TabsOnly: FC<FRCTabsOnlyProps> = (props) => {
 // default
 TabsOnly.defaultProps = {
   type: "default",
-  size: "default",
+  size: "small",
   notAutoWidth: false,
-  block: false,
 };
 
 export default TabsOnly;
