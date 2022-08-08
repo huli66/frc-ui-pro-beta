@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useState } from 'react'
-import 'moment/locale/zh-cn'
-import { ReactElement } from 'react-markdown/lib/react-markdown'
 import { LeftOutlined, RightOutlined, DownOutlined, UpOutlined } from '@ant-design/icons';
+import classNames from "classnames";
 
 export type PlacementType = 'top' | 'right' | 'bottom' | 'left';
 
@@ -15,9 +14,9 @@ export interface FRCSqueezeDrawerProps {
   /** 弹出方向 */
   placement?: PlacementType,
   /** 弹出层内容 */
-  extraContent?: ReactElement,
+  extraContent?: React.ReactNode,
   /** 主层内容 */
-  mainContent?: ReactElement
+  mainContent?: React.ReactNode
   /** 开启图标 */
   // openIcon?: ReactElement,
   /** 关闭图标 */
@@ -38,9 +37,18 @@ export interface FRCSqueezeDrawerProps {
 
 export const SqueezeDrawer: FC<FRCSqueezeDrawerProps> = (props) => {
   const {
-    extraContent, mainContent, extraContentVisible, className,
-    width, height, style: styleProps, extraContentStyle: extraContentStyleProps,
-    mainContentStyle, turnStyle: turnStyleProps, placement, onOpenChange,
+    extraContent,
+    mainContent,
+    extraContentVisible,
+    className,
+    width,
+    height,
+    style: styleProps,
+    extraContentStyle: extraContentStyleProps,
+    mainContentStyle,
+    turnStyle: turnStyleProps,
+    placement,
+    onOpenChange,
   } = props
 
   const [visible, setVisible] = useState(false)
@@ -59,66 +67,41 @@ export const SqueezeDrawer: FC<FRCSqueezeDrawerProps> = (props) => {
     }
   }
 
-  const styleOfPlacement = {
-    top: 'column-reverse' as 'column-reverse',
-    right: 'row' as 'row',
-    bottom: 'column' as 'column',
-    left: 'row-reverse' as 'row-reverse'
-  }
-
-  const handleSetFlagIcon = (currentPlacement: PlacementType, currentVisible: boolean) => {
-    let flagIcon = <LeftOutlined />
+  const renderOpenIcon = (currentPlacement: PlacementType, currentVisible: boolean) => {
+    let openIcon = <LeftOutlined />
     if (currentPlacement === 'top') {
-      flagIcon = (currentVisible ? <UpOutlined /> : <DownOutlined />)
+      openIcon = (currentVisible ? <UpOutlined /> : <DownOutlined />)
     }
     if (currentPlacement === 'bottom') {
-      flagIcon = (currentVisible ? <DownOutlined /> : <UpOutlined />)
+      openIcon = (currentVisible ? <DownOutlined /> : <UpOutlined />)
     }
     if (currentPlacement === 'right') {
-      flagIcon = (currentVisible ? <RightOutlined /> : <LeftOutlined />)
+      openIcon = (currentVisible ? <RightOutlined /> : <LeftOutlined />)
     }
     if (currentPlacement === 'left') {
-      flagIcon = (currentVisible ? <LeftOutlined /> : <RightOutlined />)
+      openIcon = (currentVisible ? <LeftOutlined /> : <RightOutlined />)
     }
-    return flagIcon
+    return openIcon
   }
 
-  const getStyle = (currentPlacement: PlacementType, currentVisible: boolean) => {
+  const getContentContainerStyle = (currentPlacement: PlacementType) => {
     let style: React.CSSProperties = {}
-    style = {
-      ...style,
-      ...styleProps
+    const styleOfPlacement = {
+      top: 'column-reverse',
+      right: 'row',
+      bottom: 'column',
+      left: 'row-reverse'
     }
-    return style
-  }
-
-  const getContentContainerStyle = (currentPlacement: PlacementType, currentVisible: boolean) => {
-    let style: React.CSSProperties = {}
-    style.flexDirection = styleOfPlacement[currentPlacement]
-    return style
-  }
-
-  const getMainContentStyle = (currentPlacement: PlacementType, currentVisible: boolean) => {
-    let style: React.CSSProperties = {}
-    style = {
-      ...style,
-      ...mainContentStyle
-    }
+    style.flexDirection = styleOfPlacement[currentPlacement] as any
     return style
   }
 
   const getExtraContentStyle = (currentPlacement: PlacementType, currentVisible: boolean) => {
     let style: React.CSSProperties = {}
-    if (currentPlacement === 'top') {
+    if (currentPlacement === 'top' || currentPlacement === 'bottom') {
       style.height = currentVisible ? height : 0
     }
-    if (currentPlacement === 'bottom') {
-      style.height = currentVisible ? height : 0
-    }
-    if (currentPlacement === 'right') {
-      style.width = currentVisible ? width : 0
-    }
-    if (currentPlacement === 'left') {
+    if (currentPlacement === 'right' || currentPlacement === 'left') {
       style.width = currentVisible ? width : 0
     }
     style = {
@@ -130,34 +113,15 @@ export const SqueezeDrawer: FC<FRCSqueezeDrawerProps> = (props) => {
 
   const getTurnStyle = (currentPlacement: PlacementType, currentVisible: boolean) => {
     let style: React.CSSProperties = {}
-    if (currentPlacement === 'top') {
-      style.top = currentVisible ? height : 0
-      style.left = '50%'
-      style.width = '40px'
-      style.height = '8px'
-      style.marginLeft = '-20px'
+
+    if (currentPlacement === 'top' || currentPlacement === 'bottom') {
+      style[currentPlacement] = currentVisible ? height : 0
     }
-    if (currentPlacement === 'bottom') {
-      style.bottom = currentVisible ? height : 0
-      style.left = '50%'
-      style.width = '40px'
-      style.height = '8px'
-      style.marginLeft = '-20px'
+
+    if (currentPlacement === 'left' || currentPlacement === 'right') {
+      style[currentPlacement] = currentVisible ? width : 0
     }
-    if (currentPlacement === 'right') {
-      style.right = currentVisible ? width : 0
-      style.top = '50%'
-      style.width = '8px'
-      style.height = '40px'
-      style.marginTop = '-20px'
-    }
-    if (currentPlacement === 'left') {
-      style.left = currentVisible ? width : 0
-      style.top = '50%'
-      style.width = '8px'
-      style.height = '40px'
-      style.marginTop = '-20px'
-    }
+
     style = {
       ...style,
       ...turnStyleProps
@@ -165,18 +129,23 @@ export const SqueezeDrawer: FC<FRCSqueezeDrawerProps> = (props) => {
     return style
   }
 
+  const classes = classNames('frc-squeeze-drawer', className, {
+    [`frc-squeeze-drawer-${placement}`]: placement,
+    'frc-squeeze-drawer-open': visible
+  })
+
   return (
-    <div className={`${className} frc-squeeze-drawer`} style={getStyle(placement!, visible)}>
-      <div className='content-container' style={getContentContainerStyle(placement!, visible)}>
-        <div className='frc-squeeze-drawer-main-content' style={getMainContentStyle(placement!, visible)}>
+    <div className={classes} style={styleProps}>
+      <div className='content-container' style={getContentContainerStyle(placement!)}>
+        <div className='frc-squeeze-drawer-main-content' style={mainContentStyle}>
           {mainContent}
         </div>
         <div className='frc-squeeze-drawer-extra-content' style={getExtraContentStyle(placement!, visible)}>
           {visible && extraContent}
         </div>
       </div>
-      <div className='open-flag' onClick={handleClick} style={getTurnStyle(placement!, visible)} >
-        {handleSetFlagIcon(placement!, visible)}
+      <div className='open-btn' onClick={handleClick} style={getTurnStyle(placement!, visible)} >
+        {renderOpenIcon(placement!, visible)}
       </div>
     </div>
   )
