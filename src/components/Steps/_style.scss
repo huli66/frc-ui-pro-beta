@@ -140,6 +140,9 @@
         width: $steps-large-width;
         height: $steps-large-width;
         line-height: $steps-large-line-height;
+        .frc-custom-large-dot {
+          color: $steps-default-color;
+        }
       }
      }
   }
@@ -206,6 +209,19 @@
         border-radius: 50%;
         @include position-center;
         transition: width 0.2s, height 0.2s,  background-color 0.2s;
+      }
+    }
+
+    &.frc-size-small {
+      .ant-steps-item.frc-steps-item.ant-steps-item-process {
+        .frc-custom-dot {
+          width:$steps-dot-wrapper-width;
+          height:$steps-dot-wrapper-width;
+          &::before {
+            width: $steps-dot-outer-width;
+            height: $steps-dot-outer-width;
+          }
+        }
       }
     }
 

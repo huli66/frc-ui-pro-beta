@@ -2,7 +2,7 @@ import React from 'react'
 import classNames from 'classnames'
 import {Steps as AntSteps, StepsProps} from 'antd'
 
-type Status = 'error' | 'process' | 'finish' | 'wait';
+export type Status = 'error' | 'process' | 'finish' | 'wait';
 
 type ProgressDotRender = (iconDot: any, info: {
   index: number;
@@ -11,9 +11,9 @@ type ProgressDotRender = (iconDot: any, info: {
   description: React.ReactNode;
 }) => React.ReactNode;
 
-type StepsSize = 'large' | 'middle' | 'small';
+export type StepsSize = 'large' | 'middle' | 'small';
 
-type TextLayout = 'default' | 'updown';
+export type TextLayout = 'default' | 'updown';
 
 interface BaseStepsProps {
   /** 步骤条类名 */

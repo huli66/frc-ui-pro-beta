@@ -78,7 +78,7 @@ export default {
 
                     <Subheading>Steps.Step</Subheading>
                     <Description>步骤条内的每一个步骤。</Description>
-                    <ArgsTable of={Steps.Step} exclude={["blur", 'focus']} />
+                    <ArgsTable of={Steps.Step} />
                 </>
             ),
         },

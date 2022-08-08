@@ -1,8 +1,7 @@
 import React, { FC } from "react";
 import classNames from "classnames";
 import {Steps, StepProps} from "antd";
-
-export type StepStatus = "wait" | "process" | "finish" | "error";
+import {Status} from './steps';
 
 const { Step : AntStep } = Steps
 
@@ -14,7 +13,7 @@ interface BaseStepProps {
   /** 步骤图标的类型，可选 */
   icon?: React.ReactNode;
   /** 指定状态。当不配置该属性时，会使用 Steps 的 current 来自动指定状态。 */
-  status?: StepStatus;
+  status?: Status;
   /** 子标题 */
   subTitle?: React.ReactNode;
   /** 标题 */
