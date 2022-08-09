@@ -190,45 +190,46 @@ _PlaceComponent.storyName = '弹出位置 Dropdown';
 
 // ----------------------------------------------------------------
 
-// export const _OtherEleComponent = (args: FRCDropdownProps) => {
-//   const list: ItemType[] = [
-//       {
-//           label:'1st menu item',
-//           key: '0',
-//       },
-//       {
-//           label: '2nd menu item',
-//           key: '1',
-//       },
-//       {
-//         type: 'divider',
-//       },
-//       {
-//           label: '3rd menu item',
-//           key: '3',
-//           // icon: <StarOutlined />
-//       },
-//       {
-//           label: '4th menu item',
-//           key: '4',
-//           // icon: <SettingOutlined />
-//       },
-//       {
-//         type: 'divider',
-//       },
-//       {
-//         label: '5th menu item',
-//         key: '5',
-//         disabled: true,
-//       }
-//     ]
-//     const handleMenuClick = (item:any) => {
-//       console.log(item);
-//     }
-//   return <Dropdown menuOptions={{items: list,onClick:handleMenuClick,selectable:true}} triggerStyle={{width:150}}>Other Element</Dropdown>
-// };
+export const _OtherEleComponent = (args: FRCDropdownProps) => {
+  const list: ItemType[] = [
+      {
+          label:'1st menu item',
+          key: '0',
+      },
+      {
+          label: '2nd menu item',
+          key: '1',
+      },
+      {
+        type: 'divider',
+      },
+      // storybook 渲染icon失败
+      // {
+      //     label: '3rd menu item',
+      //     key: '3',
+      //     // icon: <StarOutlined />
+      // },
+      // {
+      //     label: '4th menu item',
+      //     key: '4',
+      //     // icon: <SettingOutlined />
+      // },
+      // {
+      //   type: 'divider',
+      // },
+      {
+        label: '5th menu item',
+        key: '5',
+        disabled: true,
+      }
+    ]
+    const handleMenuClick = (item:any) => {
+      console.log(item);
+    }
+  return <Dropdown menuOptions={{items: list,onClick:handleMenuClick,selectable:true}} triggerStyle={{width:150}}>Other Element</Dropdown>
+};
 
-// _OtherEleComponent.storyName = '其他 Dropdown';
+_OtherEleComponent.storyName = '其他元素 Dropdown';
 
 // ----------------------------------------------------------------
 

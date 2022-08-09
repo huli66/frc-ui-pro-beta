@@ -685,7 +685,6 @@ $menu-item-height:                                 24px !default;
 // tabs
 $tabs-base-background:                             $basic-filter !default;
 $tabs-base-background-hover:                       $btn-hover !default;
-$tabs-base-border-color-background:                #253330 !default;
 $tabs-base-background-active:                      $part-plate !default;
 $tabs-base-background-disabled:                    $part-plate !default;
 $tabs-base-padding:                                16px !default;
@@ -764,7 +763,9 @@ $dropdown-default-height:                          24px !default;
 $dropdown-base-background:                         $element-background !default;
 $dropdown-hover-background:                        $btn-hover !default;
 $dropdown-focus-background:                        $part-plate !default;
-$dropdown-border-color:                            #253330 !default;
+$dropdown-border-color:                            $basic-filter !default;
+$dropdown-border-disabled-color:                   $part-plate  !default;
+$dropdown-divider-color:                           $part-plate !default;
 $dropdown-text-normal:                             $words-normal !default;
 $dropdown-text-highlight:                          $words-high-light !default;
 $dropdown-text-disabled:                           $words-disable !default;

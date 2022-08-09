@@ -27,37 +27,9 @@
     font-size: $dropdown-base-margin;
   }
 
-  &:hover {
-    background-color: $dropdown-hover-background;
-  }
-  &:active {
-    background-color: $dropdown-focus-background;
-  }
-
-  // focus
-  &.frc-dropdown-focus {
-    border-color: $dropdown-text-highlight;
-    background-color: $dropdown-hover-background;
-  }
-
   // work status
   &.frc-dropdown-working {
     color: $dropdown-text-highlight;
-  }
-
-  // disabled
-  &.frc-dropdown-disabled {
-    color: $dropdown-text-disabled;
-    cursor: not-allowed;
-    .frc-dropdown-trigger-icon{
-      color: $dropdown-text-disabled;
-    }
-    &:hover {
-      background-color: $dropdown-base-background;
-    }
-    &:active {
-      background-color: $dropdown-base-background;
-    }
   }
 
   // icon
@@ -71,8 +43,39 @@
     width:$dropdown-default-height;
     line-height: $dropdown-default-height;
     border:none;
+    background-color: transparent;
     padding:0;
     text-align: center;
+  }
+
+  &:hover {
+    background-color: $dropdown-hover-background;
+  }
+  &:active {
+    background-color: $dropdown-focus-background;
+  }
+
+  // focus
+  &.frc-dropdown-focus {
+    border-color: $dropdown-text-highlight;
+    background-color: $dropdown-hover-background;
+  }
+
+  // disabled
+  &.frc-dropdown-disabled {
+    color: $dropdown-text-disabled;
+    border-color: $dropdown-border-disabled-color;
+    cursor: not-allowed;
+    .frc-dropdown-trigger-icon,
+    .frc-dropdown-trigger-arrow {
+      color: $dropdown-text-disabled;
+    }
+    &:hover {
+      background-color: $dropdown-base-background;
+    }
+    &:active {
+      background-color: $dropdown-base-background;
+    }
   }
 }
 
@@ -86,9 +89,7 @@
   .ant-dropdown-menu.frc-dropdown-menu,
   .ant-dropdown-menu.ant-dropdown-menu-sub{
     color: $dropdown-text-normal;
-    border: 1px solid $dropdown-border-color;
-    background-color: $dropdown-base-background;
-    box-shadow: 0 0 24px 0 rgba(255,235,200,0.30);
+    @include dropdown-box-wrapper;
 
     // normal
     .ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title  {
@@ -105,7 +106,7 @@
 
     // divider
     .ant-dropdown-menu-item-divider, .ant-dropdown-menu-submenu-title-divider {
-      background-color: $dropdown-border-color;
+      background-color: $dropdown-divider-color;
       margin: $dropdown-min-margin $dropdown-min-margin;
 
     }

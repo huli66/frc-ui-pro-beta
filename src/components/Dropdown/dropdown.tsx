@@ -32,7 +32,7 @@ interface BaseDropdownProps {
   onVisibleChange?: (visible: boolean) => void
 }
 
-type ItemType = Required<MenuProps>['items'][number]
+export type ItemType = Required<MenuProps>['items'][number]
 
 
 export type FRCDropdownProps = BaseDropdownProps & Omit<DropdownProps, 'overlay'>;
