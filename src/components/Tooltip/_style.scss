@@ -1,77 +1,26 @@
-.storybook-demo>.tlt-wrapper {
-  display: flex;
-  width: 100%;
-  height: 100%;
-}
-
-.storybook-demo>.tlt-wrapper>.center {
-  display: block;
-  margin: auto;
-  margin-top: 50px;
-}
-
-.storybook-demo>.tlt-wrapper>.center .tooltip-base {
-  display: inline-block;
-  margin: 5px;
-  border: 1px solid white;
-  padding: 10px;
-  border-radius: 2px;
-  width: 60px;
-  text-align: center;
-}
-
-.storybook-demo>.tlt-wrapper>.center .tooltip-base.no-arrow {
-  width: fit-content;
-  margin: 20px;
-}
-
-.storybook-demo>.tlt-wrapper>.center .top_panel,
-.storybook-demo>.tlt-wrapper>.center .bottom_panel {
-  margin-left: 65px;
-}
-
-.storybook-demo>.tlt-wrapper>.center .left_panel {
-  float: left;
-}
-
-.storybook-demo>.tlt-wrapper>.center .left_panel>* {
-  display: block;
-}
-
-.storybook-demo>.tlt-wrapper>.center .right_panel {
-  margin-left: 270px;
-}
-
-.storybook-demo>.tlt-wrapper>.center .right_panel>* {
-  display: block;
-}
-
-// ----------------------------------------------------------------
-
-
-.frc-tooltip {
+.frc-tooltip.ant-tooltip {
 
   &.ant-tooltip-placement-top,
-  &.frc-tooltip.ant-tooltip-placement-topLeft,
-  &.frc-tooltip.ant-tooltip-placement-topRight {
+  &.ant-tooltip-placement-topLeft,
+  &.ant-tooltip-placement-topRight {
     padding-bottom: $tooltip-target-gap;
   }
 
-  &.frc-tooltip.ant-tooltip-placement-left,
-  &.frc-tooltip.ant-tooltip-placement-leftTop,
-  &.frc-tooltip.ant-tooltip-placement-leftBottom {
+  &.ant-tooltip-placement-left,
+  &.ant-tooltip-placement-leftTop,
+  &.ant-tooltip-placement-leftBottom {
     padding-right: $tooltip-target-gap;
   }
 
-  &.frc-tooltip.ant-tooltip-placement-right,
-  &.frc-tooltip.ant-tooltip-placement-rightTop,
-  &.frc-tooltip.ant-tooltip-placement-rightBottom {
+  &.ant-tooltip-placement-right,
+  &.ant-tooltip-placement-rightTop,
+  &.ant-tooltip-placement-rightBottom {
     padding-left: $tooltip-target-gap;
   }
 
-  &.frc-tooltip.ant-tooltip-placement-bottom,
-  &.frc-tooltip.ant-tooltip-placement-bottomLeft,
-  &.frc-tooltip.ant-tooltip-placement-bottomRight {
+  &.ant-tooltip-placement-bottom,
+  &.ant-tooltip-placement-bottomLeft,
+  &.ant-tooltip-placement-bottomRight {
     padding-top: $tooltip-target-gap;
   }
 
@@ -99,9 +48,7 @@
   .ant-tooltip-content {
     padding: 0 8px;
     background: $tooltip-background-color;
-    border-width: 1px;
-    border-style: $tooltip-border-style;
-    border-color: $tooltip-border-color;
+    border: $tooltip-border;
     box-shadow: $tooltip-box-shadow;
     border-radius: $tooltip-border-radius;
 
@@ -126,9 +73,7 @@
 
   .ant-tooltip-arrow .ant-tooltip-arrow-content {
     --antd-arrow-background-color: none;
-    background-color: #121A19;
-    border-width: 1px;
-    border-style: $tooltip-border-style;
-    border-color: $tooltip-border-color;
+    background-color: $tooltip-background-color;
+    border: $tooltip-border;
   }
 }

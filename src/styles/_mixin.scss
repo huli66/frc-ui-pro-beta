@@ -733,7 +733,8 @@
   $border,
   $border-radius,
   $font-size,
-  $font-weight
+  $font-weight,
+  $box-shadow:$modal-box-shadow
 ) {
   background: $background;
   color: $color;
@@ -741,6 +742,7 @@
   border-radius: $border-radius;
   font-size: $font-size;
   font-weight: $font-weight;
+  box-shadow: $box-shadow;
 }
 
 @mixin slider-handle (

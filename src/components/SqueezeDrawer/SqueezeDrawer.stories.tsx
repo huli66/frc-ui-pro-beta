@@ -139,7 +139,7 @@ export const _PlacementComponent = () => {
   const [placement, setPlacement] = useState<PlacementType>('left')
 
   return (
-    <div>
+    <div className='squeeze-story'>
       <Button onClick={()=>setPlacement('left')}>左侧弹出</Button>
       <Button onClick={()=>setPlacement('top')}>上方弹出</Button>
       <Button onClick={()=>setPlacement('right')}>右侧弹出</Button>

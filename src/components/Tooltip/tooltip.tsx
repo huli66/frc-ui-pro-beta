@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import classNames from 'classnames'
-import { Tooltip as AntdTooltip, TooltipProps as antdTooltipProps } from 'antd'
+import { Tooltip as AntdTooltip, TooltipProps as AntdTooltipProps } from 'antd'
 
 export type ToolTipPlacementType = 'left' | 'right' | 'top' | 'bottom' | 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight' | 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom'
 export type ToolTipBorderType = 'thick' | 'thin'
@@ -42,7 +42,7 @@ interface BaseTooltipProps {
   onVisibleChange?: (visible: boolean) => void
 }
 
-export type FRCTooltipProps = BaseTooltipProps & Omit<antdTooltipProps, 'placement' | 'autoAdjustOverflow' | 'destroyTooltipOnHide' | 'onVisibleChange'>
+export type FRCTooltipProps = BaseTooltipProps & Omit<AntdTooltipProps, 'placement' | 'autoAdjustOverflow' | 'destroyTooltipOnHide' | 'onVisibleChange'>
 
 export const Tooltip: FC<FRCTooltipProps> = (props) => {
   const {

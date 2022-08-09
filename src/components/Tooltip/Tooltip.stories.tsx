@@ -6,6 +6,7 @@ import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import Button from "../Button";
 import Icon from "../Icon";
 import { ComponentMeta } from '@storybook/react';
+import './_story.scss'
 
 
 import {
@@ -178,7 +179,9 @@ export const _WithoutArrowComponent = () => {
                     hasArrow={false}
                     title={<div><div><span>提示文本</span><Button>按钮</Button><Icon type="frown" /></div> <div><span style={{ background: '#263735' }}>估值收益率(%)</span><span style={{ color: '#F9C152' }}>2.3700</span></div></div>}
                     destroyTooltipOnHide={true}
-                    onVisibleChange={(visible) => { console.log(visible) }}>
+                    onVisibleChange={(visible) => { console.log(visible) }}
+                    placement="top"
+                >
                     <div className='tooltip-base no-arrow'>
                         <span>无箭头</span>
                     </div>
@@ -188,17 +191,31 @@ export const _WithoutArrowComponent = () => {
                         <span>Align edge / 边缘对齐</span>
                     </div>
                 </Tooltip>
-                <Tooltip placement="topLeft" title="提示文本" arrowPointAtCenter>
+                <Tooltip
+                    placement="topLeft"
+                    title="提示文本" 
+                    arrowPointAtCenter
+                >
                     <div className='tooltip-base' style={{ width: 'fit-content' }}>
                         <span>Arrow points to center / 箭头指向中心</span>
                     </div>
                 </Tooltip>
-                <Tooltip mouseEnterDelay={1} hasArrow={false} title={<span>提示文本</span>}>
+                <Tooltip 
+                    mouseEnterDelay={1}
+                    hasArrow={false}
+                    title={<span>提示文本</span>}
+                    placement="top"
+                >
                     <div className='tooltip-base no-arrow'>
                         <span>延迟1s显示</span>
                     </div>
                 </Tooltip>
-                <Tooltip mouseLeaveDelay={1} hasArrow={false} title={<span>提示文本</span>}>
+                <Tooltip 
+                    mouseLeaveDelay={1}
+                    hasArrow={false}
+                    title={<span>提示文本</span>}
+                    placement="top"
+                >
                     <div className='tooltip-base no-arrow'>
                         <span>延迟1s消失</span>
                     </div>

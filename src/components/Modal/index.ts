@@ -4,6 +4,7 @@ import { Confirm, Info, Warning, Error, Success } from './methods';
 import { Modal as AntdModal } from 'antd'
 import { FRCMethodProps } from './methods/confirm'
 
+export type {FRCModalProps,FRCMethodProps}
 
 export type FRCModalComponent = FC<FRCModalProps> & {
     confirm: FC<FRCMethodProps>;

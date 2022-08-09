@@ -625,6 +625,7 @@ $modal-font-size-text:                             $font-size-base !default;
 $modal-background:                                 $basic-plate !default;
 $modal-color:                                      $words-normal !default;
 $modal-border:                                     2px solid $tittle-word !default;
+$modal-box-shadow:                                 $box-shadow !default;
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
@@ -781,11 +782,11 @@ $dropdown-font-size:                               $font-size-base !default;
 
 // basic
 $tooltip-target-gap:                               7px !default;
-$tooltip-border-style:                             solid !default;
-$tooltip-border-color:                             #3B9078 !default;
-$tooltip-box-shadow:                               0 0 24px 0 rgba(255, 235, 200, 0.30) !default;
+$tooltip-border-color:                             $tittle-word !default;
+$tooltip-border:                                   1px solid $tooltip-border-color !default;
+$tooltip-box-shadow:                               $box-shadow !default;
 $tooltip-border-radius:                            $border-radius !default;
-$tooltip-background-color:                         #121A19 !default;
+$tooltip-background-color:                         $element-background !default;
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
