@@ -25,8 +25,6 @@ const ImportComponent = () => {
 ~~~js
 import { Pagination } from 'frc-ui-pro';
 
-// 按需引入 icon
-import { QuestionCircleOutlined } from "@ant-design/icons";
 ~~~
 `
 
@@ -81,14 +79,7 @@ export default {
 // ----------------------------------------------------------------
 
 export const Default = (args: FRCPaginationProps) => {
-    return (
-        <>
-            <Pagination total={50} />
-            disabled
-            <br />
-            <Pagination total={50} disabled />
-        </>
-    )
+    return (<Pagination {...args} total={50} />)
 };
 
 Default.storyName = '默认 pagination';
@@ -106,6 +97,18 @@ export const _BaseComponent = () => {
 
 _BaseComponent.storyName = '更多分页 pagination';
 _BaseComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
+
+// ----------------------------------------------------------------
+export const _DisabledComponent = () => {
+    return (<>
+        <Pagination total={50} disabled />
+    </>)
+};
+
+_DisabledComponent.storyName = '禁用 pagination';
+_DisabledComponent.parameters = {
     controls: { hideNoControlsWarning: true },
 };
 
@@ -157,7 +160,18 @@ _SimpleComponent.parameters = {
 
 // ----------------------------------------------------------------
 
-export const _CustomItemComponent = () => {
+export const _ZCustomItemComponent = () => {
+    /** 
+     *  ---- css ----
+     * .custom-pagination.frc-pagination {
+     *  .ant-pagination-prev, .ant-pagination-next {
+     *      background-color: transparent !important;
+     *     }
+     * }
+     * 
+     * 
+    */
+   
     const itemRender: FRCPaginationProps['itemRender'] = (_, type, originalElement) => {
         if (type === 'prev') {
           return <a>上一页</a>;
@@ -170,11 +184,11 @@ export const _CustomItemComponent = () => {
     return (<>
         修改上一步和下一步为文字链接。
         <br />
-        <Pagination total={500} itemRender={itemRender} />
+        <Pagination className='custom-pagination' total={500} itemRender={itemRender} />
     </>)
 };
 
-_CustomItemComponent.storyName = '上一步和下一步';
-_CustomItemComponent.parameters = {
+_ZCustomItemComponent.storyName = '上一步和下一步';
+_ZCustomItemComponent.parameters = {
     controls: { hideNoControlsWarning: true },
 };

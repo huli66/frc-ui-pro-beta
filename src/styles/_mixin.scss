@@ -804,6 +804,8 @@
   height: $pagination-item-height;
   line-height: $pagination-line-height;
   margin-right: $pagination-item-margin;
+  background-color: $pagination-item-background;
+  border: none;
 }
 
 @mixin pagination-item-a(

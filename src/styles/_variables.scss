@@ -706,13 +706,13 @@ $pagination-item-width:                            24px !default;
 $pagination-item-height:                           24px !default;
 $pagination-item-margin:                           4px !default;
 $pagination-line-height:                           $line-height-base !default;
-$pagination-item-background:                       #1e2423 !default;
-$pagination-border-color:                          #253330 !default;
+$pagination-item-background:                       $part-plate !default;
+$pagination-border-color:                          $basic-filter !default;
 $pagination-font-size:                             12px !default;
-$pagination-hover:                                 #112320 !default;
-$pagination-inner-background:                      $basic-plate !default;
-$pagination-border-radius:                         2px !default;
-$pagination-item-disabled-background:              $element-background !default;
+$pagination-hover:                                 $btn-hover !default;
+$pagination-inner-background:                      $element-background !default;
+$pagination-border-radius:                         $border-radius !default;
+$pagination-item-disabled-background:              $part-plate  !default;
 $pagination-item-disabled-color:                   $words-disable !default;
 
 // ----------------------------------------------------------------

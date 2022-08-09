@@ -1,6 +1,9 @@
 import React,{ FC,ReactNode } from 'react'
 import classNames from 'classnames'
 import {Pagination as AntdPagination, PaginationProps} from 'antd'
+import {CaretLeftOutlined, CaretRightOutlined, ForwardOutlined,BackwardOutlined} from '@ant-design/icons'
+
+export type ItemRender = PaginationProps['itemRender']
 
 interface BasePaginationProps {
   /** 当前页数 */
@@ -13,6 +16,8 @@ interface BasePaginationProps {
   disabled?: boolean
   /** 只有一页时是否隐藏分页器 */
   hideOnSinglePage?: boolean
+  /** 用于自定义页码的结构，可用于优化 SEO */
+  itemRender?: ItemRender
   /** 每页条数 */
   pageSize?: number
   /** 指定每页可以显示多少条 */
@@ -37,13 +42,51 @@ interface BasePaginationProps {
 
 export type FRCPaginationProps = BasePaginationProps & Omit<PaginationProps, 'size'>
 
+const replaceIcon = (ele: React.ReactNode, icon: React.ComponentType<any>) => {
+  const children = React.cloneElement((ele as any).props.children)
+  const [iconEl,...restChildren] = children.props.children as any
+  const customIcon = React.createElement(icon, 
+    {
+      className: iconEl.props.className,
+      key:new Date().getTime()
+    })
+  const customChildren = React.cloneElement(children, undefined, [customIcon, ...restChildren])
+  return React.cloneElement((ele as any), undefined, customChildren);
+}
+
 export const Pagination: FC<FRCPaginationProps> = (props) => {
-  const { className,...restProps } = props
+  const { className,itemRender, ...restProps } = props
 
   const classes = classNames('frc-pagination', className)
 
+  const renderPreNext: ItemRender = (page,type,oe:any) => {
+    let node:React.ReactNode;
+    switch (type) {
+      case 'prev':
+        node = React.cloneElement(oe, undefined, <CaretLeftOutlined />)
+        break;
+      case 'next':
+        node = React.cloneElement(oe, undefined, <CaretRightOutlined />)
+        break;
+      case 'jump-prev':
+        node = replaceIcon(oe, BackwardOutlined)
+        break;
+      case 'jump-next':
+        node = replaceIcon(oe, ForwardOutlined)
+        break;
+      default:
+        node = oe
+        break;
+    }
+    if(typeof itemRender === 'function') {
+      return itemRender(page,type,node)
+    }
+    return node;
+  }
+
   const options = {
     className: classes,
+    itemRender: renderPreNext,
     ...restProps
   }
 
