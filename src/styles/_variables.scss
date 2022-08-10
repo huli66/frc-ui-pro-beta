@@ -599,3 +599,18 @@ $tooltip-background-color:                         $element-background !default;
 $squeeze-open-btn-background:                      $basic-btn !default;
 $squeeze-open-btn-hover-background:                $btn-hover !default;
 $squeeze-open-btn-active-background:               $btn-background-active !default;
+
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+
+// dragCollapse
+$dcollapse-basic-bg:                                $basic-background !default;  
+$dcollapse-panel-bg:                                $basic-plate !default;
+$dcollapse-bar-bg:                                  $basic-title !default;
+$dcollapse-bar-hover-bg:                            $btn-hover !default;
+$dcollapse-bar-active-bg:                           $part-plate !default;
+$dcollapse-track-bg:                                $basic-background  !default;
+$dcollapse-track-hover-bg:                          $mouse-hover !default;
+$dcollapse-bar-long-side:                           40px !default;
+$dcollapse-bar-short-side:                          2px !default;

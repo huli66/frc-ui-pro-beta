@@ -11,8 +11,7 @@ import {
   Subheading
 } from '@storybook/addon-docs';
 
-import DragCollapse from './index';
-import { IDragCollapseProps } from './dragCollapse'
+import DragCollapse,{FRCDragCollapseProps} from './index';
 // ----------------------------------------------------------------
 
 // 引用示例代码
@@ -71,7 +70,7 @@ export default {
 
 // ----------------------------------------------------------------
 
-export const Default = (args: IDragCollapseProps) => {
+export const Default = (args: FRCDragCollapseProps) => {
   const containerStyle = {
     width: '100%',
     height: '400px'

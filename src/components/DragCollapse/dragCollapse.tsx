@@ -1,25 +1,29 @@
 import React, { FC, useRef, useState, useEffect } from 'react'
-export interface IDragCollapseProps {
+import classNames from 'classnames'
+
+export type ModeType = 'vertical' | 'horizontal'
+
+export interface FRCDragCollapseProps {
     /** 折叠抽屉的外层类名 */
-    className?: string,
+    className?: string;
     /** 排列方式 */
-    mode?: 'vertical' | 'horizontal'
+    mode?: ModeType;
     /** 主层内容 */
-    mainContent?: React.ReactNode,
+    mainContent?: React.ReactNode;
     /** 侧层内容 */
-    extraContent?: React.ReactNode
+    extraContent?: React.ReactNode;
     /** 主层初始高度 */
-    mainContentInit?: number,
+    mainContentInit?: number;
     /** 拖拽抽屉时的回调 */
-    onDragChange?: (e: number) => void,
+    onDragChange?: (e: number) => void;
 
 }
 
-export const DragCollapse: FC<IDragCollapseProps> = (props) => {
+export const DragCollapse: FC<FRCDragCollapseProps> = (props) => {
     const { className, mainContent, extraContent, mode, mainContentInit, onDragChange } = props
     const [topSize, setTopSize] = useState(mainContentInit)
-    const hrBox: any = useRef(null)
-    const getTopStyle = (mode: any) => {
+    const hrBox = useRef<HTMLDivElement>(null)
+    const getTopStyle = (mode: ModeType) => {
         let style: React.CSSProperties = {}
         if (mode === 'horizontal') {
             style.width = '0'
@@ -30,27 +34,29 @@ export const DragCollapse: FC<IDragCollapseProps> = (props) => {
         return style
     }
 
-    function changeHeightStart(el: any) {
-        if (mode === 'horizontal') {
-            let diff = el.clientX - hrBox.current.offsetLeft
-            document.onmousemove = function (e) {
-                let newTopSize = e.clientX - diff
-                if (hrBox.current.parentElement!.offsetWidth > newTopSize && newTopSize > 0) {
-                    setTopSize(newTopSize)
+    const changeHeightStart = (el: any) => {
+        if(hrBox.current) {
+            if (mode === 'horizontal') {
+                let diff = el.clientX - hrBox.current.offsetLeft
+                document.onmousemove = function (e) {
+                    let newTopSize = e.clientX - diff
+                    if (hrBox.current!.parentElement!.offsetWidth > newTopSize && newTopSize > 0) {
+                        setTopSize(newTopSize)
+                    }
+                    document.onmouseup = function () {
+                        document.onmousemove = null
+                    }
                 }
-                document.onmouseup = function () {
-                    document.onmousemove = null
-                }
-            }
-        } else {
-            let diff = el.clientY - hrBox.current.offsetTop
-            document.onmousemove = function (e) {
-                let newTopSize = e.clientY - diff
-                if (hrBox.current.parentElement!.offsetHeight > newTopSize && newTopSize > 0) {
-                    setTopSize(newTopSize)
-                }
-                document.onmouseup = function () {
-                    document.onmousemove = null
+            } else {
+                let diff = el.clientY - hrBox.current.offsetTop
+                document.onmousemove = function (e) {
+                    let newTopSize = e.clientY - diff
+                    if (hrBox.current!.parentElement!.offsetHeight > newTopSize && newTopSize > 0) {
+                        setTopSize(newTopSize)
+                    }
+                    document.onmouseup = function () {
+                        document.onmousemove = null
+                    }
                 }
             }
         }
@@ -62,16 +68,24 @@ export const DragCollapse: FC<IDragCollapseProps> = (props) => {
         }
     },[topSize])
 
+    const cls = classNames('frc-dcollapse-drawer', className, {
+        'frc-dcollapse-drawer-horizontal': mode === 'horizontal'
+    })
+
     return (
-        <div className={`${className} frc-dcollapse-drawer`}>
-            <div className={mode === 'horizontal' ? 'content-row-container' : 'content-container'}>
-                <div className='frc-dcollapse-drawer-top' style={getTopStyle(mode)}>
+        <div className={cls}>
+            <div className='content-container'>
+                <div className='frc-dcollapse-drawer-top' style={getTopStyle(mode!)}>
                     {mainContent}
                 </div>
-                <div className={mode === 'horizontal' ? 'frc-dcollapse-drawer-hr-row' : 'frc-dcollapse-drawer-hr'} ref={hrBox} onMouseDown={changeHeightStart}>
-                    <div className={mode === 'horizontal' ? 'frc-dcollapse-drawer-hr-row-arr' : 'frc-dcollapse-drawer-hr-arr'} ></div>
+                <div 
+                    className='frc-dcollapse-drawer-hr'
+                    ref={hrBox} 
+                    onMouseDown={changeHeightStart}
+                >
+                    <div className='frc-dcollapse-drawer-hr-arr' />
                 </div>
-                <div className={mode === 'horizontal' ? 'frc-dcollapse-drawer-row-bottom' : 'frc-dcollapse-drawer-bottom'}>
+                <div className='frc-dcollapse-drawer-bottom'>
                     {extraContent}
                 </div>
             </div>

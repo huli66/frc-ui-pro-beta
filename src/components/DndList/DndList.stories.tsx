@@ -15,7 +15,6 @@ import {
 
 import DndList from '.';
 import { IDndListProps } from './dndContainer'
-import './_story.scss'
 
 // ----------------------------------------------------------------
 
