@@ -27,7 +27,6 @@ const ImportComponent = () => {
   const markdown = `
 ~~~js
 import { Slider } from 'frc-ui-pro';
-import { ReverseSliderComponent } from './Slider.stories';
 ~~~
 `
 
@@ -226,6 +225,10 @@ export const EventSliderComponent = () => {
         onChange={onChange}
         onAfterChange={onAfterChange}
       />
+      <br />
+      disabled
+      <br />
+      <Slider defaultValue={30} disabled />
     </>
   )
 }

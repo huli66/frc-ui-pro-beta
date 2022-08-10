@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+ import React, { FC,useState } from 'react'
 import classNames from 'classnames'
 import {Slider as AntdSlider } from 'antd'
 import {SliderMarks, SliderRangeProps, SliderSingleProps} from 'antd/es/slider'
@@ -44,17 +44,29 @@ interface BaseSliderProps {
 export type FRCSliderProps = BaseSliderProps & (SliderSingleProps | SliderRangeProps);
 
 export const Slider: FC<FRCSliderProps> = (props) => {
+  const [active, setActive] = useState<boolean>(false);
   const {
     className,
     size,
+    onChange,
+    onAfterChange,
     ...restProps
   } = props
   const classes = classNames('frc-slider', className, {
     [`frc-slider-${size}`]: size,
+    'frc-slider-active': active
   })
 
   const options = {
     className: classes,
+    onChange:(value: number | [number, number]) => {
+      setActive(true)
+      onChange && onChange(value)
+    },
+    onAfterChange:(value: number | [number, number]) => {
+      setActive(false)
+      onAfterChange && onAfterChange(value)
+    },
     ...restProps,
   }
 

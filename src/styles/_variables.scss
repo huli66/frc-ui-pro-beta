@@ -455,9 +455,14 @@ $slider-height-md:                                 8px !default;
 $slider-height-lg:                                 16px !default;
 $slider-handle-height:                             4px !default;
 $slider-handle-bg:                                 $basic-btn !default;
+$slider-handle-bg-disabled:                        $part-plate !default;
 $slider-dragging-bg:                               $mouse-hover !default;
 $slider-track-bg:                                  $part-plate !default;
-$slider-track-bg-hover:                            $new-data !default;
+$slider-track-bg-hover:                            $part-plate !default;
+$slider-track-bg-active:                           $mouse-hover !default;
+$slider-rail-bg:                                   $element-background !default;
+$slider-rail-disabled-bg:                          $element-background !default;
+$slider-step-dot-bg:                               $part-plate !default;
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
