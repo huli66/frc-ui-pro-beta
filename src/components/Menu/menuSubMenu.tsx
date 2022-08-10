@@ -2,14 +2,13 @@ import React, { FC, ReactNode } from "react";
 import classNames from "classnames";
 import { Menu } from "antd";
 import { SubMenuProps } from "antd/es/menu/SubMenu";
-import { MenuThemeType } from "./menu";
+import { MenuThemeType,ItemType } from "./menu";
 
 const { SubMenu } = Menu;
 
-// 扩展位预留，后续有新增可以直接修改
 interface BaseMenuSubMenuProps {
-  /** 子菜单的菜单项 (注意类型具体为： ItemType[])*/
-  children?: ReactNode;
+  /** 子菜单的菜单项 */
+  children?: ItemType[];
   /** 是否禁用 */
   disabled?: boolean;
   /** 菜单图标 */
@@ -31,12 +30,12 @@ interface BaseMenuSubMenuProps {
   theme?: MenuThemeType;
 }
 
-export type FrcMenuSubMenuProps = BaseMenuSubMenuProps & SubMenuProps;
+export type FrcMenuSubMenuProps = BaseMenuSubMenuProps & Omit<SubMenuProps, "children">;
 
 export const FRCMenuSubMenu: FC<FrcMenuSubMenuProps> = (props) => {
   const { className, children, ...restProps } = props;
 
-  const classes = classNames("frc-SubMenu", className, {});
+  const classes = classNames("frc-menu-submenu", className, {});
 
   const options = {
     className: classes,

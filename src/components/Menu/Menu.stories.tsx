@@ -14,8 +14,8 @@ import {
   Source,
 } from "@storybook/addon-docs";
 
-import Menu from "./index";
-import { FRCMenuProps, MenuModeType } from "./menu";
+import Menu,{FRCMenuProps} from "./index";
+import { MenuModeType } from "./menu";
 import {
   AppstoreOutlined,
   ContainerOutlined,
@@ -26,7 +26,6 @@ import {
 } from "@ant-design/icons";
 import Button from "../Button";
 import Radio from "../Radio";
-import { MenuProps } from "antd/lib/menu";
 import { RadioChangeEvent } from "antd";
 
 // ----------------------------------------------------------------
@@ -113,33 +112,66 @@ export default {
 } as ComponentMeta<typeof Menu>;
 
 // ----------------------------------------------------------------
-const items = [
-  { label: "菜单项一", key: "item-1" }, // 菜单项务必填写 key
-  {
-    label: "菜单项二",
-    key: "item-2",
-    children: [
-      { label: "子菜单项一", key: "submenu-item-11" },
-      { label: "子菜单项二", key: "submenu-item-22" },
-    ],
-  },
-  {
-    label: "子菜单",
-    key: "submenu",
-    children: [
-      { label: "子菜单项一", key: "submenu-item-1" },
-      { label: "子菜单项二", key: "submenu-item-2" },
-    ],
-  },
-];
-export const Default = (args: FRCMenuProps) => <Menu items={items} {...args} />;
+
+export const Default = (args: FRCMenuProps) => {
+  const items = [
+    { label: "菜单项一", key: "item-1" },
+    {
+      label: "菜单项二",
+      key: "item-2",
+      children: [
+        { label: "子菜单项一", key: "submenu-item-11" },
+        { label: "子菜单项二", key: "submenu-item-22" },
+      ],
+    },
+    {
+      label: "子菜单",
+      key: "submenu",
+      children: [
+        { label: "子菜单项一", key: "submenu-item-1" },
+        { label: "子菜单项二", key: "submenu-item-2" },
+      ],
+    },
+  ];
+
+  return <Menu items={items} style={{ width: 186 }} {...args} />
+};
 
 Default.storyName = "默认 menu";
 
 // ----------------------------------------------------------------
 
 export const _TopMenu = () => {
-  return <Menu mode="horizontal" style={{ width: "250px" }} items={items} />;
+  const items = [
+    { label: "菜单项一", key: "item-1" },
+    {
+      label: "菜单项二",
+      key: "item-2",
+      children: [
+        { label: "子菜单项一", key: "submenu-item-21" },
+        { label: "子菜单项二", key: "submenu-item-22" },
+      ],
+    },
+    {
+      label: "菜单项三",
+      key: "item-3",
+      children: [
+        { label: "子菜单项一", key: "submenu-item-31" },
+        { label: "子菜单项二", key: "submenu-item-32" },
+        { label: "子菜单项三", key: "submenu-item-33", disabled: true},
+      ],
+    },
+    {
+      label: "菜单项四",
+      disabled:true,
+      key: "item-4",
+      children: [
+        { label: "子菜单项一", key: "submenu-item-41" },
+        { label: "子菜单项二", key: "submenu-item-42" },
+      ],
+    },
+  ];
+  return <Menu mode="horizontal" items={items} />;
 };
 _TopMenu.storyName = "顶部导航";
 _TopMenu.parameters = {
@@ -151,6 +183,7 @@ _TopMenu.parameters = {
 export const _HasGroupMenu = () => {
   return (
     <Menu
+      style={{ width: 186 }}
       items={[
         {
           label: "Navigation One",
@@ -162,29 +195,29 @@ export const _HasGroupMenu = () => {
           children: [
             {
               type: "group",
-              label: "Item 1",
+              label: "Group 1",
               children: [
                 {
                   label: "Option 1",
-                  key: "setting:1",
+                  key: "group1-1",
                 },
                 {
                   label: "Option 2",
-                  key: "setting:2",
+                  key: "group1-2",
                 },
               ],
             },
             {
               type: "group",
-              label: "Item 2",
+              label: "Group 2",
               children: [
                 {
                   label: "Option 3",
-                  key: "setting:3",
+                  key: "group2-1",
                 },
                 {
                   label: "Option 4",
-                  key: "setting:4",
+                  key: "group2-2",
                 },
               ],
             },
@@ -203,6 +236,7 @@ _HasGroupMenu.parameters = {
 export const _HasDivider = () => {
   return (
     <Menu
+      style={{ width: 186 }}
       items={[
         {
           label: "Navigation One",
@@ -248,6 +282,7 @@ _HasDivider.parameters = {
 export const _HasDisabled = () => {
   return (
     <Menu
+      style={{ width: 186 }}
       items={[
         {
           label: "Navigation One",
@@ -288,6 +323,7 @@ _HasDisabled.parameters = {
 export const _HasIcon = () => {
   return (
     <Menu
+      style={{ width: 186 }}
       items={[
         {
           label: "Navigation One",
@@ -377,7 +413,7 @@ export const _IsCollapsed = () => {
           },
         ]}
         inlineCollapsed={collapsed}
-        style={{ width: collapsedWidth + "px" }}
+        style={{ width: collapsedWidth }}
       />
     </>
   );
@@ -388,7 +424,27 @@ _IsCollapsed.parameters = {
 };
 // ----------------------------------------------------------------
 export const _SubmenusIsPop = () => {
-  return <Menu items={items} mode="vertical" />;
+  const items = [
+    { label: "菜单项一", key: "item-1" },
+    {
+      label: "菜单项二",
+      key: "item-2",
+      children: [
+        { label: "子菜单项一", key: "submenu-item-11" },
+        { label: "子菜单项二", key: "submenu-item-22" },
+      ],
+    },
+    {
+      label: "子菜单",
+      key: "submenu",
+      children: [
+        { label: "子菜单项一", key: "submenu-item-1" },
+        { label: "子菜单项二", key: "submenu-item-2" },
+        { label: "子菜单项二", key: "submenu-item-3",disabled: true},
+      ],
+    },
+  ];
+  return <Menu style={{ width: 186 }} items={items} mode="vertical" />;
 };
 
 _SubmenusIsPop.storyName = "子菜单是弹出形式";
@@ -398,10 +454,11 @@ _SubmenusIsPop.parameters = {
 
 // ----------------------------------------------------------------
 // submenu keys of first level
-const rootSubmenuKeys = ["item-1", "item-2", "submenu"];
 export const _ExpandOnlyOne = () => {
+
   const [openKeys, setOpenKeys] = React.useState(["item-1"]);
-  const onOpenChange: MenuProps["onOpenChange"] = (keys) => {
+
+  const onOpenChange = (keys:string[]) => {
     const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
     if (rootSubmenuKeys.indexOf(latestOpenKey!) === -1) {
       setOpenKeys(keys);
@@ -409,7 +466,29 @@ export const _ExpandOnlyOne = () => {
       setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
     }
   };
-  return <Menu items={items} openKeys={openKeys} onOpenChange={onOpenChange} />;
+
+  const rootSubmenuKeys = ["item-1", "item-2", "submenu"];
+  
+  const items = [
+    { label: "菜单项一", key: "item-1" },
+    {
+      label: "菜单项二",
+      key: "item-2",
+      children: [
+        { label: "子菜单项一", key: "submenu-item-11" },
+        { label: "子菜单项二", key: "submenu-item-22" },
+      ],
+    },
+    {
+      label: "子菜单",
+      key: "submenu",
+      children: [
+        { label: "子菜单项一", key: "submenu-item-1" },
+        { label: "子菜单项二", key: "submenu-item-2" },
+      ],
+    },
+  ];
+  return <Menu style={{ width: 186 }} items={items} openKeys={openKeys} onOpenChange={onOpenChange} />;
 };
 
 _ExpandOnlyOne.storyName = "只展开当前父级菜单";
@@ -420,9 +499,30 @@ _ExpandOnlyOne.parameters = {
 // ----------------------------------------------------------------
 export const _ChangeMenuType = () => {
   const [mode, setMode] = React.useState<MenuModeType>("inline");
+  
   const onChange = (e: RadioChangeEvent) => {
     setMode(e.target.value);
   };
+  
+  const items = [
+    { label: "菜单项一", key: "item-1" },
+    {
+      label: "菜单项二",
+      key: "item-2",
+      children: [
+        { label: "子菜单项一", key: "submenu-item-11" },
+        { label: "子菜单项二", key: "submenu-item-22" },
+      ],
+    },
+    {
+      label: "子菜单",
+      key: "submenu",
+      children: [
+        { label: "子菜单项一", key: "submenu-item-1" },
+        { label: "子菜单项二", key: "submenu-item-2" },
+      ],
+    },
+  ];
   return (
     <>
       <Radio.Group
@@ -434,7 +534,7 @@ export const _ChangeMenuType = () => {
         <Radio value="vertical">vertical</Radio>
         <Radio value="horizontal">horizontal</Radio>
       </Radio.Group>
-      <Menu items={items} mode={mode} />
+      <Menu style={{ width: mode === "horizontal"? "100%":186 }} items={items} mode={mode} />
     </>
   );
 };

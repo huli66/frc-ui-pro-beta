@@ -464,10 +464,11 @@ $slider-track-bg-hover:                            $new-data !default;
 // ----------------------------------------------------------------
 
 // menu
-$menu-base-background:                             #101414 !default;
-$menu-base-background-hover:                       #0a2420 !default;
+$menu-base-background:                             $basic-plate !default;
+$menu-base-background-hover:                       $mouse-hover!default;
 $menu-base-background-transparent:                 transparent !default;
-$menu-base-border-color-background:                #253330 !default;
+$menu-base-border-color:                           $part-plate !default;
+$menu-divider-color:                               $part-plate !default;
 $menu-small-padding:                               8px !default;
 $menu-base-padding:                                16px !default;
 $menu-base-padding-lg:                             24px !default;

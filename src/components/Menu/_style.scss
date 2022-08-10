@@ -1,8 +1,12 @@
-.frc-menu.frc-menu-default {
+.frc-menu.ant-menu {
   @include menu-color($words-normal, $menu-base-background);
   font-size: $font-size-base;
-  border-color: $menu-base-border-color-background;
+  border-color: $menu-base-border-color;
   padding: $menu-small-padding 0;
+  .ant-menu-item, .ant-menu-item-group-title {    
+    font-size: $font-size-base;
+    color: $words-normal;
+  }
   .ant-menu-item .ant-menu-item-icon + span,
   .ant-menu-submenu-title .ant-menu-item-icon + span,
   .ant-menu-item .anticon + span,
@@ -10,9 +14,9 @@
     margin-left: $menu-base-margin-small;
   }
   .ant-menu-item-divider {
-    border-color: $words-supporting;
+    border-color: $menu-divider-color;
   }
-  // 禁用
+  // disabled
   .ant-menu-item-disabled > .ant-menu-submenu-title,
   .ant-menu-submenu-disabled > .ant-menu-submenu-title,
   .ant-menu-item-disabled,
@@ -23,15 +27,23 @@
   .ant-menu-submenu-title {
     padding-right: 16px;
   }
+  .ant-menu-item.ant-menu-item-disabled:hover {
+    background: $menu-base-background-transparent;
+  }
 
   .ant-menu-sub.ant-menu-inline {
     @include menu-color($words-normal, $menu-base-background);
   }
+  
   .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected,
-  .ant-menu-item:hover,
   .ant-menu-item.ant-menu-item-selected {
-    @include menu-color($words-high-light, $menu-base-background-hover);
+    @include menu-color($words-high-light, $menu-base-background);
   }
+  .ant-menu-item:hover,
+  .ant-menu-submenu-title:hover  {
+    background-color: $menu-base-background-hover;
+  }
+  
   .ant-menu-submenu-selected
     > .ant-menu-submenu-title
     > .ant-menu-submenu-arrow,
@@ -77,49 +89,59 @@
   .ant-menu-submenu {
     margin: 8px 0 !important;
   }
-}
-.frc-menu-default[class~="ant-menu-vertical"] {
-  .ant-menu-submenu-expand-icon,
-  .ant-menu-submenu-arrow {
-    color: $words-normal;
+
+  &.ant-menu-vertical {
+    .ant-menu-submenu-expand-icon,
+    .ant-menu-submenu-arrow {
+      color: $words-normal;
+    }
   }
 }
 
-//注意，这边是menu为弹出层样式，修改为一个颜色
-.ant-menu-horizontal[class~="frc-menu-default"] {
+// horizontal
+.frc-menu.ant-menu-horizontal {
   padding: 0;
-}
-.ant-menu-horizontal[class~="frc-menu-default"] > .ant-menu-item:hover,
-.ant-menu-horizontal[class~="frc-menu-default"] > .ant-menu-submenu:hover,
-.ant-menu-horizontal[class~="frc-menu-default"] > .ant-menu-item-active,
-.ant-menu-horizontal[class~="frc-menu-default"] > .ant-menu-submenu-active,
-.ant-menu-horizontal[class~="frc-menu-default"] > .ant-menu-item-open,
-.ant-menu-horizontal[class~="frc-menu-default"] > .ant-menu-submenu-open,
-.ant-menu-horizontal[class~="frc-menu-default"] > .ant-menu-item-selected,
-.ant-menu-horizontal[class~="frc-menu-default"] > .ant-menu-submenu-selected {
-  color: $words-high-light !important;
-}
-.ant-menu-horizontal[class~="frc-menu-default"] > .ant-menu-item:hover::after,
-.ant-menu-horizontal[class~="frc-menu-default"]
-  > .ant-menu-submenu:hover::after,
-.ant-menu-horizontal[class~="frc-menu-default"] > .ant-menu-item-active::after,
-.ant-menu-horizontal[class~="frc-menu-default"]
-  > .ant-menu-submenu-active::after,
-.ant-menu-horizontal[class~="frc-menu-default"] > .ant-menu-item-open::after,
-.ant-menu-horizontal[class~="frc-menu-default"] > .ant-menu-submenu-open::after,
-.ant-menu-horizontal[class~="frc-menu-default"]
-  > .ant-menu-item-selected::after,
-.ant-menu-horizontal[class~="frc-menu-default"]
-  > .ant-menu-submenu-selected::after {
-  border-bottom-color: $menu-base-background-transparent !important;
-}
-.ant-menu-submenu.ant-menu-submenu-popup {
-  .ant-menu-item-disabled,
-  .ant-menu-submenu-disabled {
-    color: $words-disable !important;
-  }
 
+  .ant-menu-item:hover,
+  .ant-menu-submenu:hover {
+    color: $words-high-light;
+    background-color: $menu-base-background-hover;
+  }
+  .ant-menu-item-active,
+  .ant-menu-submenu-active,
+  .ant-menu-item-open,
+  .ant-menu-submenu-open,
+  .ant-menu-item-selected,
+  .ant-menu-submenu-selected {
+    color: $words-high-light !important;
+  }
+  .ant-menu-item:hover::after,
+  .ant-menu-submenu:hover::after,
+  .ant-menu-item-active::after,
+  .ant-menu-submenu-active::after,
+  .ant-menu-item-open::after,
+  .ant-menu-submenu-open::after,
+  .ant-menu-item-selected::after,
+  .ant-menu-submenu-selected::after {
+    border-bottom-color: $menu-base-background-transparent !important;
+  }
+  .ant-menu-submenu-disabled:hover {
+    background-color: $menu-base-background-transparent;
+  }
+}
+
+// inline-collapsed
+.frc-menu.ant-menu.ant-menu-inline-collapsed {
+  .ant-menu-item .anticon,
+  .ant-menu-submenu > .ant-menu-submenu-title .anticon {
+    line-height: 28px;
+  }
+}
+
+// 无法为mode为horizontal的弹出子菜单加类名，故改变全局样式
+.ant-menu-submenu.ant-menu-submenu-popup {
   .ant-menu {
+    font-size: $font-size-base;
     @include menu-color($words-normal, $menu-base-background);
   }
   .ant-menu-vertical .ant-menu-submenu-selected,
@@ -162,21 +184,13 @@
   .ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
     @include menu-height($menu-item-height, $line-height-base);
   }
+
+  .ant-menu-item-disabled,
+  .ant-menu-submenu-disabled {
+    color: $words-disable !important;
+    &:hover {
+      background: $menu-base-background-transparent;
+    }
+  }
 }
 
-// 通用，全部覆盖的样式
-.ant-menu .ant-menu-item-group-title {
-  color: $words-supporting;
-}
-.ant-menu .ant-menu-item.ant-menu-item-disabled:hover {
-  background: $menu-base-background-transparent;
-}
-.ant-menu-inline-collapsed-tooltip .ant-tooltip-inner {
-  color: $words-normal;
-  font-size: $font-size-base;
-}
-.ant-menu .ant-menu-item,
-.ant-menu-sub .ant-menu-item,
-.ant-menu .ant-menu-submenu-title {
-  font-size: $font-size-base;
-}
