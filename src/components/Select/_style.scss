@@ -50,6 +50,14 @@
     .ant-select-selection-search {
       left: 4px;
     }
+    // 超出省略样式
+    .ant-select-selection-overflow{
+      .ant-select-selection-overflow-item.ant-select-selection-overflow-item-rest{
+        .ant-select-selection-item{
+          padding-inline-start: 4px;
+        }
+      }
+    }
   }
   .ant-select-selection-placeholder {
     color: $words-supporting;
