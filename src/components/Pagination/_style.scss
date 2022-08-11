@@ -35,6 +35,15 @@
     &:hover {
       background-color: $pagination-hover;
     }
+    
+    &.ant-pagination-disabled {
+      &:hover {
+        background-color: $pagination-item-background;
+      }
+      .ant-pagination-item-link{
+        color: $pagination-item-disabled-color;
+      }
+    }
   }
   .ant-pagination-prev, .ant-pagination-jump-prev, .ant-pagination-jump-next{
     margin-right: $pagination-item-margin;

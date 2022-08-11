@@ -1033,7 +1033,16 @@ export const _MaxTagCountComponent = () => {
             多选下通过响应式布局让选项自动收缩。该功能对性能有所消耗，不推荐在大表单场景下使用。
             <br />
             <Select {...selectProps} />
+            <br />
             <Select {...selectProps} disabled />
+            <br />
+            <Select {...selectProps} maxTagPlaceholder="more..."  />
+            <br />
+            <Select {...selectProps} maxTagCount={3} maxTagTextLength={1}  />
+            <br />
+            mode为tags同样起效
+            <br />
+            <Select {...selectProps} mode="tags" />
         </>
     )
 }
