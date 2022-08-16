@@ -6,7 +6,7 @@ import classNames from 'classnames';
 interface BaseDropdownProps {
   /** 下拉框箭头是否显示 */
   arrow?: boolean;
-  /** 下拉menu配置 */
+  /** 下拉menu配置，详细配置请参考Menu文档 */
   menuOptions?: MenuProps;
   /** 下拉根元素的类名称 */
   overlayClassName?: string;

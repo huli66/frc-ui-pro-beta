@@ -7,6 +7,10 @@
   }
 }
 
+.frc-input {
+  @include input-selection;
+}
+
 .frc-input.ant-input,
 .frc-input.frc-input-text-area .ant-input,
 .frc-input.ant-input-affix-wrapper,
@@ -57,9 +61,6 @@
       color: $input-color-focus;
       outline: 0;
     }
-  }
-  &::selection, *::selection{
-    background: $words-high-light !important;
   }
 }
 

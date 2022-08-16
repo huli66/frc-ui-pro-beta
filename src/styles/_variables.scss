@@ -614,3 +614,27 @@ $dcollapse-track-bg:                                $basic-background  !default;
 $dcollapse-track-hover-bg:                          $mouse-hover !default;
 $dcollapse-bar-long-side:                           40px !default;
 $dcollapse-bar-short-side:                          2px !default;
+
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+
+// tabs
+$tabs-base-bg:                                       $element-background!default;
+$tabs-focus-bg:                                      $basic-btn !default;
+$tabs-hover-bg:                                      $btn-hover !default;
+$tabs-active-bg:                                     $part-plate !default;
+$tabs-disabled-bg:                                   $part-plate !default;
+$tabs-card-focus-bg:                                 $element-background!default;
+$tabs-block-base-bg:                                 $basic-plate !default;
+
+$tabs-base-color:                                    $words-normal !default;
+$tabs-disabled-color:                                $words-disable !default;
+$tabs-card-color:                                    $words-supporting !default;
+
+$tabs-block-gap:                                     4px !default;
+$tabs-line-side-width:                               2px !default;
+
+$tabs-small-font:                                    $font-size-base !default;
+$tabs-middle-font:                                   $font-size-medium !default;
+$tabs-large-font:                                    $font-size-lg !default;

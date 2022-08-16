@@ -4,6 +4,10 @@
   }
 }
 
+.frc-input-number {
+  @include input-selection;
+}
+
 // normal
 .frc-input-number.ant-input-number,
 .frc-input-number.ant-input-number-affix-wrapper,
@@ -64,10 +68,6 @@
       padding: 0px;
       border-radius: 0px;
     }
-  }
-
-  &::selection, *::selection{
-    background: $words-high-light !important;
   }
 }
 
