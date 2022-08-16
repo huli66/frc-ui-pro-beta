@@ -20,6 +20,18 @@ import {
   SorterResult,
 } from "antd/lib/table/interface";
 
+import {
+  CaretLeftOutlined,
+  CaretRightOutlined,
+  ForwardOutlined,
+  BackwardOutlined,
+} from "@ant-design/icons";
+
+import {
+  ItemRender,
+  replaceIcon as PaginationReplaceIcon,
+} from "../Pagination/pagination";
+
 type RecordType = object;
 type CompareFn<T> = (
   a: T,
@@ -208,6 +220,11 @@ export interface PaginationConfig extends TablePaginationConfig {
     | "bottomCenter"
     | "bottomRight"
   )[];
+  itemRender?: (
+    page: number,
+    type: "page" | "prev" | "next" | "jump-prev" | "jump-next",
+    element: React.ReactNode
+  ) => React.ReactNode;
 }
 
 export interface SelectionItemProps extends SelectionItem {
@@ -283,6 +300,45 @@ export interface RowSelectionProps extends TableRowSelection<RecordType> {
   ) => void;
 }
 
+export interface TableLocaleProps extends TableLocale {
+  /** 空状态 */
+  emptyText?: React.ReactNode | (() => React.ReactNode);
+  /** 空状态 box 高度 */
+  emptyHeight?: number;
+  /** 过滤 - 标题 */
+  filterTitle?: string;
+  /** 过滤 - 确定模块 */
+  filterConfirm?: React.ReactNode;
+  /** 过滤 - 重置模块 */
+  filterReset?: React.ReactNode;
+  /** 过滤 - 无筛选项模块 */
+  filterEmptyText?: React.ReactNode;
+  /** 过滤 - 全选模块 */
+  filterCheckall?: React.ReactNode;
+  /** 过滤 - 在筛选项中搜索文案 */
+  filterSearchPlaceholder?: string;
+  /** 选择项 - 全选当页模块 */
+  selectAll?: React.ReactNode;
+  /** 选择项 - 清空所有模块 */
+  selectNone?: React.ReactNode;
+  /** 选择项 - 反选当页模块 */
+  selectInvert?: React.ReactNode;
+  /** 选择项 - 全选所有模块 */
+  selectionAll?: React.ReactNode;
+  /** 排序标题文案 */
+  sortTitle?: string;
+  /** 展开行文案 */
+  expand?: string;
+  /** 关闭行文案 */
+  collapse?: string;
+  /** 点击降序文案 */
+  triggerDesc?: string;
+  /** 点击升序文案 */
+  triggerAsc?: string;
+  /** 取消排序文案 */
+  cancelSort?: string;
+}
+
 export interface FRCTableProps extends TableProps<RecordType> {
   /** 是否展示外边框和列边框 */
   bordered?: boolean;
@@ -300,10 +356,10 @@ export interface FRCTableProps extends TableProps<RecordType> {
   getPopupContainer?: (triggerNode: HTMLElement) => HTMLElement;
   /** 页面是否加载中 */
   loading?: boolean | SpinProps;
-  /** 默认文案设置，目前包括排序、过滤、空数据文案 */
-  locale?: TableLocale;
+  /** 默认文案配置项，具体项见下表。目前包括排序、过滤、空数据文案 */
+  locale?: TableLocaleProps;
   /** 分页器，部分可参考配置项，如下表。或 pagination 文档，设为 false 时不展示和进行分页 */
-  pagination?: false | PaginationConfig;
+  pagination?: PaginationConfig | false;
   /** 表格行的类名 */
   rowClassName?: (record: RecordType, index: number) => string;
   /** 表格行 key 的取值，可以是字符串或一个函数 */
@@ -320,7 +376,7 @@ export interface FRCTableProps extends TableProps<RecordType> {
   showHeader?: boolean;
   /** 表头是否显示下一次排序的 tooltip 提示。当参数类型为对象时，将被设置为 Tooltip 的属性 */
   showSorterTooltip?: boolean | TooltipProps;
-  /** 表格大小 */
+  /** 表格大小（目前仅支持 small） */
   size?: "small" | "middle" | "large" | undefined;
   /** 支持的排序方式，取值为 ascend descend */
   sortDirections?: ("descend" | "ascend" | null)[];
@@ -361,12 +417,63 @@ export interface FRCTableProps extends TableProps<RecordType> {
   ) => React.HTMLAttributes<any> | React.TdHTMLAttributes<any>;
 }
 
+const EmptyNode = (props: { height: number }) => {
+  const { height } = props;
+  return (
+    <div className="frc-table-empty" style={{ height: height }}>
+      "暂无数据"
+    </div>
+  );
+};
+
 export const Table: FC<FRCTableProps> = (props) => {
-  const { className, ...restProps } = props;
+  const { className, pagination, locale, ...restProps } = props;
   const classes = classNames("frc-table", className, {});
+
+  // Pagination pre next icon replace render
+  const PaginationRenderPreNext: ItemRender = (page, type, oe: any) => {
+    let node: React.ReactNode;
+    switch (type) {
+      case "prev":
+        node = React.cloneElement(oe, undefined, <CaretLeftOutlined />);
+        break;
+      case "next":
+        node = React.cloneElement(oe, undefined, <CaretRightOutlined />);
+        break;
+      case "jump-prev":
+        node = PaginationReplaceIcon(oe, BackwardOutlined);
+        break;
+      case "jump-next":
+        node = PaginationReplaceIcon(oe, ForwardOutlined);
+        break;
+      default:
+        node = oe;
+        break;
+    }
+    if (pagination && typeof pagination.itemRender === "function") {
+      return pagination.itemRender(page, type, node);
+    }
+    return node;
+  };
 
   const options = {
     className: classes,
+    pagination:
+      typeof pagination === "boolean"
+        ? pagination
+        : {
+            ...pagination,
+            itemRender: PaginationRenderPreNext,
+          },
+    locale: {
+      ...locale,
+      emptyText:
+        locale && locale.emptyText ? (
+          locale.emptyText
+        ) : (
+          <EmptyNode height={locale?.emptyHeight || 200} />
+        ),
+    },
     ...restProps,
   };
 
@@ -375,6 +482,19 @@ export const Table: FC<FRCTableProps> = (props) => {
 };
 
 // normal
-Table.defaultProps = {};
+Table.defaultProps = {
+  size: "small",
+  pagination: {
+    position: ["bottomLeft"],
+    defaultCurrent: 1,
+    defaultPageSize: 10,
+    hideOnSinglePage: false,
+    pageSizeOptions: ["10", "20", "50", "100"],
+    showLessItems: false,
+    showQuickJumper: false,
+    showTitle: true,
+    total: 0,
+  },
+};
 
 export default Table;

@@ -502,7 +502,9 @@ $tabs-item-large-line-height:                      32px !default;
 // tabGroup
 $tab-group-base-padding:                           16px !default;
 
-// ------------------------------------------------------------------------------
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
 
 // pagination
 $pagination-item-width:                            24px !default;
@@ -518,6 +520,8 @@ $pagination-border-radius:                         $border-radius !default;
 $pagination-item-disabled-background:              $part-plate  !default;
 $pagination-item-disabled-color:                   $words-disable !default;
 
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
 // ----------------------------------------------------------------
 
 // steps
@@ -558,6 +562,9 @@ $steps-updown-content-large-gap-top:               calc(50% + 24px) !default;
 $steps-updown-content-large-gap-bottom:            calc(50% + 32px) !default;
 $steps-updown-content-middle-gap-top:              calc(50% + 16px) !default;
 $steps-updown-content-middle-gap-bottom:           calc(50% + 18px) !default;
+
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
 // ----------------------------------------------------------------
 
 // dropdown
@@ -638,3 +645,30 @@ $tabs-line-side-width:                               2px !default;
 $tabs-small-font:                                    $font-size-base !default;
 $tabs-middle-font:                                   $font-size-medium !default;
 $tabs-large-font:                                    $font-size-lg !default;
+// table
+
+// basic
+$table-base-font-size:                             $font-size-base !default;
+$table-base-line-height:                           $line-height-base !default;
+
+// normal
+$table-color-title:                                $tittle-word !default;
+$table-color-title-active:                         $charts-h4 !default; // ?
+$table-color-title-supporting:                     $words-normal !default;
+$table-color-text:                                 $words-normal !default;
+$table-color-text-active:                          $charts-h4 !default; // ?
+$table-color-text-supporting:                      $words-supporting !default;
+
+$table-background:                                 $basic-plate !default;
+$table-background-title:                           $part-plate !default;
+
+$table-border:                                     $part-plate 1px solid !default;
+$table-border-bold:                                $basic-filter 2px solid !default;
+$table-border-title:                               $basic-plate 1px solid !default;
+$table-border-bold:                                $basic-plate 2px solid !default;
+
+// hover
+$table-background-hover:                           $mouse-hover !default;
+
+// active
+$table-background-active:                          $part-plate !default;

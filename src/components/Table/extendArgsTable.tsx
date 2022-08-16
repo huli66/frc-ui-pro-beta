@@ -6,6 +6,7 @@ import {
   PaginationConfig,
   RowSelectionProps,
   SelectionItemProps,
+  TableLocaleProps,
 } from "./table";
 
 // -----------------------------------------------------------------
@@ -69,10 +70,17 @@ SelectionItemShowArgsTable.defaultProps = {};
 
 // -----------------------------------------------------------------
 
+const TableLocaleShowArgsTable: FC<TableLocaleProps> = () => <></>;
+
+TableLocaleShowArgsTable.defaultProps = {};
+
+// -----------------------------------------------------------------
+
 export {
   ColumnShowArgsTable,
   ExpandableShowArgsTable,
   PaginationShowArgsTable,
   RowSelectionShowArgsTable,
   SelectionItemShowArgsTable,
+  TableLocaleShowArgsTable,
 };

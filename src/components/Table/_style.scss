@@ -17,10 +17,127 @@
 }
 
 .frc-table.ant-table-wrapper {
+  * {
+    font-size: $table-base-font-size;
+  }
+
+  // normal ------------------------------------------------------------------------------------------------
+
   // table box
   .ant-table {
+    background: $table-background;
+    // table header
+    .ant-table-thead {
+      tr {
+        .ant-table-cell {
+          color: $table-color-title;
+          background: $table-background-title;
+          border-bottom: $table-border-title;
+          padding: 0 4px;
+          line-height: $table-base-line-height;
+        }
+      }
+    }
+
+    // table body
+    .ant-table-tbody {
+      .ant-table-row {
+        .ant-table-cell {
+          color: $table-color-text;
+          border-bottom: $table-border;
+          padding: 0 4px;
+          line-height: $table-base-line-height;
+
+          // flexd column
+          &.ant-table-cell-fix-left,
+          &.ant-table-cell-fix-right {
+            background: $table-background-title;
+            border-bottom: $table-border-title;
+          }
+
+          // hover item
+          &.ant-table-cell-row-hover {
+            background: $table-background-hover;
+          }
+        }
+      }
+
+      // empty data
+      tr.ant-table-placeholder {
+        td.ant-table-cell {
+          border-bottom: none;
+
+          // empty style -> custom
+          .frc-table-empty {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: $table-color-text-supporting;
+          }
+        }
+        &:hover {
+          td.ant-table-cell {
+            background: transparent;
+          }
+        }
+      }
+    }
+
+    // summary
+    .ant-table-summary {
+      background: $table-background-title;
+      tr {
+        .ant-table-cell {
+          color: $table-color-text;
+          border-bottom: $table-border-title;
+          padding: 0 4px;
+          line-height: $table-base-line-height;
+        }
+        &:last-child {
+          .ant-table-cell {
+            border-bottom: $table-border-bold;
+          }
+        }
+        &:hover {
+          .ant-table-cell {
+            background: $table-background-hover;
+          }
+        }
+      }
+    }
   }
-  // table pagination box
-  .ant-pagination {
+
+  // // table pagination box
+  // .ant-pagination {
+  // }
+
+  // scrollbar --------------------------------------------------------------------------------------------
+
+  // 控制整个滚动条
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
   }
+
+  // 滚动条中间滑动部分
+  ::-webkit-scrollbar-thumb {
+    background-color: $basic-filter;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    &:hover {
+      background-color: $btn-hover;
+    }
+  }
+
+  // 滚动条右下角区域
+  ::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
+
+  .ant-table-cell-scrollbar:not([rowspan]) {
+    box-shadow: none;
+  }
+
+  // -----------------------------------------------------------------------------------------------------------
 }

@@ -19,7 +19,10 @@ import {
   PaginationShowArgsTable,
   RowSelectionShowArgsTable,
   SelectionItemShowArgsTable,
+  TableLocaleShowArgsTable,
 } from "./extendArgsTable";
+
+import "./_story.scss";
 import Table from "./index";
 
 // import { Resizable } from "react-resizable";
@@ -78,7 +81,6 @@ export default {
 
           <Heading>API</Heading>
           <Subheading>属性</Subheading>
-
           <Subheading>Table</Subheading>
           <ArgsTable of={Table} />
 
@@ -103,6 +105,9 @@ export default {
 
           <Subheading>Selection Props</Subheading>
           <ArgsTable of={SelectionItemShowArgsTable} />
+
+          <Subheading>TableLocale Props</Subheading>
+          <ArgsTable of={TableLocaleShowArgsTable} />
         </>
       ),
     },
@@ -118,7 +123,6 @@ export const Default = (args: FRCTableProps) => {
     name: string;
     age: number;
     address: string;
-    tags: string[];
   }
 
   const columns: ColumnsTypeProps[] = [
@@ -126,7 +130,6 @@ export const Default = (args: FRCTableProps) => {
       title: "Name",
       dataIndex: "name",
       key: "name",
-      fixed: "left",
     },
     {
       title: "Age",
@@ -143,24 +146,69 @@ export const Default = (args: FRCTableProps) => {
   const data: DataType[] = [
     {
       key: "1",
-      name: "John Brown",
+      name: "John Brown1",
       age: 32,
       address: "New York No. 1 Lake Park",
-      tags: ["nice", "developer"],
     },
     {
       key: "2",
-      name: "Jim Green",
+      name: "Jim Green2",
       age: 42,
       address: "London No. 1 Lake Park",
-      tags: ["loser"],
     },
     {
       key: "3",
+      name: "Joe Black3",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "4",
+      name: "Joe Black4",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "5",
       name: "Joe Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+    },
+    {
+      key: "6",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "7",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "8",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "9",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "10",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "11",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
     },
   ];
 
@@ -169,7 +217,34 @@ export const Default = (args: FRCTableProps) => {
       {...args}
       columns={columns}
       dataSource={data}
-      scroll={{ x: 900, y: 300 }}
+      // summary={() => {
+      //   return (
+      //     <Table.Summary fixed="top">
+      //       <Table.Summary.Row>
+      //         <Table.Summary.Cell index={0}>top1</Table.Summary.Cell>
+      //         <Table.Summary.Cell index={1}>
+      //           This is a summary content
+      //         </Table.Summary.Cell>
+      //         <Table.Summary.Cell index={2}>end</Table.Summary.Cell>
+      //       </Table.Summary.Row>
+      //       <Table.Summary.Row>
+      //         <Table.Summary.Cell index={0}>top2</Table.Summary.Cell>
+      //         <Table.Summary.Cell index={1}>
+      //           This is a summary content
+      //         </Table.Summary.Cell>
+      //         <Table.Summary.Cell index={2}>end</Table.Summary.Cell>
+      //       </Table.Summary.Row>
+      //       <Table.Summary.Row>
+      //         <Table.Summary.Cell index={0}>top3</Table.Summary.Cell>
+      //         <Table.Summary.Cell index={1}>
+      //           This is a summary content
+      //         </Table.Summary.Cell>
+      //         <Table.Summary.Cell index={2}>end</Table.Summary.Cell>
+      //       </Table.Summary.Row>
+      //     </Table.Summary>
+      //   );
+      // }}
+      scroll={{ x: 1000, y: 200 }}
     />
   );
 };
@@ -454,11 +529,185 @@ export const _FixledCloumnsComponent = () => {
   ];
 
   return (
-    <Table columns={columns} dataSource={data} scroll={{ x: 900, y: 300 }} />
+    <Table
+      columns={columns}
+      dataSource={data}
+      scroll={{ x: 900, y: 200 }}
+      pagination={false}
+    />
   );
 };
 
 _FixledCloumnsComponent.storyName = "固定列";
+
+// ----------------------------------------------------------------
+
+export const _SummaryComponent = () => {
+  interface DataType {
+    key: string;
+    name: string;
+    age: number;
+    address: string;
+  }
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+    },
+  ];
+
+  const data: DataType[] = [
+    {
+      key: "1",
+      name: "John Brown1",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+    },
+    {
+      key: "2",
+      name: "Jim Green2",
+      age: 42,
+      address: "London No. 1 Lake Park",
+    },
+    {
+      key: "3",
+      name: "Joe Black3",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "4",
+      name: "Joe Black4",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "5",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "6",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "7",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "8",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "9",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "10",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "11",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+  ];
+
+  return (
+    <>
+      用 summary 实现: 表格的 “总结栏” or “置顶功能”
+      <br />
+      (tips: “总结栏” 与 “置顶功能”。一个表格中，仅能存在二者其中一个)
+      <br />
+      <Table
+        columns={columns}
+        dataSource={data}
+        summary={() => {
+          return (
+            <Table.Summary fixed="top">
+              <Table.Summary.Row>
+                <Table.Summary.Cell index={0}>top1</Table.Summary.Cell>
+                <Table.Summary.Cell index={1}>
+                  This is a summary content
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={2}>end</Table.Summary.Cell>
+              </Table.Summary.Row>
+              <Table.Summary.Row>
+                <Table.Summary.Cell index={0}>top2</Table.Summary.Cell>
+                <Table.Summary.Cell index={1}>
+                  This is a summary content
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={2}>end</Table.Summary.Cell>
+              </Table.Summary.Row>
+              <Table.Summary.Row>
+                <Table.Summary.Cell index={0}>top3</Table.Summary.Cell>
+                <Table.Summary.Cell index={1}>
+                  This is a summary content
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={2}>end</Table.Summary.Cell>
+              </Table.Summary.Row>
+            </Table.Summary>
+          );
+        }}
+        scroll={{ x: 1000, y: 200 }}
+      />
+    </>
+  );
+};
+
+_SummaryComponent.storyName = "总结栏/置顶拦";
+
+// ----------------------------------------------------------------
+
+export const _NoDataComponent = () => {
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+    },
+  ];
+
+  return (
+    <Table columns={columns} dataSource={[]} locale={{ emptyHeight: 300 }} />
+  );
+};
+
+_NoDataComponent.storyName = "暂无数据";
 
 // // ----------------------------------------------------------------
 
