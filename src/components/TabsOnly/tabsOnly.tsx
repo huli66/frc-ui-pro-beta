@@ -3,7 +3,7 @@ import classNames from "classnames";
 
 export interface TabItem {
   key: React.Key;
-  label: ReactNode;
+  label: string | ReactNode;
 }
 
 export type TabsOnlyType = "default" | "piend" | "solid";

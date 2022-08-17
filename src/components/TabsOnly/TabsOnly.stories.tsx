@@ -127,7 +127,9 @@ export const _SoltComponent = () => {
                 fontSize: 12,
                 marginLeft: 5,
                 color: '#6B6F71'
-              }} type="info-circle-o"/>}
+              }} 
+              type="info-circle-o"/>
+      }
     </Tooltip> 
   </>
 
