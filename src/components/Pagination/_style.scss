@@ -11,6 +11,7 @@
 }
 
 .frc-pagination.ant-pagination,
+.frc-table.ant-table-wrapper .ant-table-pagination,
 .frc-table.ant-table-wrapper .ant-table-pagination.mini {
   font-size: $pagination-font-size;
   line-height: unset;

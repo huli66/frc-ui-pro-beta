@@ -488,6 +488,7 @@ export const Table: FC<FRCTableProps> = (props) => {
 // normal
 Table.defaultProps = {
   size: "small",
+  rowBgType: "default",
   pagination: {
     position: ["bottomLeft"],
     defaultCurrent: 1,

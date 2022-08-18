@@ -226,9 +226,9 @@
       cursor: not-allowed !important;
       color: $disabled-color !important;
     }
-    .ant-input-wrapper.ant-input-group{
-      .ant-input-group-addon{
-        .ant-input-search-button{
+    .ant-input-wrapper.ant-input-group {
+      .ant-input-group-addon {
+        .ant-input-search-button {
           cursor: not-allowed !important;
           color: $disabled-color !important;
           background: $input-search-background-btn-disabled !important;
@@ -708,7 +708,7 @@
     color: $color;
   }
   &.frc-date-picker-work {
-    input, 
+    input,
     .ant-picker-range-separator * {
       color: $focus-color;
     }
@@ -757,7 +757,7 @@
   $border-radius,
   $font-size,
   $font-weight,
-  $box-shadow:$modal-box-shadow
+  $box-shadow: $modal-box-shadow
 ) {
   background: $background;
   color: $color;
@@ -768,10 +768,7 @@
   box-shadow: $box-shadow;
 }
 
-@mixin slider-handle (
-  $height,
-  $height-handle,
-) {
+@mixin slider-handle($height, $height-handle) {
   height: $height;
   &::before {
     height: $height-handle;
@@ -780,10 +777,7 @@
     height: $height-handle;
   }
 }
-@mixin slider-handle-vertical (
-  $width,
-  $width-handle,
-) {
+@mixin slider-handle-vertical($width, $width-handle) {
   width: $width;
   height: 8px;
   &::before {
@@ -793,7 +787,7 @@
     width: $width-handle;
   }
 }
-@mixin slider-dot ($size) {
+@mixin slider-dot($size) {
   height: $size;
   width: $size;
 }
@@ -828,17 +822,14 @@
   border: none;
 }
 
-@mixin pagination-item-a(
-  $normal-color,
-  $hover-color
-) {
+@mixin pagination-item-a($normal-color, $hover-color) {
   a {
-      color: $normal-color;
-      &:hover {
-        color: $hover-color;
-      }
-      @content;
+    color: $normal-color;
+    &:hover {
+      color: $hover-color;
     }
+    @content;
+  }
 }
 
 // ---------------------------steps-----------------------------
@@ -851,7 +842,7 @@
   }
 }
 
-@mixin steps-item-style (
+@mixin steps-item-style(
   // tail
   $tail-color,
   // icon
@@ -867,7 +858,7 @@
   $title-color,
   $des-color,
   // selector
-  $selector: ".ant-steps-item-container" 
+  $selector: ".ant-steps-item-container"
 ) {
   #{$selector} {
     .ant-steps-item-tail {
@@ -886,11 +877,11 @@
           background: $icon-border-color;
         }
         .frc-custom-dot {
-          background-color:$dot-outer-color;
+          background-color: $dot-outer-color;
           &::before {
             background-color: $dot-inner-color;
           }
-          &::after{
+          &::after {
             background-color: $dot-pointer-color;
           }
         }
@@ -916,10 +907,7 @@
   }
 }
 
-@mixin steps-vertical-item-tail (
-  $top,
-  $left,
-) {
+@mixin steps-vertical-item-tail($top, $left) {
   @include steps-item-container-selector {
     .ant-steps-item-tail {
       top: $top;
@@ -935,7 +923,7 @@
 @mixin steps-text-updown-item(
   $item-height,
   $title-position-bottom,
-  $des-position-top,
+  $des-position-top
 ) {
   .ant-steps-item {
     position: relative;
@@ -996,4 +984,87 @@
     }
   }
 }
+// table ------------------------------------------------------------------------------------
 
+@mixin table-size-bg-default($line-height, $empty-top-text) {
+  // header
+  .ant-table-thead {
+    tr {
+      .ant-table-cell {
+        line-height: $line-height - 1;
+      }
+    }
+  }
+
+  // body
+  .ant-table-tbody {
+    .ant-table-row {
+      .ant-table-cell {
+        line-height: $line-height - 1;
+      }
+    }
+  }
+
+  // summary
+  .ant-table-summary {
+    tr {
+      .ant-table-cell {
+        line-height: $line-height - 1;
+      }
+    }
+  }
+
+  // empty
+  &.ant-table-empty {
+    .ant-table-tbody {
+      // empty data
+      .ant-table-placeholder {
+        background: linear-gradient(
+          180deg,
+          transparent $line-height - 1,
+          $part-plate $line-height
+        );
+        background-size: 100px $line-height;
+        .frc-table-empty {
+          top: $empty-top-text;
+        }
+      }
+    }
+  }
+}
+
+@mixin table-size-bg-cross($line-height, $empty-top-text) {
+  .ant-table-thead {
+    tr {
+      .ant-table-cell {
+        line-height: $line-height;
+      }
+    }
+  }
+  .ant-table-tbody {
+    .ant-table-row {
+      .ant-table-cell {
+        line-height: $line-height;
+      }
+    }
+  }
+
+  // empty
+  &.ant-table-empty {
+    .ant-table-tbody {
+      // empty data
+      .ant-table-placeholder {
+        background: linear-gradient(0deg, $basic-plate 50%, $part-plate 50%);
+        background-size: 100px $line-height * 2;
+      }
+
+      .ant-table-cell {
+        .frc-table-empty {
+          top: $empty-top-text;
+        }
+      }
+    }
+  }
+}
+
+// ------------------------------------------------------------------------------------------

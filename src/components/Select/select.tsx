@@ -24,9 +24,9 @@ export interface LabelInValueType {
 
 export interface BaseSelectProps extends SelectProps {
   /** 外容器 className */
-  boxClassName?: string;
+  wrapperClassName?: string;
   /** 外容器样式 */
-  boxStyle?: object;
+  wrapperStyle?: object;
   /** 选项类型 */
   type?: "default" | "no-border";
   /** 前缀图标 */
@@ -187,8 +187,8 @@ export const Select = forwardRef<SelectRef, FRCSelectProps>((props, ref) => {
     className,
     type,
     mode,
-    boxClassName,
-    boxStyle,
+    wrapperClassName,
+    wrapperStyle,
     suffixIcon,
     showSearch,
     children,
@@ -245,8 +245,8 @@ export const Select = forwardRef<SelectRef, FRCSelectProps>((props, ref) => {
   return (
     <div
       ref={nodes}
-      className={`frc-select-container ${boxClassName}`}
-      style={boxStyle}
+      className={`frc-select-container ${wrapperClassName || ""}`}
+      style={wrapperStyle || {}}
     >
       <AntdSelect ref={ref} {...options}>
         {children}

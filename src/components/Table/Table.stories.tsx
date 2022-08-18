@@ -710,7 +710,7 @@ export const _D_CustomCellTitleComponent = () => {
             marginLeft: "-6px",
             marginRight: "-6px",
           }}
-          boxStyle={{ width: "100%" }}
+          wrapperStyle={{ width: "100%" }}
         >
           <Select.Option value="day">Day </Select.Option>
           <Select.Option value="week">Week </Select.Option>
@@ -747,7 +747,7 @@ export const _D_CustomCellTitleComponent = () => {
             marginLeft: "-5px",
             marginRight: "-5px",
           }}
-          boxStyle={{ width: "100%" }}
+          wrapperStyle={{ width: "100%" }}
         >
           <Select.Option value="2022-01-01">2022-01-01 </Select.Option>
           <Select.Option value="2022-01-02">2022-01-02 </Select.Option>
@@ -782,7 +782,7 @@ _D_CustomCellTitleComponent.storyName = "自定义单元格";
 
 // ----------------------------------------------------------------
 
-export const _D_RowBgComponent = () => {
+export const _E_RowBgComponent = () => {
   interface DataType {
     key: string;
     name: string;
@@ -900,7 +900,149 @@ export const _D_RowBgComponent = () => {
   );
 };
 
-_D_RowBgComponent.storyName = "不同行背景 rowBgType";
+_E_RowBgComponent.storyName = "不同行背景 rowBgType";
+
+// ----------------------------------------------------------------
+
+export const _F_SizeComponent = () => {
+  interface DataType {
+    key: string;
+    name: string;
+    age: number;
+    address: string;
+  }
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+    },
+  ];
+
+  const data: DataType[] = [
+    {
+      key: "1",
+      name: "John Brown1",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+    },
+    {
+      key: "2",
+      name: "Jim Green2",
+      age: 42,
+      address: "London No. 1 Lake Park",
+    },
+    {
+      key: "3",
+      name: "Joe Black3",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "4",
+      name: "Joe Black4",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "5",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "6",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "7",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "8",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "9",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "10",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "11",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+  ];
+
+  return (
+    <>
+      small{" => "}is default
+      <Table size="small" columns={columns} dataSource={data} />
+      <Table size="small" columns={columns} dataSource={[]} />
+      <Table
+        size="small"
+        rowBgType="cross"
+        columns={columns}
+        dataSource={data}
+      />
+      <Table size="small" rowBgType="cross" columns={columns} dataSource={[]} />
+      <br />
+      middle
+      <Table size="middle" columns={columns} dataSource={data} />
+      <Table size="middle" columns={columns} dataSource={[]} />
+      <Table
+        size="middle"
+        rowBgType="cross"
+        columns={columns}
+        dataSource={data}
+      />
+      <Table
+        size="middle"
+        rowBgType="cross"
+        columns={columns}
+        dataSource={[]}
+      />
+      <br />
+      large
+      <Table size="large" columns={columns} dataSource={data} />
+      <Table size="large" columns={columns} dataSource={[]} />
+      <Table
+        size="large"
+        rowBgType="cross"
+        columns={columns}
+        dataSource={data}
+      />
+      <Table size="large" rowBgType="cross" columns={columns} dataSource={[]} />
+    </>
+  );
+};
+
+_F_SizeComponent.storyName = "不同尺寸 size";
 
 // // ----------------------------------------------------------------
 
