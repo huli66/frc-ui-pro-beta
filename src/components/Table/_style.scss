@@ -125,16 +125,16 @@
 
   // row bg type cross
   &.frc-row-bg-type-cross {
-    .ant-table-thead {
-      tr {
-        .ant-table-cell {
-          background: $basic-plate;
-          border-bottom: none;
-          line-height: $table-base-line-height;
+    .ant-table {
+      .ant-table-thead {
+        tr {
+          .ant-table-cell {
+            background: $basic-plate;
+            border-bottom: none;
+            line-height: $table-base-line-height;
+          }
         }
       }
-    }
-    .ant-table {
       .ant-table-tbody {
         .ant-table-row {
           &:nth-child(odd) {
@@ -144,6 +144,27 @@
           .ant-table-cell {
             border-bottom: none;
             line-height: $table-base-line-height;
+          }
+        }
+      }
+
+      // empty
+      &.ant-table-empty {
+        .ant-table-tbody {
+          // empty data
+          .ant-table-placeholder {
+            background: linear-gradient(
+              0deg,
+              $basic-plate 50%,
+              $part-plate 50%
+            );
+            background-size: 100px 48px;
+          }
+
+          .ant-table-cell {
+            .frc-table-empty {
+              top: 0px;
+            }
           }
         }
       }

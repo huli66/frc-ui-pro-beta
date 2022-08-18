@@ -880,19 +880,21 @@ export const _D_RowBgComponent = () => {
   return (
     <>
       default
+      <Table rowBgType="default" columns={columns} dataSource={data} />
       <Table
-        rowClassName={() => "row-class"}
         rowBgType="default"
         columns={columns}
-        dataSource={data}
+        dataSource={[]}
+        locale={{ emptyHeight: 200 }}
       />
       <br />
       cross
+      <Table rowBgType="cross" columns={columns} dataSource={data} />
       <Table
-        rowClassName={() => "row-class"}
         rowBgType="cross"
         columns={columns}
-        dataSource={data}
+        dataSource={[]}
+        locale={{ emptyHeight: 200 }}
       />
     </>
   );
