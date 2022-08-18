@@ -12,6 +12,7 @@ import {
   Stories,
   Heading,
   Subheading,
+  Source
 } from "@storybook/addon-docs";
 
 import TabsOnly, {FRCTabsOnlyProps, TabItem} from "./index";
@@ -79,6 +80,14 @@ export default {
 
           <Subheading>TabsOnly</Subheading>
           <ArgsTable of={TabsOnly} />
+          <Source
+            dark
+            language="ts"
+            code="interface TabItem {
+              key: React.Key;
+              label: string;
+            };"
+          />
         </>
       ),
     },

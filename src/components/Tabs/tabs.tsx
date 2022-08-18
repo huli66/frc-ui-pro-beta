@@ -23,9 +23,11 @@ interface BaseTabsProps {
   moreIcon?: React.ReactNode;
   /** 不同大小 */
   size?: SizeType
+  /** tabs wrapper 样式 */
+  style?: React.CSSProperties;
   /** tab bar 上额外的元素 */
   tabBarExtraContent?: React.ReactNode | {left?: React.ReactNode, right?: React.ReactNode}
-  /** tabs 之间的间隙 */
+  /** tab bar 之间的间隙 */
   tabBarGutter?: number;
   /** tab bar 的样式对象 */
   tabBarStyle?: React.CSSProperties;

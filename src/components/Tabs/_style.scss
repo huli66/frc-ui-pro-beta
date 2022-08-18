@@ -2,6 +2,9 @@
   color: $tabs-base-color;
   
   // base style
+  .ant-tabs-content {
+    height: 100%;
+  }
   .ant-tabs-nav {
     &::before {
       display: none;
@@ -56,6 +59,9 @@
 
   // type => outline
   &.frc-tabs-outline {
+    .ant-tabs-tab {
+      line-height: 1.834em;
+    }
     .ant-tabs-nav {
       .ant-tabs-nav-list {
         background-color: $tabs-base-bg;

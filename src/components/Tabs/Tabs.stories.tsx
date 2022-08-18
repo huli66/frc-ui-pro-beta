@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { AndroidOutlined, AppleOutlined } from '@ant-design/icons';
 
 import { ComponentMeta } from "@storybook/react";
 
@@ -27,6 +28,9 @@ const ImportComponent = () => {
   const markdown = `
 ~~~js
 import { Tabs } from 'frc-ui-pro';
+// 按需引入图标
+import { AndroidOutlined, AppleOutlined } from '@ant-design/icons';
+
 const { TabPane } = Tabs;
 ~~~
 `;
@@ -457,60 +461,59 @@ _PositionComponent.parameters = {
 };
 // ----------------------------------------------------------------
 
-export const _ScrollComponent = () => {
-  type ScrollDirection = 'left' | 'right' | 'top' | 'bottom';
-  const [tabPosition, setTabPosition] = useState<PositionType>('top');
-  const changeTabPosition = (e: RadioChangeEvent) => {
-    setTabPosition(e.target.value);
-  }
-  const handleTabScroll = ({direction}:{direction:ScrollDirection}) => {
-    console.log('scroll direction',direction);
-  }
-  return (
-    <>
-      可以左右、上下滑动，容纳更多标签。
-      <br />
-      <Radio.Group value={tabPosition} onChange={changeTabPosition}>
-        <Radio value="top">Horizontal</Radio>
-        <Radio value="left">Vertical</Radio>
-      </Radio.Group>
-      <br />
-      <br />
-      <Tabs defaultActiveKey="1" tabPosition={tabPosition} onTabScroll={handleTabScroll} style={{ height: 220 }}>
-        {[...Array.from({ length: 30 }, (_, i) => i)].map(i => (
-          <TabPane tab={`Tab-${i}`} key={`${i}`} disabled={i === 28}>
-            Content of tab {i}
-          </TabPane>
-        ))}
-      </Tabs>
-      <br />
-      <Tabs defaultActiveKey="1" tabPosition={tabPosition} type="card" style={{ height: 220 }}>
-        {[...Array.from({ length: 30 }, (_, i) => i)].map(i => (
-          <TabPane tab={`Tab-${i}`} key={`${i}`} disabled={i === 28}>
-            Content of tab {i}
-          </TabPane>
-        ))}
-      </Tabs>
-      <br />
-      <Tabs defaultActiveKey="1" tabPosition={tabPosition} type="block" style={{ height: 220 }}>
-        {[...Array.from({ length: 30 }, (_, i) => i)].map(i => (
-          <TabPane tab={`Tab-${i}`} key={`${i}`} disabled={i === 28}>
-            Content of tab {i}
-          </TabPane>
-        ))}
-      </Tabs>
-      <br />
-    </>
-  );
-};
+// export const _ScrollComponent = () => {
+//   type ScrollDirection = 'left' | 'right' | 'top' | 'bottom';
+//   const [tabPosition, setTabPosition] = useState<PositionType>('top');
+//   const changeTabPosition = (e: RadioChangeEvent) => {
+//     setTabPosition(e.target.value);
+//   }
+//   const handleTabScroll = ({direction}:{direction:ScrollDirection}) => {
+//     console.log('scroll direction',direction);
+//   }
+//   return (
+//     <>
+//       可以左右、上下滑动，容纳更多标签。
+//       <br />
+//       <Radio.Group value={tabPosition} onChange={changeTabPosition}>
+//         <Radio value="top">Horizontal</Radio>
+//         <Radio value="left">Vertical</Radio>
+//       </Radio.Group>
+//       <br />
+//       <br />
+//       <Tabs defaultActiveKey="1" tabPosition={tabPosition} onTabScroll={handleTabScroll} style={{ height: 220 }}>
+//         {[...Array.from({ length: 30 }, (_, i) => i)].map(i => (
+//           <TabPane tab={`Tab-${i}`} key={`${i}`} disabled={i === 28}>
+//             Content of tab {i}
+//           </TabPane>
+//         ))}
+//       </Tabs>
+//       <br />
+//       <Tabs defaultActiveKey="1" tabPosition={tabPosition} type="card" style={{ height: 220 }}>
+//         {[...Array.from({ length: 30 }, (_, i) => i)].map(i => (
+//           <TabPane tab={`Tab-${i}`} key={`${i}`} disabled={i === 28}>
+//             Content of tab {i}
+//           </TabPane>
+//         ))}
+//       </Tabs>
+//       <br />
+//       <Tabs defaultActiveKey="1" tabPosition={tabPosition} type="block" style={{ height: 220 }}>
+//         {[...Array.from({ length: 30 }, (_, i) => i)].map(i => (
+//           <TabPane tab={`Tab-${i}`} key={`${i}`} disabled={i === 28}>
+//             Content of tab {i}
+//           </TabPane>
+//         ))}
+//       </Tabs>
+//       <br />
+//     </>
+//   );
+// };
 
-_ScrollComponent.storyName = "滑动 Tabs";
-_ScrollComponent.parameters = {
-  controls: { hideNoControlsWarning: true },
-};
+// _ScrollComponent.storyName = "滑动 Tabs";
+// _ScrollComponent.parameters = {
+//   controls: { hideNoControlsWarning: true },
+// };
 
 // ----------------------------------------------------------------
-
 
 export const _SizeComponent = () => {
   const [size, setSize] = useState<SizeType>('small');
@@ -567,6 +570,57 @@ export const _SizeComponent = () => {
 
 _SizeComponent.storyName = "不同大小 Tabs";
 _SizeComponent.parameters = {
+  controls: { hideNoControlsWarning: true },
+};
+
+// ----------------------------------------------------------------
+
+export const _ZIconComponent = () => {
+
+  const contentStyle = {
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#121A19'
+  }
+  return (
+    <>
+      <Tabs defaultActiveKey="1" style={{height: 200}}>
+        <TabPane  
+          tab={
+              <span>
+                <AppleOutlined />
+                Tab 1
+              </span>
+            } 
+          key="1"
+        >
+          <div style={contentStyle}>
+            <span>Content of Tab Pane 1</span>
+          </div>
+        </TabPane>
+        <TabPane 
+          tab={
+              <span>
+                <AndroidOutlined />
+                Tab 2
+              </span>
+            }  
+          key="2"
+        >
+          <div style={contentStyle}>
+            <span>Content of Tab Pane 2</span>
+          </div>
+        </TabPane>
+      </Tabs>
+      <br />
+    </>
+  );
+};
+
+_ZIconComponent.storyName = "图标 Tabs";
+_ZIconComponent.parameters = {
   controls: { hideNoControlsWarning: true },
 };
 
