@@ -5,6 +5,7 @@
 .frc-date-picker-container {
   display: inline-block;
   vertical-align: top;
+  @include input-selection;
 }
 
 .frc-date-picker.ant-picker {

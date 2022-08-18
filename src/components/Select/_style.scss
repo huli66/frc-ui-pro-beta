@@ -10,6 +10,7 @@
   vertical-align: top;
   // width: 100%;
   min-width: 120px;
+  @include input-selection;
 }
 
 .frc-select.ant-select.ant-select-single,

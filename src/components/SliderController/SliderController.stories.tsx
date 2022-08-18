@@ -15,8 +15,7 @@ import {
 } from '@storybook/addon-docs'
 
 import {Row, Col} from 'antd'
-import Slider from './index'
-import {FRCSliderProps} from './slider'
+import SliderController, {FRCSliderControllerProps} from './index'
 import InputNumber from '../InputNumber'
 import Switch from '../Switch'
 
@@ -25,9 +24,11 @@ import Switch from '../Switch'
 // 引用示例代码
 const ImportComponent = () => {
   const markdown = `
+当前为 v1 版本Slider，改名为 SliderController
 ~~~js
-import { Slider } from 'frc-ui-pro';
+import { SliderController } from 'frc-ui-pro';
 ~~~
+
 `
 
   return (
@@ -60,8 +61,8 @@ import { Slider } from 'frc-ui-pro';
 // ----------------------------------------------------------------
 
 export default {
-  title: '数据录入/Slider 滑动输入条',
-  component: Slider,
+  title: '数据录入/SliderController 滑动控制器',
+  component: SliderController,
   parameters: {
     docs: {
       // docs 页面 => 总体布局
@@ -75,34 +76,34 @@ export default {
           <Heading>API</Heading>
           <Subheading>属性</Subheading>
 
-          <Subheading>Slider</Subheading>
-          <ArgsTable of={Slider} />
+          <Subheading>SliderController</Subheading>
+          <ArgsTable of={SliderController} />
         </>
       ),
     },
   },
   // 细分属性 - 分类（用于canvas 页查阅）
-} as ComponentMeta<typeof Slider>
+} as ComponentMeta<typeof SliderController>
 
 // ----------------------------------------------------------------
 
-export const Default = (args: FRCSliderProps) => <Slider {...args} />
+export const Default = (args: FRCSliderControllerProps) => <SliderController {...args} />
 
-Default.storyName = '默认 slider'
+Default.storyName = '默认 SliderController'
 
 // -----------------------------------------------------------------
 
 export const SizeComponent = () => {
   return (
     <>
-      <Slider defaultValue={30} />
-      <Slider defaultValue={30} size="large" />
-      <Slider defaultValue={30} size="small" />
-      <Slider range defaultValue={[20, 50]} />
+      <SliderController defaultValue={30} />
+      <SliderController defaultValue={30} size="large" />
+      <SliderController defaultValue={30} size="small" />
+      <SliderController range defaultValue={[20, 50]} />
     </>
   )
 }
-SizeComponent.storyName = '大小 slider'
+SizeComponent.storyName = '大小 SliderController'
 SizeComponent.parameters = {
   controls: {hideNoControlsWarning: true}
 }
@@ -119,7 +120,7 @@ export const StepComponent = () => {
     return (
       <Row>
         <Col span={12}>
-          <Slider
+          <SliderController
             min={1}
             max={20}
             onChange={handleIntegerChange}
@@ -149,7 +150,7 @@ export const StepComponent = () => {
     return (
       <Row>
         <Col span={12}>
-          <Slider
+          <SliderController
             min={0}
             max={1}
             onChange={handleDecimalChange}
@@ -178,7 +179,7 @@ export const StepComponent = () => {
   )
 }
 
-StepComponent.storyName = '带输入框的滑块 slider'
+StepComponent.storyName = '带输入框的滑块 SliderController'
 StepComponent.parameters = {
   controls: {hideNoControlsWarning: true}
 }
@@ -191,13 +192,13 @@ export const TipSliderComponent = () => {
   }
   return (
     <>
-      <Slider tipFormatter={formatter} />
-      <Slider tipFormatter={null} />
+      <SliderController tipFormatter={formatter} />
+      <SliderController tipFormatter={null} />
     </>
   )
 }
 
-TipSliderComponent.storyName = '自定义提示 slider'
+TipSliderComponent.storyName = '自定义提示 SliderController'
 TipSliderComponent.parameters = {
   controls: {hideNoControlsWarning: true}
 }
@@ -213,12 +214,12 @@ export const EventSliderComponent = () => {
   }
   return (
     <>
-      <Slider
+      <SliderController
         defaultValue={30}
         onChange={onChange}
         onAfterChange={onAfterChange}
       />
-      <Slider
+      <SliderController
         range
         step={10}
         defaultValue={[20, 50]}
@@ -228,12 +229,12 @@ export const EventSliderComponent = () => {
       <br />
       disabled
       <br />
-      <Slider defaultValue={30} disabled />
+      <SliderController defaultValue={30} disabled />
     </>
   )
 }
 
-EventSliderComponent.storyName = '事件 slider'
+EventSliderComponent.storyName = '事件 SliderController'
 EventSliderComponent.parameters = {
   controls: {hideNoControlsWarning: true}
 }
@@ -261,19 +262,19 @@ export const VerticalSliderComponent = () => {
   return (
     <>
       <div style={style}>
-        <Slider vertical defaultValue={30} size='small' />
+        <SliderController vertical defaultValue={30} size='small' />
       </div>
       <div style={style}>
-        <Slider vertical range step={10} defaultValue={[20, 50]} />
+        <SliderController vertical range step={10} defaultValue={[20, 50]} />
       </div>
       <div style={style}>
-        <Slider vertical size='large' range marks={marks} defaultValue={[26, 37]} />
+        <SliderController vertical size='large' range marks={marks} defaultValue={[26, 37]} />
       </div>
     </>
   )
 }
 
-VerticalSliderComponent.storyName = '垂直方向的 slider'
+VerticalSliderComponent.storyName = '垂直方向的 SliderController'
 VerticalSliderComponent.parameters = {
   controls: {hideNoControlsWarning: true}
 }
@@ -295,22 +296,22 @@ export const MarksSliderComponent = () => {
   return (
     <>
       <h4>included=true</h4>
-      <Slider marks={marks} defaultValue={37} />
-      <Slider range marks={marks} defaultValue={[26, 37]} />
+      <SliderController marks={marks} defaultValue={37} />
+      <SliderController range marks={marks} defaultValue={[26, 37]} />
 
       <h4>included=false</h4>
-      <Slider marks={marks} included={false} defaultValue={37} />
+      <SliderController marks={marks} included={false} defaultValue={37} />
 
       <h4>marks & step</h4>
-      <Slider marks={marks} step={10} defaultValue={37} />
+      <SliderController marks={marks} step={10} defaultValue={37} />
 
       <h4>step=null</h4>
-      <Slider marks={marks} step={null} defaultValue={37} />
+      <SliderController marks={marks} step={null} defaultValue={37} />
     </>
   )
 }
 
-MarksSliderComponent.storyName = '带标签的滑块 slider'
+MarksSliderComponent.storyName = '带标签的滑块 SliderController'
 MarksSliderComponent.parameters = {
   controls: {hideNoControlsWarning: true}
 }
@@ -324,15 +325,15 @@ export const ReverseSliderComponent = () => {
   }
   return (
     <>
-      <Slider defaultValue={30} reverse={reverse} />
-      <Slider range defaultValue={[20, 50]} reverse={reverse} />
+      <SliderController defaultValue={30} reverse={reverse} />
+      <SliderController range defaultValue={[20, 50]} reverse={reverse} />
       Reversed:{' '}
       <Switch size="small" checked={reverse} onChange={handleReverseChange} />
     </>
   )
 }
 
-ReverseSliderComponent.storyName = '反向 slider'
+ReverseSliderComponent.storyName = '反向 SliderController'
 ReverseSliderComponent.parameters = {
   controls: {hideNoControlsWarning: true}
 }
@@ -340,7 +341,7 @@ ReverseSliderComponent.parameters = {
 // -----------------------------------------------------------------
 
 export const TipVisibleComponent = () => (
-  <Slider defaultValue={30} tooltipVisible />
+  <SliderController defaultValue={30} tooltipVisible />
 )
 
 TipVisibleComponent.storyName = '控制 ToolTip 的显示'
@@ -351,7 +352,7 @@ TipVisibleComponent.parameters = {
 // -----------------------------------------------------------------
 
 export const DragTrackComponent = () => (
-  <Slider range={{draggableTrack: true}} defaultValue={[20, 50]} />
+  <SliderController range={{draggableTrack: true}} defaultValue={[20, 50]} />
 )
 
 DragTrackComponent.storyName = '范围可拖拽'
