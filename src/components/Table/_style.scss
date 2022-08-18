@@ -33,7 +33,7 @@
           color: $table-color-title;
           background: $table-background-title;
           border-bottom: $table-border-title;
-          padding: 0 4px;
+          padding: 0 6px;
           line-height: $table-base-line-height;
         }
       }
@@ -45,7 +45,7 @@
         .ant-table-cell {
           color: $table-color-text;
           border-bottom: $table-border;
-          padding: 0 4px;
+          padding: 0 6px;
           line-height: $table-base-line-height;
 
           // flexd column
@@ -61,26 +61,6 @@
           }
         }
       }
-
-      // empty data
-      tr.ant-table-placeholder {
-        td.ant-table-cell {
-          border-bottom: none;
-
-          // empty style -> custom
-          .frc-table-empty {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: $table-color-text-supporting;
-          }
-        }
-        &:hover {
-          td.ant-table-cell {
-            background: transparent;
-          }
-        }
-      }
     }
 
     // summary
@@ -90,7 +70,7 @@
         .ant-table-cell {
           color: $table-color-text;
           border-bottom: $table-border-title;
-          padding: 0 4px;
+          padding: 0 6px;
           line-height: $table-base-line-height;
         }
         &:last-child {
@@ -105,11 +85,43 @@
         }
       }
     }
-  }
 
-  // // table pagination box
-  // .ant-pagination {
-  // }
+    // empty
+    &.ant-table-empty {
+      .ant-table-tbody {
+        // empty data
+        .ant-table-placeholder {
+          background: linear-gradient(
+            180deg,
+            transparent 24px,
+            $part-plate 25px
+          );
+          background-size: 100px 25px;
+
+          .ant-table-cell {
+            border-bottom: none;
+
+            // empty style -> custom
+            .frc-table-empty {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: $table-color-text-supporting;
+              top: 5px;
+              position: relative;
+              width: 100%;
+            }
+          }
+
+          &:hover {
+            td.ant-table-cell {
+              background: transparent;
+            }
+          }
+        }
+      }
+    }
+  }
 
   // scrollbar --------------------------------------------------------------------------------------------
 

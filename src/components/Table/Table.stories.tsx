@@ -25,6 +25,8 @@ import {
 import "./_story.scss";
 import Table from "./index";
 
+import { Select } from "../../index";
+
 // import { Resizable } from "react-resizable";
 
 // ----------------------------------------------------------------
@@ -253,7 +255,7 @@ Default.storyName = "默认 table";
 
 // ----------------------------------------------------------------
 
-export const _FixledCloumnsComponent = () => {
+export const _A_FixledCloumnsComponent = () => {
   interface DataType {
     key: string;
     name: string;
@@ -538,11 +540,11 @@ export const _FixledCloumnsComponent = () => {
   );
 };
 
-_FixledCloumnsComponent.storyName = "固定列";
+_A_FixledCloumnsComponent.storyName = "固定列";
 
 // ----------------------------------------------------------------
 
-export const _SummaryComponent = () => {
+export const _B_SummaryComponent = () => {
   interface DataType {
     key: string;
     name: string;
@@ -679,11 +681,11 @@ export const _SummaryComponent = () => {
   );
 };
 
-_SummaryComponent.storyName = "总结栏/置顶拦";
+_B_SummaryComponent.storyName = "总结栏/置顶拦";
 
 // ----------------------------------------------------------------
 
-export const _NoDataComponent = () => {
+export const _C_NoDataComponent = () => {
   const columns: ColumnsTypeProps[] = [
     {
       title: "Name",
@@ -707,7 +709,103 @@ export const _NoDataComponent = () => {
   );
 };
 
-_NoDataComponent.storyName = "暂无数据";
+_C_NoDataComponent.storyName = "暂无数据";
+
+// ----------------------------------------------------------------
+
+export const _D_CustomCellTitleComponent = () => {
+  interface DataType {
+    key: string | number;
+    name?: string;
+    interval?: string | React.ReactNode;
+    address?: string;
+  }
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: (
+        <Select
+          defaultValue="day"
+          type="no-border"
+          style={{
+            width: "calc(100% + 12px)",
+            marginLeft: "-6px",
+            marginRight: "-6px",
+          }}
+          boxStyle={{ width: "100%" }}
+        >
+          <Select.Option value="day">Day </Select.Option>
+          <Select.Option value="week">Week </Select.Option>
+          <Select.Option value="month">Month </Select.Option>
+          <Select.Option value="year">Year </Select.Option>
+        </Select>
+      ),
+      dataIndex: "interval",
+      key: "interval",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+    },
+  ];
+
+  const data: DataType[] = [
+    {
+      key: "1",
+      name: "John Brown",
+      interval: "2022-01-01",
+      address: "New York No. 1 Lake Park",
+    },
+    {
+      key: "2",
+      name: "John Brown",
+      interval: (
+        <Select
+          defaultValue="2022-01-01"
+          type="no-border"
+          style={{
+            width: "calc(100% + 10px)",
+            marginLeft: "-5px",
+            marginRight: "-5px",
+          }}
+          boxStyle={{ width: "100%" }}
+        >
+          <Select.Option value="2022-01-01">2022-01-01 </Select.Option>
+          <Select.Option value="2022-01-02">2022-01-02 </Select.Option>
+          <Select.Option value="2022-01-03">2022-01-03 </Select.Option>
+          <Select.Option value="2022-01-04">2022-01-04 </Select.Option>
+        </Select>
+      ),
+      address: "New York No. 1 Lake Park",
+    },
+    {
+      key: "3",
+      name: "John Brown",
+      interval: "2022-01-01",
+      address: "New York No. 1 Lake Park",
+    },
+  ];
+
+  return (
+    <>
+      例：配合 Select 组件，实现表格 “单元格” 的自定义： “头部选择”、“数据选择”
+      <br />
+      <Table
+        columns={columns}
+        dataSource={data}
+        locale={{ emptyHeight: 300 }}
+      />
+    </>
+  );
+};
+
+_D_CustomCellTitleComponent.storyName = "自定义单元格";
 
 // // ----------------------------------------------------------------
 

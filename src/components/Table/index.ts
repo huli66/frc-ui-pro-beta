@@ -10,7 +10,6 @@ type FRCTableSummaryProps = typeof FRCSummary & {
 
 type FRCTableComponent = typeof FRCTable & {
   Summary: FRCTableSummaryProps;
-  Summary2: FRCTableSummaryProps;
 };
 
 const TransTable = FRCTable as FRCTableComponent;
