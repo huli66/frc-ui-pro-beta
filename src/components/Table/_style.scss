@@ -34,7 +34,7 @@
           background: $table-background-title;
           border-bottom: $table-border-title;
           padding: 0 6px;
-          line-height: $table-base-line-height;
+          line-height: $table-base-line-height - 1;
         }
       }
     }
@@ -46,7 +46,7 @@
           color: $table-color-text;
           border-bottom: $table-border;
           padding: 0 6px;
-          line-height: $table-base-line-height;
+          line-height: $table-base-line-height - 1;
 
           // flexd column
           &.ant-table-cell-fix-left,
@@ -71,7 +71,7 @@
           color: $table-color-text;
           border-bottom: $table-border-title;
           padding: 0 6px;
-          line-height: $table-base-line-height;
+          line-height: $table-base-line-height - 1;
         }
         &:last-child {
           .ant-table-cell {
@@ -93,10 +93,10 @@
         .ant-table-placeholder {
           background: linear-gradient(
             180deg,
-            transparent 24px,
-            $part-plate 25px
+            transparent 23px,
+            $part-plate 24px
           );
-          background-size: 100px 25px;
+          background-size: 100px 24px;
 
           .ant-table-cell {
             border-bottom: none;
@@ -107,7 +107,7 @@
               align-items: center;
               justify-content: center;
               color: $table-color-text-supporting;
-              top: 5px;
+              top: -2px;
               position: relative;
               width: 100%;
             }
@@ -117,6 +117,33 @@
             td.ant-table-cell {
               background: transparent;
             }
+          }
+        }
+      }
+    }
+  }
+
+  // row bg type cross
+  &.frc-row-bg-type-cross {
+    .ant-table-thead {
+      tr {
+        .ant-table-cell {
+          background: $basic-plate;
+          border-bottom: none;
+          line-height: $table-base-line-height;
+        }
+      }
+    }
+    .ant-table {
+      .ant-table-tbody {
+        .ant-table-row {
+          &:nth-child(odd) {
+            background: $part-plate;
+          }
+
+          .ant-table-cell {
+            border-bottom: none;
+            line-height: $table-base-line-height;
           }
         }
       }

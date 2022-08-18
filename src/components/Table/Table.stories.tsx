@@ -219,33 +219,6 @@ export const Default = (args: FRCTableProps) => {
       {...args}
       columns={columns}
       dataSource={data}
-      // summary={() => {
-      //   return (
-      //     <Table.Summary fixed="top">
-      //       <Table.Summary.Row>
-      //         <Table.Summary.Cell index={0}>top1</Table.Summary.Cell>
-      //         <Table.Summary.Cell index={1}>
-      //           This is a summary content
-      //         </Table.Summary.Cell>
-      //         <Table.Summary.Cell index={2}>end</Table.Summary.Cell>
-      //       </Table.Summary.Row>
-      //       <Table.Summary.Row>
-      //         <Table.Summary.Cell index={0}>top2</Table.Summary.Cell>
-      //         <Table.Summary.Cell index={1}>
-      //           This is a summary content
-      //         </Table.Summary.Cell>
-      //         <Table.Summary.Cell index={2}>end</Table.Summary.Cell>
-      //       </Table.Summary.Row>
-      //       <Table.Summary.Row>
-      //         <Table.Summary.Cell index={0}>top3</Table.Summary.Cell>
-      //         <Table.Summary.Cell index={1}>
-      //           This is a summary content
-      //         </Table.Summary.Cell>
-      //         <Table.Summary.Cell index={2}>end</Table.Summary.Cell>
-      //       </Table.Summary.Row>
-      //     </Table.Summary>
-      //   );
-      // }}
       scroll={{ x: 1000, y: 200 }}
     />
   );
@@ -806,6 +779,126 @@ export const _D_CustomCellTitleComponent = () => {
 };
 
 _D_CustomCellTitleComponent.storyName = "自定义单元格";
+
+// ----------------------------------------------------------------
+
+export const _D_RowBgComponent = () => {
+  interface DataType {
+    key: string;
+    name: string;
+    age: number;
+    address: string;
+  }
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+    },
+  ];
+
+  const data: DataType[] = [
+    {
+      key: "1",
+      name: "John Brown1",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+    },
+    {
+      key: "2",
+      name: "Jim Green2",
+      age: 42,
+      address: "London No. 1 Lake Park",
+    },
+    {
+      key: "3",
+      name: "Joe Black3",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "4",
+      name: "Joe Black4",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "5",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "6",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "7",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "8",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "9",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "10",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "11",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+  ];
+
+  return (
+    <>
+      default
+      <Table
+        rowClassName={() => "row-class"}
+        rowBgType="default"
+        columns={columns}
+        dataSource={data}
+      />
+      <br />
+      cross
+      <Table
+        rowClassName={() => "row-class"}
+        rowBgType="cross"
+        columns={columns}
+        dataSource={data}
+      />
+    </>
+  );
+};
+
+_D_RowBgComponent.storyName = "不同行背景 rowBgType";
 
 // // ----------------------------------------------------------------
 

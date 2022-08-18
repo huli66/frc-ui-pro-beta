@@ -360,6 +360,8 @@ export interface FRCTableProps extends TableProps<RecordType> {
   locale?: TableLocaleProps;
   /** 分页器，部分可参考配置项，如下表。或 pagination 文档，设为 false 时不展示和进行分页 */
   pagination?: PaginationConfig | false;
+  /** 表格行背景色类型 */
+  rowBgType?: "default" | "cross";
   /** 表格行的类名 */
   rowClassName?: (record: RecordType, index: number) => string;
   /** 表格行 key 的取值，可以是字符串或一个函数 */
@@ -427,8 +429,10 @@ const EmptyNode = (props: { height: number }) => {
 };
 
 export const Table: FC<FRCTableProps> = (props) => {
-  const { className, pagination, locale, ...restProps } = props;
-  const classes = classNames("frc-table", className, {});
+  const { className, pagination, locale, rowBgType, ...restProps } = props;
+  const classes = classNames("frc-table", className, {
+    [`frc-row-bg-type-${rowBgType}`]: rowBgType,
+  });
 
   // Pagination pre next icon replace render
   const PaginationRenderPreNext: ItemRender = (page, type, oe: any) => {
