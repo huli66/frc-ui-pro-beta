@@ -378,8 +378,10 @@ export interface FRCTableProps extends TableProps<RecordType> {
   showHeader?: boolean;
   /** 表头是否显示下一次排序的 tooltip 提示。当参数类型为对象时，将被设置为 Tooltip 的属性 */
   showSorterTooltip?: boolean | TooltipProps;
-  /** 表格大小（目前仅支持 small） */
+  /** 表格尺寸 */
   size?: "small" | "middle" | "large" | undefined;
+  /** 表格标题尺寸 */
+  headerSize?: "small" | "middle" | "large" | undefined;
   /** 支持的排序方式，取值为 ascend descend */
   sortDirections?: ("descend" | "ascend" | null)[];
   /** 设置粘性头部和滚动条 */
@@ -429,9 +431,11 @@ const EmptyNode = (props: { height: number }) => {
 };
 
 export const Table: FC<FRCTableProps> = (props) => {
-  const { className, pagination, locale, rowBgType, ...restProps } = props;
+  const { className, pagination, locale, rowBgType, headerSize, ...restProps } =
+    props;
   const classes = classNames("frc-table", className, {
     [`frc-row-bg-type-${rowBgType}`]: rowBgType,
+    [`frc-title-size-${headerSize}`]: headerSize,
   });
 
   // Pagination pre next icon replace render

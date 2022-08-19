@@ -54,7 +54,7 @@
 
           // hover item
           &.ant-table-cell-row-hover {
-            background: $table-background-hover;
+            background: $table-background-hover !important;
           }
         }
       }
@@ -68,6 +68,11 @@
           color: $table-color-text;
           border-bottom: $table-border-title;
           padding: 0 6px;
+
+          &.ant-table-cell-fix-left,
+          &.ant-table-cell-fix-right {
+            background: $table-background-title;
+          }
         }
         &:last-child {
           .ant-table-cell {
@@ -76,7 +81,7 @@
         }
         &:hover {
           .ant-table-cell {
-            background: $table-background-hover;
+            background: $table-background-hover !important;
           }
         }
       }
@@ -112,6 +117,7 @@
 
   // row bg type cross -> normal style
   &.frc-row-bg-type-cross {
+    // basic
     .ant-table {
       .ant-table-thead {
         tr {
@@ -125,10 +131,35 @@
         .ant-table-row {
           &:nth-child(odd) {
             background: $part-plate;
+            .ant-table-cell {
+              background: $part-plate;
+            }
           }
 
           .ant-table-cell {
             border-bottom: none;
+          }
+        }
+      }
+    }
+
+    // fixed
+    .ant-table {
+      &.ant-table-scroll-horizontal {
+        .ant-table-tbody {
+          .ant-table-row {
+            &:nth-child(odd) {
+              background: $basic-plate;
+              .ant-table-cell {
+                background: $basic-plate;
+              }
+            }
+            &:nth-child(even) {
+              background: $part-plate;
+              .ant-table-cell {
+                background: $part-plate;
+              }
+            }
           }
         }
       }
@@ -162,6 +193,22 @@
         $table-large-empty-top
       );
     }
+
+    // header size ------------------------------------------------------------------------------------------
+
+    &.frc-title-size-small {
+      @include table-title-size($table-small-line-height - 1);
+    }
+
+    // header size
+    &.frc-title-size-middle {
+      @include table-title-size($table-middle-line-height - 1);
+    }
+
+    // header size
+    &.frc-title-size-large {
+      @include table-title-size($table-large-line-height - 1);
+    }
   }
 
   // row bg type cross
@@ -188,6 +235,22 @@
         $table-large-line-height,
         $table-large-empty-top
       );
+    }
+
+    // header size ------------------------------------------------------------------------------------------
+
+    &.frc-title-size-small {
+      @include table-title-size($table-small-line-height);
+    }
+
+    // header size
+    &.frc-title-size-middle {
+      @include table-title-size($table-middle-line-height);
+    }
+
+    // header size
+    &.frc-title-size-large {
+      @include table-title-size($table-large-line-height);
     }
   }
 

@@ -1049,6 +1049,15 @@
     }
   }
 
+  // summary
+  .ant-table-summary {
+    tr {
+      .ant-table-cell {
+        line-height: $line-height - 1;
+      }
+    }
+  }
+
   // empty
   &.ant-table-empty {
     .ant-table-tbody {
@@ -1061,6 +1070,18 @@
       .ant-table-cell {
         .frc-table-empty {
           top: $empty-top-text;
+        }
+      }
+    }
+  }
+}
+
+@mixin table-title-size($line-height) {
+  .ant-table {
+    .ant-table-thead {
+      tr {
+        .ant-table-cell {
+          line-height: $line-height;
         }
       }
     }

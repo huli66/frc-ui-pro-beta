@@ -228,7 +228,426 @@ Default.storyName = "默认 table";
 
 // ----------------------------------------------------------------
 
-export const _A_FixledCloumnsComponent = () => {
+export const _A_RowBgComponent = () => {
+  interface DataType {
+    key: string;
+    name: string;
+    age: number;
+    address: string;
+  }
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+    },
+  ];
+
+  const data: DataType[] = [
+    {
+      key: "1",
+      name: "John Brown1",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+    },
+    {
+      key: "2",
+      name: "Jim Green2",
+      age: 42,
+      address: "London No. 1 Lake Park",
+    },
+    {
+      key: "3",
+      name: "Joe Black3",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "4",
+      name: "Joe Black4",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "5",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "6",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "7",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "8",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "9",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "10",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "11",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+  ];
+
+  return (
+    <>
+      default
+      <Table rowBgType="default" columns={columns} dataSource={data} />
+      <br />
+      cross
+      <Table rowBgType="cross" columns={columns} dataSource={data} />
+    </>
+  );
+};
+
+_A_RowBgComponent.storyName = "不同行背景 rowBgType";
+
+// ----------------------------------------------------------------
+
+export const _B_NoDataComponent = () => {
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+    },
+  ];
+
+  return (
+    <>
+      <Table columns={columns} dataSource={[]} locale={{ emptyHeight: 300 }} />
+      <Table
+        rowBgType="cross"
+        columns={columns}
+        dataSource={[]}
+        locale={{ emptyHeight: 300 }}
+      />
+    </>
+  );
+};
+
+_B_NoDataComponent.storyName = "暂无数据";
+
+// ----------------------------------------------------------------
+
+export const _C_SizeComponent = () => {
+  interface DataType {
+    key: string;
+    name: string;
+    age: number;
+    address: string;
+  }
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+    },
+  ];
+
+  const data: DataType[] = [
+    {
+      key: "1",
+      name: "John Brown1",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+    },
+    {
+      key: "2",
+      name: "Jim Green2",
+      age: 42,
+      address: "London No. 1 Lake Park",
+    },
+    {
+      key: "3",
+      name: "Joe Black3",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "4",
+      name: "Joe Black4",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "5",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "6",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "7",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "8",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "9",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "10",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "11",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+  ];
+
+  return (
+    <>
+      small{" => "}is default
+      <Table size="small" columns={columns} dataSource={data} />
+      <Table size="small" columns={columns} dataSource={[]} />
+      <Table
+        size="small"
+        rowBgType="cross"
+        columns={columns}
+        dataSource={data}
+      />
+      <Table size="small" rowBgType="cross" columns={columns} dataSource={[]} />
+      <br />
+      middle
+      <Table size="middle" columns={columns} dataSource={data} />
+      <Table size="middle" columns={columns} dataSource={[]} />
+      <Table
+        size="middle"
+        rowBgType="cross"
+        columns={columns}
+        dataSource={data}
+      />
+      <Table
+        size="middle"
+        rowBgType="cross"
+        columns={columns}
+        dataSource={[]}
+      />
+      <br />
+      large
+      <Table size="large" columns={columns} dataSource={data} />
+      <Table size="large" columns={columns} dataSource={[]} />
+      <Table
+        size="large"
+        rowBgType="cross"
+        columns={columns}
+        dataSource={data}
+      />
+      <Table size="large" rowBgType="cross" columns={columns} dataSource={[]} />
+    </>
+  );
+};
+
+_C_SizeComponent.storyName = "不同尺寸 size";
+
+// ----------------------------------------------------------------
+
+export const _D_HeaderSizeComponent = () => {
+  interface DataType {
+    key: string;
+    name: string;
+    age: number;
+    address: string;
+  }
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+    },
+  ];
+
+  const data: DataType[] = [
+    {
+      key: "1",
+      name: "John Brown1",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+    },
+    {
+      key: "2",
+      name: "Jim Green2",
+      age: 42,
+      address: "London No. 1 Lake Park",
+    },
+    {
+      key: "3",
+      name: "Joe Black3",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "4",
+      name: "Joe Black4",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "5",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "6",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "7",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "8",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "9",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "10",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "11",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+  ];
+
+  return (
+    <>
+      small{" => "}is default
+      <Table headerSize="small" columns={columns} dataSource={data} />
+      <Table
+        headerSize="small"
+        rowBgType="cross"
+        columns={columns}
+        dataSource={data}
+      />
+      <br />
+      middle
+      <Table headerSize="middle" columns={columns} dataSource={data} />
+      <Table
+        headerSize="middle"
+        rowBgType="cross"
+        columns={columns}
+        dataSource={data}
+      />
+      <br />
+      large
+      <Table headerSize="large" columns={columns} dataSource={data} />
+      <Table
+        headerSize="large"
+        rowBgType="cross"
+        columns={columns}
+        dataSource={data}
+      />
+    </>
+  );
+};
+
+_D_HeaderSizeComponent.storyName = "不同尺寸 headerSize";
+
+// ----------------------------------------------------------------
+
+export const _E_FixledCloumnsComponent = () => {
   interface DataType {
     key: string;
     name: string;
@@ -504,111 +923,314 @@ export const _A_FixledCloumnsComponent = () => {
   ];
 
   return (
-    <Table
-      columns={columns}
-      dataSource={data}
-      scroll={{ x: 900, y: 200 }}
-      pagination={false}
-    />
+    <>
+      <Table
+        columns={columns}
+        dataSource={data}
+        scroll={{ x: 900, y: 200 }}
+        pagination={false}
+      />
+      <Table
+        rowBgType="cross"
+        columns={columns}
+        dataSource={data}
+        scroll={{ x: 900, y: 200 }}
+        pagination={false}
+      />
+      <Table
+        size="middle"
+        columns={columns}
+        dataSource={data}
+        scroll={{ x: 900, y: 200 }}
+        pagination={false}
+      />
+      <Table
+        size="large"
+        columns={columns}
+        dataSource={data}
+        scroll={{ x: 900, y: 200 }}
+        pagination={false}
+      />
+    </>
   );
 };
 
-_A_FixledCloumnsComponent.storyName = "固定列";
+_E_FixledCloumnsComponent.storyName = "固定列";
 
 // ----------------------------------------------------------------
 
-export const _B_SummaryComponent = () => {
+export const _F_SummaryComponent = () => {
   interface DataType {
     key: string;
     name: string;
     age: number;
     address: string;
+    tags: string;
+    action: string;
+    sex: "male" | "female";
+    phone: number;
+    description: string;
   }
 
-  const columns: ColumnsTypeProps[] = [
+  const columns: any = [
     {
       title: "Name",
       dataIndex: "name",
       key: "name",
+      fixed: "left",
+      sortOrder: true,
+      width: "150px",
     },
     {
       title: "Age",
       dataIndex: "age",
       key: "age",
+      fixed: "left",
+      sortOrder: true,
+      width: "100px",
     },
     {
       title: "Address",
       dataIndex: "address",
       key: "address",
+      sortOrder: true,
+      width: "300px",
+    },
+    {
+      title: "Tags",
+      key: "tags",
+      dataIndex: "tags",
+      sortOrder: true,
+      width: "200px",
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
+      sortOrder: true,
+      width: "200px",
+    },
+    {
+      title: "Sex",
+      dataIndex: "sex",
+      key: "sex",
+      sortOrder: true,
+      width: "200px",
+    },
+    {
+      title: "Phone",
+      key: "phone",
+      dataIndex: "phone",
+      sortOrder: true,
+      width: "200px",
+    },
+    {
+      title: "Description",
+      key: "description",
+      dataIndex: "description",
+      width: "200px",
+      fixed: "right",
     },
   ];
 
   const data: DataType[] = [
     {
       key: "1",
-      name: "John Brown1",
+      name: "John Brown",
       age: 32,
       address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
     },
     {
       key: "2",
-      name: "Jim Green2",
+      name: "Jim Green",
       age: 42,
       address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
     },
     {
       key: "3",
-      name: "Joe Black3",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "4",
-      name: "Joe Black4",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "5",
       name: "Joe Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "4",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "5",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
     },
     {
       key: "6",
       name: "Joe Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
     },
     {
       key: "7",
-      name: "Joe Black",
+      name: "John Brown",
       age: 32,
-      address: "Sidney No. 1 Lake Park",
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
     },
     {
       key: "8",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
     },
     {
       key: "9",
       name: "Joe Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
     },
     {
       key: "10",
-      name: "Joe Black",
+      name: "John Brown",
       age: 32,
-      address: "Sidney No. 1 Lake Park",
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
     },
     {
       key: "11",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "12",
       name: "Joe Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "13",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "14",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "15",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "16",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "17",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "18",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
     },
   ];
 
@@ -626,24 +1248,87 @@ export const _B_SummaryComponent = () => {
             <Table.Summary fixed="top">
               <Table.Summary.Row>
                 <Table.Summary.Cell index={0}>top1</Table.Summary.Cell>
-                <Table.Summary.Cell index={1}>
+                <Table.Summary.Cell index={1}>2</Table.Summary.Cell>
+                <Table.Summary.Cell index={2}>
                   This is a summary content
                 </Table.Summary.Cell>
-                <Table.Summary.Cell index={2}>end</Table.Summary.Cell>
+                <Table.Summary.Cell index={3}>5</Table.Summary.Cell>
+                <Table.Summary.Cell index={4}>6</Table.Summary.Cell>
+                <Table.Summary.Cell index={5}>7</Table.Summary.Cell>
+                <Table.Summary.Cell index={6}>8</Table.Summary.Cell>
+                <Table.Summary.Cell index={7}>end</Table.Summary.Cell>
               </Table.Summary.Row>
               <Table.Summary.Row>
                 <Table.Summary.Cell index={0}>top2</Table.Summary.Cell>
-                <Table.Summary.Cell index={1}>
+                <Table.Summary.Cell index={1}>2</Table.Summary.Cell>
+                <Table.Summary.Cell index={2}>
                   This is a summary content
                 </Table.Summary.Cell>
-                <Table.Summary.Cell index={2}>end</Table.Summary.Cell>
+                <Table.Summary.Cell index={3}>5</Table.Summary.Cell>
+                <Table.Summary.Cell index={4}>6</Table.Summary.Cell>
+                <Table.Summary.Cell index={5}>7</Table.Summary.Cell>
+                <Table.Summary.Cell index={6}>8</Table.Summary.Cell>
+                <Table.Summary.Cell index={7}>end</Table.Summary.Cell>
               </Table.Summary.Row>
               <Table.Summary.Row>
                 <Table.Summary.Cell index={0}>top3</Table.Summary.Cell>
-                <Table.Summary.Cell index={1}>
+                <Table.Summary.Cell index={1}>2</Table.Summary.Cell>
+                <Table.Summary.Cell index={2}>
                   This is a summary content
                 </Table.Summary.Cell>
-                <Table.Summary.Cell index={2}>end</Table.Summary.Cell>
+                <Table.Summary.Cell index={3}>5</Table.Summary.Cell>
+                <Table.Summary.Cell index={4}>6</Table.Summary.Cell>
+                <Table.Summary.Cell index={5}>7</Table.Summary.Cell>
+                <Table.Summary.Cell index={6}>8</Table.Summary.Cell>
+                <Table.Summary.Cell index={7}>end</Table.Summary.Cell>
+              </Table.Summary.Row>
+            </Table.Summary>
+          );
+        }}
+        scroll={{ x: 1000, y: 200 }}
+      />
+      <Table
+        rowBgType="cross"
+        columns={columns}
+        dataSource={data}
+        summary={() => {
+          return (
+            <Table.Summary fixed="top">
+              <Table.Summary.Row>
+                <Table.Summary.Cell index={0}>top1</Table.Summary.Cell>
+                <Table.Summary.Cell index={1}>2</Table.Summary.Cell>
+                <Table.Summary.Cell index={2}>
+                  This is a summary content
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={3}>5</Table.Summary.Cell>
+                <Table.Summary.Cell index={4}>6</Table.Summary.Cell>
+                <Table.Summary.Cell index={5}>7</Table.Summary.Cell>
+                <Table.Summary.Cell index={6}>8</Table.Summary.Cell>
+                <Table.Summary.Cell index={7}>end</Table.Summary.Cell>
+              </Table.Summary.Row>
+              <Table.Summary.Row>
+                <Table.Summary.Cell index={0}>top2</Table.Summary.Cell>
+                <Table.Summary.Cell index={1}>2</Table.Summary.Cell>
+                <Table.Summary.Cell index={2}>
+                  This is a summary content
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={3}>5</Table.Summary.Cell>
+                <Table.Summary.Cell index={4}>6</Table.Summary.Cell>
+                <Table.Summary.Cell index={5}>7</Table.Summary.Cell>
+                <Table.Summary.Cell index={6}>8</Table.Summary.Cell>
+                <Table.Summary.Cell index={7}>end</Table.Summary.Cell>
+              </Table.Summary.Row>
+              <Table.Summary.Row>
+                <Table.Summary.Cell index={0}>top3</Table.Summary.Cell>
+                <Table.Summary.Cell index={1}>2</Table.Summary.Cell>
+                <Table.Summary.Cell index={2}>
+                  This is a summary content
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={3}>5</Table.Summary.Cell>
+                <Table.Summary.Cell index={4}>6</Table.Summary.Cell>
+                <Table.Summary.Cell index={5}>7</Table.Summary.Cell>
+                <Table.Summary.Cell index={6}>8</Table.Summary.Cell>
+                <Table.Summary.Cell index={7}>end</Table.Summary.Cell>
               </Table.Summary.Row>
             </Table.Summary>
           );
@@ -654,39 +1339,11 @@ export const _B_SummaryComponent = () => {
   );
 };
 
-_B_SummaryComponent.storyName = "总结栏/置顶拦";
+_F_SummaryComponent.storyName = "总结栏/置顶拦";
 
 // ----------------------------------------------------------------
 
-export const _C_NoDataComponent = () => {
-  const columns: ColumnsTypeProps[] = [
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-    },
-    {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
-    },
-    {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
-    },
-  ];
-
-  return (
-    <Table columns={columns} dataSource={[]} locale={{ emptyHeight: 300 }} />
-  );
-};
-
-_C_NoDataComponent.storyName = "暂无数据";
-
-// ----------------------------------------------------------------
-
-export const _D_CustomCellTitleComponent = () => {
+export const _G_CustomCellTitleComponent = () => {
   interface DataType {
     key: string | number;
     name?: string;
@@ -774,275 +1431,17 @@ export const _D_CustomCellTitleComponent = () => {
         dataSource={data}
         locale={{ emptyHeight: 300 }}
       />
-    </>
-  );
-};
-
-_D_CustomCellTitleComponent.storyName = "自定义单元格";
-
-// ----------------------------------------------------------------
-
-export const _E_RowBgComponent = () => {
-  interface DataType {
-    key: string;
-    name: string;
-    age: number;
-    address: string;
-  }
-
-  const columns: ColumnsTypeProps[] = [
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-    },
-    {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
-    },
-    {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
-    },
-  ];
-
-  const data: DataType[] = [
-    {
-      key: "1",
-      name: "John Brown1",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-    },
-    {
-      key: "2",
-      name: "Jim Green2",
-      age: 42,
-      address: "London No. 1 Lake Park",
-    },
-    {
-      key: "3",
-      name: "Joe Black3",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "4",
-      name: "Joe Black4",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "5",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "6",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "7",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "8",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "9",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "10",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "11",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-  ];
-
-  return (
-    <>
-      default
-      <Table rowBgType="default" columns={columns} dataSource={data} />
-      <Table
-        rowBgType="default"
-        columns={columns}
-        dataSource={[]}
-        locale={{ emptyHeight: 200 }}
-      />
-      <br />
-      cross
-      <Table rowBgType="cross" columns={columns} dataSource={data} />
       <Table
         rowBgType="cross"
         columns={columns}
-        dataSource={[]}
-        locale={{ emptyHeight: 200 }}
+        dataSource={data}
+        locale={{ emptyHeight: 300 }}
       />
     </>
   );
 };
 
-_E_RowBgComponent.storyName = "不同行背景 rowBgType";
-
-// ----------------------------------------------------------------
-
-export const _F_SizeComponent = () => {
-  interface DataType {
-    key: string;
-    name: string;
-    age: number;
-    address: string;
-  }
-
-  const columns: ColumnsTypeProps[] = [
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-    },
-    {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
-    },
-    {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
-    },
-  ];
-
-  const data: DataType[] = [
-    {
-      key: "1",
-      name: "John Brown1",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-    },
-    {
-      key: "2",
-      name: "Jim Green2",
-      age: 42,
-      address: "London No. 1 Lake Park",
-    },
-    {
-      key: "3",
-      name: "Joe Black3",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "4",
-      name: "Joe Black4",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "5",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "6",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "7",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "8",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "9",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "10",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "11",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-  ];
-
-  return (
-    <>
-      small{" => "}is default
-      <Table size="small" columns={columns} dataSource={data} />
-      <Table size="small" columns={columns} dataSource={[]} />
-      <Table
-        size="small"
-        rowBgType="cross"
-        columns={columns}
-        dataSource={data}
-      />
-      <Table size="small" rowBgType="cross" columns={columns} dataSource={[]} />
-      <br />
-      middle
-      <Table size="middle" columns={columns} dataSource={data} />
-      <Table size="middle" columns={columns} dataSource={[]} />
-      <Table
-        size="middle"
-        rowBgType="cross"
-        columns={columns}
-        dataSource={data}
-      />
-      <Table
-        size="middle"
-        rowBgType="cross"
-        columns={columns}
-        dataSource={[]}
-      />
-      <br />
-      large
-      <Table size="large" columns={columns} dataSource={data} />
-      <Table size="large" columns={columns} dataSource={[]} />
-      <Table
-        size="large"
-        rowBgType="cross"
-        columns={columns}
-        dataSource={data}
-      />
-      <Table size="large" rowBgType="cross" columns={columns} dataSource={[]} />
-    </>
-  );
-};
-
-_F_SizeComponent.storyName = "不同尺寸 size";
+_G_CustomCellTitleComponent.storyName = "自定义单元格";
 
 // // ----------------------------------------------------------------
 
