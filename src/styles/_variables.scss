@@ -638,3 +638,23 @@ $tabs-line-side-width:                               2px !default;
 $tabs-small-font:                                    $font-size-base !default;
 $tabs-middle-font:                                   $font-size-medium !default;
 $tabs-large-font:                                    $font-size-lg !default;
+
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+
+// filter
+
+$filter-font-size:                                   $font-size-base !default;
+$filter-item-height:                                 24px !default;
+$filter-line-height:                                 $line-height-base !default;
+
+$filter-item-base-bg:                                $element-background !default;
+$filter-item-hover-bg:                               $btn-hover !default;
+$filter-item-active-bg:                              $part-plate !default;
+$filter-item-disabled-bg:                            $part-plate !default;
+
+$filter-item-color:                                  $words-normal !default;
+$filter-item-checked-color:                          $words-high-light !default;
+$filter-item-disabled-color:                         $words-disable !default;
+$filter-item-disabled-border:                        $part-plate !default;
