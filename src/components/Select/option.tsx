@@ -25,6 +25,9 @@ export const Option: FC<FRCSelectOptionProps> = (props) => {
 // normal
 Option.defaultProps = {
     disabled: false,
-}
+};
+
+// rc-select validate children type error
+(Option as any).isSelectOption = true;
 
 export default Option
