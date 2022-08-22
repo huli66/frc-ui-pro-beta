@@ -201,6 +201,47 @@
     }
   }
 
+  // custom selections
+  &.frc-custom-selections {
+    .ant-table {
+      colgroup {
+        .ant-table-selection-col {
+          min-width: 48px;
+        }
+      }
+
+      // header
+      .ant-table-thead {
+        .ant-table-cell.ant-table-selection-column {
+          .ant-table-selection {
+            .ant-table-selection-extra {
+              left: -14px;
+              .ant-dropdown-trigger {
+                span {
+                  svg {
+                    font-size: 8px;
+                    color: $table-color-title;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      // body
+      .ant-table-tbody {
+        .ant-table-row {
+          .ant-table-cell.ant-table-selection-column {
+            .ant-checkbox-wrapper {
+              width: 28px;
+            }
+          }
+        }
+      }
+    }
+  }
+
   // size --------------------------------------------------------------------------------------------------
 
   // row bg type default

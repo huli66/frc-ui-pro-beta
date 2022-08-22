@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, Key } from "react";
+import React, { FC, ReactNode, Key, useEffect } from "react";
 import classNames from "classnames";
 import {
   Table as AntdTable,
@@ -271,7 +271,7 @@ export interface RowSelectionProps extends TableRowSelection<RecordType> {
         children?: React.ReactNode;
       };
   /** 指定选中项的 key 数组，需要和 onChange 进行配合 */
-  selectedRowKeys?: string[] | number[];
+  selectedRowKeys?: Key[];
   /** 默认选中项的 key 数组 */
   defaultSelectedRowKeys?: string[] | number[];
   /** 自定义选择项，配置项，具体项见下表，设为 true 时使用默认选择项 */
@@ -446,11 +446,14 @@ export const Table: FC<FRCTableProps> = (props) => {
     headerSize,
     rowActive,
     rowClassName,
+    rowSelection,
     ...restProps
   } = props;
+
   const classes = classNames("frc-table", className, {
     [`frc-row-bg-type-${rowBgType}`]: rowBgType,
     [`frc-title-size-${headerSize}`]: headerSize,
+    "frc-custom-selections": rowSelection?.selections,
   });
 
   // Pagination pre next icon replace render
@@ -509,6 +512,7 @@ export const Table: FC<FRCTableProps> = (props) => {
       }
       return rowClasses;
     },
+    rowSelection,
     ...restProps,
   } as TableProps<RecordType>;
 

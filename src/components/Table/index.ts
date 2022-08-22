@@ -10,6 +10,9 @@ type FRCTableSummaryProps = typeof FRCSummary & {
 
 type FRCTableComponent = typeof FRCTable & {
   Summary: FRCTableSummaryProps;
+  SELECTION_ALL: any;
+  SELECTION_INVERT: any;
+  SELECTION_NONE: any;
 };
 
 const TransTable = FRCTable as FRCTableComponent;
@@ -18,5 +21,9 @@ const TransTable = FRCTable as FRCTableComponent;
 TransTable.Summary = Table.Summary as FRCTableSummaryProps; // ?
 TransTable.Summary.Row = FRCRow;
 TransTable.Summary.Cell = FRCCell;
+
+TransTable.SELECTION_ALL = Table.SELECTION_ALL;
+TransTable.SELECTION_INVERT = Table.SELECTION_INVERT;
+TransTable.SELECTION_NONE = Table.SELECTION_NONE;
 
 export default TransTable;

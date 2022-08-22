@@ -81,11 +81,13 @@
 }
 
 // dropdown menu
+.ant-dropdown,
 .ant-dropdown.frc-dropdown,
 .ant-dropdown-menu-submenu.ant-dropdown-menu-submenu-popup.frc-dropdown-menu-sub {
   .ant-dropdown-menu-item-selected {
     background-color: $dropdown-hover-background;
   }
+  .ant-dropdown-menu,
   .ant-dropdown-menu.frc-dropdown-menu,
   .ant-dropdown-menu.ant-dropdown-menu-sub {
     color: $dropdown-text-normal;

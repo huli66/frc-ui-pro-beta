@@ -25,7 +25,8 @@ import {
 import "./_story.scss";
 import Table from "./index";
 
-import { Select } from "../../index";
+import { Select, Button } from "../../index";
+import type { TableRowSelection } from "antd/es/table/interface";
 
 // import { Resizable } from "react-resizable";
 
@@ -36,6 +37,9 @@ const ImportComponent = () => {
   const markdown = `
 ~~~js
 import { Table } from 'frc-ui-pro';
+
+// antd type 按需引入
+import type { TableRowSelection } from 'antd/es/table/interface';
 ~~~
 `;
 
@@ -1431,7 +1435,7 @@ _G_CustomCellTitleComponent.storyName = "自定义单元格";
 
 // ----------------------------------------------------------------
 
-export const _I_ActiveComponent = () => {
+export const _H_ActiveComponent = () => {
   const [activeItem, setActiveItem] = useState<string | number | undefined>();
   interface DataType {
     key: string;
@@ -1720,7 +1724,7 @@ export const _I_ActiveComponent = () => {
   );
 };
 
-_I_ActiveComponent.storyName = "激活选中 row";
+_H_ActiveComponent.storyName = "激活选中 row";
 
 // ----------------------------------------------------------------
 
@@ -2065,6 +2069,189 @@ export const _I_SelectComponent = () => {
 };
 
 _I_SelectComponent.storyName = "可选择";
+
+// ----------------------------------------------------------------
+
+export const _J_ControlSelectComponent = () => {
+  interface DataType {
+    key: React.Key;
+    name: string;
+    age: number;
+    address: string;
+  }
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+    },
+  ];
+
+  const data: DataType[] = [];
+  for (let i = 0; i < 46; i++) {
+    data.push({
+      key: i,
+      name: `Edward King ${i}`,
+      age: 32,
+      address: `London, Park Lane no. ${i}`,
+    });
+  }
+
+  // ----------------------------------------------------------------------
+
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const start = () => {
+    setLoading(true);
+    // ajax request after empty completing
+    setTimeout(() => {
+      setSelectedRowKeys([]);
+      setLoading(false);
+    }, 1000);
+  };
+
+  const onSelectChange = (newSelectedRowKeys?: React.Key[]) => {
+    console.log("selectedRowKeys changed: ", selectedRowKeys);
+    newSelectedRowKeys && setSelectedRowKeys(newSelectedRowKeys);
+  };
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+  };
+  const hasSelected = selectedRowKeys && selectedRowKeys.length > 0;
+
+  return (
+    <>
+      选择后进行操作，完成后清空选择，通过 rowSelection.selectedRowKeys
+      来控制选中项。
+      <br />
+      <div style={{ marginBottom: 4 }}>
+        <Button
+          type="primary"
+          onClick={start}
+          disabled={!hasSelected}
+          loading={loading}
+        >
+          Reload
+        </Button>
+        <span style={{ marginLeft: 8 }}>
+          {hasSelected ? `Selected ${selectedRowKeys.length} items` : ""}
+        </span>
+      </div>
+      <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+    </>
+  );
+};
+
+_J_ControlSelectComponent.storyName = "选择和操作";
+
+// ----------------------------------------------------------------
+
+export const _K_CustomSelectComponent = () => {
+  interface DataType {
+    key: React.Key;
+    name: string;
+    age: number;
+    address: string;
+  }
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+    },
+  ];
+
+  const data: DataType[] = [];
+  for (let i = 0; i < 46; i++) {
+    data.push({
+      key: i,
+      name: `Edward King ${i}`,
+      age: 32,
+      address: `London, Park Lane no. ${i}`,
+    });
+  }
+
+  // ----------------------------------------------------------------------
+
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+
+  const onSelectChange = (newSelectedRowKeys?: React.Key[]) => {
+    console.log("selectedRowKeys changed: ", selectedRowKeys);
+    newSelectedRowKeys && setSelectedRowKeys(newSelectedRowKeys);
+  };
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+    selections: [
+      Table.SELECTION_ALL,
+      Table.SELECTION_INVERT,
+      Table.SELECTION_NONE,
+      {
+        key: "odd",
+        text: "Select Odd Row",
+        onSelect: (changableRowKeys: React.Key[]) => {
+          let newSelectedRowKeys = [];
+          newSelectedRowKeys = changableRowKeys.filter(
+            (_: any, index: number) => {
+              if (index % 2 !== 0) {
+                return false;
+              }
+              return true;
+            }
+          );
+          setSelectedRowKeys(newSelectedRowKeys);
+        },
+      },
+      {
+        key: "even",
+        text: "Select Even Row",
+        onSelect: (changableRowKeys: React.Key[]) => {
+          let newSelectedRowKeys = [];
+          newSelectedRowKeys = changableRowKeys.filter(
+            (_: any, index: number) => {
+              if (index % 2 !== 0) {
+                return true;
+              }
+              return false;
+            }
+          );
+          setSelectedRowKeys(newSelectedRowKeys);
+        },
+      },
+    ],
+  };
+
+  return (
+    <>
+      通过 rowSelection.selections 自定义选择项，默认不显示下拉选项，设为 true
+      时显示默认选择项。
+      <br />
+      <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+    </>
+  );
+};
+
+_K_CustomSelectComponent.storyName = "自定义选择项";
 
 // // ----------------------------------------------------------------
 
