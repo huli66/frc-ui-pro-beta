@@ -32,7 +32,7 @@ import {
   replaceIcon as PaginationReplaceIcon,
 } from "../Pagination/pagination";
 
-type RecordType = object;
+type RecordType = any;
 type CompareFn<T> = (
   a: T,
   b: T,
@@ -76,7 +76,9 @@ export interface TableComponents<RecordType> {
       };
 }
 
-export interface ColumnsTypeProps extends ColumnProps<RecordType> {
+type SortOrder = "descend" | "ascend" | null;
+
+interface BaseColumnsTypeProps<RecordType> {
   /** 设置列的对齐方式 */
   align?: "left" | "right" | "center";
   /** 列样式类名 */
@@ -135,7 +137,7 @@ export interface ColumnsTypeProps extends ColumnProps<RecordType> {
         multiple?: number;
       };
   /** 排序的受控属性，外界可用此控制列的排序，可设置为 ascend descend false */
-  sortOrder?: "descend" | "ascend" | null;
+  sortOrder?: "descend" | "ascend" | null | boolean;
   /** 列头显示文字（函数用法 3.10.0 后支持） */
   title?:
     | ReactNode
@@ -144,7 +146,7 @@ export interface ColumnsTypeProps extends ColumnProps<RecordType> {
         sortColumn,
         filters,
       }: {
-        sortOrder: "descend" | "ascend" | null;
+        sortOrder: SortOrder;
         sortColumn: object;
         filters: ColumnFilterItem[];
       }) => ReactNode);
@@ -159,6 +161,9 @@ export interface ColumnsTypeProps extends ColumnProps<RecordType> {
   /** 设置头部单元格属性 */
   onHeaderCell?: (column: object) => any;
 }
+
+export type ColumnsTypeProps = BaseColumnsTypeProps<RecordType> &
+  Omit<ColumnProps<RecordType>, "sortOrder">;
 
 export interface ExpandableProps extends ExpandableConfig<RecordType> {
   /** 展开行的 key 数组 */
@@ -274,7 +279,7 @@ export interface RowSelectionProps extends TableRowSelection<RecordType> {
   /** 多选/单选 */
   type?: "checkbox" | "radio";
   /** 选中项发生变化时的回调 */
-  onChange?: (selectedRowKeys: Key[], selectedRows: RecordType[]) => void;
+  onChange?: (selectedRowKeys?: Key[], selectedRows?: RecordType[]) => void;
   /** 用户手动选择/取消选择某行的回调 */
   onSelect?: (
     record: RecordType,
@@ -339,7 +344,7 @@ export interface TableLocaleProps extends TableLocale {
   cancelSort?: string;
 }
 
-export interface FRCTableProps extends TableProps<RecordType> {
+export interface FRCTableProps extends Omit<TableProps<RecordType>, "columns"> {
   /** 是否展示外边框和列边框 */
   bordered?: boolean;
   /** 表格列的配置描述，配置项，具体项见下表 */
@@ -362,6 +367,8 @@ export interface FRCTableProps extends TableProps<RecordType> {
   pagination?: PaginationConfig | false;
   /** 表格行背景色类型 */
   rowBgType?: "default" | "cross";
+  /** 激活 row (唯一)，row 需有唯一 key 生效 */
+  rowActive?: string | number;
   /** 表格行的类名 */
   rowClassName?: (record: RecordType, index: number) => string;
   /** 表格行 key 的取值，可以是字符串或一个函数 */
@@ -431,8 +438,16 @@ const EmptyNode = (props: { height: number }) => {
 };
 
 export const Table: FC<FRCTableProps> = (props) => {
-  const { className, pagination, locale, rowBgType, headerSize, ...restProps } =
-    props;
+  const {
+    className,
+    pagination,
+    locale,
+    rowBgType,
+    headerSize,
+    rowActive,
+    rowClassName,
+    ...restProps
+  } = props;
   const classes = classNames("frc-table", className, {
     [`frc-row-bg-type-${rowBgType}`]: rowBgType,
     [`frc-title-size-${headerSize}`]: headerSize,
@@ -482,8 +497,20 @@ export const Table: FC<FRCTableProps> = (props) => {
           <EmptyNode height={locale?.emptyHeight || 200} />
         ),
     },
+    rowClassName: (record: RecordType, index: number) => {
+      let rowClasses = "";
+      // active row className
+      if (rowActive && record?.key && rowActive === record.key) {
+        rowClasses = "frc-table-row-active";
+      }
+      // default row className
+      if (rowClassName && typeof rowClassName === "function") {
+        rowClasses += rowClassName(record, index);
+      }
+      return rowClasses;
+    },
     ...restProps,
-  };
+  } as TableProps<RecordType>;
 
   // main
   return <AntdTable {...options} />;

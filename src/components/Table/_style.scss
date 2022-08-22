@@ -33,6 +33,13 @@
           background: $table-background-title;
           border-bottom: $table-border-title;
           padding: 0 6px;
+
+          // select all
+          .ant-table-selection {
+            display: flex;
+            align-content: center;
+            justify-content: center;
+          }
         }
       }
     }
@@ -54,6 +61,25 @@
 
           // hover item
           &.ant-table-cell-row-hover {
+            background: $table-background-hover !important;
+          }
+
+          // select item
+          &.ant-table-selection-column {
+            padding: 0;
+            .ant-checkbox-wrapper {
+              padding: 0;
+            }
+          }
+        }
+
+        // selected item
+        &.ant-table-row-selected,
+        &.frc-table-row-active {
+          .ant-table-cell {
+            background: $table-background-active !important;
+          }
+          .ant-table-cell-row-hover {
             background: $table-background-hover !important;
           }
         }
@@ -110,6 +136,15 @@
               background: transparent;
             }
           }
+        }
+      }
+    }
+
+    // scroll
+    &.ant-table-scroll-horizontal {
+      colgroup {
+        .ant-table-selection-col {
+          min-width: 36px;
         }
       }
     }

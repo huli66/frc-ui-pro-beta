@@ -1,4 +1,4 @@
-// import { useState } from "react";
+import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -660,13 +660,12 @@ export const _E_FixledCloumnsComponent = () => {
     description: string;
   }
 
-  const columns: any = [
+  const columns: ColumnsTypeProps[] = [
     {
       title: "Name",
       dataIndex: "name",
       key: "name",
       fixed: "left",
-      sortOrder: true,
       width: "150px",
     },
     {
@@ -674,42 +673,36 @@ export const _E_FixledCloumnsComponent = () => {
       dataIndex: "age",
       key: "age",
       fixed: "left",
-      sortOrder: true,
       width: "100px",
     },
     {
       title: "Address",
       dataIndex: "address",
       key: "address",
-      sortOrder: true,
       width: "300px",
     },
     {
       title: "Tags",
       key: "tags",
       dataIndex: "tags",
-      sortOrder: true,
       width: "200px",
     },
     {
       title: "Action",
       dataIndex: "action",
       key: "action",
-      sortOrder: true,
       width: "200px",
     },
     {
       title: "Sex",
       dataIndex: "sex",
       key: "sex",
-      sortOrder: true,
       width: "200px",
     },
     {
       title: "Phone",
       key: "phone",
       dataIndex: "phone",
-      sortOrder: true,
       width: "200px",
     },
     {
@@ -972,13 +965,12 @@ export const _F_SummaryComponent = () => {
     description: string;
   }
 
-  const columns: any = [
+  const columns: ColumnsTypeProps[] = [
     {
       title: "Name",
       dataIndex: "name",
       key: "name",
       fixed: "left",
-      sortOrder: true,
       width: "150px",
     },
     {
@@ -986,42 +978,36 @@ export const _F_SummaryComponent = () => {
       dataIndex: "age",
       key: "age",
       fixed: "left",
-      sortOrder: true,
       width: "100px",
     },
     {
       title: "Address",
       dataIndex: "address",
       key: "address",
-      sortOrder: true,
       width: "300px",
     },
     {
       title: "Tags",
       key: "tags",
       dataIndex: "tags",
-      sortOrder: true,
       width: "200px",
     },
     {
       title: "Action",
       dataIndex: "action",
       key: "action",
-      sortOrder: true,
       width: "200px",
     },
     {
       title: "Sex",
       dataIndex: "sex",
       key: "sex",
-      sortOrder: true,
       width: "200px",
     },
     {
       title: "Phone",
       key: "phone",
       dataIndex: "phone",
-      sortOrder: true,
       width: "200px",
     },
     {
@@ -1442,6 +1428,643 @@ export const _G_CustomCellTitleComponent = () => {
 };
 
 _G_CustomCellTitleComponent.storyName = "自定义单元格";
+
+// ----------------------------------------------------------------
+
+export const _I_ActiveComponent = () => {
+  const [activeItem, setActiveItem] = useState<string | number | undefined>();
+  interface DataType {
+    key: string;
+    name: string;
+    age: number;
+    address: string;
+    tags: string;
+    action: string;
+    sex: "male" | "female";
+    phone: number;
+    description: string;
+  }
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      fixed: "left",
+      width: "150px",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+      fixed: "left",
+      width: "100px",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+      width: "300px",
+    },
+    {
+      title: "Tags",
+      key: "tags",
+      dataIndex: "tags",
+      width: "200px",
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
+      width: "200px",
+    },
+    {
+      title: "Sex",
+      dataIndex: "sex",
+      key: "sex",
+      width: "200px",
+    },
+    {
+      title: "Phone",
+      key: "phone",
+      dataIndex: "phone",
+      width: "200px",
+    },
+    {
+      title: "Description",
+      key: "description",
+      dataIndex: "description",
+      width: "200px",
+      fixed: "right",
+    },
+  ];
+
+  const data: DataType[] = [
+    {
+      key: "1",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "2",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "3",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "4",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "5",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "6",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "7",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "8",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "9",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "10",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "11",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "12",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "13",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "14",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "15",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "16",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "17",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "18",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+  ];
+
+  return (
+    <>
+      <Table
+        columns={columns}
+        dataSource={data}
+        scroll={{ x: 900, y: 200 }}
+        pagination={false}
+        rowActive={activeItem}
+        onRow={(record) => {
+          return {
+            onClick: () => {
+              setActiveItem(record.key);
+            }, // 点击行
+          };
+        }}
+      />
+    </>
+  );
+};
+
+_I_ActiveComponent.storyName = "激活选中 row";
+
+// ----------------------------------------------------------------
+
+export const _I_SelectComponent = () => {
+  interface DataType {
+    key?: string;
+    name?: string;
+    age?: number;
+    address?: string;
+    tags?: string;
+    action?: string;
+    sex?: "male" | "female";
+    phone?: number;
+    description?: string;
+  }
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      fixed: "left",
+      width: "150px",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+      fixed: "left",
+      width: "100px",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+      width: "400px",
+    },
+    {
+      title: "Tags",
+      key: "tags",
+      dataIndex: "tags",
+      width: "200px",
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
+      width: "200px",
+    },
+    {
+      title: "Sex",
+      dataIndex: "sex",
+      key: "sex",
+      width: "200px",
+    },
+    {
+      title: "Phone",
+      key: "phone",
+      dataIndex: "phone",
+      width: "200px",
+    },
+    {
+      title: "Description",
+      key: "description",
+      dataIndex: "description",
+      width: "200px",
+      fixed: "right",
+    },
+  ];
+
+  const data: DataType[] = [
+    {
+      key: "1",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "2",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "3",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "4",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "5",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "6",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "7",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "8",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "9",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "10",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "11",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "12",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "13",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "14",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "15",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "16",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "17",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "18",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+  ];
+
+  // rowSelection object indicates the need for row selection
+  const rowSelection = {
+    onChange: (selectedRowKeys?: React.Key[], selectedRows?: DataType[]) => {
+      console.log(
+        `selectedRowKeys: ${selectedRowKeys}`,
+        "selectedRows: ",
+        selectedRows
+      );
+    },
+    getCheckboxProps: (record: DataType) => ({
+      disabled: record.name === "Disabled User", // Column configuration not to be checked
+      name: record.name,
+    }),
+  };
+
+  return (
+    <>
+      第一列是联动的选择框。可以通过 rowSelection.type 属性指定选择类型，默认为
+      checkbox。
+      <br />
+      <Table
+        rowSelection={{
+          type: "checkbox",
+          ...rowSelection,
+        }}
+        columns={columns}
+        dataSource={data}
+        scroll={{ x: 1000, y: 200 }}
+      />
+      <Table
+        size="middle"
+        rowSelection={{
+          type: "checkbox",
+          ...rowSelection,
+        }}
+        columns={columns}
+        dataSource={data}
+        scroll={{ x: 1000, y: 200 }}
+      />
+      <Table
+        rowBgType="cross"
+        rowSelection={{
+          type: "checkbox",
+          ...rowSelection,
+        }}
+        columns={columns}
+        dataSource={data}
+        scroll={{ x: 1000, y: 200 }}
+      />
+      <Table
+        rowSelection={{
+          type: "radio",
+          ...rowSelection,
+        }}
+        columns={columns}
+        dataSource={data}
+        scroll={{ x: 1000, y: 200 }}
+      />
+      <Table
+        rowBgType="cross"
+        rowSelection={{
+          type: "radio",
+          ...rowSelection,
+        }}
+        columns={columns}
+        dataSource={data}
+        scroll={{ x: 1000, y: 200 }}
+      />
+    </>
+  );
+};
+
+_I_SelectComponent.storyName = "可选择";
 
 // // ----------------------------------------------------------------
 
