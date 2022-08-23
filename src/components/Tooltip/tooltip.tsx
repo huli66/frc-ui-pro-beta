@@ -50,11 +50,12 @@ export const Tooltip: FC<FRCTooltipProps> = (props) => {
     placement,
     hasArrow,
     borderType,
+    overlayClassName,
     children,
     ...restProps
   } = props
 
-  const classes = classNames('frc-tooltip', {
+  const classes = classNames('frc-tooltip' + ' ' + overlayClassName, {
     [`frc-tooltip-without-arrow`]: !hasArrow,
     [`frc-tooltip-placement-${placement}`]: placement,
     [`frc-tooltip-border-${borderType}`]: borderType,
