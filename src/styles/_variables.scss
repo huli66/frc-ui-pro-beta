@@ -645,11 +645,21 @@ $tabs-line-side-width:                               2px !default;
 $tabs-small-font:                                    $font-size-base !default;
 $tabs-middle-font:                                   $font-size-medium !default;
 $tabs-large-font:                                    $font-size-lg !default;
+
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
 // table
 
 // basic
 $table-base-font-size:                             $font-size-base !default;
-$table-base-line-height:                           $line-height-base !default;
+$table-small-line-height:                          $line-height-base !default;
+$table-middle-line-height:                         $line-height-lg !default;
+$table-large-line-height:                          $line-height-max !default;
+
+$table-small-empty-top:                            0px !default;
+$table-middle-empty-top:                           0px !default;
+$table-large-empty-top:                            4px !default;
 
 // normal
 $table-color-title:                                $tittle-word !default;
