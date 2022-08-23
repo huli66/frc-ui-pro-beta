@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ReactElement, ReactHTMLElement, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -19,6 +19,8 @@ import TabsOnly, {FRCTabsOnlyProps, TabItem} from "./index";
 import Radio from "../Radio";
 import { RadioChangeEvent } from "antd";
 import InputNumber from "../InputNumber/inputNumber";
+import Tooltip from "../Tooltip";
+import Icon from "../Icon";
 
 // ----------------------------------------------------------------
 
@@ -114,6 +116,38 @@ export const Default = (args: FRCTabsOnlyProps) => (
 );
 
 Default.storyName = "默认 TabsOnly";
+// ----------------------------------------------------------------
+
+export const _SoltComponent = () => {
+  const labelNode: ReactElement = 
+  <>
+    {"Filter002"}
+    <Tooltip title='Filter002'>
+      {<Icon style={{
+                fontSize: 12,
+                marginLeft: 5,
+                color: '#6B6F71'
+              }} 
+              type="info-circle-o"/>
+      }
+    </Tooltip> 
+  </>
+
+  const items: TabItem[] = [
+    { key: "1", label: "Filter001" },
+    { key: "2", label:  labelNode  },
+  ];
+  return (
+    <>
+      <TabsOnly defaultValue="1" items={items} />
+    </>
+  );
+};
+
+_SoltComponent.storyName = "自定义标题 TabsOnly";
+_SoltComponent.parameters = {
+  controls: { hideNoControlsWarning: true },
+};
 
 // ----------------------------------------------------------------
 

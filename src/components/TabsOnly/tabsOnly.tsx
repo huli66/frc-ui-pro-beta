@@ -1,9 +1,9 @@
-import React, { FC, useState, CSSProperties, useEffect } from "react";
+import React, { FC, useState, CSSProperties, useEffect, ReactNode } from "react";
 import classNames from "classnames";
 
 export interface TabItem {
   key: React.Key;
-  label: string;
+  label: string | ReactNode;
 }
 
 export type TabsOnlyType = "default" | "piend" | "solid";
