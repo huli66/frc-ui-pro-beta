@@ -96,6 +96,7 @@
       font-size: $dropdown-font-size;
       padding: $dropdown-min-margin $dropdown-base-margin;
       color: $dropdown-text-normal;
+      line-height: 16px;
       &:hover, &-active {
         background-color: $dropdown-hover-background;
       }
@@ -108,7 +109,6 @@
     .ant-dropdown-menu-item-divider, .ant-dropdown-menu-submenu-title-divider {
       background-color: $dropdown-divider-color;
       margin: $dropdown-min-margin $dropdown-min-margin;
-
     }
 
     // disabled
