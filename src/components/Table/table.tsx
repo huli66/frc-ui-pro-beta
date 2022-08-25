@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, Key, useEffect } from "react";
+import React, { FC, ReactNode, Key } from "react";
 import classNames from "classnames";
 import {
   Table as AntdTable,
@@ -33,12 +33,12 @@ import {
 } from "../Pagination/pagination";
 
 type RecordType = any;
+type SortOrder = "descend" | "ascend" | null;
 type CompareFn<T> = (
   a: T,
   b: T,
   sortOrder?: "descend" | "ascend" | null
 ) => number;
-
 type Component<P> =
   | React.ComponentType<P>
   | React.ForwardRefExoticComponent<P>
@@ -76,8 +76,6 @@ export interface TableComponents<RecordType> {
       };
 }
 
-type SortOrder = "descend" | "ascend" | null;
-
 interface BaseColumnsTypeProps<RecordType> {
   /** 设置列的对齐方式 */
   align?: "left" | "right" | "center";
@@ -95,14 +93,14 @@ interface BaseColumnsTypeProps<RecordType> {
   defaultSortOrder?: "ascend" | "descend";
   /** 超过宽度将自动省略，暂不支持和排序筛选一起使用。设置为 true 或 { showTitle?: boolean } 时，表格布局将变成 tableLayout="fixed"。 */
   ellipsis?: boolean | { showTitle?: boolean };
-  /** 可以自定义筛选菜单，此函数只负责渲染图层，需要自行编写各种交互 */
+  /** 可以自定义筛选菜单，此函数只负责渲染图层，需要自行编写各种交互。 */
   filterDropdown?: ReactNode | ((props: FilterDropdownProps) => ReactNode);
   /** 用于控制自定义筛选菜单是否可见 */
   filterDropdownVisible?: boolean;
   /** 标识数据是否经过过滤，筛选图标会高亮 */
   filtered?: boolean;
   /** 筛选的受控属性，外界可用此控制列的筛选状态，值为已筛选的 value 数组 */
-  filteredValue?: string[];
+  filteredValue?: (Key | boolean)[] | null;
   /** 自定义 filter 图标。 */
   filterIcon?: ReactNode | ((filtered: boolean) => ReactNode);
   /** 是否多选 */

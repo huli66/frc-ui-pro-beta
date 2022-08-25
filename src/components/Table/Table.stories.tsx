@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -12,7 +12,8 @@ import {
   Subheading,
 } from "@storybook/addon-docs";
 
-import { FRCTableProps, ColumnsTypeProps } from "./table";
+import Highlighter from "react-highlight-words";
+
 import {
   ColumnShowArgsTable,
   ExpandableShowArgsTable,
@@ -25,8 +26,15 @@ import {
 import "./_story.scss";
 import Table from "./index";
 
-import { Select, Button } from "../../index";
-import type { TableRowSelection } from "antd/es/table/interface";
+import {
+  Select,
+  Button,
+  Input,
+  Icon,
+  FRCTableProps,
+  ColumnsTypeProps,
+  InputRef,
+} from "../../index";
 
 // import { Resizable } from "react-resizable";
 
@@ -39,7 +47,7 @@ const ImportComponent = () => {
 import { Table } from 'frc-ui-pro';
 
 // antd type 按需引入
-import type { TableRowSelection } from 'antd/es/table/interface';
+import type { FRCTableProps } from 'frc-ui-pro';
 ~~~
 `;
 
@@ -2169,6 +2177,7 @@ export const _K_CustomSelectComponent = () => {
     {
       title: "Name",
       dataIndex: "name",
+      fixed: "left",
     },
     {
       title: "Age",
@@ -2252,6 +2261,567 @@ export const _K_CustomSelectComponent = () => {
 };
 
 _K_CustomSelectComponent.storyName = "自定义选择项";
+
+// ----------------------------------------------------------------
+
+export const _L_FilterAndSortComponent = () => {
+  interface DataType {
+    key: React.Key;
+    name: string;
+    age: number;
+    address: string;
+  }
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      filters: [
+        {
+          text: "Joe",
+          value: "Joe",
+        },
+        {
+          text: "Jim",
+          value: "Jim",
+        },
+        {
+          text: "Submenu",
+          value: "Submenu",
+          children: [
+            {
+              text: "Green",
+              value: "Green",
+            },
+            {
+              text: "Black",
+              value: "Black",
+            },
+          ],
+        },
+      ],
+      // specify the condition of filtering result
+      // here is that finding the name started with `value`
+      onFilter: (value: string | number | boolean, record) =>
+        record.name.indexOf(value) !== -1,
+      sorter: (a, b) => a.name.length - b.name.length,
+      sortDirections: ["descend"],
+      filterMultiple: false,
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      defaultSortOrder: "descend",
+      sorter: (a, b) => a.age - b.age,
+      sortDirections: ["ascend", "descend", "ascend"], // 禁止排序恢复到默认状态
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      filters: [
+        {
+          text: "London",
+          value: "London",
+        },
+        {
+          text: "New York",
+          value: "New York",
+        },
+      ],
+      onFilter: (value: string | number | boolean, record) =>
+        record.address.indexOf(value) !== -1,
+    },
+  ];
+
+  const data: DataType[] = [
+    {
+      key: "1",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+    },
+    {
+      key: "2",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+    },
+    {
+      key: "3",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "4",
+      name: "Jim Red",
+      age: 32,
+      address: "London No. 2 Lake Park",
+    },
+  ];
+
+  const onChange: FRCTableProps["onChange"] = (
+    pagination,
+    filters,
+    sorter,
+    extra
+  ) => {
+    console.log("params", pagination, filters, sorter, extra);
+  };
+
+  return (
+    <>
+      对某一列数据进行筛选，使用列的 filters
+      属性来指定需要筛选菜单的列，onFilter 用于筛选当前数据，filterMultiple
+      用于指定多选和单选。
+      <br />
+      对某一列数据进行排序，通过指定列的 sorter 函数即可启动排序按钮。sorter:
+      function(rowA, rowB) {"{...}"}， rowA、rowB 为比较的两个行数据。
+      <br />
+      sortDirections: ['ascend' |
+      'descend']改变每列可用的排序方式，切换排序时按数组内容依次切换，设置在
+      table props 上时对所有列生效。你可以通过设置 ['ascend', 'descend',
+      'ascend'] 禁止排序恢复到默认状态。 使用 defaultSortOrder
+      属性，设置列的默认排序顺序。
+      <br />
+      <Table
+        columns={columns}
+        dataSource={data}
+        onChange={onChange}
+        locale={{ filterConfirm: "确定", filterReset: "重置" }}
+      />
+    </>
+  );
+};
+
+_L_FilterAndSortComponent.storyName = "筛选和排序";
+
+// ----------------------------------------------------------------
+
+export const _M_MultipleSortComponent = () => {
+  interface DataType {
+    key: React.Key;
+    name: string;
+    chinese: number;
+    math: number;
+    english: number;
+  }
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+    },
+    {
+      title: "Chinese Score",
+      dataIndex: "chinese",
+      sorter: {
+        compare: (a, b) => a.chinese - b.chinese,
+        multiple: 3,
+      },
+    },
+    {
+      title: "Math Score",
+      dataIndex: "math",
+      sorter: {
+        compare: (a, b) => a.math - b.math,
+        multiple: 2,
+      },
+    },
+    {
+      title: "English Score",
+      dataIndex: "english",
+      sorter: {
+        compare: (a, b) => a.english - b.english,
+        multiple: 1,
+      },
+    },
+  ];
+
+  const data: DataType[] = [
+    {
+      key: "1",
+      name: "John Brown",
+      chinese: 98,
+      math: 60,
+      english: 70,
+    },
+    {
+      key: "2",
+      name: "Jim Green",
+      chinese: 98,
+      math: 66,
+      english: 89,
+    },
+    {
+      key: "3",
+      name: "Joe Black",
+      chinese: 98,
+      math: 90,
+      english: 70,
+    },
+    {
+      key: "4",
+      name: "Jim Red",
+      chinese: 88,
+      math: 99,
+      english: 89,
+    },
+  ];
+
+  const onChange: FRCTableProps["onChange"] = (
+    pagination,
+    filters,
+    sorter,
+    extra
+  ) => {
+    console.log("params", pagination, filters, sorter, extra);
+  };
+
+  return (
+    <>
+      column.sorter 支持 multiple 字段以配置多列排序优先级。通过 sorter.compare
+      配置排序逻辑，你可以通过不设置该函数只启动多列排序的交互形式。
+      <br />
+      <Table columns={columns} dataSource={data} onChange={onChange} />
+    </>
+  );
+};
+
+_M_MultipleSortComponent.storyName = "多列排序";
+
+// ----------------------------------------------------------------
+
+export const _N_ControlFilterAndSelectComponent = () => {
+  interface DataType {
+    key: string;
+    name: string;
+    age: number;
+    address: string;
+  }
+
+  type FilterValue = (React.Key | boolean)[];
+
+  type SortOrder = "descend" | "ascend" | null;
+
+  interface SorterResult {
+    column?: ColumnsTypeProps;
+    order?: SortOrder;
+    field?: React.Key | readonly React.Key[];
+    columnKey?: React.Key;
+  }
+
+  const data: DataType[] = [
+    {
+      key: "1",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+    },
+    {
+      key: "2",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+    },
+    {
+      key: "3",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "4",
+      name: "Jim Red",
+      age: 32,
+      address: "London No. 2 Lake Park",
+    },
+  ];
+
+  // --------------------------------------------------------------
+
+  const [filteredInfo, setFilteredInfo] = useState<
+    Record<string, FilterValue | null>
+  >({});
+  const [sortedInfo, setSortedInfo] = useState<SorterResult>({});
+
+  const handleChange: FRCTableProps["onChange"] = (
+    pagination,
+    filters,
+    sorter
+  ) => {
+    console.log("Various parameters", pagination, filters, sorter);
+    setFilteredInfo(filters);
+    setSortedInfo(sorter as SorterResult);
+  };
+
+  const clearFilters = () => {
+    setFilteredInfo({});
+  };
+
+  const clearAll = () => {
+    setFilteredInfo({});
+    setSortedInfo({});
+  };
+
+  const setAgeSort = () => {
+    setSortedInfo({
+      order: "descend",
+      columnKey: "age",
+    });
+  };
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      filters: [
+        { text: "Joe", value: "Joe" },
+        { text: "Jim", value: "Jim" },
+      ],
+      filteredValue: filteredInfo.name || null,
+      onFilter: (value: string | number | boolean, record) =>
+        record.name.includes(value),
+      sorter: (a, b) => a.name.length - b.name.length,
+      sortOrder: sortedInfo.columnKey === "name" ? sortedInfo.order : null,
+      ellipsis: true,
+      showSorterTooltip: false,
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+      sorter: (a, b) => a.age - b.age,
+      sortOrder: sortedInfo.columnKey === "age" ? sortedInfo.order : null,
+      ellipsis: true,
+      showSorterTooltip: false,
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+      filters: [
+        { text: "London", value: "London" },
+        { text: "New York", value: "New York" },
+      ],
+      filteredValue: filteredInfo.address || null,
+      onFilter: (value: string | number | boolean, record) =>
+        record.address.includes(value),
+      sorter: (a, b) => a.address.length - b.address.length,
+      sortOrder: sortedInfo.columnKey === "address" ? sortedInfo.order : null,
+      ellipsis: true,
+      showSorterTooltip: false,
+    },
+  ];
+
+  return (
+    <>
+      使用受控属性对筛选和排序状态进行控制。
+      <br />
+      1. columns 中定义了 filteredValue 和sortOrder 属性即视为受控模式。
+      <br />
+      2. 只支持同时对一列进行排序，请保证只有一列的 sortOrder 属性是生效的。
+      <br />
+      3. 务必指定 column.key。
+      <br />
+      <Button onClick={setAgeSort}>Sort age</Button>
+      <Button onClick={clearFilters}>Clear filters</Button>
+      <Button onClick={clearAll}>Clear filters and sorters</Button>
+      <br />
+      <Table columns={columns} dataSource={data} onChange={handleChange} />
+    </>
+  );
+};
+
+_N_ControlFilterAndSelectComponent.storyName = "可控的筛选和排序";
+
+// ----------------------------------------------------------------
+
+export const _O_ControlFilterAndSelectComponent = () => {
+  interface DataType {
+    key: string;
+    name: string;
+    age: number;
+    address: string;
+  }
+
+  type DataIndex = keyof DataType;
+
+  const data: DataType[] = [
+    {
+      key: "1",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+    },
+    {
+      key: "2",
+      name: "Joe Black",
+      age: 42,
+      address: "London No. 1 Lake Park",
+    },
+    {
+      key: "3",
+      name: "Jim Green",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "4",
+      name: "Jim Red",
+      age: 32,
+      address: "London No. 2 Lake Park",
+    },
+  ];
+
+  // --------------------------------------------------------------
+
+  const [searchText, setSearchText] = useState("");
+  const [searchedColumn, setSearchedColumn] = useState("");
+  const searchInput = useRef<InputRef>(null);
+
+  const handleSearch = (
+    selectedKeys: string[],
+    confirm: (param?: { closeDropdown: boolean }) => void,
+    dataIndex: DataIndex
+  ) => {
+    console.log("handleSearch", selectedKeys, confirm, dataIndex);
+    confirm();
+    setSearchText(selectedKeys[0]);
+    setSearchedColumn(dataIndex);
+  };
+
+  const handleReset = (clearFilters: () => void) => {
+    clearFilters();
+    setSearchText("");
+  };
+
+  const getColumnSearchProps = (dataIndex: DataIndex): ColumnsTypeProps => ({
+    filterDropdown: (props) => {
+      const { setSelectedKeys, selectedKeys, confirm, clearFilters } = props;
+
+      return (
+        <div style={{ padding: 8 }}>
+          <Input
+            ref={searchInput}
+            placeholder={`Search ${dataIndex}`}
+            value={selectedKeys[0]}
+            onChange={(e) =>
+              setSelectedKeys(e.target.value ? [e.target.value] : [])
+            }
+            onPressEnter={() =>
+              handleSearch(selectedKeys as string[], confirm, dataIndex)
+            }
+            style={{ marginBottom: 8, display: "block" }}
+          />
+          <span>
+            <Button
+              type="primary"
+              onClick={() =>
+                handleSearch(selectedKeys as string[], confirm, dataIndex)
+              }
+              icon={
+                <Icon type="search" style={{ fontSize: 12, marginRight: 4 }} />
+              }
+              size="small"
+            >
+              Search
+            </Button>
+            <Button
+              type="primary"
+              onClick={() => clearFilters && handleReset(clearFilters)}
+              size="small"
+              style={{ marginLeft: 8 }}
+            >
+              Reset
+            </Button>
+            <Button
+              type="link"
+              size="small"
+              style={{ marginLeft: 8, marginRight: 4 }}
+              onClick={() => {
+                confirm({ closeDropdown: false });
+                setSearchText((selectedKeys as string[])[0]);
+                setSearchedColumn(dataIndex);
+              }}
+            >
+              Filter
+            </Button>
+          </span>
+        </div>
+      );
+    },
+    filterIcon: (filtered: boolean) => (
+      <Icon type="search" style={{ color: filtered ? "#F9C152" : "#3B9078" }} />
+    ),
+    onFilter: (value, record) =>
+      record[dataIndex]
+        .toString()
+        .toLowerCase()
+        .includes((value as string).toLowerCase()),
+    onFilterDropdownVisibleChange: (visible) => {
+      if (visible) {
+        setTimeout(() => searchInput.current?.select(), 100);
+      }
+    },
+    render: (text) =>
+      searchedColumn === dataIndex ? (
+        <Highlighter
+          highlightStyle={{ backgroundColor: "#F9C152", padding: 0 }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text ? text.toString() : ""}
+        />
+      ) : (
+        text
+      ),
+  });
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      width: "30%",
+      ...getColumnSearchProps("name"),
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+      width: "20%",
+      ...getColumnSearchProps("age"),
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+      ...getColumnSearchProps("address"),
+      sorter: (a, b) => a.address.length - b.address.length,
+      sortDirections: ["descend", "ascend"],
+    },
+  ];
+
+  return (
+    <>
+      <p>通过 filterDropdown 自定义的列筛选功能，并实现一个搜索列的示例。</p>
+      <p>
+        给函数 clearFilters 添加 boolean 类型参数
+        closeDropdown，是否关闭筛选菜单，默认为 true。添加 boolean 类型参数
+        confirm，清除筛选时是否提交已选项，默认 true。
+      </p>
+      <br />
+      <p>{`import Highlighter from "react-highlight-words"`}</p>
+      <p>{`import { ColumnsTypeProps, FilterConfirmProps } from "frc-ui-pro/components/Table/table"`}</p>
+      <p>{`import { InputRef } from "frc-ui-pro/components/Input/input"`}</p>
+      <br />
+      <Table columns={columns} dataSource={data} />
+    </>
+  );
+};
+
+_O_ControlFilterAndSelectComponent.storyName = "自定义筛选菜单";
 
 // // ----------------------------------------------------------------
 

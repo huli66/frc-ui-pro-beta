@@ -23,3 +23,8 @@ export { default as Icon } from "./components/Icon";
 export { default as DragCollapse } from "./components/DragCollapse";
 export { default as Tooltip } from "./components/Tooltip";
 export { default as Tabs } from "./components/Tabs";
+export { default as Table } from "./components/Table";
+
+// interface
+export type { FRCTableProps, ColumnsTypeProps } from "./components/Table/table";
+export type { FRCInputProps, InputRef } from "./components/Input/input";
