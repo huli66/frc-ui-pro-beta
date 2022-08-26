@@ -21,6 +21,9 @@ export const OptGroup: FC<FRCSelectOptGroupProps> = (props) => {
 }
 
 // normal
-OptGroup.defaultProps = {}
+OptGroup.defaultProps = {};
+
+// rc-select validate children type error
+(OptGroup as any).isSelectOptGroup = true;
 
 export default OptGroup
