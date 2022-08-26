@@ -1005,6 +1005,13 @@
         }
       }
     }
+
+    // extend row
+    .ant-table-expanded-row {
+      .ant-table-cell {
+        line-height: $line-height - 1;
+      }
+    }
   }
 
   // summary
@@ -1040,6 +1047,13 @@
   }
   .ant-table-tbody {
     .ant-table-row {
+      .ant-table-cell {
+        line-height: $line-height;
+      }
+    }
+
+    // extend row
+    .ant-table-expanded-row {
       .ant-table-cell {
         line-height: $line-height;
       }

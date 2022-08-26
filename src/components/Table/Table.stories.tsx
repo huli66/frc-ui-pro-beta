@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -13,6 +13,7 @@ import {
 } from "@storybook/addon-docs";
 
 import Highlighter from "react-highlight-words";
+import qs from "qs";
 
 import {
   ColumnShowArgsTable,
@@ -34,6 +35,9 @@ import {
   FRCTableProps,
   ColumnsTypeProps,
   InputRef,
+  FilterValue,
+  SorterResult,
+  PaginationConfig,
 } from "../../index";
 
 // import { Resizable } from "react-resizable";
@@ -386,7 +390,116 @@ _B_NoDataComponent.storyName = "暂无数据";
 
 // ----------------------------------------------------------------
 
-export const _C_SizeComponent = () => {
+export const _C_LoadingComponent = () => {
+  interface DataType {
+    key: string;
+    name: string;
+    age: number;
+    address: string;
+  }
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+    },
+  ];
+
+  const data: DataType[] = [
+    {
+      key: "1",
+      name: "John Brown1",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+    },
+    {
+      key: "2",
+      name: "Jim Green2",
+      age: 42,
+      address: "London No. 1 Lake Park",
+    },
+    {
+      key: "3",
+      name: "Joe Black3",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "4",
+      name: "Joe Black4",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "5",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "6",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "7",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "8",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "9",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "10",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "11",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+  ];
+
+  return (
+    <Table
+      columns={columns}
+      dataSource={data}
+      scroll={{ x: 1000, y: 200 }}
+      loading
+    />
+  );
+};
+
+_C_LoadingComponent.storyName = "加载中 loading";
+
+// ----------------------------------------------------------------
+
+export const _D_SizeComponent = () => {
   interface DataType {
     key: string;
     name: string;
@@ -524,11 +637,11 @@ export const _C_SizeComponent = () => {
   );
 };
 
-_C_SizeComponent.storyName = "不同尺寸 size";
+_D_SizeComponent.storyName = "不同尺寸 size";
 
 // ----------------------------------------------------------------
 
-export const _D_HeaderSizeComponent = () => {
+export const _E_HeaderSizeComponent = () => {
   interface DataType {
     key: string;
     name: string;
@@ -655,11 +768,11 @@ export const _D_HeaderSizeComponent = () => {
   );
 };
 
-_D_HeaderSizeComponent.storyName = "不同尺寸 headerSize";
+_E_HeaderSizeComponent.storyName = "不同尺寸 headerSize";
 
 // ----------------------------------------------------------------
 
-export const _E_FixledCloumnsComponent = () => {
+export const _F_FixledCloumnsComponent = () => {
   interface DataType {
     key: string;
     name: string;
@@ -960,11 +1073,11 @@ export const _E_FixledCloumnsComponent = () => {
   );
 };
 
-_E_FixledCloumnsComponent.storyName = "固定列";
+_F_FixledCloumnsComponent.storyName = "固定列";
 
 // ----------------------------------------------------------------
 
-export const _F_SummaryComponent = () => {
+export const _G_SummaryComponent = () => {
   interface DataType {
     key: string;
     name: string;
@@ -1337,11 +1450,11 @@ export const _F_SummaryComponent = () => {
   );
 };
 
-_F_SummaryComponent.storyName = "总结栏/置顶拦";
+_G_SummaryComponent.storyName = "总结栏/置顶拦";
 
 // ----------------------------------------------------------------
 
-export const _G_CustomCellTitleComponent = () => {
+export const _H_CustomCellTitleComponent = () => {
   interface DataType {
     key: string | number;
     name?: string;
@@ -1439,11 +1552,11 @@ export const _G_CustomCellTitleComponent = () => {
   );
 };
 
-_G_CustomCellTitleComponent.storyName = "自定义单元格";
+_H_CustomCellTitleComponent.storyName = "自定义单元格";
 
 // ----------------------------------------------------------------
 
-export const _H_ActiveComponent = () => {
+export const _I_ActiveComponent = () => {
   const [activeItem, setActiveItem] = useState<string | number | undefined>();
   interface DataType {
     key: string;
@@ -1732,11 +1845,11 @@ export const _H_ActiveComponent = () => {
   );
 };
 
-_H_ActiveComponent.storyName = "激活选中 row";
+_I_ActiveComponent.storyName = "激活选中 row";
 
 // ----------------------------------------------------------------
 
-export const _I_SelectComponent = () => {
+export const _J_SelectComponent = () => {
   interface DataType {
     key?: string;
     name?: string;
@@ -2076,11 +2189,11 @@ export const _I_SelectComponent = () => {
   );
 };
 
-_I_SelectComponent.storyName = "可选择";
+_J_SelectComponent.storyName = "可选择";
 
 // ----------------------------------------------------------------
 
-export const _J_ControlSelectComponent = () => {
+export const _K_ControlSelectComponent = () => {
   interface DataType {
     key: React.Key;
     name: string;
@@ -2161,11 +2274,11 @@ export const _J_ControlSelectComponent = () => {
   );
 };
 
-_J_ControlSelectComponent.storyName = "选择和操作";
+_K_ControlSelectComponent.storyName = "选择和操作";
 
 // ----------------------------------------------------------------
 
-export const _K_CustomSelectComponent = () => {
+export const _L_CustomSelectComponent = () => {
   interface DataType {
     key: React.Key;
     name: string;
@@ -2260,11 +2373,11 @@ export const _K_CustomSelectComponent = () => {
   );
 };
 
-_K_CustomSelectComponent.storyName = "自定义选择项";
+_L_CustomSelectComponent.storyName = "自定义选择项";
 
 // ----------------------------------------------------------------
 
-export const _L_FilterAndSortComponent = () => {
+export const _M_FilterAndSortComponent = () => {
   interface DataType {
     key: React.Key;
     name: string;
@@ -2394,11 +2507,11 @@ export const _L_FilterAndSortComponent = () => {
   );
 };
 
-_L_FilterAndSortComponent.storyName = "筛选和排序";
+_M_FilterAndSortComponent.storyName = "筛选和排序";
 
 // ----------------------------------------------------------------
 
-export const _M_MultipleSortComponent = () => {
+export const _N_MultipleSortComponent = () => {
   interface DataType {
     key: React.Key;
     name: string;
@@ -2488,27 +2601,16 @@ export const _M_MultipleSortComponent = () => {
   );
 };
 
-_M_MultipleSortComponent.storyName = "多列排序";
+_N_MultipleSortComponent.storyName = "多列排序";
 
 // ----------------------------------------------------------------
 
-export const _N_ControlFilterAndSelectComponent = () => {
+export const _O_ControlFilterAndSelectComponent = () => {
   interface DataType {
     key: string;
     name: string;
     age: number;
     address: string;
-  }
-
-  type FilterValue = (React.Key | boolean)[];
-
-  type SortOrder = "descend" | "ascend" | null;
-
-  interface SorterResult {
-    column?: ColumnsTypeProps;
-    order?: SortOrder;
-    field?: React.Key | readonly React.Key[];
-    columnKey?: React.Key;
   }
 
   const data: DataType[] = [
@@ -2543,7 +2645,7 @@ export const _N_ControlFilterAndSelectComponent = () => {
   const [filteredInfo, setFilteredInfo] = useState<
     Record<string, FilterValue | null>
   >({});
-  const [sortedInfo, setSortedInfo] = useState<SorterResult>({});
+  const [sortedInfo, setSortedInfo] = useState<SorterResult<DataType>>({});
 
   const handleChange: FRCTableProps["onChange"] = (
     pagination,
@@ -2552,7 +2654,7 @@ export const _N_ControlFilterAndSelectComponent = () => {
   ) => {
     console.log("Various parameters", pagination, filters, sorter);
     setFilteredInfo(filters);
-    setSortedInfo(sorter as SorterResult);
+    setSortedInfo(sorter as SorterResult<DataType>);
   };
 
   const clearFilters = () => {
@@ -2617,13 +2719,14 @@ export const _N_ControlFilterAndSelectComponent = () => {
 
   return (
     <>
-      使用受控属性对筛选和排序状态进行控制。
+      <p>使用受控属性对筛选和排序状态进行控制。</p>
+      <p>1. columns 中定义了 filteredValue 和sortOrder 属性即视为受控模式。</p>
+      <p>
+        2. 只支持同时对一列进行排序，请保证只有一列的 sortOrder 属性是生效的。
+      </p>
+      <p>3. 务必指定 column.key。</p>
       <br />
-      1. columns 中定义了 filteredValue 和sortOrder 属性即视为受控模式。
-      <br />
-      2. 只支持同时对一列进行排序，请保证只有一列的 sortOrder 属性是生效的。
-      <br />
-      3. 务必指定 column.key。
+      <p>{`import {SorterResult, FilterValue} from "frc-ui-pro/components/Table/table"`}</p>
       <br />
       <Button onClick={setAgeSort}>Sort age</Button>
       <Button onClick={clearFilters}>Clear filters</Button>
@@ -2634,11 +2737,11 @@ export const _N_ControlFilterAndSelectComponent = () => {
   );
 };
 
-_N_ControlFilterAndSelectComponent.storyName = "可控的筛选和排序";
+_O_ControlFilterAndSelectComponent.storyName = "可控的筛选和排序";
 
 // ----------------------------------------------------------------
 
-export const _O_ControlFilterAndSelectComponent = () => {
+export const _P_ControlFilterAndSelectComponent = () => {
   interface DataType {
     key: string;
     name: string;
@@ -2821,7 +2924,228 @@ export const _O_ControlFilterAndSelectComponent = () => {
   );
 };
 
-_O_ControlFilterAndSelectComponent.storyName = "自定义筛选菜单";
+_P_ControlFilterAndSelectComponent.storyName = "自定义筛选菜单";
+
+// ----------------------------------------------------------------
+
+export const _Q_MockRequestComponent = () => {
+  interface DataType {
+    name: {
+      first: string;
+      last: string;
+    };
+    gender: string;
+    email: string;
+    login: {
+      uuid: string;
+    };
+  }
+
+  interface Params {
+    pagination?: PaginationConfig;
+    sorter?: SorterResult<any> | SorterResult<any>[];
+    total?: number;
+    sortField?: string;
+    sortOrder?: string;
+  }
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      sorter: true,
+      render: (name) => `${name.first} ${name.last}`,
+      width: "20%",
+    },
+    {
+      title: "Gender",
+      dataIndex: "gender",
+      filters: [
+        { text: "Male", value: "male" },
+        { text: "Female", value: "female" },
+      ],
+      width: "20%",
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+    },
+  ];
+
+  const getRandomuserParams = (params: Params) => ({
+    results: params.pagination?.pageSize,
+    page: params.pagination?.current,
+    ...params,
+  });
+
+  // --------------------------------------------------------------
+
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(false);
+  const [pagination, setPagination] = useState<PaginationConfig>({
+    current: 1,
+    pageSize: 10,
+  });
+
+  const fetchData = (params: Params = {}) => {
+    setLoading(true);
+    fetch(
+      `https://randomuser.me/api?${qs.stringify(getRandomuserParams(params))}`
+    )
+      .then((res) => res.json())
+      .then(({ results }) => {
+        setData(results);
+        setLoading(false);
+        setPagination({
+          ...params.pagination,
+          total: 200,
+          // 200 is mock data, you should read it from server
+          // total: data.totalCount,
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  useEffect(() => {
+    fetchData({ pagination });
+  }, []);
+
+  const handleTableChange = (
+    newPagination: PaginationConfig,
+    filters: Record<string, FilterValue | null>,
+    sorter: SorterResult<DataType> | SorterResult<DataType>[]
+  ) => {
+    console.log("onChange", newPagination, filters, sorter);
+
+    // 单列排序
+    if (!Array.isArray(sorter)) {
+      fetchData({
+        sortField: sorter.field as string,
+        sortOrder: sorter.order as string,
+        pagination: newPagination,
+        ...filters,
+      });
+    }
+  };
+
+  return (
+    <>
+      <p>
+        这个例子通过简单的 ajax
+        读取方式，演示了如何从服务端读取并展现数据，具有筛选、排序等功能以及页面
+        loading 效果。开发者可以自行接入其他数据处理方式。
+      </p>
+      <p>
+        另外，本例也展示了筛选排序功能如何交给服务端实现，列不需要指定具体的
+        onFilter 和 sorter 函数，而是在把筛选和排序的参数发到服务端来处理。
+      </p>
+      <p>
+        当使用 rowSelection 时，请设置 rowSelection.preserveSelectedRowKeys
+        属性以保留 key。
+      </p>
+      <p>
+        <strong>
+          注意，此示例使用
+          模拟接口，展示数据可能不准确，请打开网络面板查看请求。
+        </strong>
+      </p>
+      <br />
+      <p>{`import qs from "qs";`}</p>
+      <p>{`import { ColumnsTypeProps, PaginationConfig, SorterResult } from "frc-ui-pro/components/Table/table";`}</p>
+      <br />
+      <Table
+        columns={columns}
+        rowKey={(record) => record.login.uuid}
+        dataSource={data}
+        pagination={pagination}
+        loading={loading}
+        onChange={handleTableChange}
+      />
+    </>
+  );
+};
+
+_Q_MockRequestComponent.storyName = "远程加载数据";
+
+// ----------------------------------------------------------------
+
+export const _R_ExtendComponent = () => {
+  interface DataType {
+    key: React.Key;
+    name: string;
+    age: number;
+    address: string;
+    description: string;
+  }
+
+  const columns: ColumnsTypeProps[] = [
+    { title: "Name", dataIndex: "name", key: "name" },
+    { title: "Age", dataIndex: "age", key: "age" },
+    { title: "Address", dataIndex: "address", key: "address" },
+    {
+      title: "Action",
+      dataIndex: "",
+      key: "x",
+      render: () => <Button type="link">Delete</Button>,
+    },
+  ];
+
+  const data: DataType[] = [
+    {
+      key: 1,
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description:
+        "My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.",
+    },
+    {
+      key: 2,
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description:
+        "My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.",
+    },
+    {
+      key: 3,
+      name: "Not Expandable",
+      age: 29,
+      address: "Jiangsu No. 1 Lake Park",
+      description: "This not expandable",
+    },
+    {
+      key: 4,
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description:
+        "My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.",
+    },
+  ];
+
+  return (
+    <>
+      <p>当表格内容较多不能一次性完全展示时。</p>
+      (tips: rowBgType 为 cross，会出现背景色冲突，功能正常)
+      <br />
+      <Table
+        columns={columns}
+        expandable={{
+          expandedRowRender: (record) => (
+            <p style={{ margin: 0 }}>{record.description}</p>
+          ),
+          rowExpandable: (record) => record.name !== "Not Expandable",
+        }}
+        dataSource={data}
+      />
+    </>
+  );
+};
+
+_R_ExtendComponent.storyName = "可展开";
 
 // // ----------------------------------------------------------------
 

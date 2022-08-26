@@ -25,6 +25,15 @@
   // normal style
   .ant-table {
     background: $table-background;
+
+    // table first head
+    colgroup {
+      // extend col
+      .ant-table-expand-icon-col {
+        width: 32px;
+      }
+    }
+
     // table header
     .ant-table-thead {
       tr {
@@ -94,6 +103,7 @@
         .ant-table-cell {
           color: $table-color-text;
           border-bottom: $table-border;
+          background: $table-background;
           padding: 0 6px;
 
           // flexd column
@@ -120,6 +130,15 @@
           &.ant-table-column-sort {
             background: $table-background;
           }
+
+          // extend icon
+          &.ant-table-row-expand-icon-cell {
+            .ant-table-row-expand-icon {
+              background: $checkbox-background-icon;
+              color: $checkbox-color;
+              border: $checkbox-border-icon;
+            }
+          }
         }
 
         // selected item
@@ -131,6 +150,16 @@
           .ant-table-cell-row-hover {
             background: $table-background-hover !important;
           }
+        }
+      }
+
+      // extend row
+      .ant-table-expanded-row {
+        .ant-table-cell {
+          color: $table-color-text;
+          background: $table-background;
+          border-bottom: $table-border;
+          padding: 0 8px;
         }
       }
     }
@@ -402,6 +431,39 @@
 
     .ant-table-cell-scrollbar:not([rowspan]) {
       box-shadow: none;
+    }
+  }
+
+  // loading ----------------------------------------------------------------------------------------------
+  .ant-spin-nested-loading {
+    // icon
+    .ant-spin {
+      .frc-table-loading {
+        &.icon-spin {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: $basic-title;
+        }
+      }
+      .ant-spin-text {
+        color: $basic-btn;
+        text-shadow: none;
+        left: 4px;
+      }
+    }
+
+    // bg
+    .ant-spin-container {
+      &::after {
+        background: rgba(0, 0, 0, 1);
+      }
+
+      &.ant-spin-blur {
+        &::after {
+          opacity: 0.8;
+        }
+      }
     }
   }
 }

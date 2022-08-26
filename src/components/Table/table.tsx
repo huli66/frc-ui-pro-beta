@@ -16,8 +16,6 @@ import {
   TablePaginationConfig,
   TableRowSelection,
   SelectionItem,
-  FilterValue,
-  SorterResult,
 } from "antd/lib/table/interface";
 
 import {
@@ -32,13 +30,19 @@ import {
   replaceIcon as PaginationReplaceIcon,
 } from "../Pagination/pagination";
 
+import { Icon } from "../../index";
+
+export type FilterValue = (React.Key | boolean)[];
+export interface SorterResult<RecordType> {
+  column?: ColumnProps<RecordType>;
+  order?: SortOrder;
+  field?: Key | readonly Key[];
+  columnKey?: Key;
+}
+
 type RecordType = any;
 type SortOrder = "descend" | "ascend" | null;
-type CompareFn<T> = (
-  a: T,
-  b: T,
-  sortOrder?: "descend" | "ascend" | null
-) => number;
+type CompareFn<T> = (a: T, b: T, sortOrder?: SortOrder) => number;
 type Component<P> =
   | React.ComponentType<P>
   | React.ForwardRefExoticComponent<P>
@@ -406,7 +410,7 @@ export interface FRCTableProps extends Omit<TableProps<RecordType>, "columns"> {
   title?: (currentData: readonly RecordType[]) => ReactNode;
   /** 分页、排序、筛选变化时触发 */
   onChange?: (
-    pagination: TablePaginationConfig,
+    pagination: PaginationConfig,
     filters: Record<string, FilterValue | null>,
     sorter: SorterResult<RecordType> | SorterResult<RecordType>[],
     extra: {
@@ -438,6 +442,7 @@ const EmptyNode = (props: { height: number }) => {
 export const Table: FC<FRCTableProps> = (props) => {
   const {
     className,
+    loading,
     pagination,
     locale,
     rowBgType,
@@ -482,6 +487,20 @@ export const Table: FC<FRCTableProps> = (props) => {
 
   const options = {
     className: classes,
+    loading: loading
+      ? typeof loading === "boolean"
+        ? {
+            size: "large",
+            tip: "加载中...",
+            indicator: (
+              <Icon
+                className="icon-spin frc-table-loading"
+                type="loading--quarters"
+              />
+            ),
+          }
+        : loading
+      : false,
     pagination:
       typeof pagination === "boolean"
         ? pagination

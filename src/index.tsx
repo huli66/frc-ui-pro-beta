@@ -26,5 +26,11 @@ export { default as Tabs } from "./components/Tabs";
 export { default as Table } from "./components/Table";
 
 // interface
-export type { FRCTableProps, ColumnsTypeProps } from "./components/Table/table";
+export type {
+  FRCTableProps,
+  ColumnsTypeProps,
+  FilterValue,
+  SorterResult,
+  PaginationConfig,
+} from "./components/Table/table";
 export type { FRCInputProps, InputRef } from "./components/Input/input";
