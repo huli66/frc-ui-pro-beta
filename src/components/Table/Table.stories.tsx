@@ -1,7 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useRef, useEffect } from "react";
-import ReactMarkdown from "react-markdown";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { ComponentMeta } from "@storybook/react";
 import {
   Title,
@@ -10,6 +8,7 @@ import {
   Stories,
   Heading,
   Subheading,
+  Source,
 } from "@storybook/addon-docs";
 
 import Highlighter from "react-highlight-words";
@@ -42,47 +41,9 @@ import {
 
 // import { Resizable } from "react-resizable";
 
-// ----------------------------------------------------------------
-
-// 引用示例代码
-const ImportComponent = () => {
-  const markdown = `
-~~~js
-import { Table } from 'frc-ui-pro';
-
-// antd type 按需引入
-import type { FRCTableProps } from 'frc-ui-pro';
-~~~
-`;
-
-  return (
-    <>
-      <ReactMarkdown
-        children={markdown}
-        components={{
-          code({ node, inline, className, children, ...props }) {
-            const match = /language-(\w+)/.exec(className || "");
-            return !inline && match ? (
-              <SyntaxHighlighter
-                children={String(children).replace(/\n$/, "")}
-                style={tomorrow}
-                language={match[1]}
-                PreTag="div"
-                {...props}
-              />
-            ) : (
-              <code className={className} {...props}>
-                {children}
-              </code>
-            );
-          },
-        }}
-      />
-    </>
-  );
-};
-
-// ----------------------------------------------------------------
+const ImportCode = ({ code }: { code: string }) => (
+  <Source dark language="ts" code={code.replace(/(\x20\x20)*/g, "")} />
+);
 
 export default {
   title: "数据显示/Table表格",
@@ -94,7 +55,7 @@ export default {
         <>
           <Title />
           <Description>展示行列数据。</Description>
-          <ImportComponent />
+          <ImportCode code={`import { Table } from 'frc-ui-pro';`} />
           <Stories title="组件总览" includePrimary={true} />
 
           <Heading>API</Heading>
@@ -339,8 +300,18 @@ export const _A_RowBgComponent = () => {
     },
   ];
 
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+  `;
+
+  // --------------------------------------------------------------
+
   return (
     <>
+      <ImportCode code={code} />
       default
       <Table rowBgType="default" columns={columns} dataSource={data} />
       <br />
@@ -354,27 +325,374 @@ _A_RowBgComponent.storyName = "不同行背景 rowBgType";
 
 // ----------------------------------------------------------------
 
-export const _B_NoDataComponent = () => {
+// ----------------------------------------------------------------
+
+export const _B_BorderComponent = () => {
+  interface DataType {
+    key: string;
+    name: string;
+    age: number;
+    address: string;
+    tags: string;
+    action: string;
+    sex: "male" | "female";
+    phone: number;
+    description: string;
+  }
+
   const columns: ColumnsTypeProps[] = [
     {
       title: "Name",
       dataIndex: "name",
       key: "name",
+      fixed: "left",
+      width: "150px",
     },
     {
       title: "Age",
       dataIndex: "age",
       key: "age",
+      fixed: "left",
+      width: "100px",
     },
     {
       title: "Address",
       dataIndex: "address",
       key: "address",
+      width: "300px",
+    },
+    {
+      title: "Tags",
+      key: "tags",
+      dataIndex: "tags",
+      width: "200px",
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
+      width: "200px",
+    },
+    {
+      title: "Sex",
+      dataIndex: "sex",
+      key: "sex",
+      width: "200px",
+    },
+    {
+      title: "Phone",
+      key: "phone",
+      dataIndex: "phone",
+      width: "200px",
+    },
+    {
+      title: "Description",
+      key: "description",
+      dataIndex: "description",
+      width: "200px",
+      fixed: "right",
     },
   ];
 
+  const data: DataType[] = [
+    {
+      key: "1",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "2",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "3",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "4",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "5",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "6",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "7",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "8",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "9",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "10",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "11",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "12",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "13",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "14",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "15",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "16",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "17",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "18",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+  ];
+
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+  `;
+
+  // --------------------------------------------------------------
+
   return (
     <>
+      <ImportCode code={code} />
+      <Table
+        bordered
+        columns={columns}
+        dataSource={data}
+        scroll={{ x: 1000, y: 200 }}
+      />
+      <Table
+        bordered
+        rowBgType="cross"
+        columns={columns}
+        dataSource={data}
+        scroll={{ x: 1000, y: 200 }}
+      />
+    </>
+  );
+};
+
+_B_BorderComponent.storyName = "边框 border";
+
+export const _C_NoDataComponent = () => {
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      fixed: "left",
+      width: "150px",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+      fixed: "left",
+      width: "100px",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+      width: "300px",
+    },
+    {
+      title: "Tags",
+      key: "tags",
+      dataIndex: "tags",
+      width: "200px",
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
+      width: "200px",
+    },
+    {
+      title: "Sex",
+      dataIndex: "sex",
+      key: "sex",
+      width: "200px",
+    },
+    {
+      title: "Phone",
+      key: "phone",
+      dataIndex: "phone",
+      width: "200px",
+    },
+    {
+      title: "Description",
+      key: "description",
+      dataIndex: "description",
+      width: "200px",
+      fixed: "right",
+    },
+  ];
+
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+  `;
+
+  // --------------------------------------------------------------
+
+  return (
+    <>
+      <ImportCode code={code} />
       <Table columns={columns} dataSource={[]} locale={{ emptyHeight: 300 }} />
       <Table
         rowBgType="cross"
@@ -386,11 +704,11 @@ export const _B_NoDataComponent = () => {
   );
 };
 
-_B_NoDataComponent.storyName = "暂无数据";
+_C_NoDataComponent.storyName = "暂无数据";
 
 // ----------------------------------------------------------------
 
-export const _C_LoadingComponent = () => {
+export const _D_LoadingComponent = () => {
   interface DataType {
     key: string;
     name: string;
@@ -485,117 +803,139 @@ export const _C_LoadingComponent = () => {
     },
   ];
 
-  return (
-    <Table
-      columns={columns}
-      dataSource={data}
-      scroll={{ x: 1000, y: 200 }}
-      loading
-    />
-  );
-};
+  // --------------------------------------------------------------
 
-_C_LoadingComponent.storyName = "加载中 loading";
+  const code = `
+    // import code
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+  `;
 
-// ----------------------------------------------------------------
-
-export const _D_SizeComponent = () => {
-  interface DataType {
-    key: string;
-    name: string;
-    age: number;
-    address: string;
-  }
-
-  const columns: ColumnsTypeProps[] = [
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-    },
-    {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
-    },
-    {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
-    },
-  ];
-
-  const data: DataType[] = [
-    {
-      key: "1",
-      name: "John Brown1",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-    },
-    {
-      key: "2",
-      name: "Jim Green2",
-      age: 42,
-      address: "London No. 1 Lake Park",
-    },
-    {
-      key: "3",
-      name: "Joe Black3",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "4",
-      name: "Joe Black4",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "5",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "6",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "7",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "8",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "9",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "10",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "11",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-  ];
+  // --------------------------------------------------------------
 
   return (
     <>
+      <ImportCode code={code} />
+      <Table
+        columns={columns}
+        dataSource={data}
+        scroll={{ x: 1000, y: 200 }}
+        loading
+      />
+    </>
+  );
+};
+
+_D_LoadingComponent.storyName = "加载中 loading";
+
+// ----------------------------------------------------------------
+
+export const _E_SizeComponent = () => {
+  interface DataType {
+    key: string;
+    name: string;
+    age: number;
+    address: string;
+  }
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+    },
+  ];
+
+  const data: DataType[] = [
+    {
+      key: "1",
+      name: "John Brown1",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+    },
+    {
+      key: "2",
+      name: "Jim Green2",
+      age: 42,
+      address: "London No. 1 Lake Park",
+    },
+    {
+      key: "3",
+      name: "Joe Black3",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "4",
+      name: "Joe Black4",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "5",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "6",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "7",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "8",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "9",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "10",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "11",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+  ];
+
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+  `;
+
+  // --------------------------------------------------------------
+
+  return (
+    <>
+      <ImportCode code={code} />
       small{" => "}is default
       <Table size="small" columns={columns} dataSource={data} />
       <Table size="small" columns={columns} dataSource={[]} />
@@ -637,11 +977,11 @@ export const _D_SizeComponent = () => {
   );
 };
 
-_D_SizeComponent.storyName = "不同尺寸 size";
+_E_SizeComponent.storyName = "不同尺寸 size";
 
 // ----------------------------------------------------------------
 
-export const _E_HeaderSizeComponent = () => {
+export const _F_HeaderSizeComponent = () => {
   interface DataType {
     key: string;
     name: string;
@@ -736,8 +1076,18 @@ export const _E_HeaderSizeComponent = () => {
     },
   ];
 
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+  `;
+
+  // --------------------------------------------------------------
+
   return (
     <>
+      <ImportCode code={code} />
       small{" => "}is default
       <Table headerSize="small" columns={columns} dataSource={data} />
       <Table
@@ -768,11 +1118,11 @@ export const _E_HeaderSizeComponent = () => {
   );
 };
 
-_E_HeaderSizeComponent.storyName = "不同尺寸 headerSize";
+_F_HeaderSizeComponent.storyName = "不同尺寸 headerSize";
 
 // ----------------------------------------------------------------
 
-export const _F_FixledCloumnsComponent = () => {
+export const _G_FixledCloumnsComponent = () => {
   interface DataType {
     key: string;
     name: string;
@@ -1040,8 +1390,18 @@ export const _F_FixledCloumnsComponent = () => {
     },
   ];
 
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+  `;
+
+  // --------------------------------------------------------------
+
   return (
     <>
+      <ImportCode code={code} />
       <Table
         columns={columns}
         dataSource={data}
@@ -1073,11 +1433,11 @@ export const _F_FixledCloumnsComponent = () => {
   );
 };
 
-_F_FixledCloumnsComponent.storyName = "固定列";
+_G_FixledCloumnsComponent.storyName = "固定列";
 
 // ----------------------------------------------------------------
 
-export const _G_SummaryComponent = () => {
+export const _H_SummaryComponent = () => {
   interface DataType {
     key: string;
     name: string;
@@ -1345,12 +1705,21 @@ export const _G_SummaryComponent = () => {
     },
   ];
 
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+
+    // 用 summary 实现: 表格的 “总结栏” or “置顶功能”。
+    // (tips: “总结栏” 与 “置顶功能”。一个表格中，仅能存在二者其中一个)
+  `;
+
+  // --------------------------------------------------------------
+
   return (
     <>
-      用 summary 实现: 表格的 “总结栏” or “置顶功能”
-      <br />
-      (tips: “总结栏” 与 “置顶功能”。一个表格中，仅能存在二者其中一个)
-      <br />
+      <ImportCode code={code} />
       <Table
         columns={columns}
         dataSource={data}
@@ -1450,11 +1819,11 @@ export const _G_SummaryComponent = () => {
   );
 };
 
-_G_SummaryComponent.storyName = "总结栏/置顶拦";
+_H_SummaryComponent.storyName = "总结栏/置顶拦";
 
 // ----------------------------------------------------------------
 
-export const _H_CustomCellTitleComponent = () => {
+export const _I_CustomCellTitleComponent = () => {
   interface DataType {
     key: string | number;
     name?: string;
@@ -1533,10 +1902,20 @@ export const _H_CustomCellTitleComponent = () => {
     },
   ];
 
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+
+    // 例：配合 Select 组件，实现表格 “单元格” 的自定义： “头部选择”、“数据选择”
+  `;
+
+  // --------------------------------------------------------------
+
   return (
     <>
-      例：配合 Select 组件，实现表格 “单元格” 的自定义： “头部选择”、“数据选择”
-      <br />
+      <ImportCode code={code} />
       <Table
         columns={columns}
         dataSource={data}
@@ -1552,11 +1931,11 @@ export const _H_CustomCellTitleComponent = () => {
   );
 };
 
-_H_CustomCellTitleComponent.storyName = "自定义单元格";
+_I_CustomCellTitleComponent.storyName = "自定义单元格";
 
 // ----------------------------------------------------------------
 
-export const _I_ActiveComponent = () => {
+export const _J_ActiveComponent = () => {
   const [activeItem, setActiveItem] = useState<string | number | undefined>();
   interface DataType {
     key: string;
@@ -1825,9 +2204,20 @@ export const _I_ActiveComponent = () => {
     },
   ];
 
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+  `;
+
+  // --------------------------------------------------------------
+
   return (
     <>
+      <ImportCode code={code} />
       <Table
+        // bordered
         columns={columns}
         dataSource={data}
         scroll={{ x: 900, y: 200 }}
@@ -1845,11 +2235,11 @@ export const _I_ActiveComponent = () => {
   );
 };
 
-_I_ActiveComponent.storyName = "激活选中 row";
+_J_ActiveComponent.storyName = "激活选中 row";
 
 // ----------------------------------------------------------------
 
-export const _J_SelectComponent = () => {
+export const _K_SelectComponent = () => {
   interface DataType {
     key?: string;
     name?: string;
@@ -2132,11 +2522,20 @@ export const _J_SelectComponent = () => {
     }),
   };
 
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+
+    // 第一列是联动的选择框。可以通过 rowSelection.type 属性指定选择类型，默认为checkbox。
+  `;
+
+  // --------------------------------------------------------------
+
   return (
     <>
-      第一列是联动的选择框。可以通过 rowSelection.type 属性指定选择类型，默认为
-      checkbox。
-      <br />
+      <ImportCode code={code} />
       <Table
         rowSelection={{
           type: "checkbox",
@@ -2189,11 +2588,11 @@ export const _J_SelectComponent = () => {
   );
 };
 
-_J_SelectComponent.storyName = "可选择";
+_K_SelectComponent.storyName = "可选择";
 
 // ----------------------------------------------------------------
 
-export const _K_ControlSelectComponent = () => {
+export const _L_ControlSelectComponent = () => {
   interface DataType {
     key: React.Key;
     name: string;
@@ -2251,11 +2650,20 @@ export const _K_ControlSelectComponent = () => {
   };
   const hasSelected = selectedRowKeys && selectedRowKeys.length > 0;
 
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+
+    // 选择后进行操作，完成后清空选择，通过 rowSelection.selectedRowKeys 来控制选中项。
+  `;
+
+  // --------------------------------------------------------------
+
   return (
     <>
-      选择后进行操作，完成后清空选择，通过 rowSelection.selectedRowKeys
-      来控制选中项。
-      <br />
+      <ImportCode code={code} />
       <div style={{ marginBottom: 4 }}>
         <Button
           type="primary"
@@ -2274,11 +2682,11 @@ export const _K_ControlSelectComponent = () => {
   );
 };
 
-_K_ControlSelectComponent.storyName = "选择和操作";
+_L_ControlSelectComponent.storyName = "选择和操作";
 
 // ----------------------------------------------------------------
 
-export const _L_CustomSelectComponent = () => {
+export const _M_CustomSelectComponent = () => {
   interface DataType {
     key: React.Key;
     name: string;
@@ -2363,21 +2771,30 @@ export const _L_CustomSelectComponent = () => {
     ],
   };
 
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+
+    // 通过 rowSelection.selections 自定义选择项，默认不显示下拉选项，设为 true 时显示默认选择项。
+  `;
+
+  // --------------------------------------------------------------
+
   return (
     <>
-      通过 rowSelection.selections 自定义选择项，默认不显示下拉选项，设为 true
-      时显示默认选择项。
-      <br />
+      <ImportCode code={code} />
       <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
     </>
   );
 };
 
-_L_CustomSelectComponent.storyName = "自定义选择项";
+_M_CustomSelectComponent.storyName = "自定义选择项";
 
 // ----------------------------------------------------------------
 
-export const _M_FilterAndSortComponent = () => {
+export const _N_FilterAndSortComponent = () => {
   interface DataType {
     key: React.Key;
     name: string;
@@ -2482,21 +2899,27 @@ export const _M_FilterAndSortComponent = () => {
     console.log("params", pagination, filters, sorter, extra);
   };
 
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps, FRCTableProps } from "frc-ui-pro/components/Table/table";
+
+    // 对某一列数据进行筛选，使用列的 filters属性来指定需要筛选菜单的列，onFilter 用于筛选当前数据，filterMultiple 用于指定多选和单选。
+
+    // 对某一列数据进行排序，通过指定列的 sorter 函数即可启动排序按钮。
+    // sorter:function(rowA, rowB) {...}， rowA、rowB 为比较的两个行数据。
+
+    // sortDirections: ['ascend' | 'descend']改变每列可用的排序方式，切换排序时按数组内容依次切换，设置在 table props 上时对所有列生效。
+    // 你可以通过设置 ['ascend', 'descend', 'ascend'] 禁止排序恢复到默认状态。 
+    // 使用 defaultSortOrder 属性，设置列的默认排序顺序。
+  `;
+
+  // --------------------------------------------------------------
+
   return (
     <>
-      对某一列数据进行筛选，使用列的 filters
-      属性来指定需要筛选菜单的列，onFilter 用于筛选当前数据，filterMultiple
-      用于指定多选和单选。
-      <br />
-      对某一列数据进行排序，通过指定列的 sorter 函数即可启动排序按钮。sorter:
-      function(rowA, rowB) {"{...}"}， rowA、rowB 为比较的两个行数据。
-      <br />
-      sortDirections: ['ascend' |
-      'descend']改变每列可用的排序方式，切换排序时按数组内容依次切换，设置在
-      table props 上时对所有列生效。你可以通过设置 ['ascend', 'descend',
-      'ascend'] 禁止排序恢复到默认状态。 使用 defaultSortOrder
-      属性，设置列的默认排序顺序。
-      <br />
+      <ImportCode code={code} />
       <Table
         columns={columns}
         dataSource={data}
@@ -2507,11 +2930,11 @@ export const _M_FilterAndSortComponent = () => {
   );
 };
 
-_M_FilterAndSortComponent.storyName = "筛选和排序";
+_N_FilterAndSortComponent.storyName = "筛选和排序";
 
 // ----------------------------------------------------------------
 
-export const _N_MultipleSortComponent = () => {
+export const _O_MultipleSortComponent = () => {
   interface DataType {
     key: React.Key;
     name: string;
@@ -2591,21 +3014,31 @@ export const _N_MultipleSortComponent = () => {
     console.log("params", pagination, filters, sorter, extra);
   };
 
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps, FRCTableProps } from "frc-ui-pro/components/Table/table";
+
+    // column.sorter 支持 multiple 字段以配置多列排序优先级。
+    // 通过 sorter.compare 配置排序逻辑，你可以通过不设置该函数只启动多列排序的交互形式。
+  `;
+
+  // --------------------------------------------------------------
+
   return (
     <>
-      column.sorter 支持 multiple 字段以配置多列排序优先级。通过 sorter.compare
-      配置排序逻辑，你可以通过不设置该函数只启动多列排序的交互形式。
-      <br />
+      <ImportCode code={code} />
       <Table columns={columns} dataSource={data} onChange={onChange} />
     </>
   );
 };
 
-_N_MultipleSortComponent.storyName = "多列排序";
+_O_MultipleSortComponent.storyName = "多列排序";
 
 // ----------------------------------------------------------------
 
-export const _O_ControlFilterAndSelectComponent = () => {
+export const _P_ControlFilterAndSelectComponent = () => {
   interface DataType {
     key: string;
     name: string;
@@ -2717,17 +3150,23 @@ export const _O_ControlFilterAndSelectComponent = () => {
     },
   ];
 
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps, FRCTableProps, SorterResult, FilterValue } from "frc-ui-pro/components/Table/table";
+
+    // 使用受控属性对筛选和排序状态进行控制。
+    // 1. columns 中定义了 filteredValue 和sortOrder 属性即视为受控模式。
+    // 2. 只支持同时对一列进行排序，请保证只有一列的 sortOrder 属性是生效的。
+    // 3. 务必指定 column.key。
+  `;
+
+  // --------------------------------------------------------------
+
   return (
     <>
-      <p>使用受控属性对筛选和排序状态进行控制。</p>
-      <p>1. columns 中定义了 filteredValue 和sortOrder 属性即视为受控模式。</p>
-      <p>
-        2. 只支持同时对一列进行排序，请保证只有一列的 sortOrder 属性是生效的。
-      </p>
-      <p>3. 务必指定 column.key。</p>
-      <br />
-      <p>{`import {SorterResult, FilterValue} from "frc-ui-pro/components/Table/table"`}</p>
-      <br />
+      <ImportCode code={code} />
       <Button onClick={setAgeSort}>Sort age</Button>
       <Button onClick={clearFilters}>Clear filters</Button>
       <Button onClick={clearAll}>Clear filters and sorters</Button>
@@ -2737,11 +3176,11 @@ export const _O_ControlFilterAndSelectComponent = () => {
   );
 };
 
-_O_ControlFilterAndSelectComponent.storyName = "可控的筛选和排序";
+_P_ControlFilterAndSelectComponent.storyName = "可控的筛选和排序";
 
 // ----------------------------------------------------------------
 
-export const _P_ControlFilterAndSelectComponent = () => {
+export const _Q_ControlFilterAndSelectComponent = () => {
   interface DataType {
     key: string;
     name: string;
@@ -2906,29 +3345,34 @@ export const _P_ControlFilterAndSelectComponent = () => {
     },
   ];
 
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps, FilterConfirmProps } from "frc-ui-pro/components/Table/table";
+    import { InputRef } from "frc-ui-pro/components/Input/input"
+    import Highlighter from "react-highlight-words"
+
+    // 通过 filterDropdown 自定义的列筛选功能，并实现一个搜索列的示例。
+    // 给函数 clearFilters 添加 boolean 类型参数 closeDropdown，是否关闭筛选菜单，默认为 true。
+    // 添加 boolean 类型参数 confirm，清除筛选时是否提交已选项，默认 true。
+  `;
+
+  // --------------------------------------------------------------
+
   return (
     <>
-      <p>通过 filterDropdown 自定义的列筛选功能，并实现一个搜索列的示例。</p>
-      <p>
-        给函数 clearFilters 添加 boolean 类型参数
-        closeDropdown，是否关闭筛选菜单，默认为 true。添加 boolean 类型参数
-        confirm，清除筛选时是否提交已选项，默认 true。
-      </p>
-      <br />
-      <p>{`import Highlighter from "react-highlight-words"`}</p>
-      <p>{`import { ColumnsTypeProps, FilterConfirmProps } from "frc-ui-pro/components/Table/table"`}</p>
-      <p>{`import { InputRef } from "frc-ui-pro/components/Input/input"`}</p>
-      <br />
+      <ImportCode code={code} />
       <Table columns={columns} dataSource={data} />
     </>
   );
 };
 
-_P_ControlFilterAndSelectComponent.storyName = "自定义筛选菜单";
+_Q_ControlFilterAndSelectComponent.storyName = "自定义筛选菜单";
 
 // ----------------------------------------------------------------
 
-export const _Q_MockRequestComponent = () => {
+export const _R_MockRequestComponent = () => {
   interface DataType {
     name: {
       first: string;
@@ -3030,31 +3474,25 @@ export const _Q_MockRequestComponent = () => {
     }
   };
 
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import qs from "qs";
+    import { ColumnsTypeProps, PaginationConfig, SorterResult } from "frc-ui-pro/components/Table/table";
+
+    // 这个例子通过简单的 ajax读取方式，演示了如何从服务端读取并展现数据，具有筛选、排序等功能以及页面loading 效果。
+    // 开发者可以自行接入其他数据处理方式。
+    // 另外，本例也展示了筛选排序功能如何交给服务端实现，列不需要指定具体的onFilter 和 sorter 函数，而是在把筛选和排序的参数发到服务端来处理。
+    // 当使用 rowSelection 时，请设置 rowSelection.preserveSelectedRowKeys 属性以保留 key。
+    // 注意，此示例使用模拟接口，展示数据可能不准确，请打开网络面板查看请求。
+  `;
+
+  // --------------------------------------------------------------
+
   return (
     <>
-      <p>
-        这个例子通过简单的 ajax
-        读取方式，演示了如何从服务端读取并展现数据，具有筛选、排序等功能以及页面
-        loading 效果。开发者可以自行接入其他数据处理方式。
-      </p>
-      <p>
-        另外，本例也展示了筛选排序功能如何交给服务端实现，列不需要指定具体的
-        onFilter 和 sorter 函数，而是在把筛选和排序的参数发到服务端来处理。
-      </p>
-      <p>
-        当使用 rowSelection 时，请设置 rowSelection.preserveSelectedRowKeys
-        属性以保留 key。
-      </p>
-      <p>
-        <strong>
-          注意，此示例使用
-          模拟接口，展示数据可能不准确，请打开网络面板查看请求。
-        </strong>
-      </p>
-      <br />
-      <p>{`import qs from "qs";`}</p>
-      <p>{`import { ColumnsTypeProps, PaginationConfig, SorterResult } from "frc-ui-pro/components/Table/table";`}</p>
-      <br />
+      <ImportCode code={code} />
       <Table
         columns={columns}
         rowKey={(record) => record.login.uuid}
@@ -3067,11 +3505,96 @@ export const _Q_MockRequestComponent = () => {
   );
 };
 
-_Q_MockRequestComponent.storyName = "远程加载数据";
+_R_MockRequestComponent.storyName = "远程加载数据";
 
 // ----------------------------------------------------------------
 
-export const _R_ExtendComponent = () => {
+export const _S_HeaderAndFooterComponent = () => {
+  interface DataType {
+    key: string;
+    name: string;
+    money: string;
+    address: string;
+  }
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      render: (text) => <Button type="link">{text}</Button>,
+    },
+    {
+      title: "Cash Assets",
+      className: "column-money",
+      dataIndex: "money",
+      align: "right",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+    },
+  ];
+
+  const data: DataType[] = [
+    {
+      key: "1",
+      name: "John Brown",
+      money: "￥300,000.00",
+      address: "New York No. 1 Lake Park",
+    },
+    {
+      key: "2",
+      name: "Jim Green",
+      money: "￥1,256,000.00",
+      address: "London No. 1 Lake Park",
+    },
+    {
+      key: "3",
+      name: "Joe Black",
+      money: "￥120,000.00",
+      address: "Sidney No. 1 Lake Park",
+    },
+  ];
+
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+
+    // 添加页头和页脚。
+  `;
+
+  // --------------------------------------------------------------
+
+  return (
+    <>
+      <ImportCode code={code} />
+      <Table
+        columns={columns}
+        dataSource={data}
+        bordered
+        title={() => "Header"}
+        footer={() => "Footer"}
+      />
+
+      <Table
+        rowBgType="cross"
+        columns={columns}
+        dataSource={data}
+        bordered
+        title={() => "Header"}
+        footer={() => "Footer"}
+      />
+    </>
+  );
+};
+
+_S_HeaderAndFooterComponent.storyName = "页头/页脚";
+
+// ----------------------------------------------------------------
+
+export const _T_ExtendComponent = () => {
   interface DataType {
     key: React.Key;
     name: string;
@@ -3081,7 +3604,7 @@ export const _R_ExtendComponent = () => {
   }
 
   const columns: ColumnsTypeProps[] = [
-    { title: "Name", dataIndex: "name", key: "name" },
+    { title: "Name", dataIndex: "name", key: "name", fixed: "left" },
     { title: "Age", dataIndex: "age", key: "age" },
     { title: "Address", dataIndex: "address", key: "address" },
     {
@@ -3126,11 +3649,21 @@ export const _R_ExtendComponent = () => {
     },
   ];
 
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps} from "frc-ui-pro/components/Table/table";
+
+    // 当表格内容较多不能一次性完全展示时。
+    // (tips: rowBgType 为 cross，会出现背景色冲突，功能正常)
+  `;
+
+  // --------------------------------------------------------------
+
   return (
     <>
-      <p>当表格内容较多不能一次性完全展示时。</p>
-      (tips: rowBgType 为 cross，会出现背景色冲突，功能正常)
-      <br />
+      <ImportCode code={code} />
       <Table
         columns={columns}
         expandable={{
@@ -3145,7 +3678,224 @@ export const _R_ExtendComponent = () => {
   );
 };
 
-_R_ExtendComponent.storyName = "可展开";
+_T_ExtendComponent.storyName = "可展开";
+
+// ----------------------------------------------------------------
+
+export const _U_SpecialColSortComponent = () => {
+  interface DataType {
+    key: React.Key;
+    name: string;
+    age: number;
+    address: string;
+    description: string;
+  }
+
+  const columns: ColumnsTypeProps[] = [
+    { title: "Name", dataIndex: "name", key: "name" },
+    Table.EXPAND_COLUMN,
+    { title: "Age", dataIndex: "age", key: "age" },
+    Table.SELECTION_COLUMN,
+    { title: "Address", dataIndex: "address", key: "address" },
+  ];
+
+  const data: DataType[] = [
+    {
+      key: 1,
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description:
+        "My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.",
+    },
+    {
+      key: 2,
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description:
+        "My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.",
+    },
+    {
+      key: 3,
+      name: "Not Expandable",
+      age: 29,
+      address: "Jiangsu No. 1 Lake Park",
+      description: "This not expandable",
+    },
+    {
+      key: 4,
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description:
+        "My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.",
+    },
+  ];
+
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+
+    // 你可以通过 Table.EXPAND_COLUMN 和 Table.SELECT_COLUMN 来控制选择和展开列的顺序。
+  `;
+
+  // --------------------------------------------------------------
+
+  return (
+    <>
+      <ImportCode code={code} />
+      <Table
+        columns={columns}
+        rowSelection={{}}
+        expandable={{
+          expandedRowRender: (record) => (
+            <p style={{ margin: 0 }}>{record.description}</p>
+          ),
+        }}
+        dataSource={data}
+      />
+    </>
+  );
+};
+
+_U_SpecialColSortComponent.storyName = "特殊列排序";
+
+// ----------------------------------------------------------------
+
+export const _V_CombineRowAndColComponent = () => {
+  interface DataType {
+    key: string;
+    name: string;
+    age: number;
+    tel: string;
+    phone: number;
+    address: string;
+  }
+
+  // In the fifth row, other columns are merged into first column
+  // by setting it's colSpan to be 0
+  const sharedOnCell = (_?: DataType, index?: number) => {
+    if (index === 4) {
+      return { colSpan: 0 };
+    }
+
+    return {};
+  };
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      render: (text) => <Button type="link">{text}</Button>,
+      onCell: (_, index) => ({
+        colSpan: (index as number) < 4 ? 1 : 5,
+      }),
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      onCell: sharedOnCell,
+    },
+    {
+      title: "Home phone",
+      colSpan: 2,
+      dataIndex: "tel",
+      onCell: (_, index) => {
+        if (index === 2) {
+          return { rowSpan: 2 };
+        }
+        // These two are merged into above cell
+        if (index === 3) {
+          return { rowSpan: 0 };
+        }
+        if (index === 4) {
+          return { colSpan: 0 };
+        }
+
+        return {};
+      },
+    },
+    {
+      title: "Phone",
+      colSpan: 0,
+      dataIndex: "phone",
+      onCell: sharedOnCell,
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      onCell: sharedOnCell,
+    },
+  ];
+
+  const data: DataType[] = [
+    {
+      key: "1",
+      name: "John Brown",
+      age: 32,
+      tel: "0571-22098909",
+      phone: 18889898989,
+      address: "New York No. 1 Lake Park",
+    },
+    {
+      key: "2",
+      name: "Jim Green",
+      tel: "0571-22098333",
+      phone: 18889898888,
+      age: 42,
+      address: "London No. 1 Lake Park",
+    },
+    {
+      key: "3",
+      name: "Joe Black",
+      age: 32,
+      tel: "0575-22098909",
+      phone: 18900010002,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "4",
+      name: "Jim Red",
+      age: 18,
+      tel: "0575-22098909",
+      phone: 18900010002,
+      address: "London No. 2 Lake Park",
+    },
+    {
+      key: "5",
+      name: "Jake White",
+      age: 18,
+      tel: "0575-22098909",
+      phone: 18900010002,
+      address: "Dublin No. 2 Lake Park",
+    },
+  ];
+
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { Button } from "frc-ui-pro";
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+
+    // 表头只支持列合并，使用 column 里的 colSpan 进行设置。
+    // 表格支持行/列合并，使用 render 里的单元格属性 colSpan 或者 rowSpan 设值为 0 时，设置的表格不会渲染。
+  `;
+
+  // --------------------------------------------------------------
+
+  return (
+    <>
+      <ImportCode code={code} />
+      <Table bordered columns={columns} dataSource={data} />
+    </>
+  );
+};
+
+_V_CombineRowAndColComponent.storyName = "表格行/列合并";
 
 // // ----------------------------------------------------------------
 

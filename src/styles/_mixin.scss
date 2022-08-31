@@ -983,105 +983,131 @@
 // table ------------------------------------------------------------------------------------
 
 @mixin table-size-bg-default($line-height, $empty-top-text) {
-  // header
-  .ant-table-thead {
-    tr {
-      .ant-table-cell {
-        line-height: $line-height - 1;
-        .ant-checkbox-wrapper {
-          line-height: $line-height - 1;
-        }
-      }
-    }
+  // title
+  .ant-table-title {
+    line-height: $line-height;
   }
 
-  // body
-  .ant-table-tbody {
-    .ant-table-row {
-      .ant-table-cell {
-        line-height: $line-height - 1;
-        .ant-checkbox-wrapper {
+  // container
+  .ant-table-container {
+    // header
+    .ant-table-thead {
+      tr {
+        .ant-table-cell {
           line-height: $line-height - 1;
+          .ant-checkbox-wrapper {
+            line-height: $line-height - 1;
+          }
         }
       }
     }
 
-    // extend row
-    .ant-table-expanded-row {
-      .ant-table-cell {
-        line-height: $line-height - 1;
+    // body
+    .ant-table-tbody {
+      .ant-table-row {
+        .ant-table-cell {
+          line-height: $line-height - 1;
+          .ant-checkbox-wrapper {
+            line-height: $line-height - 1;
+          }
+        }
       }
-    }
-  }
 
-  // summary
-  .ant-table-summary {
-    tr {
-      .ant-table-cell {
-        line-height: $line-height - 1;
-      }
-    }
-  }
-
-  // empty
-  .ant-table-placeholder {
-    background: linear-gradient(
-      180deg,
-      transparent $line-height - 1,
-      $part-plate $line-height
-    );
-    background-size: 100px $line-height;
-    .frc-table-empty {
-      top: $empty-top-text;
-    }
-  }
-}
-
-@mixin table-size-bg-cross($line-height, $empty-top-text) {
-  .ant-table-thead {
-    tr {
-      .ant-table-cell {
-        line-height: $line-height;
-      }
-    }
-  }
-  .ant-table-tbody {
-    .ant-table-row {
-      .ant-table-cell {
-        line-height: $line-height;
+      // extend row
+      .ant-table-expanded-row {
+        .ant-table-cell {
+          line-height: $line-height - 1;
+        }
       }
     }
 
-    // extend row
-    .ant-table-expanded-row {
-      .ant-table-cell {
-        line-height: $line-height;
+    // summary
+    .ant-table-summary {
+      tr {
+        .ant-table-cell {
+          line-height: $line-height - 1;
+        }
       }
     }
-  }
 
-  // summary
-  .ant-table-summary {
-    tr {
-      .ant-table-cell {
-        line-height: $line-height - 1;
-      }
-    }
-  }
-
-  // empty
-  .ant-table-tbody {
-    // empty data
+    // empty
     .ant-table-placeholder {
-      background: linear-gradient(0deg, $basic-plate 50%, $part-plate 50%);
-      background-size: 100px $line-height * 2;
-    }
-
-    .ant-table-cell {
+      background: linear-gradient(
+        180deg,
+        transparent $line-height - 1,
+        $part-plate $line-height
+      );
+      background-size: 100px $line-height;
       .frc-table-empty {
         top: $empty-top-text;
       }
     }
+  }
+
+  // footer
+  .ant-table-footer {
+    line-height: $line-height;
+  }
+}
+
+@mixin table-size-bg-cross($line-height, $empty-top-text) {
+  // title
+  .ant-table-title {
+    line-height: $line-height - 1;
+  }
+
+  // container
+  .ant-table-container {
+    .ant-table-thead {
+      tr {
+        .ant-table-cell {
+          line-height: $line-height;
+        }
+      }
+    }
+    .ant-table-tbody {
+      .ant-table-row {
+        .ant-table-cell {
+          line-height: $line-height;
+        }
+      }
+
+      // extend row
+      .ant-table-expanded-row {
+        .ant-table-cell {
+          line-height: $line-height;
+        }
+      }
+    }
+
+    // summary
+    .ant-table-summary {
+      tr {
+        .ant-table-cell {
+          line-height: $line-height - 1;
+        }
+      }
+    }
+
+    // empty
+    .ant-table-tbody {
+      // empty data
+      .ant-table-placeholder {
+        background: linear-gradient(0deg, $basic-plate 50%, $part-plate 50%);
+        background-size: 100px $line-height * 2;
+      }
+
+      .ant-table-cell {
+        .frc-table-empty {
+          top: $empty-top-text;
+        }
+      }
+    }
+  }
+
+  // footer
+  .ant-table-footer {
+    line-height: $line-height - 1;
   }
 }
 
