@@ -286,7 +286,13 @@
 
     // border
     &.ant-table-bordered {
-      // normal
+      // title
+      .ant-table-title {
+        border: $table-border;
+        border-bottom: none;
+      }
+
+      // container
       .ant-table-container {
         border-radius: 0;
         border-left: $table-border;
@@ -336,6 +342,12 @@
             }
           }
         }
+      }
+
+      // footer
+      .ant-table-footer {
+        border: $table-border;
+        border-top: none;
       }
 
       // scroll
@@ -420,7 +432,6 @@
 
   // row bg type cross -> normal style
   &.frc-row-bg-type-cross {
-    // basic
     .ant-table {
       // title
       .ant-table-title {
@@ -468,6 +479,12 @@
 
       // border
       &.ant-table-bordered {
+        // title
+        .ant-table-title {
+          border-bottom: none;
+        }
+
+        // container
         .ant-table-container {
           .ant-table-content {
             // header

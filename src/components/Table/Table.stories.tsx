@@ -3522,6 +3522,7 @@ export const _S_HeaderAndFooterComponent = () => {
       title: "Name",
       dataIndex: "name",
       render: (text) => <Button type="link">{text}</Button>,
+      fixed: "left",
     },
     {
       title: "Cash Assets",
