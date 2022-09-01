@@ -50,21 +50,7 @@
       display: none;
     }
     // icon
-    &.ant-checkbox-indeterminate {
-      .ant-checkbox-inner {
-        &::after {
-          width: 8px;
-          height: 8px;
-          margin-top: -4px;
-          margin-left: -4px;
-          border: none;
-          transform: rotate(0deg) scale(0.5) translate(0%, 0%);
-          top: 50%;
-          left: 50%;
-          background-color: $words-high-light;
-        }
-      }
-    }
+    @include checkbox-indeterminate();
   }
   span.ant-checkbox + * {
     padding-right: 3px;
