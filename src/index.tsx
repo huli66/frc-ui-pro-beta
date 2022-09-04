@@ -32,5 +32,6 @@ export type {
   FilterValue,
   SorterResult,
   PaginationConfig,
+  RowSelectionProps,
 } from "./components/Table/table";
 export type { FRCInputProps, InputRef } from "./components/Input/input";

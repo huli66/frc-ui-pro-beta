@@ -1,4 +1,6 @@
 import FRCTable from "./table";
+import FRCTableColumn from "./tableColumn";
+import FRCTableColumnGroup from "./tableColumnGroup";
 import { FRCSummary, FRCRow, FRCCell } from "./summary";
 
 import { Table } from "antd";
@@ -15,6 +17,8 @@ type FRCTableComponent = typeof FRCTable & {
   SELECTION_NONE: any;
   EXPAND_COLUMN: any;
   SELECTION_COLUMN: any;
+  Column: typeof FRCTableColumn;
+  ColumnGroup: typeof FRCTableColumnGroup;
 };
 
 const TransTable = FRCTable as FRCTableComponent;
@@ -29,5 +33,8 @@ TransTable.SELECTION_INVERT = Table.SELECTION_INVERT;
 TransTable.SELECTION_NONE = Table.SELECTION_NONE;
 TransTable.EXPAND_COLUMN = Table.EXPAND_COLUMN;
 TransTable.SELECTION_COLUMN = Table.SELECTION_COLUMN;
+
+TransTable.Column = FRCTableColumn;
+TransTable.ColumnGroup = FRCTableColumnGroup;
 
 export default TransTable;

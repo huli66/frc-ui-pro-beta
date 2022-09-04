@@ -20,12 +20,14 @@
   * {
     font-size: $table-base-font-size;
   }
+
   // basic ------------------------------------------------------------------------------------------------
 
   // normal style
   .ant-table {
     background: $table-background;
     border-radius: 0;
+
     // title
     .ant-table-title {
       color: $table-color-text;
@@ -36,8 +38,10 @@
     .ant-table-container {
       table {
         border-radius: 0;
-        thead > tr:first-child {
+
+        thead>tr:first-child {
           th {
+
             &:first-child,
             &:last-child {
               border-radius: 0;
@@ -48,6 +52,7 @@
 
       // table first head
       colgroup {
+
         // extend col
         .ant-table-expand-icon-col {
           width: 32px;
@@ -79,6 +84,7 @@
               .ant-table-column-sorters {
                 .ant-table-column-sorter {
                   color: $table-color-title;
+
                   .ant-table-column-sorter-inner {
                     span {
                       svg {
@@ -107,9 +113,11 @@
             .ant-table-filter-column {
               .ant-dropdown-trigger.ant-table-filter-trigger {
                 color: $table-color-title;
+
                 &.ant-dropdown-open {
                   color: $table-color-title-active;
                 }
+
                 span {
                   svg {
                     width: 10px;
@@ -123,6 +131,8 @@
 
       // table body
       .ant-table-tbody {
+
+        // normal row
         .ant-table-row {
           .ant-table-cell {
             color: $table-color-text;
@@ -139,12 +149,13 @@
 
             // hover item
             &.ant-table-cell-row-hover {
-              background: $table-background-hover !important;
+              background: $table-background-hover  !important;
             }
 
             // select item
             &.ant-table-selection-column {
               padding: 0;
+
               .ant-checkbox-wrapper {
                 padding: 0;
               }
@@ -156,7 +167,8 @@
             }
 
             // extend icon
-            &.ant-table-row-expand-icon-cell {
+            &.ant-table-row-expand-icon-cell,
+            &.ant-table-cell-with-append {
               .ant-table-row-expand-icon {
                 background: $checkbox-background-icon;
                 color: $checkbox-color;
@@ -169,10 +181,11 @@
           &.ant-table-row-selected,
           &.frc-table-row-active {
             .ant-table-cell {
-              background: $table-background-active !important;
+              background: $table-background-active  !important;
             }
+
             .ant-table-cell-row-hover {
-              background: $table-background-hover !important;
+              background: $table-background-hover  !important;
             }
           }
         }
@@ -188,6 +201,7 @@
             .ant-table-expanded-row-fixed {
               margin: 0;
               padding: 0;
+
               &::after {
                 border-right: none;
               }
@@ -199,6 +213,7 @@
       // summary
       .ant-table-summary {
         background: $table-background-title;
+
         tr {
           .ant-table-cell {
             color: $table-color-text;
@@ -210,14 +225,16 @@
               background: $table-background-title;
             }
           }
+
           &:last-child {
             .ant-table-cell {
               border-bottom: $table-border-bold;
             }
           }
+
           &:hover {
             .ant-table-cell {
-              background: $table-background-hover !important;
+              background: $table-background-hover  !important;
             }
           }
         }
@@ -249,6 +266,7 @@
             width: 100%;
           }
         }
+
         &:hover {
           td.ant-table-cell {
             background: transparent;
@@ -260,6 +278,7 @@
       &.ant-table-bordered {
         .ant-table-container {
           border-bottom: $table-border;
+
           .ant-table-content {
             table {
               tbody {
@@ -286,6 +305,7 @@
 
     // border
     &.ant-table-bordered {
+
       // title
       .ant-table-title {
         border: $table-border;
@@ -306,9 +326,11 @@
               tr {
                 th {
                   border-right: $table-border-title;
+
                   &:last-child {
                     border-right: $table-border;
                   }
+
                   &.ant-table-cell-fix-right-first {
                     &::after {
                       border-right: $table-border-title;
@@ -320,19 +342,23 @@
 
             // body
             .ant-table-tbody {
+
               .ant-table-row,
               .ant-table-expanded-row {
                 .ant-table-cell {
                   border-right: $table-border;
+
                   &.ant-table-cell-fix-left {
                     border-right: $table-border-title;
                   }
+
                   &.ant-table-cell-fix-right-first {
                     &::after {
                       border-right: $table-border-title;
                     }
                   }
                 }
+
                 &:last-child {
                   .ant-table-cell {
                     border-bottom: $table-border;
@@ -360,13 +386,16 @@
           .ant-table-header {
             table {
               border-top: $table-border;
+
               thead {
                 tr {
                   th {
                     border-right: $table-border-title;
+
                     &.ant-table-cell-scrollbar {
                       border-right: none;
                     }
+
                     &:nth-last-child(2) {
                       border-right: none;
                     }
@@ -416,9 +445,11 @@
         tr {
           .ant-table-cell {
             border-right: $table-border-title;
+
             &:last-child {
               border-right: none;
             }
+
             &.ant-table-cell-fix-right {
               &::after {
                 border-right: $table-border-title;
@@ -433,6 +464,7 @@
   // row bg type cross -> normal style
   &.frc-row-bg-type-cross {
     .ant-table {
+
       // title
       .ant-table-title {
         border-bottom: $table-border;
@@ -440,6 +472,7 @@
 
       // container
       .ant-table-container {
+
         // header
         .ant-table-thead {
           tr {
@@ -449,17 +482,21 @@
             }
           }
         }
+
         // body
         .ant-table-tbody {
           .ant-table-row {
             &:nth-child(odd) {
               background: $part-plate;
+
               .ant-table-cell {
                 background: $part-plate;
               }
             }
+
             &:nth-child(even) {
               background: $basic-plate;
+
               .ant-table-cell {
                 background: $basic-plate;
               }
@@ -479,6 +516,7 @@
 
       // border
       &.ant-table-bordered {
+
         // title
         .ant-table-title {
           border-bottom: none;
@@ -487,6 +525,7 @@
         // container
         .ant-table-container {
           .ant-table-content {
+
             // header
             .ant-table-thead {
               tr {
@@ -495,15 +534,18 @@
                 }
               }
             }
+
             // body
             .ant-table-tbody {
               .ant-table-row {
                 &:nth-child(odd) {
                   .ant-table-cell {
                     border-right: $table-border-title;
+
                     &:last-child {
                       border-right: $table-border;
                     }
+
                     &.ant-table-cell-fix-right-first {
                       &::after {
                         border-right: $table-border-title;
@@ -511,9 +553,11 @@
                     }
                   }
                 }
+
                 &:nth-child(even) {
                   .ant-table-cell {
                     border-right: $table-border;
+
                     &.ant-table-cell-fix-right-first {
                       &::after {
                         border-right: $table-border;
@@ -533,12 +577,15 @@
           .ant-table-row {
             &:nth-child(odd) {
               background: $basic-plate;
+
               .ant-table-cell {
                 background: $basic-plate;
               }
             }
+
             &:nth-child(even) {
               background: $part-plate;
+
               .ant-table-cell {
                 background: $part-plate;
               }
@@ -555,13 +602,16 @@
             .ant-table-header {
               table {
                 border-top: none;
+
                 .ant-table-thead {
                   tr {
                     th {
                       border-right: $table-border;
+
                       &.ant-table-cell-scrollbar {
                         border-right: none;
                       }
+
                       &:nth-last-child(2) {
                         border-right: none;
                       }
@@ -579,14 +629,17 @@
                     &:nth-child(odd) {
                       .ant-table-cell {
                         border-right: $table-border;
+
                         &:last-child {
                           border-right: none;
                         }
                       }
                     }
+
                     &:nth-child(even) {
                       .ant-table-cell {
                         border-right: $table-border-title;
+
                         &:last-child {
                           border-right: none;
                         }
@@ -617,6 +670,7 @@
           .ant-table-selection {
             .ant-table-selection-extra {
               left: -14px;
+
               .ant-dropdown-trigger {
                 span {
                   svg {
@@ -647,28 +701,23 @@
 
   // row bg type default
   &.frc-row-bg-type-default {
+
     // small
     .ant-table.ant-table-small {
-      @include table-size-bg-default(
-        $table-small-line-height,
-        $table-small-empty-top
-      );
+      @include table-size-bg-default($table-small-line-height,
+        $table-small-empty-top );
     }
 
     // middle
     .ant-table.ant-table-middle {
-      @include table-size-bg-default(
-        $table-middle-line-height,
-        $table-middle-empty-top
-      );
+      @include table-size-bg-default($table-middle-line-height,
+        $table-middle-empty-top );
     }
 
     // large
     .ant-table {
-      @include table-size-bg-default(
-        $table-large-line-height,
-        $table-large-empty-top
-      );
+      @include table-size-bg-default($table-large-line-height,
+        $table-large-empty-top );
     }
 
     // header size ------------------------------------------------------------------------------------------
@@ -690,28 +739,23 @@
 
   // row bg type cross
   &.frc-row-bg-type-cross {
+
     // small
     .ant-table.ant-table-small {
-      @include table-size-bg-cross(
-        $table-small-line-height,
-        $table-small-empty-top
-      );
+      @include table-size-bg-cross($table-small-line-height,
+        $table-small-empty-top );
     }
 
     // middle
     .ant-table.ant-table-middle {
-      @include table-size-bg-cross(
-        $table-middle-line-height,
-        $table-middle-empty-top
-      );
+      @include table-size-bg-cross($table-middle-line-height,
+        $table-middle-empty-top );
     }
 
     // large
     .ant-table {
-      @include table-size-bg-cross(
-        $table-large-line-height,
-        $table-large-empty-top
-      );
+      @include table-size-bg-cross($table-large-line-height,
+        $table-large-empty-top );
     }
 
     // header size ------------------------------------------------------------------------------------------
@@ -734,6 +778,7 @@
   // scrollbar --------------------------------------------------------------------------------------------
 
   .ant-table {
+
     // 控制整个滚动条
     ::-webkit-scrollbar {
       width: 8px;
@@ -746,6 +791,7 @@
       border-radius: 4px;
       border: 2px solid transparent;
       background-clip: padding-box;
+
       &:hover {
         background-color: $btn-hover;
       }
@@ -763,6 +809,7 @@
 
   // loading ----------------------------------------------------------------------------------------------
   .ant-spin-nested-loading {
+
     // icon
     .ant-spin {
       .frc-table-loading {
@@ -773,6 +820,7 @@
           color: $basic-title;
         }
       }
+
       .ant-spin-text {
         color: $basic-btn;
         text-shadow: none;
@@ -797,18 +845,22 @@
 
 .ant-dropdown {
   .ant-table-filter-dropdown {
-    background: $table-background !important;
+    background: $table-background  !important;
     box-shadow: 0 0 24px 0 rgba(255, 235, 200, 0.3);
+
     .ant-dropdown-menu {
       box-shadow: none;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
+
       .ant-dropdown-menu-item {
         padding: 0;
+
         .ant-dropdown-menu-title-content {
           display: flex;
           align-items: center;
           padding: 0 2px;
+
           span {
             padding: 0 2px;
           }
@@ -819,6 +871,7 @@
         }
       }
     }
+
     .ant-table-filter-dropdown-btns {
       position: relative;
       padding: 4px 8px;
@@ -832,6 +885,7 @@
         color: $table-color-text;
         padding: 0;
       }
+
       .ant-btn-link[disabled],
       .ant-btn-link[disabled]:hover {
         color: $words-disable;
@@ -844,20 +898,24 @@
   .ant-dropdown-menu {
     .ant-dropdown-menu-item {
       padding: 0 !important;
+
       .ant-dropdown-menu-title-content {
         display: flex;
         align-items: center;
         padding: 0 2px;
+
         span {
           padding: 0 10px 0 0;
           font-size: 12px;
         }
+
         .ant-checkbox {
           padding: 0;
         }
 
         .ant-radio-wrapper {
           margin-right: 0;
+
           .ant-radio {
             padding: 0 2px 0 0;
           }

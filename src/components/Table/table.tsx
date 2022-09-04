@@ -18,6 +18,8 @@ import {
   SelectionItem,
 } from "antd/lib/table/interface";
 
+import { RenderedCell } from "rc-table/lib/interface";
+
 import {
   CaretLeftOutlined,
   CaretRightOutlined,
@@ -120,7 +122,11 @@ interface BaseColumnsTypeProps<RecordType> {
   /** React 需要的 key，如果已经设置了唯一的 dataIndex，可以忽略这个属性 */
   key?: string;
   /** 生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引 */
-  render?: (text: string, record: RecordType, index: number) => ReactNode;
+  render?: (
+    value: any,
+    record: RecordType,
+    index: number
+  ) => React.ReactNode | RenderedCell<RecordType>;
   /** 响应式 breakpoint 配置列表。未设置则始终可见。 */
   responsive?: ("xxl" | "xl" | "lg" | "md" | "sm" | "xs")[];
   /** 自定义单元格渲染时机 */

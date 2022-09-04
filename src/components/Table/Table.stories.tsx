@@ -10,9 +10,9 @@ import {
   Subheading,
   Source,
 } from "@storybook/addon-docs";
-
-import Highlighter from "react-highlight-words";
-import qs from "qs";
+import "./_story.scss";
+import Table from "./index";
+import { ImportCode } from "../../utils/importComponent";
 
 import {
   ColumnShowArgsTable,
@@ -23,27 +23,44 @@ import {
   TableLocaleShowArgsTable,
 } from "./extendArgsTable";
 
-import "./_story.scss";
-import Table from "./index";
-
+import Highlighter from "react-highlight-words";
+import qs from "qs";
 import {
+  // component
   Select,
   Button,
   Input,
   Icon,
+  Switch,
+  // type
   FRCTableProps,
   ColumnsTypeProps,
   InputRef,
   FilterValue,
   SorterResult,
   PaginationConfig,
+  RowSelectionProps,
 } from "../../index";
 
 // import { Resizable } from "react-resizable";
 
-const ImportCode = ({ code }: { code: string }) => (
-  <Source dark language="ts" code={code.replace(/(\x20\x20)*/g, "")} />
-);
+// const ImportCode = ({ code }: { code: string }) => (
+//   <ReactMarkdown
+//     children={code}
+//     components={{
+//       code({ node, inline, className, children, ...props }) {
+//         const match = /language-(\w+)/.exec(className || '')
+//         return <SyntaxHighlighter
+//           children={String(children).replace(/\n$/, '')}
+//           style={tomorrow}
+//           language={'ts'}
+//           PreTag="div"
+//           {...props}
+//         />
+//       }
+//     }}
+//   />
+// );
 
 export default {
   title: "数据显示/Table表格",
@@ -55,7 +72,11 @@ export default {
         <>
           <Title />
           <Description>展示行列数据。</Description>
-          <ImportCode code={`import { Table } from 'frc-ui-pro';`} />
+          <Source
+            dark
+            language="ts"
+            code={`import { Table } from 'frc-ui-pro';`}
+          />
           <Stories title="组件总览" includePrimary={true} />
 
           <Heading>API</Heading>
@@ -2508,7 +2529,7 @@ export const _K_SelectComponent = () => {
   ];
 
   // rowSelection object indicates the need for row selection
-  const rowSelection = {
+  const rowSelection: RowSelectionProps = {
     onChange: (selectedRowKeys?: React.Key[], selectedRows?: DataType[]) => {
       console.log(
         `selectedRowKeys: ${selectedRowKeys}`,
@@ -2526,7 +2547,7 @@ export const _K_SelectComponent = () => {
 
   const code = `
     // import code
-    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps, RowSelectionProps } from "frc-ui-pro/components/Table/table";
 
     // 第一列是联动的选择框。可以通过 rowSelection.type 属性指定选择类型，默认为checkbox。
   `;
@@ -2644,7 +2665,7 @@ export const _L_ControlSelectComponent = () => {
     newSelectedRowKeys && setSelectedRowKeys(newSelectedRowKeys);
   };
 
-  const rowSelection = {
+  const rowSelection: RowSelectionProps = {
     selectedRowKeys,
     onChange: onSelectChange,
   };
@@ -2654,7 +2675,7 @@ export const _L_ControlSelectComponent = () => {
 
   const code = `
     // import code
-    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps, RowSelectionProps } from "frc-ui-pro/components/Table/table";
 
     // 选择后进行操作，完成后清空选择，通过 rowSelection.selectedRowKeys 来控制选中项。
   `;
@@ -2729,7 +2750,7 @@ export const _M_CustomSelectComponent = () => {
     newSelectedRowKeys && setSelectedRowKeys(newSelectedRowKeys);
   };
 
-  const rowSelection = {
+  const rowSelection: RowSelectionProps = {
     selectedRowKeys,
     onChange: onSelectChange,
     selections: [
@@ -2775,7 +2796,7 @@ export const _M_CustomSelectComponent = () => {
 
   const code = `
     // import code
-    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps, RowSelectionProps } from "frc-ui-pro/components/Table/table";
 
     // 通过 rowSelection.selections 自定义选择项，默认不显示下拉选项，设为 true 时显示默认选择项。
   `;
@@ -3897,6 +3918,243 @@ export const _V_CombineRowAndColComponent = () => {
 };
 
 _V_CombineRowAndColComponent.storyName = "表格行/列合并";
+
+// ----------------------------------------------------------------
+
+export const _W_TreeComponent = () => {
+  interface DataType {
+    key: React.ReactNode;
+    name: string;
+    age: number;
+    address: string;
+    children?: DataType[];
+  }
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+      width: "12%",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      width: "30%",
+      key: "address",
+    },
+  ];
+
+  const data: DataType[] = [
+    {
+      key: 1,
+      name: "John Brown sr.",
+      age: 60,
+      address: "New York No. 1 Lake Park",
+      children: [
+        {
+          key: 11,
+          name: "John Brown",
+          age: 42,
+          address: "New York No. 2 Lake Park",
+        },
+        {
+          key: 12,
+          name: "John Brown jr.",
+          age: 30,
+          address: "New York No. 3 Lake Park",
+          children: [
+            {
+              key: 121,
+              name: "Jimmy Brown",
+              age: 16,
+              address: "New York No. 3 Lake Park",
+            },
+          ],
+        },
+        {
+          key: 13,
+          name: "Jim Green sr.",
+          age: 72,
+          address: "London No. 1 Lake Park",
+          children: [
+            {
+              key: 131,
+              name: "Jim Green",
+              age: 42,
+              address: "London No. 2 Lake Park",
+              children: [
+                {
+                  key: 1311,
+                  name: "Jim Green jr.",
+                  age: 25,
+                  address: "London No. 3 Lake Park",
+                },
+                {
+                  key: 1312,
+                  name: "Jimmy Green sr.",
+                  age: 18,
+                  address: "London No. 4 Lake Park",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      key: 2,
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+    },
+  ];
+
+  // rowSelection objects indicates the need for row selection
+  const rowSelection: RowSelectionProps = {
+    onChange: (selectedRowKeys, selectedRows) => {
+      console.log(
+        `selectedRowKeys: ${selectedRowKeys}`,
+        "selectedRows: ",
+        selectedRows
+      );
+    },
+    onSelect: (record, selected, selectedRows) => {
+      console.log(record, selected, selectedRows);
+    },
+    onSelectAll: (selected, selectedRows, changeRows) => {
+      console.log(selected, selectedRows, changeRows);
+    },
+  };
+
+  // --------------------------------------------------------------
+
+  const [checkStrictly, setCheckStrictly] = useState(false);
+
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { Switch } from "frc-ui-pro";
+    import { ColumnsTypeProps, RowSelectionProps } from "frc-ui-pro/components/Table/table";
+
+    // 表格支持树形数据的展示，当数据中有 children 字段时会自动展示为树形表格，如果不需要或配置为其他字段可以用 childrenColumnName 进行配置。
+    // 可以通过设置 indentSize 以控制每一层的缩进宽度。
+  `;
+
+  // --------------------------------------------------------------
+
+  return (
+    <>
+      <ImportCode code={code} />
+      <span style={{ marginBottom: 16 }}>
+        CheckStrictly:{" "}
+        <Switch checked={checkStrictly} onChange={setCheckStrictly} />
+      </span>
+      <Table
+        columns={columns}
+        rowSelection={{ ...rowSelection, checkStrictly }}
+        dataSource={data}
+      />
+    </>
+  );
+};
+
+_W_TreeComponent.storyName = "树形数据展示";
+
+// ----------------------------------------------------------------
+
+export const _X_JSXColumnsComponent = () => {
+  const { Column, ColumnGroup } = Table;
+  interface DataType {
+    key: React.Key;
+    firstName: string;
+    lastName: string;
+    age: number;
+    address: string;
+    tags: string[];
+  }
+
+  const data: DataType[] = [
+    {
+      key: "1",
+      firstName: "John",
+      lastName: "Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: ["nice", "developer"],
+    },
+    {
+      key: "2",
+      firstName: "Jim",
+      lastName: "Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: ["loser"],
+    },
+    {
+      key: "3",
+      firstName: "Joe",
+      lastName: "Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: ["cool", "teacher"],
+    },
+  ];
+
+  // --------------------------------------------------------------
+
+  const code = `
+    // 使用 JSX 风格的 API（2.5.0 以后引入）
+
+    // 这个只是一个描述 columns 的语法糖，所以你不能用其他组件去包裹 Column 和 ColumnGroup。
+  `;
+
+  // --------------------------------------------------------------
+
+  return (
+    <>
+      <ImportCode code={code} />
+      <Table bordered dataSource={data}>
+        <ColumnGroup title="Name">
+          <Column title="First Name" dataIndex="firstName" key="firstName" />
+          <Column title="Last Name" dataIndex="lastName" key="lastName" />
+        </ColumnGroup>
+        <Column title="Age" dataIndex="age" key="age" />
+        <Column title="Address" dataIndex="address" key="address" />
+        <Column
+          title="Tags"
+          dataIndex="tags"
+          key="tags"
+          render={(tags: string[]) => (
+            <>
+              {tags.map((tag) => (
+                <span key={tag}>{tag}</span>
+              ))}
+            </>
+          )}
+        />
+        <Column
+          title="Action"
+          key="action"
+          render={(_: any, record: DataType) => (
+            <span>
+              <a>Invite {record.lastName}</a>
+              <a>Delete</a>
+            </span>
+          )}
+        />
+      </Table>
+    </>
+  );
+};
+
+_X_JSXColumnsComponent.storyName = "JSX 风格";
 
 // // ----------------------------------------------------------------
 
