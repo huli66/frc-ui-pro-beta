@@ -5,7 +5,9 @@ import { ColumnGroupProps } from "antd/lib/table/ColumnGroup";
 
 const { ColumnGroup: AntdColumnGroup } = Table;
 
-export const Column: FC<ColumnGroupProps<any>> = (props) => {
+export const Column: FC<ColumnGroupProps<any> & { notLast?: boolean }> = (
+  props
+) => {
   const { ...restProps } = props;
 
   const options = {

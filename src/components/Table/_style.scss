@@ -39,9 +39,8 @@
       table {
         border-radius: 0;
 
-        thead>tr:first-child {
+        thead > tr:first-child {
           th {
-
             &:first-child,
             &:last-child {
               border-radius: 0;
@@ -52,7 +51,6 @@
 
       // table first head
       colgroup {
-
         // extend col
         .ant-table-expand-icon-col {
           width: 32px;
@@ -131,7 +129,6 @@
 
       // table body
       .ant-table-tbody {
-
         // normal row
         .ant-table-row {
           .ant-table-cell {
@@ -149,7 +146,7 @@
 
             // hover item
             &.ant-table-cell-row-hover {
-              background: $table-background-hover  !important;
+              background: $table-background-hover !important;
             }
 
             // select item
@@ -181,11 +178,11 @@
           &.ant-table-row-selected,
           &.frc-table-row-active {
             .ant-table-cell {
-              background: $table-background-active  !important;
+              background: $table-background-active !important;
             }
 
             .ant-table-cell-row-hover {
-              background: $table-background-hover  !important;
+              background: $table-background-hover !important;
             }
           }
         }
@@ -234,7 +231,7 @@
 
           &:hover {
             .ant-table-cell {
-              background: $table-background-hover  !important;
+              background: $table-background-hover !important;
             }
           }
         }
@@ -305,7 +302,6 @@
 
     // border
     &.ant-table-bordered {
-
       // title
       .ant-table-title {
         border: $table-border;
@@ -336,13 +332,16 @@
                       border-right: $table-border-title;
                     }
                   }
+
+                  &.not-last {
+                    border-right: $table-border-title !important;
+                  }
                 }
               }
             }
 
             // body
             .ant-table-tbody {
-
               .ant-table-row,
               .ant-table-expanded-row {
                 .ant-table-cell {
@@ -406,6 +405,10 @@
                         border-right: $table-border-title;
                       }
                     }
+
+                    &.not-last {
+                      border-right: $table-border-title !important;
+                    }
                   }
                 }
               }
@@ -464,7 +467,6 @@
   // row bg type cross -> normal style
   &.frc-row-bg-type-cross {
     .ant-table {
-
       // title
       .ant-table-title {
         border-bottom: $table-border;
@@ -472,13 +474,14 @@
 
       // container
       .ant-table-container {
-
         // header
         .ant-table-thead {
           tr {
-            .ant-table-cell {
-              background: $basic-plate;
-              border-bottom: none;
+            th {
+              &.ant-table-cell {
+                background: $basic-plate;
+                border-bottom: none;
+              }
             }
           }
         }
@@ -516,7 +519,6 @@
 
       // border
       &.ant-table-bordered {
-
         // title
         .ant-table-title {
           border-bottom: none;
@@ -525,12 +527,20 @@
         // container
         .ant-table-container {
           .ant-table-content {
-
             // header
             .ant-table-thead {
               tr {
                 th {
                   border-right: $table-border;
+
+                  &.not-last {
+                    border-right: $table-border !important;
+                  }
+                }
+                &:not(:first-child) {
+                  .ant-table-cell {
+                    border-top: $table-border;
+                  }
                 }
               }
             }
@@ -701,23 +711,28 @@
 
   // row bg type default
   &.frc-row-bg-type-default {
-
     // small
     .ant-table.ant-table-small {
-      @include table-size-bg-default($table-small-line-height,
-        $table-small-empty-top );
+      @include table-size-bg-default(
+        $table-small-line-height,
+        $table-small-empty-top
+      );
     }
 
     // middle
     .ant-table.ant-table-middle {
-      @include table-size-bg-default($table-middle-line-height,
-        $table-middle-empty-top );
+      @include table-size-bg-default(
+        $table-middle-line-height,
+        $table-middle-empty-top
+      );
     }
 
     // large
     .ant-table {
-      @include table-size-bg-default($table-large-line-height,
-        $table-large-empty-top );
+      @include table-size-bg-default(
+        $table-large-line-height,
+        $table-large-empty-top
+      );
     }
 
     // header size ------------------------------------------------------------------------------------------
@@ -739,23 +754,28 @@
 
   // row bg type cross
   &.frc-row-bg-type-cross {
-
     // small
     .ant-table.ant-table-small {
-      @include table-size-bg-cross($table-small-line-height,
-        $table-small-empty-top );
+      @include table-size-bg-cross(
+        $table-small-line-height,
+        $table-small-empty-top
+      );
     }
 
     // middle
     .ant-table.ant-table-middle {
-      @include table-size-bg-cross($table-middle-line-height,
-        $table-middle-empty-top );
+      @include table-size-bg-cross(
+        $table-middle-line-height,
+        $table-middle-empty-top
+      );
     }
 
     // large
     .ant-table {
-      @include table-size-bg-cross($table-large-line-height,
-        $table-large-empty-top );
+      @include table-size-bg-cross(
+        $table-large-line-height,
+        $table-large-empty-top
+      );
     }
 
     // header size ------------------------------------------------------------------------------------------
@@ -778,7 +798,6 @@
   // scrollbar --------------------------------------------------------------------------------------------
 
   .ant-table {
-
     // 控制整个滚动条
     ::-webkit-scrollbar {
       width: 8px;
@@ -809,7 +828,6 @@
 
   // loading ----------------------------------------------------------------------------------------------
   .ant-spin-nested-loading {
-
     // icon
     .ant-spin {
       .frc-table-loading {
@@ -845,7 +863,7 @@
 
 .ant-dropdown {
   .ant-table-filter-dropdown {
-    background: $table-background  !important;
+    background: $table-background !important;
     box-shadow: 0 0 24px 0 rgba(255, 235, 200, 0.3);
 
     .ant-dropdown-menu {

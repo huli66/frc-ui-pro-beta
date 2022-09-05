@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, Key } from "react";
+import React, { FC, ReactNode, Key, FunctionComponentElement } from "react";
 import classNames from "classnames";
 import {
   Table as AntdTable,
@@ -16,6 +16,7 @@ import {
   TablePaginationConfig,
   TableRowSelection,
   SelectionItem,
+  ColumnType,
 } from "antd/lib/table/interface";
 
 import { RenderedCell } from "rc-table/lib/interface";
@@ -87,6 +88,10 @@ interface BaseColumnsTypeProps<RecordType> {
   align?: "left" | "right" | "center";
   /** 列样式类名 */
   className?: string;
+  /** 非最后项（由于单元格合并时，可能影响某些样式，故用 notLast 来控制边界情况，group 也支持 notLast） */
+  notLast?: boolean;
+  /** 设置子项 */
+  children?: ColumnsTypeProps[];
   /** 表头列合并,设置为 0 时，不渲染 */
   colSpan?: number;
   /** 列数据在数据项中对应的路径，支持通过数组查询嵌套路径 */
@@ -171,7 +176,7 @@ interface BaseColumnsTypeProps<RecordType> {
 }
 
 export type ColumnsTypeProps = BaseColumnsTypeProps<RecordType> &
-  Omit<ColumnProps<RecordType>, "sortOrder">;
+  Omit<ColumnProps<RecordType>, "sortOrder" | "children">;
 
 export interface ExpandableProps extends ExpandableConfig<RecordType> {
   /** 展开行的 key 数组 */
@@ -456,6 +461,8 @@ export const Table: FC<FRCTableProps> = (props) => {
     rowActive,
     rowClassName,
     rowSelection,
+    columns,
+    children,
     ...restProps
   } = props;
 
@@ -464,6 +471,84 @@ export const Table: FC<FRCTableProps> = (props) => {
     [`frc-title-size-${headerSize}`]: headerSize,
     "frc-custom-selections": rowSelection?.selections,
   });
+
+  // columns ------------------------------------------------------------
+  const childrenLength = React.Children.count(children);
+  let isFinLast = false;
+
+  const renderChildren = (
+    childrenNode: ReactNode,
+    storey: number,
+    isLast: boolean
+  ) => {
+    const childlength = React.Children.count(childrenNode);
+
+    return React.Children.map(childrenNode, (child, index): ReactNode => {
+      const childElement = child as FunctionComponentElement<ColumnsTypeProps>;
+      const isChildLast = index === childlength - 1;
+
+      if (storey === 0 && isChildLast) {
+        isFinLast = true;
+      }
+
+      console.log(
+        "index",
+        index,
+        childlength,
+        isChildLast,
+        storey,
+        isFinLast,
+        isLast && isChildLast,
+        child
+      );
+
+      let childrenProps = {};
+
+      const { className, notLast, children } = childElement.props;
+
+      if (notLast) {
+        childrenProps = {
+          ...childrenProps,
+          className: `${className || ""} not-last`,
+        };
+      }
+
+      if (children) {
+        childrenProps = {
+          ...childrenProps,
+          children: renderChildren(children, storey + 1, isFinLast),
+        };
+      }
+
+      return React.cloneElement(childElement, { ...childrenProps });
+    });
+  };
+
+  const renderColumns = (columnsProps?: ColumnsTypeProps[]) => {
+    return columnsProps?.map((column) => {
+      const { notLast, children } = column;
+
+      let columnProps = {};
+
+      if (notLast) {
+        columnProps = {
+          ...columnProps,
+          className: `${className || ""} not-last`,
+        };
+      }
+
+      if (children) {
+        columnProps = {
+          ...columnProps,
+          children: renderColumns(children),
+        };
+      }
+
+      return { ...column, ...columnProps };
+    });
+  };
+
+  // --------------------------------------------------------------------
 
   // Pagination pre next icon replace render
   const PaginationRenderPreNext: ItemRender = (page, type, oe: any) => {
@@ -536,6 +621,10 @@ export const Table: FC<FRCTableProps> = (props) => {
       return rowClasses;
     },
     rowSelection,
+    columns: columns ? renderColumns(columns) : columns,
+    children: children
+      ? renderChildren(children, 0, childrenLength <= 1)
+      : children,
     ...restProps,
   } as TableProps<RecordType>;
 
