@@ -171,11 +171,23 @@ export const _BaseComponent = () => {
     }
   ];
   return (
-    <TreeSelect
-      style={{width:200}}
-      treeData={treeData}
-      defaultValue={['1-1-1','0-2']}
-    />
+    <>
+      <TreeSelect
+        style={{width:200}}
+        treeData={treeData}
+        defaultValue={['1-1-1','0-2']}
+      />
+      <br />
+      <br />
+      disabled
+      <br />
+      <TreeSelect
+        style={{width:200}}
+        treeData={treeData}
+        defaultValue={['1-1-1','0-2']}
+        disabled
+      />
+    </>
   );
 };
 
@@ -204,6 +216,9 @@ export const _ShowCheckedComponent = () => {
     }
     return item;
   });
+
+  const [value, setValue] = useState<string[]>([]);
+
   return (
     <>
       当数据量较多时，设置showSelected为true方便查看已勾选项目
@@ -214,6 +229,28 @@ export const _ShowCheckedComponent = () => {
         treeData={treeData}
         defaultValue={defaultValue}
         showSelected
+      />
+      <br />
+      <br />
+      当没有已选项时隐藏
+      <br />
+      <TreeSelect
+        style={{width:200}}
+        treeData={treeData}
+        value={value}
+        onChange={(val) => setValue(val)}
+        showSelected={!!value.length}
+      />
+      <br />
+      <br />
+      disabled
+      <br />
+      <TreeSelect
+        style={{width:200}}
+        treeData={treeData}
+        defaultValue={defaultValue}
+        showSelected
+        disabled
       />
     </>
   );

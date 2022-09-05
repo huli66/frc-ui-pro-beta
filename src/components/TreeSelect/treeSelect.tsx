@@ -165,6 +165,7 @@ export const TreeSelect: React.FC<FRCTreeSelectProps> = ({
   value,
   showCheckedStrategy,
   // >>> options
+  disabled,
   dropdownRender,
   switcherIcon,
   showArrow,
@@ -392,6 +393,13 @@ export const TreeSelect: React.FC<FRCTreeSelectProps> = ({
       key: d.value
     }));
     const checkedValue:any = displayValues.map(d => d.value);
+    const isDisabled = disabled || !checkedValue.length;
+    const selectedClas = classNames('frc-tree-selected-content',{
+      'frc-tree-selected-disabled':isDisabled
+    });
+    const clearClas = classNames('frc-tree-select-clear',{
+      'frc-tree-select-clear-disabled':isDisabled
+    })
     return (
       <div className="frc-tree-selected-wrapper">
         <AntTreeSelect 
@@ -405,12 +413,15 @@ export const TreeSelect: React.FC<FRCTreeSelectProps> = ({
           treeCheckable
           showSearch={false}
           onChange={triggerChange}
+          disabled={isDisabled}
         >
         </AntTreeSelect>
-        <div className="frc-tree-selected-content">
+        <div className={selectedClas}>
           <span>{checkedList.length}</span>
         </div>
-        <span className="frc-tree-select-clear" onClick={() => triggerChange([],[],{})}>
+        <span className={clearClas} onClick={() => {
+          !isDisabled && triggerChange([],[],{});
+        }}>
           <Icon className="frc-clear-icon" type="close-square" />
         </span>
       </div>
@@ -498,9 +509,14 @@ export const TreeSelect: React.FC<FRCTreeSelectProps> = ({
     treeNodeLabelProp,
     multiple,
     onChange: triggerChange,
-    dropdownRender: renderExtraButton as any,
+    disabled,
+    dropdownRender: renderExtraButton,
     ...resetProps
   } as TreeSelectProps;
+
+  const fillClas = classNames('frc-tree-select-fill-wrapper',{
+    'frc-tree-select-fill-disabled':disabled
+  })
 
   return (
     <>
@@ -509,7 +525,7 @@ export const TreeSelect: React.FC<FRCTreeSelectProps> = ({
           {children}  
         </AntTreeSelect>
         {fillMode === 'ellipsis' && (
-          <div className="frc-tree-select-fill-wrapper">
+          <div className={fillClas}>
             <div className="frc-tree-select-fill-content">
               {
                 fillContent.map(

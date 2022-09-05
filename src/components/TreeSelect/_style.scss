@@ -29,6 +29,14 @@ $namePrefix: 'ant-select-tree';
           color: $words-high-light;
         }
       }
+      &.ant-select-disabled {
+        .ant-select-selector {
+          background: transparent !important;
+        }
+        + .frc-tree-select-fill-wrapper .frc-tree-select-fill-content {
+          color: $words-disable;
+        }
+      } 
     }
   }
   .frc-tree-select-fill-wrapper {
@@ -180,12 +188,12 @@ $namePrefix: 'ant-select-tree';
   z-index: 10;
   background: transparent !important;
   &.ant-select-focused {
-    background: transparent !important;
-    & + .frc-tree-selected-content {
-    background-color: $dropdown-focus-background;
-    color: $words-high-light;
+      background: transparent !important;
+      & + .frc-tree-selected-content {
+      background-color: $dropdown-focus-background;
+      color: $words-high-light;
+    }
   }
-}
   .ant-select-selection-overflow {
     // 设置 display: none;导致trigger dom focus相关类名失效
     width: 0px;
@@ -194,6 +202,15 @@ $namePrefix: 'ant-select-tree';
   }
   .ant-select-selector {
     margin-right: 0 !important;
+  }
+  &.ant-select-disabled {
+    background: transparent !important;
+    .ant-select-selector {
+      background: transparent !important;
+    }
+    & + .frc-tree-selected-content {
+      color:$words-disable;
+    }
   }
 }
 .frc-tree-select-clear {
@@ -210,6 +227,23 @@ $namePrefix: 'ant-select-tree';
   .frc-clear-icon{
     color: $basic-btn;
     font-size: 18px;
+  }
+  &:hover {
+    .frc-clear-icon {
+      color: $btn-background-hover;
+    }
+  }
+  &:active {
+    .frc-clear-icon {
+      color: $btn-background-active;
+    }
+  }
+  &.frc-tree-select-clear-disabled {
+    background: $words-disable;
+    cursor: not-allowed;
+    .frc-clear-icon {
+      color:$btn-background-disabled;
+    }
   }
 }
 
