@@ -85,7 +85,9 @@ export interface BaseSelectProps extends SelectProps {
   /** 最多显示多少个 tag，响应式模式会对性能产生损耗 */
   maxTagCount?: number | "responsive";
   /** 隐藏 tag 时显示的内容 */
-  maxTagPlaceholder?: React.ReactNode | ((omittedValues: any) => void);
+  maxTagPlaceholder?:
+    | React.ReactNode
+    | ((omittedValues: any) => React.ReactNode);
   /** 最大显示的 tag 文本长度 */
   maxTagTextLength?: number;
   /** 自定义多选时当前选中的条目图标 */

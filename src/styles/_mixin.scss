@@ -360,19 +360,21 @@
   $disabled-background-icon,
   $disabled-border-icon,
   $disabled-background-icon-inner,
-  $disabled-border-icon-inner
+  $disabled-border-icon-inner,
+  // selector prefix
+  $prefix: 'ant'
 ) {
   background: $background;
   color: $color;
   border: $border;
   // normal icon
-  .ant-radio,
-  .ant-checkbox {
-    .ant-radio-inner {
+  .#{$prefix}-radio,
+  .#{$prefix}-checkbox {
+    .#{$prefix}-radio-inner {
       background: $background-icon;
       border: $border-icon;
     }
-    .ant-checkbox-inner {
+    .#{$prefix}-checkbox-inner {
       background: $background-icon;
       border: $border-icon;
       &::after {
@@ -388,18 +390,18 @@
     color: $hover-color;
     border: $hover-border;
     // hover icon
-    .ant-radio,
-    .ant-checkbox {
-      .ant-radio-inner,
-      .ant-checkbox-inner {
+    .#{$prefix}-radio,
+    .#{$prefix}-checkbox {
+      .#{$prefix}-radio-inner,
+      .#{$prefix}-checkbox-inner {
         background: $hover-background-icon;
         border: $hover-border-icon;
       }
       // checked hover
-      &.ant-radio-checked,
-      &.ant-checkbox-checked {
-        .ant-radio-inner,
-        .ant-checkbox-inner {
+      &.#{$prefix}-radio-checked,
+      &.#{$prefix}-checkbox-checked {
+        .#{$prefix}-radio-inner,
+        .#{$prefix}-checkbox-inner {
           background: $hover-background-icon;
         }
       }
@@ -411,9 +413,9 @@
     color: $active-color;
     border: $active-border;
     // active icon
-    .ant-radio,
-    .ant-checkbox {
-      .ant-radio-inner {
+    .#{$prefix}-radio,
+    .#{$prefix}-checkbox {
+      .#{$prefix}-radio-inner {
         background: $active-background-icon;
         border: $active-border-icon;
         &::after {
@@ -422,7 +424,7 @@
           opacity: 1;
         }
       }
-      .ant-checkbox-inner {
+      .#{$prefix}-checkbox-inner {
         background: $active-background-icon;
         &::after {
           transform: rotate(45deg) scale(1) translate(-50%, -50%);
@@ -433,10 +435,10 @@
         }
       }
       // checked active
-      &.ant-radio-checked,
-      &.ant-checkbox-checked {
-        .ant-radio-inner,
-        .ant-checkbox-inner {
+      &.#{$prefix}-radio-checked,
+      &.#{$prefix}-checkbox-checked {
+        .#{$prefix}-radio-inner,
+        .#{$prefix}-checkbox-inner {
           background: $active-background-icon;
         }
       }
@@ -444,8 +446,8 @@
   }
   // focus
   &:focus,
-  .ant-radio.ant-radio-checked,
-  .ant-checkbox.ant-checkbox-checked {
+  .#{$prefix}-radio.#{$prefix}-radio-checked,
+  .#{$prefix}-checkbox.#{$prefix}-checkbox-checked {
     background: $focus-background;
     color: $focus-color;
     border: $focus-border;
@@ -457,7 +459,7 @@
       color: $focus-color;
     }
     // focus icon
-    .ant-radio-inner {
+    .#{$prefix}-radio-inner {
       background: $focus-background-icon;
       border: $focus-border-icon;
       &::after {
@@ -466,7 +468,7 @@
       }
     }
 
-    .ant-checkbox-inner {
+    .#{$prefix}-checkbox-inner {
       // background: $focus-background-icon;
       border: $focus-border-icon;
       &::after {
@@ -477,17 +479,17 @@
   }
   // disabled
   &:disabled,
-  &.ant-radio-wrapper-disabled,
-  &.ant-checkbox-wrapper-disabled {
+  &.#{$prefix}-radio-wrapper-disabled,
+  &.#{$prefix}-checkbox-wrapper-disabled {
     // background: $disabled-background !important;
     color: $disabled-color !important;
     border: $disabled-border !important;
     // disabled icon
-    .ant-radio,
-    .ant-checkbox {
-      &.ant-radio-checked,
-      &.ant-radio-disabled {
-        .ant-radio-inner {
+    .#{$prefix}-radio,
+    .#{$prefix}-checkbox {
+      &.#{$prefix}-radio-checked,
+      &.#{$prefix}-radio-disabled {
+        .#{$prefix}-radio-inner {
           background: $disabled-background-icon !important;
           border: $disabled-border-icon !important;
           &::after {
@@ -499,8 +501,8 @@
         }
       }
 
-      &.ant-checkbox-disabled {
-        .ant-checkbox-inner {
+      &.#{$prefix}-checkbox-disabled {
+        .#{$prefix}-checkbox-inner {
           background: $disabled-background-icon !important;
           border: $disabled-border-icon !important;
           &::after {
@@ -511,8 +513,8 @@
           color: $disabled-color !important;
         }
       }
-      &.ant-checkbox-checked.ant-checkbox-disabled {
-        .ant-checkbox-inner {
+      &.#{$prefix}-checkbox-checked.#{$prefix}-checkbox-disabled {
+        .#{$prefix}-checkbox-inner {
           &::after {
             border: $disabled-border-icon-inner;
             border-top: 0;
@@ -523,6 +525,27 @@
         + * {
           color: $disabled-color !important;
         }
+      }
+    }
+  }
+}
+
+@mixin checkbox-indeterminate(
+  // selector prefix
+  $prefix: 'ant'
+) {
+  &.#{$prefix}-checkbox-indeterminate {
+    .#{$prefix}-checkbox-inner {
+      &::after {
+        width: 8px;
+        height: 8px;
+        margin-top: -4px;
+        margin-left: -4px;
+        border: none;
+        transform: rotate(0deg) scale(0.5) translate(0%, 0%);
+        top: 50%;
+        left: 50%;
+        background-color: $words-high-light;
       }
     }
   }

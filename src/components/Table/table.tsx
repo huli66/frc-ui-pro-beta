@@ -491,17 +491,6 @@ export const Table: FC<FRCTableProps> = (props) => {
         isFinLast = true;
       }
 
-      console.log(
-        "index",
-        index,
-        childlength,
-        isChildLast,
-        storey,
-        isFinLast,
-        isLast && isChildLast,
-        child
-      );
-
       let childrenProps = {};
 
       const { className, notLast, children } = childElement.props;
