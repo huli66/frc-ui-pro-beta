@@ -20,3 +20,11 @@ export function composeRef<T>(...refs: React.Ref<T>[]): React.Ref<T> {
     });
   };
 }
+
+export function isString(value:any):boolean {
+  return typeof value === 'string';
+}
+
+export function isNumber(value:any):boolean {
+  return typeof value === 'number';
+}
