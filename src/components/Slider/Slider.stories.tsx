@@ -14,7 +14,6 @@ import {
   Subheading,
 } from '@storybook/addon-docs'
 
-import { Row, Col } from 'antd'
 import Slider, { FRCSliderProps } from './index'
 import InputNumber from '../InputNumber'
 import Switch from '../Switch'
@@ -89,10 +88,13 @@ export default {
 export const Default = (args: FRCSliderProps) => <Slider {...args} />
 
 Default.storyName = '默认 Slider'
+Default.parameters = {
+  controls: { hideNoControlsWarning: true }
+}
 
 // -----------------------------------------------------------------
 
-export const SizeComponent = () => {
+export const SizeSliderComponent = () => {
   return (
     <>
       <Slider defaultValue={30} />
@@ -102,14 +104,14 @@ export const SizeComponent = () => {
     </>
   )
 }
-SizeComponent.storyName = '大小 Slider'
-SizeComponent.parameters = {
+SizeSliderComponent.storyName = '大小 Slider'
+SizeSliderComponent.parameters = {
   controls: { hideNoControlsWarning: true }
 }
 
 // -------------------------------------------------------------------
 
-export const MarksSliderComponent = () => {
+export const MarksSliderComp = () => {
   const marks = {
     0: '0',
     26: '26',
@@ -140,16 +142,14 @@ export const MarksSliderComponent = () => {
   )
 }
 
-MarksSliderComponent.storyName = '带标签的滑块 Slider'
-MarksSliderComponent.parameters = {
+MarksSliderComp.storyName = '带标签的滑块 Slider'
+MarksSliderComp.parameters = {
   controls: { hideNoControlsWarning: true }
 }
 
 // -------------------------------------------------------------------
 
 export const MarksTypeSliderComponent = () => {
-  const [value, setValue] = useState<[number, number]>([25, 80]);
-  const [valu, setValu] = useState<number>(80);
   const marks = {
     0: '0',
     25: '25',
@@ -157,19 +157,12 @@ export const MarksTypeSliderComponent = () => {
     75: '75',
     100: '100',
   }
-  const handleChange = (val: [number, number]) => {
-    setValue(val);
-  }
-  const handle = (val: number) => {
-    setValu(val);
-  }
   return (
     <>
       <Slider range marks={marks} type='small' defaultValue={[25, 50]} />
       <Slider range marks={marks} type='small' defaultValue={[25, 40]} />
       <Slider range marks={marks} type='small' defaultValue={[25, 50]} />
-      <Slider marks={marks} type='small' defaultValue={50} onChange={handle} value={valu} />
-      <Slider range marks={marks} type='small' value={value} onChange={handleChange} />
+      <Slider range marks={marks} type='small' defaultValue={[25, 80]} />
     </>
   )
 }
@@ -181,7 +174,98 @@ MarksTypeSliderComponent.parameters = {
 
 // -----------------------------------------------------------------
 
-export const VerticalSliderComponent = () => {
+export const StepSliderComponent = () => {
+  const marks = {
+    0: '0',
+    100: '100'
+  }
+  
+  const InputStep = (disabled?: boolean) => {
+    const [startVal, setStartVal] = useState(1);
+    const [endValue, setEndValue] = useState(100);
+    const handleChange = (value: any, key?: string) => {
+      switch(key) {
+        case 'start':
+          setStartVal(value);
+          break;
+        case 'end':
+          setEndValue(value);
+          break;
+        default:
+          const [start, end] = value;
+          setStartVal(start);
+          setEndValue(end);
+      }
+    }
+    return (
+      <div style={{width: 300}}>
+        <div>
+         <InputNumber
+            disabled={disabled}
+            min={0}
+            max={100}
+            style={{margin: '0 16px'}}
+            value={startVal}
+            onChange={(v) => handleChange(v, 'start')}
+          />
+          <InputNumber
+            disabled={disabled}
+            min={0}
+            max={100}
+            style={{margin: '0 16px'}}
+            value={endValue}
+            onChange={(v) => handleChange(v, 'end')}
+          />
+        </div>
+        <Slider
+          marks={marks}
+          range
+          disabled={disabled}
+          onChange={(v) => handleChange(v)}
+          value={[startVal, endValue]}
+        />
+      </div>
+    )
+  }
+  const DisabledStep = () => {
+    return InputStep(true)
+  }
+  return (
+    <>
+      {InputStep()}
+      <br />
+      <DisabledStep />
+    </>
+  )
+}
+
+StepSliderComponent.storyName = '滑动输入条 Slider'
+StepSliderComponent.parameters = {
+  controls: {hideNoControlsWarning: true}
+}
+
+// -----------------------------------------------------------------
+
+export const TipSliderComp = () => {
+  const formatter = (val: number | undefined) => {
+    return `${val}%`
+  }
+  return (
+    <>
+      <Slider tipFormatter={formatter} />
+      <Slider tipFormatter={null} />
+    </>
+  )
+}
+
+TipSliderComp.storyName = '自定义提示 Slider'
+TipSliderComp.parameters = {
+  controls: {hideNoControlsWarning: true}
+}
+
+// -----------------------------------------------------------------
+
+export const VerticalSliderComp = () => {
   const style = {
     display: 'inline-block',
     height: 300,
@@ -210,26 +294,35 @@ export const VerticalSliderComponent = () => {
       <div style={style}>
         <Slider vertical range marks={marks} defaultValue={[26, 37]} />
       </div>
-      <div style={style}>
-        <Slider vertical size='small' range marks={marks} defaultValue={[26, 37]} />
-      </div>
-      <div style={style}>
-        <Slider vertical size='large' range marks={marks} defaultValue={[26, 37]} />
-      </div>
-      <div style={style}>
-        <Slider vertical type='small' range marks={marks} defaultValue={[26, 37]} />
-      </div>
-      <div style={style}>
-        <Slider vertical type='small' size='small' range marks={marks} defaultValue={[26, 37]} />
-      </div>
-      <div style={style}>
-        <Slider vertical type='small' size='large' range marks={marks} defaultValue={[26, 37]} />
-      </div>
     </>
   )
 }
 
-VerticalSliderComponent.storyName = '垂直方向的 Slider'
-VerticalSliderComponent.parameters = {
+VerticalSliderComp.storyName = '垂直方向的 Slider'
+VerticalSliderComp.parameters = {
   controls: { hideNoControlsWarning: true }
 }
+
+// -----------------------------------------------------------------
+
+export const ReverseSliderComp = () => {
+  const [reverse, setReverse] = React.useState<boolean>(true)
+  const handleReverseChange = (value: boolean) => {
+    setReverse(value)
+  }
+  return (
+    <>
+      <Slider defaultValue={30} reverse={reverse} />
+      <Slider range defaultValue={[20, 50]} reverse={reverse} />
+      Reversed:{' '}
+      <Switch size='small' checked={reverse} onChange={handleReverseChange} />
+    </>
+  )
+}
+
+ReverseSliderComp.storyName = '反向 Slider'
+ReverseSliderComp.parameters = {
+  controls: {hideNoControlsWarning: true}
+}
+
+// -----------------------------------------------------------------
