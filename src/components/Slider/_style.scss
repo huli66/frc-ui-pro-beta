@@ -12,7 +12,7 @@
   &:hover .ant-slider-rail, .ant-slider-rail {
     background-color: $slider-ui-base-bg;
   }
-  &:hover .ant-slider-handle.ant-tooltip-open {
+  &:hover .ant-slider-handle.ant-tooltip-open, .ant-slider-handle-dragging.ant-slider-handle {
     background-color: $slider-hover-bg;
     border-color: $slider-ui-handle-color !important;
   }
@@ -34,7 +34,7 @@
     border-color: $slider-ui-handle-color;
   }
 
-  .ant-slider-handle {
+  .ant-slider-handle, .ant-tooltip-open {
     margin: 0;
     &::before {
       position: absolute;
@@ -62,10 +62,12 @@
       @include slider-ui-dot(0.25 * $slider-ui-handle-size, 0.5 * $slider-ui-handle-before-size, 0.5 * $slider-ui-handle-border);
     }
     // type
-    &.frc-slider-ui-type-small:hover .ant-tooltip-open.ant-slider-handle {
-      @include slider-ui-handle(0.5 * $slider-ui-handle-size, 0.5 * $slider-ui-handle-before-size, 0.5 * $slider-ui-handle-border);
-      &::before {
-        content: '' !important;
+    &.frc-slider-ui-type-small {
+      .ant-slider-handle:hover, .ant-slider-handle.ant-slider-handle-dragging {
+        @include slider-ui-handle(0.5 * $slider-ui-handle-size, 0.5 * $slider-ui-handle-before-size, 0.5 * $slider-ui-handle-border);
+        &::before {
+          content: '' !important;
+        }
       }
     }
   }
@@ -81,10 +83,12 @@
     &.frc-slider-ui-type-small .ant-slider-handle, .ant-slider-dot {
       @include slider-ui-dot(0.5 * $slider-ui-handle-size, $slider-ui-handle-before-size, $slider-ui-handle-border);
     }
-    &.frc-slider-ui-type-small:hover .ant-tooltip-open.ant-slider-handle {
-      @include slider-ui-handle($slider-ui-handle-size, $slider-ui-handle-before-size, $slider-ui-handle-border);
-      &::before {
-        content: '' !important;
+    &.frc-slider-ui-type-small {
+      .ant-slider-handle:hover, .ant-slider-handle.ant-slider-handle-dragging {
+        @include slider-ui-handle($slider-ui-handle-size, $slider-ui-handle-before-size, $slider-ui-handle-border);
+        &::before {
+          content: '' !important;
+        }
       }
     }
   }
@@ -100,10 +104,12 @@
     &.frc-slider-ui-type-small .ant-slider-handle, .ant-slider-dot {
       @include slider-ui-dot($slider-ui-handle-size, 2 * $slider-ui-handle-before-size, 2 * $slider-ui-handle-border);
     }
-    &.frc-slider-ui-type-small:hover .ant-tooltip-open.ant-slider-handle {
-      @include slider-ui-handle(2 * $slider-ui-handle-size, 2 * $slider-ui-handle-before-size, 2 * $slider-ui-handle-border);
-      &::before {
-        content: '' !important;
+    &.frc-slider-ui-type-small {
+      .ant-slider-handle:hover, .ant-slider-handle.ant-slider-handle-dragging {
+        @include slider-ui-handle(2 * $slider-ui-handle-size, 2 * $slider-ui-handle-before-size, 2 * $slider-ui-handle-border);
+        &::before {
+          content: '' !important;
+        }
       }
     }
   }
@@ -121,12 +127,14 @@
       &.frc-slider-ui-type-small .ant-slider-handle, .ant-slider-dot {
         @include slider-ui-dot-vertical(0.25 * $slider-ui-handle-size, 0.5 * $slider-ui-handle-before-size, 0.5 * $slider-ui-handle-border);
       }
-      &.frc-slider-ui-type-small:hover .ant-tooltip-open.ant-slider-handle {
-        @include slider-ui-handle-vertical(0.5 * $slider-ui-handle-size, 0.5 * $slider-ui-handle-before-size, 0.5 * $slider-ui-handle-border);
-        &::before {
-          content: '' !important;
+      &.frc-slider-ui-type-small {
+        .ant-slider-handle:hover, .ant-slider-handle.ant-slider-handle-dragging {
+          @include slider-ui-handle-vertical(0.5 * $slider-ui-handle-size, 0.5 * $slider-ui-handle-before-size, 0.5 * $slider-ui-handle-border);
+          &::before {
+            content: '' !important;
+          }
         }
-      }
+      } 
     }
     &.frc-slider-ui-middle {
       .ant-slider-rail,
@@ -140,12 +148,14 @@
       &.frc-slider-ui-type-small .ant-slider-handle, .ant-slider-dot {
         @include slider-ui-dot-vertical(0.5 * $slider-ui-handle-size, $slider-ui-handle-before-size, $slider-ui-handle-border);
       }
-      &.frc-slider-ui-type-small:hover .ant-tooltip-open.ant-slider-handle {
-        @include slider-ui-handle-vertical($slider-ui-handle-size, $slider-ui-handle-before-size, $slider-ui-handle-border);
-        &::before {
-          content: '' !important;
+      &.frc-slider-ui-type-small {
+        .ant-slider-handle:hover, .ant-slider-handle.ant-slider-handle-dragging {
+          @include slider-ui-handle-vertical($slider-ui-handle-size, $slider-ui-handle-before-size, $slider-ui-handle-border);
+          &::before {
+            content: '' !important;
+          }
         }
-      }
+      } 
     }
     &.frc-slider-ui-large {
       .ant-slider-rail, 
@@ -159,10 +169,12 @@
       &.frc-slider-ui-type-small .ant-slider-handle, .ant-slider-dot {
         @include slider-ui-dot-vertical($slider-ui-handle-size, 2 * $slider-ui-handle-before-size, 2 * $slider-ui-handle-border);
       }
-      &.frc-slider-ui-type-small:hover .ant-tooltip-open.ant-slider-handle {
-        @include slider-ui-handle-vertical(2 * $slider-ui-handle-size, 2 * $slider-ui-handle-before-size, 2 * $slider-ui-handle-border);
-        &::before {
-          content: '' !important;
+      &.frc-slider-ui-type-small {
+        .ant-slider-handle:hover, .ant-slider-handle.ant-slider-handle-dragging {
+          @include slider-ui-handle-vertical(2 * $slider-ui-handle-size, 2 * $slider-ui-handle-before-size, 2 * $slider-ui-handle-border);
+          &::before {
+            content: '' !important;
+          }
         }
       }
     }
