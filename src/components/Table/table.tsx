@@ -88,8 +88,6 @@ interface BaseColumnsTypeProps<RecordType> {
   align?: "left" | "right" | "center";
   /** 列样式类名 */
   className?: string;
-  /** 非最后项（由于单元格合并时，可能影响某些样式，故用 notLast 来控制边界情况，group 也支持 notLast） */
-  notLast?: boolean;
   /** 设置子项 */
   children?: ColumnsTypeProps[];
   /** 表头列合并,设置为 0 时，不渲染 */
@@ -472,65 +470,55 @@ export const Table: FC<FRCTableProps> = (props) => {
     "frc-custom-selections": rowSelection?.selections,
   });
 
-  // columns ------------------------------------------------------------
-  const childrenLength = React.Children.count(children);
-  let isFinLast = false;
+  // children | columns --------------------------------------------------
 
-  const renderChildren = (
-    childrenNode: ReactNode,
-    storey: number,
-    isLast: boolean
-  ) => {
+  const renderChildren = (childrenNode: ReactNode) => {
     const childlength = React.Children.count(childrenNode);
 
     return React.Children.map(childrenNode, (child, index): ReactNode => {
       const childElement = child as FunctionComponentElement<ColumnsTypeProps>;
-      const isChildLast = index === childlength - 1;
-
-      if (storey === 0 && isChildLast) {
-        isFinLast = true;
-      }
-
       let childrenProps = {};
 
-      const { className, notLast, children } = childElement.props;
+      if (index === childlength - 1) {
+        const { className, children } = childElement.props;
 
-      if (notLast) {
         childrenProps = {
           ...childrenProps,
-          className: `${className || ""} not-last`,
+          className: `${className || ""} frc-table-cell-last`,
         };
-      }
 
-      if (children) {
-        childrenProps = {
-          ...childrenProps,
-          children: renderChildren(children, storey + 1, isFinLast),
-        };
+        if (children) {
+          childrenProps = {
+            ...childrenProps,
+            children: renderChildren(children),
+          };
+        }
       }
 
       return React.cloneElement(childElement, { ...childrenProps });
     });
   };
 
-  const renderColumns = (columnsProps?: ColumnsTypeProps[]) => {
-    return columnsProps?.map((column) => {
-      const { notLast, children } = column;
+  const renderColumns = (columns: ColumnsTypeProps[]) => {
+    const columnsLength = columns.length;
 
+    return columns.map((column, index) => {
       let columnProps = {};
 
-      if (notLast) {
-        columnProps = {
-          ...columnProps,
-          className: `${className || ""} not-last`,
-        };
-      }
+      if (index === columnsLength - 1) {
+        const { children, className } = column;
 
-      if (children) {
         columnProps = {
           ...columnProps,
-          children: renderColumns(children),
+          className: `${className || ""} frc-table-cell-last`,
         };
+
+        if (children) {
+          columnProps = {
+            ...columnProps,
+            children: renderColumns(children),
+          };
+        }
       }
 
       return { ...column, ...columnProps };
@@ -611,9 +599,7 @@ export const Table: FC<FRCTableProps> = (props) => {
     },
     rowSelection,
     columns: columns ? renderColumns(columns) : columns,
-    children: children
-      ? renderChildren(children, 0, childrenLength <= 1)
-      : children,
+    children: children ? renderChildren(children) : children,
     ...restProps,
   } as TableProps<RecordType>;
 

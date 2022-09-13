@@ -209,6 +209,7 @@
 
       // summary
       .ant-table-summary {
+        top: -1px;
         background: $table-background-title;
 
         tr {
@@ -223,9 +224,15 @@
             }
           }
 
+          &:first-child {
+            .ant-table-cell {
+              border-top: $table-border-bold;
+            }
+          }
+
           &:last-child {
             .ant-table-cell {
-              border-bottom: $table-border-bold;
+              border-bottom: $table-border;
             }
           }
 
@@ -247,46 +254,25 @@
     }
 
     // empty
-    &.ant-table-empty {
-      .ant-table-placeholder {
-        .ant-table-cell {
-          border-bottom: none;
+    .ant-table-placeholder {
+      .ant-table-cell {
+        border-bottom: none;
 
-          // empty style -> custom
-          .frc-table-empty {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: $table-color-text-supporting;
-            // top: -1px;
-            position: relative;
-            width: 100%;
-          }
-        }
-
-        &:hover {
-          td.ant-table-cell {
-            background: transparent;
-          }
+        // empty style -> custom
+        .frc-table-empty {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: $table-color-text-supporting;
+          // top: -1px;
+          position: relative;
+          width: 100%;
         }
       }
 
-      // border
-      &.ant-table-bordered {
-        .ant-table-container {
-          border-bottom: $table-border;
-
-          .ant-table-content {
-            table {
-              tbody {
-                tr {
-                  td {
-                    border-right: $table-border;
-                  }
-                }
-              }
-            }
-          }
+      &:hover {
+        td.ant-table-cell {
+          background: transparent;
         }
       }
     }
@@ -296,6 +282,24 @@
       colgroup {
         .ant-table-selection-col {
           min-width: 36px;
+        }
+      }
+
+      // summary
+      .ant-table-summary {
+        top: 0px;
+        tr {
+          &:first-child {
+            .ant-table-cell {
+              border-top: $table-border;
+            }
+          }
+
+          &:last-child {
+            .ant-table-cell {
+              border-bottom: $table-border-bold;
+            }
+          }
         }
       }
     }
@@ -323,18 +327,14 @@
                 th {
                   border-right: $table-border-title;
 
-                  &:last-child {
-                    border-right: $table-border;
-                  }
-
                   &.ant-table-cell-fix-right-first {
                     &::after {
                       border-right: $table-border-title;
                     }
                   }
 
-                  &.not-last {
-                    border-right: $table-border-title !important;
+                  &.frc-table-cell-last {
+                    border-right: $table-border;
                   }
                 }
               }
@@ -364,6 +364,18 @@
                   }
                 }
               }
+
+              // empty
+              .ant-table-placeholder {
+                td {
+                  border-right: $table-border;
+                  .ant-table-expanded-row-fixed {
+                    &::after {
+                      border-right: none;
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -373,6 +385,25 @@
       .ant-table-footer {
         border: $table-border;
         border-top: none;
+      }
+
+      // summary
+      .ant-table-summary {
+        tr {
+          .ant-table-cell {
+            border-right: $table-border-title;
+
+            &:last-child {
+              border-right: none;
+            }
+
+            &.ant-table-cell-fix-right {
+              &::after {
+                border-right: $table-border-title;
+              }
+            }
+          }
+        }
       }
 
       // scroll
@@ -386,16 +417,12 @@
             table {
               border-top: $table-border;
 
-              thead {
+              .ant-table-thead {
                 tr {
                   th {
                     border-right: $table-border-title;
 
                     &.ant-table-cell-scrollbar {
-                      border-right: none;
-                    }
-
-                    &:nth-last-child(2) {
                       border-right: none;
                     }
 
@@ -406,8 +433,26 @@
                       }
                     }
 
-                    &.not-last {
-                      border-right: $table-border-title !important;
+                    &.frc-table-cell-last {
+                      border-right: $table-border-title;
+                    }
+                  }
+                }
+              }
+
+              // summary
+              .ant-table-summary {
+                tr {
+                  .ant-table-cell {
+                    &.ant-table-cell-fix-right {
+                      &::before {
+                        content: "";
+                        width: 1px;
+                        height: 100%;
+                        border-right: $table-border-title;
+                        position: absolute;
+                        right: 8px;
+                      }
                     }
                   }
                 }
@@ -425,7 +470,8 @@
 
                     // fixed left
                     &.ant-table-cell-fix-left,
-                    &.ant-table-cell-fix-left-last {
+                    &.ant-table-cell-fix-left-last,
+                    &.ant-table-cell-fix-right {
                       border-right: $table-border-title;
                     }
 
@@ -443,20 +489,13 @@
         }
       }
 
-      // summary
-      .ant-table-summary {
-        tr {
-          .ant-table-cell {
-            border-right: $table-border-title;
-
-            &:last-child {
+      // empty
+      .ant-table-placeholder {
+        td {
+          border-right: $table-border;
+          .ant-table-expanded-row-fixed {
+            &::after {
               border-right: none;
-            }
-
-            &.ant-table-cell-fix-right {
-              &::after {
-                border-right: $table-border-title;
-              }
             }
           }
         }
@@ -532,10 +571,6 @@
               tr {
                 th {
                   border-right: $table-border;
-
-                  &.not-last {
-                    border-right: $table-border !important;
-                  }
                 }
                 &:not(:first-child) {
                   .ant-table-cell {
@@ -622,8 +657,16 @@
                         border-right: none;
                       }
 
-                      &:nth-last-child(2) {
-                        border-right: none;
+                      &.ant-table-cell-fix-right-first {
+                        &::after {
+                          border-right: $table-border;
+                        }
+                      }
+                    }
+
+                    &:not(:first-child) {
+                      .ant-table-cell {
+                        border-top: $table-border;
                       }
                     }
                   }
@@ -640,8 +683,10 @@
                       .ant-table-cell {
                         border-right: $table-border;
 
-                        &:last-child {
-                          border-right: none;
+                        &.ant-table-cell-fix-right-first {
+                          &::after {
+                            border-right: $table-border;
+                          }
                         }
                       }
                     }
@@ -650,8 +695,10 @@
                       .ant-table-cell {
                         border-right: $table-border-title;
 
-                        &:last-child {
-                          border-right: none;
+                        &.ant-table-cell-fix-right-first {
+                          &::after {
+                            border-right: $table-border-title;
+                          }
                         }
                       }
                     }
@@ -859,6 +906,15 @@
       }
     }
   }
+
+  // drag sort rol ----------------------------------------------------------------------------------------
+  tr.drop-over-downward td {
+    border-bottom: $table-border-bold !important;
+  }
+
+  tr.drop-over-upward td {
+    border-top: $table-border-bold !important;
+  }
 }
 
 .ant-dropdown {
@@ -941,4 +997,18 @@
       }
     }
   }
+}
+
+// handle drag sort row
+.row-dragging {
+  background: $table-background-active;
+  border: $table-border-title;
+}
+
+.row-dragging td {
+  padding: 4px 16px;
+}
+
+.row-dragging .drag-visible {
+  visibility: visible;
 }

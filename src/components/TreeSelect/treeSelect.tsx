@@ -334,6 +334,7 @@ export const TreeSelect: React.FC<FRCTreeSelectProps> = ({
     );
     // @ts-ignore
     const values = displayKeys.map(
+      // @ts-ignore
       (k) => keyEntities[k]?.node?.[mergedFieldNames.value] ?? k
     );
 
