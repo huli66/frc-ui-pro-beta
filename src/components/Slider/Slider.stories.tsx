@@ -197,8 +197,14 @@ export const StepSliderComponent = () => {
           setEndValue(end);
       }
     }
+    const style= {
+      width: 320,
+      display: 'flex',
+      'flex-direction': 'column',
+      'align-items': 'center',
+    };
     return (
-      <div style={{width: 312}}>
+      <div style={style}>
         <div>
          <InputNumber
             disabled={disabled}
@@ -208,7 +214,7 @@ export const StepSliderComponent = () => {
             value={startVal}
             onChange={(v) => handleChange(v, 'start')}
           />
-          <span style={{margin: '0 4px'}}>-</span>
+          <span style={{margin: '0 4px', color: '#8F9598'}}>-</span>
           <InputNumber
             disabled={disabled}
             min={0}
@@ -219,6 +225,7 @@ export const StepSliderComponent = () => {
           />
         </div>
         <Slider
+          style={{width: 288}}
           marks={marks}
           range
           disabled={disabled}
