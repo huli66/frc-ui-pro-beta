@@ -449,7 +449,7 @@ $divider-color:                                    $words-disable !default;
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
 
-// slider
+// slider-controller
 $slider-height-sm:                                 4px !default;
 $slider-height-md:                                 8px !default;
 $slider-height-lg:                                 16px !default;
@@ -463,6 +463,22 @@ $slider-track-bg-active:                           $mouse-hover !default;
 $slider-rail-bg:                                   $element-background !default;
 $slider-rail-disabled-bg:                          $element-background !default;
 $slider-step-dot-bg:                               $part-plate !default;
+
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+
+// slider
+$slider-ui-base-bg:                                $element-background !default;
+$slider-ui-handle-color:                           $words-high-light !default;
+$slider-hover-bg:                                  $basic-filter !default;
+$slider-base-dot-bg:                               $part-plate !default;
+$slider-ui-size-sm:                                2px !default;
+$slider-ui-size-md:                                4px !default;
+$slider-ui-size-lg:                                8px !default;
+$slider-ui-handle-size:                            16px !default;
+$slider-ui-handle-before-size:                     4px !default;
+$slider-ui-handle-border:                          2px !default;
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
