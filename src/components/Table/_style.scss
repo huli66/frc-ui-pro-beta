@@ -130,7 +130,8 @@
       // table body
       .ant-table-tbody {
         // normal row
-        .ant-table-row, tr {
+        .ant-table-row,
+        tr {
           .ant-table-cell {
             color: $table-color-text;
             border-bottom: $table-border;
@@ -188,7 +189,8 @@
         }
 
         // extend row
-        .ant-table-expanded-row, tr {
+        .ant-table-expanded-row,
+        tr {
           .ant-table-cell {
             color: $table-color-text;
             background: $table-background;
@@ -211,6 +213,7 @@
       .ant-table-summary {
         top: -1px;
         background: $table-background-title;
+        box-shadow: none !important;
 
         tr {
           .ant-table-cell {
@@ -914,6 +917,26 @@
 
   tr.drop-over-upward td {
     border-top: $table-border-bold !important;
+  }
+
+  // virtual-table
+  &.virtual-table {
+    .ant-table {
+      .ant-table-container {
+        &::before,
+        &::after {
+          display: none;
+        }
+        .frc-table-virtual-grid {
+          .virtual-table-cell {
+            color: $table-color-text;
+            line-height: $table-small-line-height - 1;
+            border-bottom: $table-border;
+            padding: 0px 6px;
+          }
+        }
+      }
+    }
   }
 }
 

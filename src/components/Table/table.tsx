@@ -16,10 +16,9 @@ import {
   TablePaginationConfig,
   TableRowSelection,
   SelectionItem,
-  ColumnType,
 } from "antd/lib/table/interface";
 
-import { RenderedCell } from "rc-table/lib/interface";
+import { RenderedCell, TableComponents } from "rc-table/lib/interface";
 
 import {
   CaretLeftOutlined,
@@ -46,12 +45,6 @@ export interface SorterResult<RecordType> {
 type RecordType = any;
 type SortOrder = "descend" | "ascend" | null;
 type CompareFn<T> = (a: T, b: T, sortOrder?: SortOrder) => number;
-type Component<P> =
-  | React.ComponentType<P>
-  | React.ForwardRefExoticComponent<P>
-  | React.FC<P>
-  | keyof React.ReactHTML;
-type CustomizeComponent = Component<any>;
 
 export type CustomizeScrollBody<RecordType> = (
   data: readonly RecordType[],
@@ -66,23 +59,6 @@ export type CustomizeScrollBody<RecordType> = (
     }) => void;
   }
 ) => React.ReactNode;
-
-export interface TableComponents<RecordType> {
-  table?: CustomizeComponent;
-  header?: {
-    wrapper?: CustomizeComponent;
-    row?: CustomizeComponent;
-    cell?: CustomizeComponent;
-  };
-  body?:
-    | CustomizeScrollBody<RecordType>
-    | {
-        wrapper?: CustomizeComponent;
-        row?: CustomizeComponent;
-        cell?: CustomizeComponent;
-      };
-}
-
 interface BaseColumnsTypeProps<RecordType> {
   /** 设置列的对齐方式 */
   align?: "left" | "right" | "center";

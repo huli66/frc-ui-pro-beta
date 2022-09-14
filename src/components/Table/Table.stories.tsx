@@ -51,7 +51,7 @@ import {
 } from "../../index";
 
 // edit
-import { Form } from "antd";
+import { Form, Table as AntdTable } from "antd";
 import type { FormInstance } from "antd/es/form";
 
 // drag sort
@@ -68,8 +68,13 @@ import {
   SortableHandle,
 } from "react-sortable-hoc";
 
+// vertical list
+import classNames from "classnames";
+import ResizeObserver from "rc-resize-observer";
+import { VariableSizeGrid as Grid } from "react-window";
+
 // resize
-// import { Resizable } from "react-resizable";
+import { Resizable } from "react-resizable";
 
 export default {
   title: "数据显示/Table表格",
@@ -5387,448 +5392,752 @@ export const _BE_CustomCellEllipsisToolTipComponent = () => {
 
 _BE_CustomCellEllipsisToolTipComponent.storyName = "自定义单元格省略提示";
 
-// // ----------------------------------------------------------------
+// ----------------------------------------------------------------
 
-// // 必须置于顶层，否则无法获取到 ref
-// const ResizeableTitle = (props: any) => {
-//   const { onResize, onResizeStart, onResizeStop, width, ...restProps } = props;
+export const _BF_VirtualListComponent = () => {
+  const VirtualTable = (props: Parameters<typeof Table>[0]) => {
+    const { columns, scroll } = props;
+    const [tableWidth, setTableWidth] = useState(0);
 
-//   if (!width) {
-//     return <th {...restProps} />;
-//   }
+    const widthColumnCount = columns!.filter(({ width }) => !width).length;
+    const mergedColumns = columns!.map((column) => {
+      if (column.width) {
+        return column;
+      }
 
-//   return (
-//     <Resizable
-//       width={width}
-//       height={0}
-//       onResize={onResize}
-//       onResizeStart={onResizeStart}
-//       onResizeStop={onResizeStop}
-//       draggableOpts={{ enableUserSelectHack: false }}
-//     >
-//       <th {...restProps} />
-//     </Resizable>
-//   );
-// };
+      return {
+        ...column,
+        width: Math.floor(tableWidth / widthColumnCount),
+      };
+    });
 
-// export const __DragBasicComponent = () => {
-//   const [columns, setColumns] = useState([
-//     {
-//       title: "Date",
-//       dataIndex: "date",
-//       width: 200,
-//     },
-//     {
-//       title: "Amount",
-//       dataIndex: "amount",
-//       width: 100,
-//     },
-//     {
-//       title: "Type",
-//       dataIndex: "type",
-//       width: 100,
-//     },
-//     {
-//       title: "Note",
-//       dataIndex: "note",
-//       width: 100,
-//     },
-//     {
-//       title: "Action",
-//       key: "action",
-//       render: () => <button>Delete</button>,
-//     },
-//   ]);
+    const gridRef = useRef<any>();
+    const [connectObject] = useState<any>(() => {
+      const obj = {};
+      Object.defineProperty(obj, "scrollLeft", {
+        get: () => {
+          if (gridRef.current) {
+            return gridRef.current?.state?.scrollLeft;
+          }
+          return null;
+        },
+        set: (scrollLeft: number) => {
+          if (gridRef.current) {
+            gridRef.current.scrollTo({ scrollLeft });
+          }
+        },
+      });
 
-//   const components = {
-//     header: {
-//       cell: ResizeableTitle,
-//     },
-//   };
+      return obj;
+    });
 
-//   const data = [
-//     {
-//       key: 0,
-//       date: "2018-02-11",
-//       amount: 120,
-//       type: "income",
-//       note: "transfer",
-//     },
-//     {
-//       key: 1,
-//       date: "2018-03-11",
-//       amount: 243,
-//       type: "income",
-//       note: "transfer",
-//     },
-//     {
-//       key: 2,
-//       date: "2018-04-11",
-//       amount: 98,
-//       type: "income",
-//       note: "transfer",
-//     },
-//   ];
+    const resetVirtualGrid = () => {
+      gridRef.current?.resetAfterIndices({
+        columnIndex: 0,
+        shouldForceUpdate: true,
+      });
+    };
 
-//   const handleResize =
-//     (index: any) =>
-//     (e: any, { size }: any) => {
-//       // console.log("size", size);
-//       const nextColumns = [...columns];
-//       nextColumns[index] = {
-//         ...nextColumns[index],
-//         width: size.width,
-//       };
+    useEffect(() => resetVirtualGrid, [tableWidth]);
 
-//       setColumns(nextColumns);
-//     };
+    const renderVirtualList = (
+      rawData: object[],
+      { scrollbarSize, ref, onScroll }: any
+    ) => {
+      ref.current = connectObject;
+      const totalHeight = rawData.length * 25;
 
-//   let newColumns = columns.map(
-//     (col, index) =>
-//       ({
-//         ...col,
-//         onHeaderCell: (column: any) => ({
-//           width: column.width,
-//           onResize: handleResize(index),
-//         }),
-//       } as any)
-//   );
+      return (
+        <Grid
+          ref={gridRef}
+          className="frc-table-virtual-grid"
+          columnCount={mergedColumns.length}
+          columnWidth={(index: number) => {
+            const { width } = mergedColumns[index];
+            return totalHeight > scroll!.y! &&
+              index === mergedColumns.length - 1
+              ? (width as number) - scrollbarSize - 1
+              : (width as number);
+          }}
+          height={scroll!.y as number}
+          rowCount={rawData.length}
+          rowHeight={() => 25}
+          width={tableWidth}
+          onScroll={({ scrollLeft }: { scrollLeft: number }) => {
+            onScroll({ scrollLeft });
+          }}
+        >
+          {({
+            columnIndex,
+            rowIndex,
+            style,
+          }: {
+            columnIndex: number;
+            rowIndex: number;
+            style: React.CSSProperties;
+          }) => (
+            <div
+              className={classNames("virtual-table-cell", {
+                "virtual-table-cell-last":
+                  columnIndex === mergedColumns.length - 1,
+              })}
+              style={style}
+            >
+              {
+                (rawData[rowIndex] as any)[
+                  (mergedColumns as any)[columnIndex].dataIndex
+                ]
+              }
+            </div>
+          )}
+        </Grid>
+      );
+    };
 
-//   return (
-//     <Table
-//       bordered
-//       components={components}
-//       columns={newColumns}
-//       dataSource={data}
-//     />
-//   );
-// };
+    return (
+      <ResizeObserver
+        onResize={({ width }) => {
+          setTableWidth(width);
+        }}
+      >
+        <Table
+          {...props}
+          className="virtual-table"
+          columns={mergedColumns}
+          pagination={false}
+          components={{
+            body: renderVirtualList as any,
+          }}
+        />
+      </ResizeObserver>
+    );
+  };
 
-// __DragBasicComponent.storyName = "基础拖拽 table";
+  // Usage
+  const columns = [
+    { title: "A", dataIndex: "key", width: 150 },
+    { title: "B", dataIndex: "key" },
+    { title: "C", dataIndex: "key" },
+    { title: "D", dataIndex: "key" },
+    { title: "E", dataIndex: "key", width: 200 },
+    { title: "F", dataIndex: "key", width: 100 },
+  ];
 
-// export const __DragComplexComponent = () => {
-//   interface DataType {
-//     key: string;
-//     name: string;
-//     age: number;
-//     address: string;
-//     tags: string;
-//     action: string;
-//     sex: "male" | "female";
-//     phone: number;
-//     description: string;
-//   }
+  const data = Array.from({ length: 100000 }, (_, key) => ({ key }));
 
-//   const [tableColumns, setTableColumns] = useState<any[]>([
-//     {
-//       title: "Name",
-//       dataIndex: "name",
-//       fixed: "left",
-//       width: "150px",
-//     },
-//     {
-//       title: "Age",
-//       dataIndex: "age",
-//       fixed: "left",
-//       width: "100px",
-//     },
-//     {
-//       title: "Address",
-//       dataIndex: "address",
-//       width: "250px",
-//     },
-//     {
-//       title: "Tags",
-//       dataIndex: "tags",
-//       width: "100px",
-//     },
-//     {
-//       title: "Action",
-//       dataIndex: "action",
-//       width: "100px",
-//     },
-//     {
-//       title: "Sex",
-//       dataIndex: "sex",
-//       width: "100px",
-//     },
-//     {
-//       title: "Phone",
-//       dataIndex: "phone",
-//       width: "200px",
-//     },
-//     {
-//       title: "Description",
-//       dataIndex: "description",
-//       fixed: "right",
-//       width: "200px",
-//     },
-//   ]);
+  // --------------------------------------------------------------
 
-//   const components = {
-//     header: {
-//       cell: ResizeableTitle,
-//     },
-//   };
+  const code = `
+    // import code
+    import React, { useEffect, useRef, useState } from 'react';
+    import { Table } from 'frc-ui-pro';
 
-//   const handleResize =
-//     (index: any) =>
-//     (e: any, { size }: any) => {
-//       const nextColumns = [...tableColumns];
-//       nextColumns[index] = {
-//         ...nextColumns[index],
-//         width: size.width,
-//       };
-//       setTableColumns(nextColumns);
-//     };
+    import classNames from 'classnames';
+    import ResizeObserver from 'rc-resize-observer';
+    import { VariableSizeGrid as Grid } from 'react-window';
 
-//   const handleResizeStart =
-//     (index: any) =>
-//     (e: any, { size }: any) => {
-//       const nextColumns = [...tableColumns];
-//       nextColumns[index] = {
-//         ...nextColumns[index],
-//         className: `${nextColumns[index].className || ""} frc-resizeable-start`,
-//       };
-//       setTableColumns(nextColumns);
-//     };
+    // 通过 react-window 引入虚拟滚动方案，实现 100000 条数据的高性能表格。
+  `;
 
-//   const handleResizeStop =
-//     (index: any) =>
-//     (e: any, { size }: any) => {
-//       const nextColumns = [...tableColumns];
-//       nextColumns[index] = {
-//         ...nextColumns[index],
-//         className: nextColumns[index].className.replace(
-//           / frc-resizeable-start/g,
-//           ""
-//         ),
-//       };
-//       setTableColumns(nextColumns);
-//     };
+  // --------------------------------------------------------------
 
-//   let columnse: any[] = tableColumns.map((col, index) => ({
-//     ...col,
-//     onHeaderCell: (column: any) => ({
-//       width: Number(column.width?.toString().match(/\d+/i)[0]),
-//       onResizeStart: handleResizeStart(index),
-//       onResize: handleResize(index),
-//       onResizeStop: handleResizeStop(index),
-//     }),
-//   }));
+  return (
+    <>
+      <ImportCode code={code} />
+      <VirtualTable
+        columns={columns}
+        dataSource={data}
+        scroll={{ y: 300, x: "100vw" }}
+      />
+    </>
+  );
+};
 
-//   const data: DataType[] = [
-//     {
-//       key: "1",
-//       name: "John Brown",
-//       age: 32,
-//       address: "New York No. 1 Lake Park",
-//       tags: "1",
-//       action: "create",
-//       sex: "male",
-//       phone: 13968711111,
-//       description: "something else",
-//     },
-//     {
-//       key: "2",
-//       name: "Jim Green",
-//       age: 42,
-//       address: "London No. 1 Lake Park",
-//       tags: "1",
-//       action: "create",
-//       sex: "male",
-//       phone: 13968722222,
-//       description: "something else",
-//     },
-//     {
-//       key: "3",
-//       name: "Joe Black",
-//       age: 32,
-//       address: "Sidney No. 1 Lake Park",
-//       tags: "1",
-//       action: "create",
-//       sex: "female",
-//       phone: 13968733333,
-//       description: "something else",
-//     },
-//     {
-//       key: "4",
-//       name: "John Brown",
-//       age: 32,
-//       address: "New York No. 1 Lake Park",
-//       tags: "1",
-//       action: "create",
-//       sex: "male",
-//       phone: 13968711111,
-//       description: "something else",
-//     },
-//     {
-//       key: "5",
-//       name: "Jim Green",
-//       age: 42,
-//       address: "London No. 1 Lake Park",
-//       tags: "1",
-//       action: "create",
-//       sex: "male",
-//       phone: 13968722222,
-//       description: "something else",
-//     },
-//     {
-//       key: "6",
-//       name: "Joe Black",
-//       age: 32,
-//       address: "Sidney No. 1 Lake Park",
-//       tags: "1",
-//       action: "create",
-//       sex: "female",
-//       phone: 13968733333,
-//       description: "something else",
-//     },
-//     {
-//       key: "7",
-//       name: "John Brown",
-//       age: 32,
-//       address: "New York No. 1 Lake Park",
-//       tags: "1",
-//       action: "create",
-//       sex: "male",
-//       phone: 13968711111,
-//       description: "something else",
-//     },
-//     {
-//       key: "8",
-//       name: "Jim Green",
-//       age: 42,
-//       address: "London No. 1 Lake Park",
-//       tags: "1",
-//       action: "create",
-//       sex: "male",
-//       phone: 13968722222,
-//       description: "something else",
-//     },
-//     {
-//       key: "9",
-//       name: "Joe Black",
-//       age: 32,
-//       address: "Sidney No. 1 Lake Park",
-//       tags: "1",
-//       action: "create",
-//       sex: "female",
-//       phone: 13968733333,
-//       description: "something else",
-//     },
-//     {
-//       key: "10",
-//       name: "John Brown",
-//       age: 32,
-//       address: "New York No. 1 Lake Park",
-//       tags: "1",
-//       action: "create",
-//       sex: "male",
-//       phone: 13968711111,
-//       description: "something else",
-//     },
-//     {
-//       key: "11",
-//       name: "Jim Green",
-//       age: 42,
-//       address: "London No. 1 Lake Park",
-//       tags: "1",
-//       action: "create",
-//       sex: "male",
-//       phone: 13968722222,
-//       description: "something else",
-//     },
-//     {
-//       key: "12",
-//       name: "Joe Black",
-//       age: 32,
-//       address: "Sidney No. 1 Lake Park",
-//       tags: "1",
-//       action: "create",
-//       sex: "female",
-//       phone: 13968733333,
-//       description: "something else",
-//     },
-//     {
-//       key: "13",
-//       name: "John Brown",
-//       age: 32,
-//       address: "New York No. 1 Lake Park",
-//       tags: "1",
-//       action: "create",
-//       sex: "male",
-//       phone: 13968711111,
-//       description: "something else",
-//     },
-//     {
-//       key: "14",
-//       name: "Jim Green",
-//       age: 42,
-//       address: "London No. 1 Lake Park",
-//       tags: "1",
-//       action: "create",
-//       sex: "male",
-//       phone: 13968722222,
-//       description: "something else",
-//     },
-//     {
-//       key: "15",
-//       name: "Joe Black",
-//       age: 32,
-//       address: "Sidney No. 1 Lake Park",
-//       tags: "1",
-//       action: "create",
-//       sex: "female",
-//       phone: 13968733333,
-//       description: "something else",
-//     },
-//     {
-//       key: "16",
-//       name: "John Brown",
-//       age: 32,
-//       address: "New York No. 1 Lake Park",
-//       tags: "1",
-//       action: "create",
-//       sex: "male",
-//       phone: 13968711111,
-//       description: "something else",
-//     },
-//     {
-//       key: "17",
-//       name: "Jim Green",
-//       age: 42,
-//       address: "London No. 1 Lake Park",
-//       tags: "1",
-//       action: "create",
-//       sex: "male",
-//       phone: 13968722222,
-//       description: "something else",
-//     },
-//     {
-//       key: "18",
-//       name: "Joe Black",
-//       age: 32,
-//       address: "Sidney No. 1 Lake Park",
-//       tags: "1",
-//       action: "create",
-//       sex: "female",
-//       phone: 13968733333,
-//       description: "something else",
-//     },
-//   ];
+_BF_VirtualListComponent.storyName = "虚拟列表";
 
-//   return (
-//     <Table
-//       bordered
-//       components={components}
-//       columns={columnse}
-//       dataSource={data}
-//       scroll={{ x: 900, y: 300 }}
-//     />
-//   );
-// };
+// ----------------------------------------------------------------
 
-// __DragComplexComponent.storyName = "复杂拖拽 table";
+export const _ZZ_FixedTopComponent = () => {
+  interface DataType {
+    key: React.Key;
+    name: string;
+    age: number;
+    address: string;
+  }
 
-// // ----------------------------------------------------------------
+  const columns: any[] = [
+    {
+      title: "Full Name",
+      width: 100,
+      dataIndex: "name",
+      key: "name",
+      fixed: "left",
+    },
+    {
+      title: "Age",
+      width: 100,
+      dataIndex: "age",
+      key: "age",
+      fixed: "left",
+    },
+    {
+      title: "Column 1",
+      dataIndex: "address",
+      key: "1",
+      width: 150,
+    },
+    {
+      title: "Column 2",
+      dataIndex: "address",
+      key: "2",
+      width: 150,
+    },
+    {
+      title: "Column 3",
+      dataIndex: "address",
+      key: "3",
+      width: 150,
+    },
+    {
+      title: "Column 4",
+      dataIndex: "address",
+      key: "4",
+      width: 150,
+    },
+    {
+      title: "Column 5",
+      dataIndex: "address",
+      key: "5",
+      width: 150,
+    },
+    {
+      title: "Column 6",
+      dataIndex: "address",
+      key: "6",
+      width: 150,
+    },
+    {
+      title: "Column 7",
+      dataIndex: "address",
+      key: "7",
+      width: 150,
+    },
+    { title: "Column 8", dataIndex: "address", key: "8" },
+    {
+      title: "Action",
+      key: "operation",
+      fixed: "right",
+      width: 100,
+      render: () => <Button type="link">action</Button>,
+    },
+  ];
+
+  const data: DataType[] = [];
+  for (let i = 0; i < 100; i++) {
+    data.push({
+      key: i,
+      name: `Edrward ${i}`,
+      age: 32,
+      address: `London Park no. ${i}`,
+    });
+  }
+
+  // --------------------------------------------------------------
+
+  const [fixedTop, setFixedTop] = useState(false);
+
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import React, { useState } from 'react';
+    import { Switch, Table, Button } from 'frc-ui-pro';
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+
+    // 对于长表格，需要滚动才能查看表头和滚动条，那么现在可以设置跟随页面固定表头和滚动条。
+  `;
+
+  // --------------------------------------------------------------
+
+  return (
+    <>
+      <ImportCode code={code} />
+      <Table
+        columns={columns}
+        dataSource={data}
+        scroll={{ x: 1500 }}
+        summary={() => (
+          <AntdTable.Summary fixed={fixedTop ? "top" : "bottom"}>
+            <AntdTable.Summary.Row>
+              <AntdTable.Summary.Cell index={0} colSpan={2}>
+                <Switch
+                  checkedChildren="Fixed Top"
+                  unCheckedChildren="Fixed Top"
+                  checked={fixedTop}
+                  onChange={() => {
+                    setFixedTop(!fixedTop);
+                  }}
+                />
+              </AntdTable.Summary.Cell>
+              <AntdTable.Summary.Cell index={2} colSpan={8}>
+                Scroll Context
+              </AntdTable.Summary.Cell>
+              <AntdTable.Summary.Cell index={10}>
+                Fix Right
+              </AntdTable.Summary.Cell>
+            </AntdTable.Summary.Row>
+          </AntdTable.Summary>
+        )}
+        sticky
+      />
+    </>
+  );
+};
+
+_ZZ_FixedTopComponent.storyName = "随页面滚动的固定表头和滚动条";
+
+// ----------------------------------------------------------------
+
+// 必须置于顶层，否则无法获取到 ref
+const ResizeableTitle = (props: any) => {
+  const { onResize, onResizeStart, onResizeStop, width, ...restProps } = props;
+
+  if (!width) {
+    return <th {...restProps} />;
+  }
+
+  return (
+    <Resizable
+      width={width}
+      height={0}
+      onResize={onResize}
+      onResizeStart={onResizeStart}
+      onResizeStop={onResizeStop}
+      draggableOpts={{ enableUserSelectHack: false }}
+    >
+      <th {...restProps} />
+    </Resizable>
+  );
+};
+
+export const _BG_DragBasicComponent = () => {
+  const [columns, setColumns] = useState([
+    {
+      title: "Date",
+      dataIndex: "date",
+      width: 200,
+    },
+    {
+      title: "Amount",
+      dataIndex: "amount",
+      width: 100,
+    },
+    {
+      title: "Type",
+      dataIndex: "type",
+      width: 100,
+    },
+    {
+      title: "Note",
+      dataIndex: "note",
+      width: 100,
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: () => <Button type="link">Delete</Button>,
+    },
+  ]);
+
+  const components = {
+    header: {
+      cell: ResizeableTitle,
+    },
+  };
+
+  const data = [
+    {
+      key: 0,
+      date: "2018-02-11",
+      amount: 120,
+      type: "income",
+      note: "transfer",
+    },
+    {
+      key: 1,
+      date: "2018-03-11",
+      amount: 243,
+      type: "income",
+      note: "transfer",
+    },
+    {
+      key: 2,
+      date: "2018-04-11",
+      amount: 98,
+      type: "income",
+      note: "transfer",
+    },
+  ];
+
+  const handleResize =
+    (index: any) =>
+    (e: any, { size }: any) => {
+      // console.log("size", size);
+      const nextColumns = [...columns];
+      nextColumns[index] = {
+        ...nextColumns[index],
+        width: size.width,
+      };
+
+      setColumns(nextColumns);
+    };
+
+  let newColumns = columns.map(
+    (col, index) =>
+      ({
+        ...col,
+        onHeaderCell: (column: any) => ({
+          width: column.width,
+          onResize: handleResize(index),
+        }),
+      } as any)
+  );
+
+  return (
+    <Table
+      bordered
+      components={components}
+      columns={newColumns}
+      dataSource={data}
+    />
+  );
+};
+
+_BG_DragBasicComponent.storyName = "基础拖拽";
+
+export const _BH_DragComplexComponent = () => {
+  interface DataType {
+    key: string;
+    name: string;
+    age: number;
+    address: string;
+    tags: string;
+    action: string;
+    sex: "male" | "female";
+    phone: number;
+    description: string;
+  }
+
+  const [tableColumns, setTableColumns] = useState<any[]>([
+    {
+      title: "Name",
+      dataIndex: "name",
+      fixed: "left",
+      width: "150px",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      fixed: "left",
+      width: "100px",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      width: "250px",
+    },
+    {
+      title: "Tags",
+      dataIndex: "tags",
+      width: "100px",
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      width: "100px",
+    },
+    {
+      title: "Sex",
+      dataIndex: "sex",
+      width: "100px",
+    },
+    {
+      title: "Phone",
+      dataIndex: "phone",
+      width: "200px",
+    },
+    {
+      title: "Description",
+      dataIndex: "description",
+      fixed: "right",
+      width: "200px",
+    },
+  ]);
+
+  const components = {
+    header: {
+      cell: ResizeableTitle,
+    },
+  };
+
+  const handleResize =
+    (index: any) =>
+    (e: any, { size }: any) => {
+      const nextColumns = [...tableColumns];
+      nextColumns[index] = {
+        ...nextColumns[index],
+        width: size.width,
+      };
+      setTableColumns(nextColumns);
+    };
+
+  const handleResizeStart =
+    (index: any) =>
+    (e: any, { size }: any) => {
+      const nextColumns = [...tableColumns];
+      nextColumns[index] = {
+        ...nextColumns[index],
+        className: `${nextColumns[index].className || ""} frc-resizeable-start`,
+      };
+      setTableColumns(nextColumns);
+    };
+
+  const handleResizeStop =
+    (index: any) =>
+    (e: any, { size }: any) => {
+      const nextColumns = [...tableColumns];
+      nextColumns[index] = {
+        ...nextColumns[index],
+        className: nextColumns[index].className.replace(
+          / frc-resizeable-start/g,
+          ""
+        ),
+      };
+      setTableColumns(nextColumns);
+    };
+
+  let columnse: any[] = tableColumns.map((col, index) => ({
+    ...col,
+    onHeaderCell: (column: any) => ({
+      width: Number(column.width?.toString().match(/\d+/i)[0]),
+      onResizeStart: handleResizeStart(index),
+      onResize: handleResize(index),
+      onResizeStop: handleResizeStop(index),
+    }),
+  }));
+
+  const data: DataType[] = [
+    {
+      key: "1",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "2",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "3",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "4",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "5",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "6",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "7",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "8",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "9",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "10",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "11",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "12",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "13",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "14",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "15",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "16",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "17",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "18",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+  ];
+
+  return (
+    <Table
+      bordered
+      components={components}
+      columns={columnse}
+      dataSource={data}
+      scroll={{ x: 900, y: 300 }}
+    />
+  );
+};
+
+_BH_DragComplexComponent.storyName = "复杂拖拽";
+
+// ----------------------------------------------------------------
