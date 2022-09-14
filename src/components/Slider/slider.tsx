@@ -45,7 +45,7 @@ interface BaseSliderProps {
 
 export type FRCSliderProps = BaseSliderProps & (SliderSingleProps | SliderRangeProps);
 
-const Slider = forwardRef<unknown, FRCSliderProps>((props, ref: any) => {
+export const Slider = forwardRef<unknown, FRCSliderProps>((props, ref: any) => {
   const [active, setActive] = useState<boolean>(false);
   const {
     className,

@@ -59,7 +59,7 @@ import { Slider } from 'frc-ui-pro';
 // ----------------------------------------------------------------
 
 export default {
-  title: '数据录入/Slider 滑动控制器',
+  title: '数据录入/Slider 滑动输入条',
   component: Slider,
   parameters: {
     docs: {
@@ -198,21 +198,22 @@ export const StepSliderComponent = () => {
       }
     }
     return (
-      <div style={{width: 300}}>
+      <div style={{width: 312}}>
         <div>
          <InputNumber
             disabled={disabled}
             min={0}
             max={100}
-            style={{margin: '0 16px'}}
+            style={{width: 148}}
             value={startVal}
             onChange={(v) => handleChange(v, 'start')}
           />
+          <span style={{margin: '0 4px'}}>-</span>
           <InputNumber
             disabled={disabled}
             min={0}
             max={100}
-            style={{margin: '0 16px'}}
+            style={{width: 148}}
             value={endValue}
             onChange={(v) => handleChange(v, 'end')}
           />
@@ -239,7 +240,7 @@ export const StepSliderComponent = () => {
   )
 }
 
-StepSliderComponent.storyName = '滑动输入条 Slider'
+StepSliderComponent.storyName = '联动交互 Slider'
 StepSliderComponent.parameters = {
   controls: {hideNoControlsWarning: true}
 }
