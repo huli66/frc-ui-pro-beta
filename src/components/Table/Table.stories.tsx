@@ -39,6 +39,7 @@ import {
   Icon,
   Switch,
   InputNumber,
+  Tooltip,
   // type
   FRCTableProps,
   ColumnsTypeProps,
@@ -5169,6 +5170,222 @@ export const _BC_HandleDragRowComponent = () => {
 };
 
 _BC_HandleDragRowComponent.storyName = "拖拽手柄列";
+
+// ----------------------------------------------------------------
+
+export const _BD_CellEllipsisComponent = () => {
+  interface DataType {
+    key: React.Key;
+    name: string;
+    age: number;
+    address: string;
+  }
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      render: (text) => <Button type="link">{text}</Button>,
+      width: 150,
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+      width: 80,
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address 1",
+      ellipsis: true,
+    },
+    {
+      title: "Long Column Long Column Long Column",
+      dataIndex: "address",
+      key: "address 2",
+      ellipsis: true,
+    },
+    {
+      title: "Long Column Long Column",
+      dataIndex: "address",
+      key: "address 3",
+      ellipsis: true,
+    },
+    {
+      title: "Long Column",
+      dataIndex: "address",
+      key: "address 4",
+      ellipsis: true,
+    },
+  ];
+
+  const data: DataType[] = [
+    {
+      key: "1",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park, New York No. 1 Lake Park",
+    },
+    {
+      key: "2",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 2 Lake Park, London No. 2 Lake Park",
+    },
+    {
+      key: "3",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park, Sidney No. 1 Lake Park",
+    },
+  ];
+
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import React from 'react';
+    import { Table, Button } from 'frc-ui-pro';
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+
+    // 设置 column.ellipsis 可以让单元格内容根据宽度自动省略。
+  `;
+
+  // --------------------------------------------------------------
+
+  return (
+    <>
+      <ImportCode code={code} />
+      <Table columns={columns} dataSource={data} />
+    </>
+  );
+};
+
+_BD_CellEllipsisComponent.storyName = "单元格自动省略";
+
+// ----------------------------------------------------------------
+
+export const _BE_CustomCellEllipsisToolTipComponent = () => {
+  interface DataType {
+    key: React.Key;
+    name: string;
+    age: number;
+    address: string;
+  }
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      render: (text) => <Button type="link">{text}</Button>,
+      width: 150,
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+      width: 80,
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address 1",
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (address) => (
+        <Tooltip placement="topLeft" title={address}>
+          {address}
+        </Tooltip>
+      ),
+    },
+    {
+      title: "Long Column Long Column Long Column",
+      dataIndex: "address",
+      key: "address 2",
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (address) => (
+        <Tooltip placement="topLeft" title={address}>
+          {address}
+        </Tooltip>
+      ),
+    },
+    {
+      title: "Long Column Long Column",
+      dataIndex: "address",
+      key: "address 3",
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (address) => (
+        <Tooltip placement="topLeft" title={address}>
+          {address}
+        </Tooltip>
+      ),
+    },
+    {
+      title: "Long Column",
+      dataIndex: "address",
+      key: "address 4",
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (address) => (
+        <Tooltip placement="topLeft" title={address}>
+          {address}
+        </Tooltip>
+      ),
+    },
+  ];
+
+  const data: DataType[] = [
+    {
+      key: "1",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park, New York No. 1 Lake Park",
+    },
+    {
+      key: "2",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 2 Lake Park, London No. 2 Lake Park",
+    },
+    {
+      key: "3",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park, Sidney No. 1 Lake Park",
+    },
+  ];
+
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import React from 'react';
+    import { Table, Button, Tooltip } from 'frc-ui-pro';
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+
+    // 设置 column.ellipsis.showTitle 关闭单元格内容自动省略后默认的 title 提示, 使用 Tooltip 替代。
+  `;
+
+  // --------------------------------------------------------------
+
+  return (
+    <>
+      <ImportCode code={code} />
+      <Table columns={columns} dataSource={data} />
+    </>
+  );
+};
+
+_BE_CustomCellEllipsisToolTipComponent.storyName = "自定义单元格省略提示";
 
 // // ----------------------------------------------------------------
 
