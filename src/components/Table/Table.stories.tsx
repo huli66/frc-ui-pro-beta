@@ -59,7 +59,6 @@ import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 // handle drag sort
-import { MenuOutlined } from "@ant-design/icons";
 import { arrayMoveImmutable } from "array-move";
 import type { SortableContainerProps, SortEnd } from "react-sortable-hoc";
 import {
@@ -5032,14 +5031,17 @@ export const _BC_HandleDragRowComponent = () => {
   }
 
   const DragHandle = SortableHandle(() => (
-    <MenuOutlined style={{ cursor: "grab", color: "#999" }} />
+    <Icon
+      style={{ cursor: "grab", color: "#ffebc8", fontSize: 14 }}
+      type="drag-drop"
+    />
   ));
 
   const columns: ColumnsTypeProps[] = [
     {
       title: "Sort",
       dataIndex: "sort",
-      width: 30,
+      width: 50,
       className: "drag-visible",
       render: () => <DragHandle />,
     },
@@ -5111,7 +5113,7 @@ export const _BC_HandleDragRowComponent = () => {
     <SortableBody
       useDragHandle
       disableAutoscroll
-      helperClass="row-dragging"
+      helperClass="frc-table-drag-row"
       onSortEnd={onSortEnd}
       {...props}
     />
@@ -5126,18 +5128,19 @@ export const _BC_HandleDragRowComponent = () => {
     const index = dataSource.findIndex(
       (x) => x.index === restProps["data-row-key"]
     );
-    return <SortableItem index={index} {...restProps} />;
+    return <SortableItem index={index} className={className} {...restProps} />;
   };
 
   // --------------------------------------------------------------
 
   const code = `
     // import code
-    import { MenuOutlined } from '@ant-design/icons';
-    import { Table } from 'antd';
-    import type { ColumnsType } from 'antd/es/table';
-    import { arrayMoveImmutable } from 'array-move';
     import React, { useState } from 'react';
+    import { Table } from 'frc-ui-pro';
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+
+    import { arrayMoveImmutable } from 'array-move';
+
     import type { SortableContainerProps, SortEnd } from 'react-sortable-hoc';
     import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 

@@ -130,7 +130,7 @@
       // table body
       .ant-table-tbody {
         // normal row
-        .ant-table-row {
+        .ant-table-row, tr {
           .ant-table-cell {
             color: $table-color-text;
             border-bottom: $table-border;
@@ -188,7 +188,7 @@
         }
 
         // extend row
-        .ant-table-expanded-row {
+        .ant-table-expanded-row, tr {
           .ant-table-cell {
             color: $table-color-text;
             background: $table-background;
@@ -1000,15 +1000,15 @@
 }
 
 // handle drag sort row
-.row-dragging {
+.frc-table-drag-row.ant-table-row {
   background: $table-background-active;
   border: $table-border-title;
 }
 
-.row-dragging td {
-  padding: 4px 16px;
+.frc-table-drag-row.ant-table-row td {
+  padding: 0px 16px;
 }
 
-.row-dragging .drag-visible {
+.frc-table-drag-row.ant-table-row .drag-visible {
   visibility: visible;
 }
