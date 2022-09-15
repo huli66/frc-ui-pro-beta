@@ -139,6 +139,8 @@ interface BaseColumnsTypeProps<RecordType> {
       }) => ReactNode);
   /** 列宽度（指定了也不生效？看 antd 官方文档） */
   width?: string | number;
+  /** 设置最小的 resize 列宽度，参考 demo 进行配置 */
+  minResizeWidth?: string | number;
   /** 设置单元格属性 */
   onCell?: (record?: RecordType, rowIndex?: number) => any;
   /** 本地模式下，确定筛选的运行函数 */

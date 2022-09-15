@@ -5720,106 +5720,13 @@ const ResizeableTitle = (props: any) => {
   );
 };
 
-export const _BG_DragBasicComponent = () => {
-  const [columns, setColumns] = useState([
-    {
-      title: "Date",
-      dataIndex: "date",
-      width: 200,
-    },
-    {
-      title: "Amount",
-      dataIndex: "amount",
-      width: 100,
-    },
-    {
-      title: "Type",
-      dataIndex: "type",
-      width: 100,
-    },
-    {
-      title: "Note",
-      dataIndex: "note",
-      width: 100,
-    },
-    {
-      title: "Action",
-      key: "action",
-      render: () => <Button type="link">Delete</Button>,
-    },
-  ]);
-
-  const components = {
-    header: {
-      cell: ResizeableTitle,
-    },
-  };
-
-  const data = [
-    {
-      key: 0,
-      date: "2018-02-11",
-      amount: 120,
-      type: "income",
-      note: "transfer",
-    },
-    {
-      key: 1,
-      date: "2018-03-11",
-      amount: 243,
-      type: "income",
-      note: "transfer",
-    },
-    {
-      key: 2,
-      date: "2018-04-11",
-      amount: 98,
-      type: "income",
-      note: "transfer",
-    },
-  ];
-
-  const handleResize =
-    (index: any) =>
-    (e: any, { size }: any) => {
-      // console.log("size", size);
-      const nextColumns = [...columns];
-      nextColumns[index] = {
-        ...nextColumns[index],
-        width: size.width,
-      };
-
-      setColumns(nextColumns);
-    };
-
-  let newColumns = columns.map(
-    (col, index) =>
-      ({
-        ...col,
-        onHeaderCell: (column: any) => ({
-          width: column.width,
-          onResize: handleResize(index),
-        }),
-      } as any)
-  );
-
-  return (
-    <Table
-      bordered
-      components={components}
-      columns={newColumns}
-      dataSource={data}
-    />
-  );
-};
-
-_BG_DragBasicComponent.storyName = "基础拖拽";
-
 export const _BH_DragComplexComponent = () => {
   interface DataType {
     key: string;
     name: string;
     age: number;
+    age1: number;
+    age2: number;
     address: string;
     tags: string;
     action: string;
@@ -5828,49 +5735,67 @@ export const _BH_DragComplexComponent = () => {
     description: string;
   }
 
-  const [tableColumns, setTableColumns] = useState<any[]>([
+  const [tableColumns, setTableColumns] = useState<ColumnsTypeProps[]>([
     {
       title: "Name",
       dataIndex: "name",
       fixed: "left",
       width: "150px",
+      minResizeWidth: "100px",
     },
     {
       title: "Age",
-      dataIndex: "age",
-      fixed: "left",
-      width: "100px",
+      children: [
+        {
+          title: "Age1",
+          dataIndex: "age1",
+          width: "150px",
+          minResizeWidth: "50px",
+        },
+        {
+          title: "Age2",
+          dataIndex: "age2",
+          width: "150px",
+          minResizeWidth: "50px",
+        },
+      ],
     },
     {
       title: "Address",
       dataIndex: "address",
       width: "250px",
+      minResizeWidth: "200px",
     },
     {
       title: "Tags",
       dataIndex: "tags",
       width: "100px",
+      minResizeWidth: "50px",
     },
     {
       title: "Action",
       dataIndex: "action",
       width: "100px",
+      minResizeWidth: "60px",
     },
     {
       title: "Sex",
       dataIndex: "sex",
       width: "100px",
+      minResizeWidth: "60px",
     },
     {
       title: "Phone",
       dataIndex: "phone",
-      width: "200px",
+      width: "150px",
+      minResizeWidth: "100px",
     },
     {
       title: "Description",
       dataIndex: "description",
       fixed: "right",
       width: "200px",
+      minResizeWidth: "150px",
     },
   ]);
 
@@ -5880,57 +5805,131 @@ export const _BH_DragComplexComponent = () => {
     },
   };
 
+  // --------------------------------------------------------------
+
+  const changeColumns = (
+    columns: ColumnsTypeProps[],
+    key: any,
+    config: ColumnsTypeProps
+  ) => {
+    return columns.map((column) => {
+      let columnProps = {};
+
+      if (column.dataIndex === key) {
+        columnProps = {
+          ...columnProps,
+          ...config,
+        };
+      }
+
+      if (column.children) {
+        columnProps = {
+          ...columnProps,
+          children: changeColumns(column.children, key, config),
+        };
+      }
+
+      return { ...column, ...columnProps };
+    });
+  };
+
+  const [reSizeColumn, setReSizeColumn] = useState<ColumnsTypeProps>();
+
+  const searchedColumn = (columns: ColumnsTypeProps[], key: any) => {
+    return columns.find((column) => {
+      if (column.dataIndex === key) {
+        setReSizeColumn(column);
+        return true;
+      }
+      if (column.children) {
+        searchedColumn(column.children, key);
+      }
+
+      return false;
+    });
+  };
+
   const handleResize =
-    (index: any) =>
-    (e: any, { size }: any) => {
-      const nextColumns = [...tableColumns];
-      nextColumns[index] = {
-        ...nextColumns[index],
-        width: size.width,
-      };
+    (key: any) =>
+    async (e: any, { size }: any) => {
+      let nextColumns = [...tableColumns];
+      await searchedColumn(nextColumns, key);
+
+      const minWidth =
+        Number(reSizeColumn?.minResizeWidth?.toString().match(/\d+/i)?.[0]) ||
+        0;
+
+      nextColumns = changeColumns(nextColumns, key, {
+        width: size.width > minWidth ? size.width : minWidth,
+      });
+
       setTableColumns(nextColumns);
     };
 
   const handleResizeStart =
-    (index: any) =>
+    (key: any) =>
     (e: any, { size }: any) => {
-      const nextColumns = [...tableColumns];
-      nextColumns[index] = {
-        ...nextColumns[index],
-        className: `${nextColumns[index].className || ""} frc-resizeable-start`,
-      };
+      let nextColumns = [...tableColumns];
+
+      nextColumns = changeColumns(nextColumns, key, {
+        className: `${reSizeColumn?.className || ""} frc-resizeable-start`,
+      });
+
       setTableColumns(nextColumns);
     };
 
   const handleResizeStop =
-    (index: any) =>
+    (key: any) =>
     (e: any, { size }: any) => {
-      const nextColumns = [...tableColumns];
-      nextColumns[index] = {
-        ...nextColumns[index],
-        className: nextColumns[index].className.replace(
+      let nextColumns = [...tableColumns];
+
+      nextColumns = changeColumns(nextColumns, key, {
+        className: reSizeColumn?.className?.replace(
           / frc-resizeable-start/g,
           ""
         ),
-      };
+      });
+
       setTableColumns(nextColumns);
     };
 
-  let columnse: any[] = tableColumns.map((col, index) => ({
-    ...col,
-    onHeaderCell: (column: any) => ({
-      width: Number(column.width?.toString().match(/\d+/i)[0]),
-      onResizeStart: handleResizeStart(index),
-      onResize: handleResize(index),
-      onResizeStop: handleResizeStop(index),
-    }),
-  }));
+  const columnse = (columns: ColumnsTypeProps[]) => {
+    return columns.map((col) => {
+      let columnProps = {};
+
+      if (col.children) {
+        columnProps = {
+          ...columnProps,
+          children: columnse(col.children),
+        };
+      } else {
+        columnProps = {
+          ...columnProps,
+          onHeaderCell: (col: any) => ({
+            width: Number(col.width?.toString().match(/\d+/i)[0]),
+            onResizeStart: handleResizeStart(col.dataIndex),
+            onResize: handleResize(col.dataIndex),
+            onResizeStop: handleResizeStop(col.dataIndex),
+          }),
+        };
+      }
+
+      return {
+        ...col,
+        ...columnProps,
+      };
+    });
+  };
+
+  // --------------------------------------------------------------
 
   const data: DataType[] = [
     {
       key: "1",
       name: "John Brown",
       age: 32,
+      age1: 321,
+      age2: 322,
       address: "New York No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -5942,6 +5941,8 @@ export const _BH_DragComplexComponent = () => {
       key: "2",
       name: "Jim Green",
       age: 42,
+      age1: 321,
+      age2: 322,
       address: "London No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -5953,6 +5954,8 @@ export const _BH_DragComplexComponent = () => {
       key: "3",
       name: "Joe Black",
       age: 32,
+      age1: 321,
+      age2: 322,
       address: "Sidney No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -5964,6 +5967,8 @@ export const _BH_DragComplexComponent = () => {
       key: "4",
       name: "John Brown",
       age: 32,
+      age1: 321,
+      age2: 322,
       address: "New York No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -5975,6 +5980,8 @@ export const _BH_DragComplexComponent = () => {
       key: "5",
       name: "Jim Green",
       age: 42,
+      age1: 321,
+      age2: 322,
       address: "London No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -5986,6 +5993,8 @@ export const _BH_DragComplexComponent = () => {
       key: "6",
       name: "Joe Black",
       age: 32,
+      age1: 321,
+      age2: 322,
       address: "Sidney No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -5997,6 +6006,8 @@ export const _BH_DragComplexComponent = () => {
       key: "7",
       name: "John Brown",
       age: 32,
+      age1: 321,
+      age2: 322,
       address: "New York No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6008,6 +6019,8 @@ export const _BH_DragComplexComponent = () => {
       key: "8",
       name: "Jim Green",
       age: 42,
+      age1: 321,
+      age2: 322,
       address: "London No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6019,6 +6032,8 @@ export const _BH_DragComplexComponent = () => {
       key: "9",
       name: "Joe Black",
       age: 32,
+      age1: 321,
+      age2: 322,
       address: "Sidney No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6030,6 +6045,8 @@ export const _BH_DragComplexComponent = () => {
       key: "10",
       name: "John Brown",
       age: 32,
+      age1: 321,
+      age2: 322,
       address: "New York No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6041,6 +6058,8 @@ export const _BH_DragComplexComponent = () => {
       key: "11",
       name: "Jim Green",
       age: 42,
+      age1: 321,
+      age2: 322,
       address: "London No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6052,6 +6071,8 @@ export const _BH_DragComplexComponent = () => {
       key: "12",
       name: "Joe Black",
       age: 32,
+      age1: 321,
+      age2: 322,
       address: "Sidney No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6063,6 +6084,8 @@ export const _BH_DragComplexComponent = () => {
       key: "13",
       name: "John Brown",
       age: 32,
+      age1: 321,
+      age2: 322,
       address: "New York No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6074,6 +6097,8 @@ export const _BH_DragComplexComponent = () => {
       key: "14",
       name: "Jim Green",
       age: 42,
+      age1: 321,
+      age2: 322,
       address: "London No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6085,6 +6110,8 @@ export const _BH_DragComplexComponent = () => {
       key: "15",
       name: "Joe Black",
       age: 32,
+      age1: 321,
+      age2: 322,
       address: "Sidney No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6096,6 +6123,8 @@ export const _BH_DragComplexComponent = () => {
       key: "16",
       name: "John Brown",
       age: 32,
+      age1: 321,
+      age2: 322,
       address: "New York No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6107,6 +6136,8 @@ export const _BH_DragComplexComponent = () => {
       key: "17",
       name: "Jim Green",
       age: 42,
+      age1: 321,
+      age2: 322,
       address: "London No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6118,6 +6149,8 @@ export const _BH_DragComplexComponent = () => {
       key: "18",
       name: "Joe Black",
       age: 32,
+      age1: 321,
+      age2: 322,
       address: "Sidney No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6127,17 +6160,57 @@ export const _BH_DragComplexComponent = () => {
     },
   ];
 
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { useState } from 'react';
+    import { Table } from 'frc-ui-pro';
+
+    import { Resizable } from "react-resizable";
+
+    // 拖拽组件 - ResizeableTitle - 必须置于顶层，否则无法获取到 ref
+    const ResizeableTitle = (props: any) => {
+      const { onResize, onResizeStart, onResizeStop, width, ...restProps } = props;
+
+      if (!width) {
+        return <th {...restProps} />;
+      }
+
+      return (
+        <Resizable
+          width={width}
+          height={0}
+          onResize={onResize}
+          onResizeStart={onResizeStart}
+          onResizeStop={onResizeStop}
+          draggableOpts={{ enableUserSelectHack: false }}
+        >
+          <th {...restProps} />
+        </Resizable>
+      );
+    };
+
+    // 通过 react-resizable 引入，实现拖拽调整列宽
+  `;
+
+  // --------------------------------------------------------------
+
   return (
-    <Table
-      bordered
-      components={components}
-      columns={columnse}
-      dataSource={data}
-      scroll={{ x: 900, y: 300 }}
-    />
+    <>
+      <ImportCode code={code} />
+      <Table
+        bordered
+        components={components}
+        columns={columnse(tableColumns)}
+        dataSource={data}
+        pagination={false}
+        scroll={{ x: 900, y: 300 }}
+      />
+    </>
   );
 };
 
-_BH_DragComplexComponent.storyName = "复杂拖拽";
+_BH_DragComplexComponent.storyName = "拖拽调整列宽";
 
 // ----------------------------------------------------------------

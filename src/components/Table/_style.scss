@@ -1,21 +1,3 @@
-.react-resizable {
-  position: relative;
-}
-
-.react-resizable-handle {
-  position: absolute;
-  right: -5px;
-  bottom: 0;
-  z-index: 1;
-  width: 10px;
-  height: 100%;
-  cursor: col-resize;
-}
-
-.frc-resizeable-start {
-  border-right-color: #c70025 !important;
-}
-
 .frc-table.ant-table-wrapper {
   * {
     font-size: $table-base-font-size;
@@ -934,6 +916,37 @@
             border-bottom: $table-border;
             padding: 0px 6px;
           }
+        }
+      }
+    }
+  }
+
+  // resize col ------------------------------------------------------------------------------------------
+  .ant-table-cell {
+    &.react-resizable {
+      position: relative;
+    }
+
+    .react-resizable-handle {
+      position: absolute;
+      right: -1px;
+      bottom: 0;
+      z-index: 1;
+      width: 1px;
+      height: 100%;
+      cursor: col-resize;
+      &:hover {
+        user-select: none;
+        z-index: 100;
+        background-color: $tittle-word !important;
+      }
+    }
+
+    &.frc-resizeable-start {
+      border-right: $table-border-resize !important;
+      & + .ant-table-cell-fix-right-first {
+        &::after{
+          border-right: $table-border-resize !important;
         }
       }
     }
