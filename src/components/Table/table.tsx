@@ -336,6 +336,8 @@ export interface TableLocaleProps extends TableLocale {
 export interface FRCTableProps extends Omit<TableProps<RecordType>, "columns"> {
   /** 是否展示外边框和列边框 */
   bordered?: boolean;
+  /** 固定列外边框激活样式（bordered = true 时起效） */
+  borderedActiveFixed?: "normal" | "bold";
   /** 表格列的配置描述，配置项，具体项见下表 */
   columns?: ColumnsTypeProps[];
   /** 覆盖默认的 table 元素 -> 细节参数请查阅 antd 文档 */
@@ -429,6 +431,8 @@ const EmptyNode = (props: { height: number }) => {
 export const Table: FC<FRCTableProps> = (props) => {
   const {
     className,
+    bordered,
+    borderedActiveFixed,
     loading,
     pagination,
     locale,
@@ -446,6 +450,8 @@ export const Table: FC<FRCTableProps> = (props) => {
     [`frc-row-bg-type-${rowBgType}`]: rowBgType,
     [`frc-title-size-${headerSize}`]: headerSize,
     "frc-custom-selections": rowSelection?.selections,
+    [`frc-fixed-border-active frc-fixed-border-${borderedActiveFixed}`]:
+      bordered && borderedActiveFixed,
   });
 
   // children | columns --------------------------------------------------
@@ -455,14 +461,20 @@ export const Table: FC<FRCTableProps> = (props) => {
 
     return React.Children.map(childrenNode, (child, index): ReactNode => {
       const childElement = child as FunctionComponentElement<ColumnsTypeProps>;
-      let childrenProps = {};
+      let childrenProps: any = {};
+      const { className, children } = childElement.props;
 
-      if (index === childlength - 1) {
-        const { className, children } = childElement.props;
-
+      if (children) {
         childrenProps = {
           ...childrenProps,
-          className: `${className || ""} frc-table-cell-last`,
+          className: `${className || ""} frc-col-has-child`,
+        };
+      }
+
+      if (index === childlength - 1) {
+        childrenProps = {
+          ...childrenProps,
+          className: `${childrenProps?.className || ""} frc-table-cell-last`,
         };
 
         if (children) {
@@ -481,14 +493,20 @@ export const Table: FC<FRCTableProps> = (props) => {
     const columnsLength = columns.length;
 
     return columns.map((column, index) => {
-      let columnProps = {};
+      let columnProps: any = {};
+      const { children, className } = column;
 
-      if (index === columnsLength - 1) {
-        const { children, className } = column;
-
+      if (children) {
         columnProps = {
           ...columnProps,
-          className: `${className || ""} frc-table-cell-last`,
+          className: `${className || ""} frc-col-has-child`,
+        };
+      }
+
+      if (index === columnsLength - 1) {
+        columnProps = {
+          ...columnProps,
+          className: `${columnProps?.className || ""} frc-table-cell-last`,
         };
 
         if (children) {
@@ -533,6 +551,7 @@ export const Table: FC<FRCTableProps> = (props) => {
 
   const options = {
     className: classes,
+    bordered,
     loading: loading
       ? typeof loading === "boolean"
         ? {

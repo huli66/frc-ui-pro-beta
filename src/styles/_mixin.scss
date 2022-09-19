@@ -362,7 +362,7 @@
   $disabled-background-icon-inner,
   $disabled-border-icon-inner,
   // selector prefix
-  $prefix: 'ant'
+  $prefix: "ant"
 ) {
   background: $background;
   color: $color;
@@ -532,7 +532,7 @@
 
 @mixin checkbox-indeterminate(
   // selector prefix
-  $prefix: 'ant'
+  $prefix: "ant"
 ) {
   &.#{$prefix}-checkbox-indeterminate {
     .#{$prefix}-checkbox-inner {
@@ -1003,6 +1003,7 @@
     }
   }
 }
+
 // table ------------------------------------------------------------------------------------
 
 @mixin table-size-bg-default($line-height, $empty-top-text) {
@@ -1140,6 +1141,56 @@
       tr {
         .ant-table-cell {
           line-height: $line-height;
+        }
+      }
+    }
+  }
+}
+
+@mixin table-fixed-border-active(
+  $border,
+  $resize-border,
+  $resize-width,
+) {
+  .ant-table.ant-table-bordered {
+    .ant-table-container {
+      // header
+      .ant-table-thead {
+        tr {
+          .ant-table-cell {
+            &:not(.frc-col-has-child) {
+              border-bottom: $border;
+            }
+
+            &.ant-table-cell-fix-left-last,
+            &.ant-table-cell-fix-right-first::after {
+              border-right: $border;
+            }
+          }
+        }
+      }
+
+      // body
+      .ant-table-tbody {
+        .ant-table-row {
+          .ant-table-cell {
+            &.ant-table-cell-fix-left-last,
+            &.ant-table-cell-fix-right-first::after {
+              border-right: $border;
+            }
+          }
+        }
+      }
+
+      // resize col
+      .ant-table-cell {
+        &.frc-resizeable-start {
+          border-right: $resize-border !important;
+          & + .ant-table-cell-fix-right-first {
+            &::after {
+              border-right: $resize-border !important;
+            }
+          }
         }
       }
     }

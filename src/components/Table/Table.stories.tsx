@@ -5750,12 +5750,14 @@ export const _BH_DragComplexComponent = () => {
           title: "Age1",
           dataIndex: "age1",
           width: "150px",
+          fixed: "left",
           minResizeWidth: "50px",
         },
         {
           title: "Age2",
           dataIndex: "age2",
           width: "150px",
+          fixed: "left",
           minResizeWidth: "50px",
         },
       ],
@@ -6166,6 +6168,7 @@ export const _BH_DragComplexComponent = () => {
     // import code
     import { useState } from 'react';
     import { Table } from 'frc-ui-pro';
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
 
     import { Resizable } from "react-resizable";
 
@@ -6214,3 +6217,417 @@ export const _BH_DragComplexComponent = () => {
 _BH_DragComplexComponent.storyName = "拖拽调整列宽";
 
 // ----------------------------------------------------------------
+
+export const _BI_BoldBorderComponent = () => {
+  interface DataType {
+    key: string;
+    name: string;
+    age: number;
+    age2: number;
+    age3: number;
+    age4: number;
+    age5: number;
+    address: string;
+    tags: string;
+    action: string;
+    sex: "male" | "female";
+    phone: number;
+    description: string;
+  }
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      fixed: "left",
+      width: "120px",
+      align: "center",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+      fixed: "left",
+      align: "center",
+      children: [
+        {
+          title: "Age2",
+          dataIndex: "age2",
+          key: "age2",
+          fixed: "left",
+          width: "60px",
+          align: "center",
+        },
+        {
+          title: "Age3",
+          dataIndex: "age3",
+          key: "age3",
+          fixed: "left",
+          width: "60px",
+          align: "center",
+        },
+      ],
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+      width: "300px",
+      align: "center",
+    },
+    {
+      title: "Tags",
+      key: "tags",
+      dataIndex: "tags",
+      width: "200px",
+      align: "center",
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
+      width: "200px",
+      align: "center",
+    },
+    {
+      title: "Sex",
+      dataIndex: "sex",
+      key: "sex",
+      width: "100px",
+      align: "center",
+    },
+    {
+      title: "Phone",
+      key: "phone",
+      dataIndex: "phone",
+      align: "center",
+      fixed: "right",
+      children: [
+        {
+          title: "Age4",
+          dataIndex: "age4",
+          key: "age4",
+          fixed: "right",
+          width: "60px",
+          align: "center",
+        },
+        {
+          title: "Age5",
+          dataIndex: "age5",
+          key: "age5",
+          fixed: "right",
+          width: "60px",
+          align: "center",
+        },
+      ],
+    },
+    {
+      title: "Description",
+      key: "description",
+      dataIndex: "description",
+      width: "150px",
+      fixed: "right",
+      align: "center",
+    },
+  ];
+
+  const data: DataType[] = [
+    {
+      key: "1",
+      name: "John Brown",
+      age: 32,
+      age2: 32,
+      age3: 32,
+      age4: 32,
+      age5: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "2",
+      name: "Jim Green",
+      age: 42,
+      age2: 32,
+      age3: 32,
+      age4: 32,
+      age5: 32,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "3",
+      name: "Joe Black",
+      age: 32,
+      age2: 32,
+      age3: 32,
+      age4: 32,
+      age5: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "4",
+      name: "John Brown",
+      age: 32,
+      age2: 32,
+      age3: 32,
+      age4: 32,
+      age5: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "5",
+      name: "Jim Green",
+      age: 42,
+      age2: 32,
+      age3: 32,
+      age4: 32,
+      age5: 32,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "6",
+      name: "Joe Black",
+      age: 32,
+      age2: 32,
+      age3: 32,
+      age4: 32,
+      age5: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "7",
+      name: "John Brown",
+      age: 32,
+      age2: 32,
+      age3: 32,
+      age4: 32,
+      age5: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "8",
+      name: "Jim Green",
+      age: 42,
+      age2: 32,
+      age3: 32,
+      age4: 32,
+      age5: 32,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "9",
+      name: "Joe Black",
+      age: 32,
+      age2: 32,
+      age3: 32,
+      age4: 32,
+      age5: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "10",
+      name: "John Brown",
+      age: 32,
+      age2: 32,
+      age3: 32,
+      age4: 32,
+      age5: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "11",
+      name: "Jim Green",
+      age: 42,
+      age2: 32,
+      age3: 32,
+      age4: 32,
+      age5: 32,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "12",
+      name: "Joe Black",
+      age: 32,
+      age2: 32,
+      age3: 32,
+      age4: 32,
+      age5: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "13",
+      name: "John Brown",
+      age: 32,
+      age2: 32,
+      age3: 32,
+      age4: 32,
+      age5: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "14",
+      name: "Jim Green",
+      age: 42,
+      age2: 32,
+      age3: 32,
+      age4: 32,
+      age5: 32,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "15",
+      name: "Joe Black",
+      age: 32,
+      age2: 32,
+      age3: 32,
+      age4: 32,
+      age5: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "16",
+      name: "John Brown",
+      age: 32,
+      age2: 32,
+      age3: 32,
+      age4: 32,
+      age5: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "17",
+      name: "Jim Green",
+      age: 42,
+      age2: 32,
+      age3: 32,
+      age4: 32,
+      age5: 32,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "18",
+      name: "Joe Black",
+      age: 32,
+      age2: 32,
+      age3: 32,
+      age4: 32,
+      age5: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+  ];
+
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+  `;
+
+  // --------------------------------------------------------------
+
+  return (
+    <>
+      <ImportCode code={code} />
+      <Table
+        size="large"
+        headerSize="small"
+        bordered
+        borderedActiveFixed="bold"
+        columns={columns}
+        dataSource={data}
+        scroll={{ x: 1000, y: 200 }}
+      />
+    </>
+  );
+};
+
+_BI_BoldBorderComponent.storyName = "固定列粗边框";

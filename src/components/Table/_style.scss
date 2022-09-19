@@ -1,3 +1,4 @@
+// entry
 .frc-table.ant-table-wrapper {
   * {
     font-size: $table-base-font-size;
@@ -901,7 +902,7 @@
     border-top: $table-border-bold !important;
   }
 
-  // virtual-table
+  // virtual-table ---------------------------------------------------------------------------------------
   &.virtual-table {
     .ant-table {
       .ant-table-container {
@@ -945,14 +946,35 @@
     &.frc-resizeable-start {
       border-right: $table-border-resize !important;
       & + .ant-table-cell-fix-right-first {
-        &::after{
+        &::after {
           border-right: $table-border-resize !important;
         }
       }
     }
   }
+
+  // fixed active border ---------------------------------------------------------------------------------
+  &.frc-fixed-border-active {
+    &.frc-fixed-border-normal {
+      @include table-fixed-border-active(
+        $table-border-fixed-active-normal,
+        $table-border-resize,
+        1px,
+      );
+    }
+    &.frc-fixed-border-bold {
+      @include table-fixed-border-active(
+        $table-border-fixed-active-bold,
+        $table-border-resize,
+        2px,
+      );
+    }
+  }
 }
 
+// ------------------------------------------------------------------------------------
+
+// global
 .ant-dropdown {
   .ant-table-filter-dropdown {
     background: $table-background !important;
@@ -1035,16 +1057,19 @@
   }
 }
 
+// ------------------------------------------------------------------------------------
+
 // handle drag sort row
 .frc-table-drag-row.ant-table-row {
   background: $table-background-active;
   border: $table-border-title;
+  td {
+    padding: 0px 16px;
+  }
+
+  .drag-visible {
+    visibility: visible;
+  }
 }
 
-.frc-table-drag-row.ant-table-row td {
-  padding: 0px 16px;
-}
-
-.frc-table-drag-row.ant-table-row .drag-visible {
-  visibility: visible;
-}
+// ------------------------------------------------------------------------------------
