@@ -1140,7 +1140,10 @@
     .ant-table-thead {
       tr {
         .ant-table-cell {
-          line-height: $line-height;
+          line-height: $line-height !important;
+           .ant-checkbox-wrapper {
+            line-height: $line-height !important;
+          }
         }
       }
     }
@@ -1159,12 +1162,12 @@
         tr {
           .ant-table-cell {
             &:not(.frc-col-has-child) {
-              border-bottom: $border;
+              border-bottom: $border !important;
             }
 
             &.ant-table-cell-fix-left-last,
             &.ant-table-cell-fix-right-first::after {
-              border-right: $border;
+              border-right: $border !important;
             }
           }
         }
@@ -1176,7 +1179,7 @@
           .ant-table-cell {
             &.ant-table-cell-fix-left-last,
             &.ant-table-cell-fix-right-first::after {
-              border-right: $border;
+              border-right: $border !important;
             }
           }
         }

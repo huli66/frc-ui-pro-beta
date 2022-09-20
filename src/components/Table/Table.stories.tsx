@@ -40,6 +40,7 @@ import {
   Switch,
   InputNumber,
   Tooltip,
+  Checkbox,
   // type
   FRCTableProps,
   ColumnsTypeProps,
@@ -6223,10 +6224,6 @@ export const _BI_BoldBorderComponent = () => {
     key: string;
     name: string;
     age: number;
-    age2: number;
-    age3: number;
-    age4: number;
-    age5: number;
     address: string;
     tags: string;
     action: string;
@@ -6250,24 +6247,7 @@ export const _BI_BoldBorderComponent = () => {
       key: "age",
       fixed: "left",
       align: "center",
-      children: [
-        {
-          title: "Age2",
-          dataIndex: "age2",
-          key: "age2",
-          fixed: "left",
-          width: "60px",
-          align: "center",
-        },
-        {
-          title: "Age3",
-          dataIndex: "age3",
-          key: "age3",
-          fixed: "left",
-          width: "60px",
-          align: "center",
-        },
-      ],
+      width: "120px",
     },
     {
       title: "Address",
@@ -6302,32 +6282,15 @@ export const _BI_BoldBorderComponent = () => {
       key: "phone",
       dataIndex: "phone",
       align: "center",
-      fixed: "right",
-      children: [
-        {
-          title: "Age4",
-          dataIndex: "age4",
-          key: "age4",
-          fixed: "right",
-          width: "60px",
-          align: "center",
-        },
-        {
-          title: "Age5",
-          dataIndex: "age5",
-          key: "age5",
-          fixed: "right",
-          width: "60px",
-          align: "center",
-        },
-      ],
+      // fixed: "right",
+      width: "120px",
     },
     {
       title: "Description",
       key: "description",
       dataIndex: "description",
       width: "150px",
-      fixed: "right",
+      // fixed: "right",
       align: "center",
     },
   ];
@@ -6337,10 +6300,6 @@ export const _BI_BoldBorderComponent = () => {
       key: "1",
       name: "John Brown",
       age: 32,
-      age2: 32,
-      age3: 32,
-      age4: 32,
-      age5: 32,
       address: "New York No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6352,10 +6311,6 @@ export const _BI_BoldBorderComponent = () => {
       key: "2",
       name: "Jim Green",
       age: 42,
-      age2: 32,
-      age3: 32,
-      age4: 32,
-      age5: 32,
       address: "London No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6367,10 +6322,6 @@ export const _BI_BoldBorderComponent = () => {
       key: "3",
       name: "Joe Black",
       age: 32,
-      age2: 32,
-      age3: 32,
-      age4: 32,
-      age5: 32,
       address: "Sidney No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6382,10 +6333,6 @@ export const _BI_BoldBorderComponent = () => {
       key: "4",
       name: "John Brown",
       age: 32,
-      age2: 32,
-      age3: 32,
-      age4: 32,
-      age5: 32,
       address: "New York No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6397,10 +6344,6 @@ export const _BI_BoldBorderComponent = () => {
       key: "5",
       name: "Jim Green",
       age: 42,
-      age2: 32,
-      age3: 32,
-      age4: 32,
-      age5: 32,
       address: "London No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6412,10 +6355,6 @@ export const _BI_BoldBorderComponent = () => {
       key: "6",
       name: "Joe Black",
       age: 32,
-      age2: 32,
-      age3: 32,
-      age4: 32,
-      age5: 32,
       address: "Sidney No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6427,10 +6366,6 @@ export const _BI_BoldBorderComponent = () => {
       key: "7",
       name: "John Brown",
       age: 32,
-      age2: 32,
-      age3: 32,
-      age4: 32,
-      age5: 32,
       address: "New York No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6442,10 +6377,6 @@ export const _BI_BoldBorderComponent = () => {
       key: "8",
       name: "Jim Green",
       age: 42,
-      age2: 32,
-      age3: 32,
-      age4: 32,
-      age5: 32,
       address: "London No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6457,10 +6388,6 @@ export const _BI_BoldBorderComponent = () => {
       key: "9",
       name: "Joe Black",
       age: 32,
-      age2: 32,
-      age3: 32,
-      age4: 32,
-      age5: 32,
       address: "Sidney No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6472,10 +6399,6 @@ export const _BI_BoldBorderComponent = () => {
       key: "10",
       name: "John Brown",
       age: 32,
-      age2: 32,
-      age3: 32,
-      age4: 32,
-      age5: 32,
       address: "New York No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6487,10 +6410,6 @@ export const _BI_BoldBorderComponent = () => {
       key: "11",
       name: "Jim Green",
       age: 42,
-      age2: 32,
-      age3: 32,
-      age4: 32,
-      age5: 32,
       address: "London No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6502,10 +6421,6 @@ export const _BI_BoldBorderComponent = () => {
       key: "12",
       name: "Joe Black",
       age: 32,
-      age2: 32,
-      age3: 32,
-      age4: 32,
-      age5: 32,
       address: "Sidney No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6517,10 +6432,6 @@ export const _BI_BoldBorderComponent = () => {
       key: "13",
       name: "John Brown",
       age: 32,
-      age2: 32,
-      age3: 32,
-      age4: 32,
-      age5: 32,
       address: "New York No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6532,10 +6443,6 @@ export const _BI_BoldBorderComponent = () => {
       key: "14",
       name: "Jim Green",
       age: 42,
-      age2: 32,
-      age3: 32,
-      age4: 32,
-      age5: 32,
       address: "London No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6547,10 +6454,6 @@ export const _BI_BoldBorderComponent = () => {
       key: "15",
       name: "Joe Black",
       age: 32,
-      age2: 32,
-      age3: 32,
-      age4: 32,
-      age5: 32,
       address: "Sidney No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6562,10 +6465,6 @@ export const _BI_BoldBorderComponent = () => {
       key: "16",
       name: "John Brown",
       age: 32,
-      age2: 32,
-      age3: 32,
-      age4: 32,
-      age5: 32,
       address: "New York No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6577,10 +6476,6 @@ export const _BI_BoldBorderComponent = () => {
       key: "17",
       name: "Jim Green",
       age: 42,
-      age2: 32,
-      age3: 32,
-      age4: 32,
-      age5: 32,
       address: "London No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6592,10 +6487,6 @@ export const _BI_BoldBorderComponent = () => {
       key: "18",
       name: "Joe Black",
       age: 32,
-      age2: 32,
-      age3: 32,
-      age4: 32,
-      age5: 32,
       address: "Sidney No. 1 Lake Park",
       tags: "1",
       action: "create",
@@ -6631,3 +6522,478 @@ export const _BI_BoldBorderComponent = () => {
 };
 
 _BI_BoldBorderComponent.storyName = "固定列粗边框";
+
+// ----------------------------------------------------------------
+
+export const _BJ_CheckboxGroupComponent = () => {
+  interface DataType {
+    key: string;
+    name: string;
+    age: number;
+    address: string;
+    checkboxCellKey: string;
+    description: string;
+  }
+
+  const data: DataType[] = [
+    {
+      key: "1",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+      checkboxCellKey: "checkbox1",
+    },
+    {
+      key: "2",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+
+      description: "something else",
+      checkboxCellKey: "checkbox2",
+    },
+    {
+      key: "3",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+      checkboxCellKey: "checkbox3",
+    },
+    {
+      key: "4",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+      checkboxCellKey: "checkbox4",
+    },
+    {
+      key: "5",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+      checkboxCellKey: "checkbox5",
+    },
+    {
+      key: "6",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+      checkboxCellKey: "checkbox6",
+    },
+    {
+      key: "7",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+      checkboxCellKey: "checkbox7",
+    },
+    {
+      key: "8",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+      checkboxCellKey: "checkbox8",
+    },
+    {
+      key: "9",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+      checkboxCellKey: "checkbox9",
+    },
+    {
+      key: "10",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+      checkboxCellKey: "checkbox10",
+    },
+    {
+      key: "11",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+      checkboxCellKey: "checkbox11",
+    },
+    {
+      key: "12",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+      checkboxCellKey: "checkbox12",
+    },
+    {
+      key: "13",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+      checkboxCellKey: "checkbox13",
+    },
+    {
+      key: "14",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+      checkboxCellKey: "checkbox14",
+    },
+    {
+      key: "15",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+      checkboxCellKey: "checkbox15",
+    },
+    {
+      key: "16",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+      checkboxCellKey: "checkbox16",
+    },
+    {
+      key: "17",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+      checkboxCellKey: "checkbox17",
+    },
+    {
+      key: "18",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+      checkboxCellKey: "checkbox18",
+    },
+  ];
+
+  const [checkedList, setCheckedList] = useState<string[]>([]);
+  const [indeterminate, setIndeterminate] = useState(false);
+
+  const checkDataArr = data.map((item) => item.checkboxCellKey);
+
+  const onChange = (e: any, key: string) => {
+    let newArr: string[] = [];
+
+    // 勾选
+    if (e.target.checked && key) {
+      newArr = [...checkedList, key];
+    }
+
+    // 取消勾选
+    if (!e.target.checked && key) {
+      newArr = [...checkedList].filter((item) => item !== key);
+    }
+
+    setCheckedList(newArr);
+
+    // 激活 checkHeader 半全选样式
+    if (newArr.length > 0 && newArr.length !== checkDataArr.length) {
+      setIndeterminate(true);
+    }
+  };
+
+  const onCheckAllChange = (e: any) => {
+    console.log(`checked header = ${e.target.checked}`);
+
+    setCheckedList(e.target.checked ? checkDataArr : []);
+    setIndeterminate(false);
+  };
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      fixed: "left",
+      width: "120px",
+      align: "center",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+      fixed: "left",
+      align: "center",
+      width: "120px",
+    },
+    {
+      title: (
+        <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange}>
+          Header04
+        </Checkbox>
+      ),
+      dataIndex: "checkboxCellKey",
+      key: "checkboxCellKey",
+      width: "150px",
+      align: "center",
+      render: (value, record, index) => {
+        return (
+          <Checkbox
+            checked={checkedList.some((item) => item === value)}
+            onChange={(e) => onChange(e, value)}
+          />
+        );
+      },
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+      width: "200px",
+      align: "center",
+    },
+    {
+      title: "Description",
+      key: "description",
+      dataIndex: "description",
+      width: "150px",
+      // fixed: "right",
+      align: "center",
+    },
+  ];
+
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { Table, Checkbox } from "frc-ui-pro";
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+  `;
+
+  // --------------------------------------------------------------
+
+  return (
+    <>
+      <ImportCode code={code} />
+      <Table
+        size="large"
+        headerSize="middle"
+        bordered
+        borderedActiveFixed="bold"
+        columns={columns}
+        dataSource={data}
+        scroll={{ x: 1000, y: 200 }}
+      />
+    </>
+  );
+};
+
+_BJ_CheckboxGroupComponent.storyName = "Checkbox 特殊列";
+
+// ----------------------------------------------------------------
+
+export const _BK_ScrollEndComponent = () => {
+  interface DataType {
+    key: string;
+    name: string;
+    age: number;
+    address: string;
+    description: string;
+  }
+
+  const [data, setData] = useState<any[]>([
+    {
+      key: "1",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "2",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "3",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "4",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "5",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "6",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "7",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "8",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "9",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "10",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+    },
+  ]);
+
+  const dataMock: DataType[] = [
+    {
+      key: "11",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "12",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "13",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "14",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "15",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "16",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "17",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "18",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+    },
+  ];
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      fixed: "left",
+      width: "120px",
+      align: "center",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+      align: "center",
+      width: "120px",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+      width: "400px",
+      align: "center",
+    },
+    {
+      title: "Description",
+      key: "description",
+      dataIndex: "description",
+      width: "150px",
+      fixed: "right",
+      align: "center",
+    },
+  ];
+
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+  `;
+
+  // --------------------------------------------------------------
+
+  return (
+    <>
+      <ImportCode code={code} />
+      <Table
+        columns={columns}
+        dataSource={data}
+        scroll={{ x: 1000, y: 200 }}
+        pagination={false}
+        onScrollEnd={() => setData([...data, dataMock])}
+      />
+    </>
+  );
+};
+
+_BK_ScrollEndComponent.storyName = "滚动加载（翻页拼接）";

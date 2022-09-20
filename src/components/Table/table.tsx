@@ -417,6 +417,8 @@ export interface FRCTableProps extends Omit<TableProps<RecordType>, "columns"> {
     record?: RecordType,
     index?: number
   ) => React.HTMLAttributes<any> | React.TdHTMLAttributes<any>;
+  /** 滚动至底部加载 */
+  onScrollEnd?: () => void;
 }
 
 const EmptyNode = (props: { height: number }) => {
@@ -462,7 +464,11 @@ export const Table: FC<FRCTableProps> = (props) => {
     return React.Children.map(childrenNode, (child, index): ReactNode => {
       const childElement = child as FunctionComponentElement<ColumnsTypeProps>;
       let childrenProps: any = {};
-      const { className, children } = childElement.props;
+      const { className, children, title } = childElement.props;
+
+      if (!title) {
+        return React.cloneElement(childElement);
+      }
 
       if (children) {
         childrenProps = {
@@ -493,6 +499,10 @@ export const Table: FC<FRCTableProps> = (props) => {
     const columnsLength = columns.length;
 
     return columns.map((column, index) => {
+      if (!column.title) {
+        return column;
+      }
+
       let columnProps: any = {};
       const { children, className } = column;
 
