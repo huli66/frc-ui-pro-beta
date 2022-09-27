@@ -301,14 +301,14 @@ export const _OverTextComponent = () => {
         borderRadius: 2
     }
     return (
-        <div style={{width: 900}}>
+        <>
             <Tooltip overText style={demoStyle}>
                 <span>当文本未超出容器文字提示不显示</span>
             </Tooltip>
-            <Tooltip overText placement='bottom' style={demoStyle} title='当文本超出容器时文本末尾省略文字提示显示'>
+            <Tooltip overText placement='bottom' style={demoStyle} title='当文本超出容器时文本末尾省略文字提示显示当文本超出容器时文本末尾省略文字提示显示'>
                 <span>当文本超出容器时文本末尾省略文字提示显示当文本超出容器时文本末尾省略文字提示显示</span>
             </Tooltip>
-        </div>
+        </>
     )
 };
 
