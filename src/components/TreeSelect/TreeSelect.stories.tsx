@@ -12,11 +12,11 @@ import {
   Stories,
   Heading,
   Subheading,
-  Source
+  Source,
 } from "@storybook/addon-docs";
 
-import TreeSelect, {FRCTreeSelectProps} from "./index";
-import {TreeData,TreeNodeValue} from './treeSelect';
+import TreeSelect, { FRCTreeSelectProps } from "./index";
+import { TreeData, TreeNodeValue } from "./treeSelect";
 
 // ----------------------------------------------------------------
 
@@ -90,7 +90,9 @@ export default {
           />
 
           <Subheading>TreeNode</Subheading>
-          <Description>建议使用 treeData 来代替 TreeNode，免去手工构造麻烦</Description>
+          <Description>
+            建议使用 treeData 来代替 TreeNode，免去手工构造麻烦
+          </Description>
           <ArgsTable of={TreeSelect.TreeNode} />
         </>
       ),
@@ -102,13 +104,13 @@ export default {
 // ----------------------------------------------------------------
 
 export const Default = (args: FRCTreeSelectProps) => {
-  const {onChange,...others} = args;
-  
+  const { onChange, ...others } = args;
+
   const treeData = [
     {
       title: "Node1",
       value: "0-0",
-      key: "0-0"
+      key: "0-0",
     },
     {
       title: "Node2",
@@ -118,15 +120,10 @@ export const Default = (args: FRCTreeSelectProps) => {
     {
       title: "Node3",
       value: "0-2",
-      key: "0-2"
-    }
+      key: "0-2",
+    },
   ];
-  return (
-    <TreeSelect
-      {...others}
-      treeData={treeData}
-    />
-  )
+  return <TreeSelect {...others} treeData={treeData} />;
 };
 
 Default.storyName = "默认 TreeSelect";
@@ -138,15 +135,15 @@ export const _BaseComponent = () => {
     {
       title: "Node1",
       value: "0-0",
-      key: "0-0"
+      key: "0-0",
     },
     {
       title: "Node2",
       value: "0-1",
       key: "0-1",
       children: [
-        { 
-          title: 'child21',
+        {
+          title: "child21",
           value: "1-1",
           key: "1-1",
           children: [
@@ -154,37 +151,37 @@ export const _BaseComponent = () => {
               title: "child211",
               value: "1-1-1",
               key: "1-1-1",
-            }
-          ]
+            },
+          ],
         },
-        { 
+        {
           title: "child22",
           value: "1-2",
           key: "1-2",
         },
-      ]
+      ],
     },
     {
       title: "Node3",
       value: "0-2",
-      key: "0-2"
-    }
+      key: "0-2",
+    },
   ];
   return (
     <>
       <TreeSelect
-        style={{width:200}}
+        style={{ width: 200 }}
         treeData={treeData}
-        defaultValue={['1-1-1','0-2']}
+        defaultValue={["1-1-1", "0-2"]}
       />
       <br />
       <br />
       disabled
       <br />
       <TreeSelect
-        style={{width:200}}
+        style={{ width: 200 }}
         treeData={treeData}
-        defaultValue={['1-1-1','0-2']}
+        defaultValue={["1-1-1", "0-2"]}
         disabled
       />
     </>
@@ -199,19 +196,21 @@ _BaseComponent.parameters = {
 // ----------------------------------------------------------------
 
 export const _ShowCheckedComponent = () => {
-  const defaultValue:string[] = [];
-  const treeData:TreeData[] = Array.from({length: 15}).map((_, i) => {
-    const item:TreeData = {
+  const defaultValue: string[] = [];
+  const treeData: TreeData[] = Array.from({ length: 15 }).map((_, i) => {
+    const item: TreeData = {
       title: `Node${i + 1}`,
       value: `0-${i}`,
       key: `0-${i}`,
-    }
-    if(i % 2 === 0) {
-      item.children = [{
-        title: `child${i + 1}-1`,
-        value: `${item.value}-0`,
-        key: `${item.key}-0`,
-      }]
+    };
+    if (i % 2 === 0) {
+      item.children = [
+        {
+          title: `child${i + 1}-1`,
+          value: `${item.value}-0`,
+          key: `${item.key}-0`,
+        },
+      ];
       defaultValue.push(`${item.value}-0`);
     }
     return item;
@@ -225,7 +224,7 @@ export const _ShowCheckedComponent = () => {
       <br />
       <br />
       <TreeSelect
-        style={{width:200}}
+        style={{ width: 200 }}
         treeData={treeData}
         defaultValue={defaultValue}
         showSelected
@@ -235,7 +234,7 @@ export const _ShowCheckedComponent = () => {
       当没有已选项时隐藏
       <br />
       <TreeSelect
-        style={{width:200}}
+        style={{ width: 200 }}
         treeData={treeData}
         value={value}
         onChange={(val) => setValue(val)}
@@ -246,7 +245,7 @@ export const _ShowCheckedComponent = () => {
       disabled
       <br />
       <TreeSelect
-        style={{width:200}}
+        style={{ width: 200 }}
         treeData={treeData}
         defaultValue={defaultValue}
         showSelected
@@ -264,21 +263,22 @@ _ShowCheckedComponent.parameters = {
 // ----------------------------------------------------------------
 
 export const _ShowExtraButtonComponent = () => {
+  const defaultValue: string[] = [];
 
-  const defaultValue:string[] = [];
-  
-  const treeData:TreeData[] = Array.from({length: 20}).map((_, i) => {
-    const item:TreeData = {
+  const treeData: TreeData[] = Array.from({ length: 20 }).map((_, i) => {
+    const item: TreeData = {
       title: `Node${i + 1}`,
       value: `0-${i}`,
       key: `0-${i}`,
-    }
-    if(i % 2 === 0) {
-      item.children = [{
-        title: `child${i + 1}-1`,
-        value: `${item.value}-0`,
-        key: `${item.key}-0`,
-      }]
+    };
+    if (i % 2 === 0) {
+      item.children = [
+        {
+          title: `child${i + 1}-1`,
+          value: `${item.value}-0`,
+          key: `${item.key}-0`,
+        },
+      ];
       defaultValue.push(`${item.value}-0`);
     }
     return item;
@@ -286,11 +286,10 @@ export const _ShowExtraButtonComponent = () => {
 
   const [value, setValue] = useState<string[]>(defaultValue);
 
-  const handleChange = (val:TreeNodeValue,label:any[],extra:any) => {
-    console.log(val,label,extra);
+  const handleChange = (val: TreeNodeValue, label: any[], extra: any) => {
+    console.log(val, label, extra);
     setValue(val as string[]);
-  }
-
+  };
 
   return (
     <>
@@ -300,7 +299,7 @@ export const _ShowExtraButtonComponent = () => {
       只有全选按钮
       <br />
       <TreeSelect
-        style={{width:250}}
+        style={{ width: 250 }}
         treeData={treeData}
         defaultValue={defaultValue}
         showSelected
@@ -312,7 +311,7 @@ export const _ShowExtraButtonComponent = () => {
       只有反选按钮
       <br />
       <TreeSelect
-        style={{width:250}}
+        style={{ width: 250 }}
         treeData={treeData}
         defaultValue={defaultValue}
         showSelected
@@ -323,10 +322,10 @@ export const _ShowExtraButtonComponent = () => {
       反选按钮和全选按钮一起展示
       <br />
       <TreeSelect
-        style={{width:250}}
+        style={{ width: 250 }}
         treeData={treeData}
         showSelected
-        showExtraButton={[TreeSelect.ALL_BUTTON,TreeSelect.INVERT_BUTTON]}
+        showExtraButton={[TreeSelect.ALL_BUTTON, TreeSelect.INVERT_BUTTON]}
         value={value}
         onChange={handleChange}
       />
@@ -346,15 +345,15 @@ export const _SeparatorComponent = () => {
     {
       title: "Node1",
       value: "0-0",
-      key: "0-0"
+      key: "0-0",
     },
     {
       title: "Node2",
       value: "0-1",
       key: "0-1",
       children: [
-        { 
-          title: 'child21',
+        {
+          title: "child21",
           value: "1-1",
           key: "1-1",
           children: [
@@ -362,40 +361,40 @@ export const _SeparatorComponent = () => {
               title: "child211",
               value: "1-1-1",
               key: "1-1-1",
-            }
-          ]
+            },
+          ],
         },
-        { 
+        {
           title: "child22",
           value: "1-2",
           key: "1-2",
         },
-      ]
+      ],
     },
     {
       title: "Node3",
       value: "0-2",
-      key: "0-2"
-    }
+      key: "0-2",
+    },
   ];
   return (
     <>
       默认分隔符为"、"
       <br />
       <TreeSelect
-        style={{width:200}}
+        style={{ width: 200 }}
         treeData={treeData}
-        defaultValue={['1-1-1','0-2']}
+        defaultValue={["1-1-1", "0-2"]}
       />
       <br />
       <br />
       配置分隔符为"，"
       <br />
       <TreeSelect
-        style={{width:200}}
+        style={{ width: 200 }}
         treeData={treeData}
-        defaultValue={['1-1-1','0-2']}
-        separator='，'
+        defaultValue={["1-1-1", "0-2"]}
+        separator="，"
       />
     </>
   );
@@ -409,14 +408,14 @@ _SeparatorComponent.parameters = {
 // ----------------------------------------------------------------
 
 export const _JSXComponent = () => {
-  const {TreeNode} = TreeSelect;
+  const { TreeNode } = TreeSelect;
   return (
     <>
       建议使用 treeData 来代替 TreeNode，免去手工构造麻烦
       <br />
-      <TreeSelect 
-        style={{width:200}} 
-        defaultValue={['sssvalue','leaf1value']} 
+      <TreeSelect
+        style={{ width: 200 }}
+        defaultValue={["sssvalue", "leaf1value"]}
       >
         <TreeNode value="parentvalue 1" title="parent 1">
           <TreeNode value="parentvalue 1-0" title="parent 1-0">
@@ -424,7 +423,10 @@ export const _JSXComponent = () => {
             <TreeNode value="leaf2value" title="your leaf" />
           </TreeNode>
           <TreeNode value="parentvalue 1-1" title="parent 1-1">
-            <TreeNode value="sssvalue" title={<b style={{ color: '#F9C152' }}>sss</b>} />
+            <TreeNode
+              value="sssvalue"
+              title={<b style={{ color: "#F9C152" }}>sss</b>}
+            />
           </TreeNode>
         </TreeNode>
         <TreeNode value="parentvalue 2" title="parent 2" />

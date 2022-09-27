@@ -1,4 +1,7 @@
-.frc-radio.ant-radio-wrapper {
+.frc-radio.ant-radio-wrapper,
+.frc-table .ant-radio-wrapper,
+.ant-table-filter-dropdown .ant-radio-wrapper,
+.ant-table-filter-dropdown-submenu .ant-radio-wrapper {
   padding: 0 4px;
   display: inline-flex;
   align-items: center;
@@ -112,7 +115,7 @@
     }
   }
 
-  .ant-radio-wrapper{
+  .ant-radio-wrapper {
     @extend .frc-radio;
   }
 }

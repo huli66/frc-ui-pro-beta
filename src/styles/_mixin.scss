@@ -1,5 +1,5 @@
 // global
-@mixin flex-center($direction:row) {
+@mixin flex-center($direction: row) {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,12 +41,13 @@
   $selection-bg: $words-high-light,
   $selection-color: $words-black
 ) {
-  &::selection{
+  &::selection {
     background: $selection-bg !important;
     color: $selection-color !important;
   }
-  input,textarea {
-    &::selection{
+  input,
+  textarea {
+    &::selection {
       background: $selection-bg !important;
       color: $selection-color !important;
     }
@@ -226,9 +227,9 @@
       cursor: not-allowed !important;
       color: $disabled-color !important;
     }
-    .ant-input-wrapper.ant-input-group{
-      .ant-input-group-addon{
-        .ant-input-search-button{
+    .ant-input-wrapper.ant-input-group {
+      .ant-input-group-addon {
+        .ant-input-search-button {
           cursor: not-allowed !important;
           color: $disabled-color !important;
           background: $input-search-background-btn-disabled !important;
@@ -361,7 +362,7 @@
   $disabled-background-icon-inner,
   $disabled-border-icon-inner,
   // selector prefix
-  $prefix: 'ant'
+  $prefix: "ant"
 ) {
   background: $background;
   color: $color;
@@ -531,7 +532,7 @@
 
 @mixin checkbox-indeterminate(
   // selector prefix
-  $prefix: 'ant'
+  $prefix: "ant"
 ) {
   &.#{$prefix}-checkbox-indeterminate {
     .#{$prefix}-checkbox-inner {
@@ -731,7 +732,7 @@
     color: $color;
   }
   &.frc-date-picker-work {
-    input, 
+    input,
     .ant-picker-range-separator * {
       color: $focus-color;
     }
@@ -780,7 +781,7 @@
   $border-radius,
   $font-size,
   $font-weight,
-  $box-shadow:$modal-box-shadow
+  $box-shadow: $modal-box-shadow
 ) {
   background: $background;
   color: $color;
@@ -791,10 +792,7 @@
   box-shadow: $box-shadow;
 }
 
-@mixin slider-handle (
-  $height,
-  $height-handle,
-) {
+@mixin slider-handle($height, $height-handle) {
   height: $height;
   &::before {
     height: $height-handle;
@@ -803,10 +801,7 @@
     height: $height-handle;
   }
 }
-@mixin slider-handle-vertical (
-  $width,
-  $width-handle,
-) {
+@mixin slider-handle-vertical($width, $width-handle) {
   width: $width;
   height: 8px;
   &::before {
@@ -816,7 +811,7 @@
     width: $width-handle;
   }
 }
-@mixin slider-dot ($size) {
+@mixin slider-dot($size) {
   height: $size;
   width: $size;
 }
@@ -932,17 +927,14 @@
   border: none;
 }
 
-@mixin pagination-item-a(
-  $normal-color,
-  $hover-color
-) {
+@mixin pagination-item-a($normal-color, $hover-color) {
   a {
-      color: $normal-color;
-      &:hover {
-        color: $hover-color;
-      }
-      @content;
+    color: $normal-color;
+    &:hover {
+      color: $hover-color;
     }
+    @content;
+  }
 }
 
 // ---------------------------steps-----------------------------
@@ -955,7 +947,7 @@
   }
 }
 
-@mixin steps-item-style (
+@mixin steps-item-style(
   // tail
   $tail-color,
   // icon
@@ -971,7 +963,7 @@
   $title-color,
   $des-color,
   // selector
-  $selector: ".ant-steps-item-container" 
+  $selector: ".ant-steps-item-container"
 ) {
   #{$selector} {
     .ant-steps-item-tail {
@@ -990,11 +982,11 @@
           background: $icon-border-color;
         }
         .frc-custom-dot {
-          background-color:$dot-outer-color;
+          background-color: $dot-outer-color;
           &::before {
             background-color: $dot-inner-color;
           }
-          &::after{
+          &::after {
             background-color: $dot-pointer-color;
           }
         }
@@ -1020,10 +1012,7 @@
   }
 }
 
-@mixin steps-vertical-item-tail (
-  $top,
-  $left,
-) {
+@mixin steps-vertical-item-tail($top, $left) {
   @include steps-item-container-selector {
     .ant-steps-item-tail {
       top: $top;
@@ -1039,7 +1028,7 @@
 @mixin steps-text-updown-item(
   $item-height,
   $title-position-bottom,
-  $des-position-top,
+  $des-position-top
 ) {
   .ant-steps-item {
     position: relative;
@@ -1068,13 +1057,7 @@
 
 // ------------------------------ tabs ------------------------------
 
-@mixin tabs-style(
-  $base-bg,
-  $hover-bg,
-  $active-bg,
-  $focus-bg,
-  $disabled-bg,
-) {
+@mixin tabs-style($base-bg, $hover-bg, $active-bg, $focus-bg, $disabled-bg) {
   .ant-tabs-tab {
     background-color: $base-bg;
     &.ant-tabs-tab-active {
@@ -1093,7 +1076,8 @@
         &::after {
           opacity: 0.3;
         }
-        &:hover, &:active {
+        &:hover,
+        &:active {
           background-color: $disabled-bg;
         }
       }
@@ -1101,3 +1085,224 @@
   }
 }
 
+// table ------------------------------------------------------------------------------------
+
+@mixin table-size-bg-default($line-height, $empty-top-text) {
+  // title
+  .ant-table-title {
+    line-height: $line-height;
+  }
+
+  // container
+  .ant-table-container {
+    // header
+    .ant-table-thead {
+      tr {
+        .ant-table-cell {
+          line-height: $line-height - 1;
+          .ant-checkbox-wrapper {
+            line-height: $line-height - 1;
+          }
+        }
+      }
+    }
+
+    // body
+    .ant-table-tbody {
+      .ant-table-row {
+        .ant-table-cell {
+          line-height: $line-height - 1;
+          .ant-checkbox-wrapper {
+            line-height: $line-height - 1;
+          }
+        }
+      }
+
+      // extend row
+      .ant-table-expanded-row {
+        .ant-table-cell {
+          line-height: $line-height - 1;
+        }
+      }
+    }
+
+    // summary
+    .ant-table-summary {
+      tr {
+        .ant-table-cell {
+          line-height: $line-height - 1;
+        }
+      }
+    }
+
+    // empty
+    .ant-table-placeholder {
+      background: linear-gradient(
+        180deg,
+        transparent $line-height - 1,
+        $part-plate $line-height
+      );
+
+      background-size: 100px $line-height;
+      .frc-table-empty {
+        top: $empty-top-text;
+      }
+
+      td {
+        background-color: transparent;
+      }
+    }
+
+    // fixed data
+    .frc-table-fixed-tip {
+      line-height: $line-height;
+      top: $line-height;
+    }
+  }
+
+  // footer
+  .ant-table-footer {
+    line-height: $line-height;
+  }
+}
+
+@mixin table-size-bg-cross($line-height, $empty-top-text) {
+  // title
+  .ant-table-title {
+    line-height: $line-height - 1;
+  }
+
+  // container
+  .ant-table-container {
+    .ant-table-thead {
+      tr {
+        .ant-table-cell {
+          line-height: $line-height;
+        }
+      }
+    }
+    .ant-table-tbody {
+      .ant-table-row {
+        .ant-table-cell {
+          line-height: $line-height;
+        }
+      }
+
+      // extend row
+      .ant-table-expanded-row {
+        .ant-table-cell {
+          line-height: $line-height;
+        }
+      }
+    }
+
+    // summary
+    .ant-table-summary {
+      tr {
+        .ant-table-cell {
+          line-height: $line-height - 1;
+        }
+      }
+    }
+
+    // empty
+    .ant-table-tbody {
+      // empty data
+      .ant-table-placeholder {
+        background: linear-gradient(0deg, $basic-plate 50%, $part-plate 50%);
+        background-size: 100px $line-height * 2;
+
+        td {
+          background-color: transparent;
+        }
+      }
+
+      .ant-table-cell {
+        .frc-table-empty {
+          top: $empty-top-text;
+        }
+      }
+    }
+  }
+
+  // footer
+  .ant-table-footer {
+    line-height: $line-height - 1;
+  }
+
+  // fixed data
+  .frc-table-fixed-tip {
+    line-height: $line-height;
+    top: $line-height;
+  }
+}
+
+@mixin table-title-size($line-height) {
+  .ant-table {
+    .ant-table-container {
+      .ant-table-thead {
+        tr {
+          .ant-table-cell {
+            line-height: $line-height !important;
+            .ant-checkbox-wrapper {
+              line-height: $line-height !important;
+            }
+          }
+        }
+      }
+
+      // fixed data
+      .frc-table-fixed-tip {
+        top: $line-height !important;
+      }
+    }
+  }
+}
+
+@mixin table-fixed-border-active($border, $resize-border, $resize-width) {
+  .ant-table.ant-table-bordered {
+    .ant-table-container {
+      // header
+      .ant-table-thead {
+        tr {
+          .ant-table-cell {
+            &:not(.frc-col-has-child) {
+              border-bottom: $border !important;
+            }
+
+            &.ant-table-cell-fix-left-last,
+            &.ant-table-cell-fix-right-first::after {
+              border-right: $border !important;
+            }
+          }
+        }
+      }
+
+      // body
+      .ant-table-tbody {
+        .ant-table-row {
+          .ant-table-cell {
+            &.ant-table-cell-fix-left-last,
+            &.ant-table-cell-fix-right-first::after {
+              border-right: $border !important;
+            }
+          }
+        }
+      }
+
+      // resize col
+      .ant-table-cell {
+        &.frc-resizeable-start {
+          border-right: $resize-border !important;
+          & + .ant-table-cell-fix-right-first {
+            &::after {
+              border-right: $resize-border !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// ------------------------------------------------------------------------------------------

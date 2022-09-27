@@ -52,9 +52,9 @@
       left: 4px;
     }
     // 超出省略样式
-    .ant-select-selection-overflow{
-      .ant-select-selection-overflow-item.ant-select-selection-overflow-item-rest{
-        .ant-select-selection-item{
+    .ant-select-selection-overflow {
+      .ant-select-selection-overflow-item.ant-select-selection-overflow-item-rest {
+        .ant-select-selection-item {
           padding-inline-start: 4px;
         }
       }
@@ -75,7 +75,10 @@
   }
   .ant-select-arrow {
     color: $select-color;
-    right: 6px;
+    right: 2px;
+    * {
+      height: 8px;
+    }
   }
   .ant-select-clear {
     color: $words-normal;
@@ -106,6 +109,70 @@
       }
     }
   }
+
+  // no-border
+  &.frc-select-no-border {
+    // normal
+    border: 1px transparent solid;
+    background-color: transparent;
+    transition: All 0.3s ease;
+    .ant-select-selection-item {
+      color: $tittle-word !important;
+    }
+    .ant-select-arrow {
+      color: $tittle-word !important;
+    }
+
+    // hover
+    &:hover {
+      background-color: $btn-hover;
+      .ant-select-selection-item {
+        color: $select-color !important;
+      }
+      .ant-select-arrow {
+        color: $select-color !important;
+      }
+    }
+
+    // focus
+    &.ant-select-focused.ant-select-open {
+      background-color: $btn-hover !important;
+      .ant-select-selection-item {
+        color: $words-high-light !important;
+      }
+      .ant-select-arrow {
+        color: $select-color !important;
+      }
+    }
+
+    // focus after -> normal
+    &.ant-select-focused:not(.ant-select-open) {
+      border: 1px transparent solid !important;
+      background-color: transparent !important;
+      .ant-select-selection-item {
+        color: $tittle-word !important;
+      }
+      .ant-select-arrow {
+        color: $tittle-word !important;
+      }
+    }
+
+    // disabled
+    &.ant-select-disabled {
+      border: 1px transparent solid !important;
+      background: transparent !important;
+      .ant-select-selector {
+        background: transparent !important;
+        .ant-select-selection-item {
+          color: $select-color-disabled !important;
+        }
+      }
+      .ant-select-arrow {
+        background: transparent !important;
+        color: $select-color-disabled !important;
+      }
+    }
+  }
 }
 
 // select-dropdown
@@ -125,7 +192,7 @@
   .ant-select-item-option-active {
     background-color: $select-background-hover;
   }
-  
+
   // prve active
   .ant-select-item-option-selected {
     background-color: transparent;
