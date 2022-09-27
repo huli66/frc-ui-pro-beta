@@ -1,55 +1,65 @@
-import React, { useState, useRef, forwardRef } from 'react'
-import classNames from 'classnames'
-import AntdInput, { InputProps, InputRef } from 'antd/es/input'
-import { FiSearch } from 'react-icons/fi'
-import { composeRef } from '../../utils'
-import Icon from '../Icon';
+import React, { useState, useRef, forwardRef } from "react";
+import classNames from "classnames";
+import AntdInput, { InputProps, InputRef } from "antd/es/input";
+import { FiSearch } from "react-icons/fi";
+import { composeRef } from "../../utils";
+import Icon from "../Icon";
 
-type InputType = 'default' | 'icon-only'
+type InputType = "default" | "icon-only";
 interface BaseInputProps {
   /** 交互类型 */
-  performance?: InputType
+  performance?: InputType;
   /** 带标签的 input，设置后置标签 */
-  addonAfter?: React.ReactNode
+  addonAfter?: React.ReactNode;
   /** 带标签的 input，设置前置标签 */
-  addonBefore?: React.ReactNode
+  addonBefore?: React.ReactNode;
   /** 可以点击清除图标删除内容 */
-  allowClear?: boolean | { clearIcon: React.ReactNode }
+  allowClear?: boolean | { clearIcon: React.ReactNode };
   /** 是否有边框 */
-  bordered?: boolean
+  bordered?: boolean;
   /** 输入框默认内容 */
-  defaultValue?: string
+  defaultValue?: string;
   /** 是否禁用状态，默认为 false */
-  disabled?: boolean
+  disabled?: boolean;
   /** 输入框的 id */
-  id?: string
+  id?: string;
   /** 最大长度 */
-  maxLength?: number
+  maxLength?: number;
   /** 是否展示字数 */
-  showCount?: boolean | { formatter: (props: { count: number, maxLength?: number }) => React.ReactNode }
+  showCount?:
+    | boolean
+    | {
+        formatter: (props: {
+          count: number;
+          maxLength?: number;
+        }) => React.ReactNode;
+      };
   /** 带有前缀图标的 input */
-  prefix?: React.ReactNode
+  prefix?: React.ReactNode;
   /** 带有后缀图标的 input */
-  suffix?: React.ReactNode
+  suffix?: React.ReactNode;
   /** 输入框内容 */
-  value?: string
+  value?: string | ReadonlyArray<string> | number | undefined;
   /** 输入框内容变化时的回调 */
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   /** 按下回车的回调 */
-  onPressEnter?: (e: React.KeyboardEvent<HTMLInputElement>) => void
+  onPressEnter?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   /** 取消焦点 */
-  blur?: () => void
+  blur?: () => void;
   /** 获取焦点 */
-  focus?: (option?: { preventScroll?: boolean, cursor?: 'start' | 'end' | 'all' }) => void
+  focus?: (option?: {
+    preventScroll?: boolean;
+    cursor?: "start" | "end" | "all";
+  }) => void;
 }
 
-export type FRCInputProps = BaseInputProps & InputProps
+export type FRCInputProps = BaseInputProps & InputProps;
 
 export type { InputRef };
 
 export const Input = forwardRef<InputRef, FRCInputProps>((props, ref) => {
-  const [keyDownEnter, setKeyDownEnter] = useState(false)
-  const inputRef = useRef<InputRef | null>(null)
+  const [keyDownEnter, setKeyDownEnter] = useState(false);
+  const inputRef = useRef<InputRef | null>(null);
 
   const {
     className,
@@ -63,42 +73,46 @@ export const Input = forwardRef<InputRef, FRCInputProps>((props, ref) => {
     onKeyDown,
     allowClear,
     ...restProps
-  } = props
+  } = props;
 
-  const classes = classNames('frc-input', className, {
+  const classes = classNames("frc-input", className, {
     [`frc-input-no-border`]: !bordered,
     [`frc-input-enter`]: keyDownEnter,
     [`frc-input-prefix`]: prefix,
-    [`frc-input-${performance}`]: performance
-  })
+    [`frc-input-${performance}`]: performance,
+  });
 
   const prefixNode = () => {
-    if (performance !== 'icon-only') {
+    if (performance !== "icon-only") {
       return prefix;
     }
     const handleIconClick = () => {
       inputRef.current?.focus();
-    }
+    };
     return (
       <span onClick={handleIconClick} style={{ height: 12 }}>
         {prefix || <FiSearch />}
       </span>
-    )
-  }
+    );
+  };
 
-
-  const calAllowClear = (arrow: boolean | { clearIcon: React.ReactNode } | undefined) => {
-    if (typeof arrow === 'boolean') {
-      return arrow ? {
-        clearIcon:
-          <div className="frc-input-clear-icon-box">
-            <Icon className="frc-clear-icon" type="close-square" />
-          </div >
-      } : false
+  const calAllowClear = (
+    arrow: boolean | { clearIcon: React.ReactNode } | undefined
+  ) => {
+    if (typeof arrow === "boolean") {
+      return arrow
+        ? {
+            clearIcon: (
+              <div className="frc-input-clear-icon-box">
+                <Icon className="frc-clear-icon" type="close-square" />
+              </div>
+            ),
+          }
+        : false;
     }
 
-    return arrow
-  }
+    return arrow;
+  };
 
   let options = {
     className: classes,
@@ -110,32 +124,31 @@ export const Input = forwardRef<InputRef, FRCInputProps>((props, ref) => {
     showCount,
     value,
     onKeyDown: (e: any) => {
-      onKeyDown && onKeyDown(e)
-      if (e.code === 'Enter') {
-        setKeyDownEnter(true)
+      onKeyDown && onKeyDown(e);
+      if (e.code === "Enter") {
+        setKeyDownEnter(true);
       }
     },
     onChange: (e: any) => {
-      onChange && onChange(e)
+      onChange && onChange(e);
       if (!e.target.value && e.target.value !== 0) {
-        setKeyDownEnter(false)
+        setKeyDownEnter(false);
       }
-    }
-  }
+    },
+  };
 
   // main
-  return <AntdInput ref={composeRef(ref, inputRef)} {...options} />
-})
-
+  return <AntdInput ref={composeRef(ref, inputRef)} {...options} />;
+});
 
 // normal
 Input.defaultProps = {
   bordered: true,
-  placeholder: '请输入...',
-  performance: 'default',
+  placeholder: "请输入...",
+  performance: "default",
   disabled: false,
   showCount: false,
   allowClear: false,
-}
+};
 
-export default Input
+export default Input;
