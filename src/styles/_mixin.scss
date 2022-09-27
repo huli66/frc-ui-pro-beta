@@ -1061,10 +1061,21 @@
         transparent $line-height - 1,
         $part-plate $line-height
       );
+
       background-size: 100px $line-height;
       .frc-table-empty {
         top: $empty-top-text;
       }
+
+      td {
+        background-color: transparent;
+      }
+    }
+
+    // fixed data
+    .frc-table-fixed-tip {
+      line-height: $line-height;
+      top: $line-height;
     }
   }
 
@@ -1119,6 +1130,10 @@
       .ant-table-placeholder {
         background: linear-gradient(0deg, $basic-plate 50%, $part-plate 50%);
         background-size: 100px $line-height * 2;
+
+        td {
+          background-color: transparent;
+        }
       }
 
       .ant-table-cell {
@@ -1133,28 +1148,37 @@
   .ant-table-footer {
     line-height: $line-height - 1;
   }
+
+  // fixed data
+  .frc-table-fixed-tip {
+    line-height: $line-height;
+    top: $line-height;
+  }
 }
 
 @mixin table-title-size($line-height) {
   .ant-table {
-    .ant-table-thead {
-      tr {
-        .ant-table-cell {
-          line-height: $line-height !important;
-           .ant-checkbox-wrapper {
+    .ant-table-container {
+      .ant-table-thead {
+        tr {
+          .ant-table-cell {
             line-height: $line-height !important;
+            .ant-checkbox-wrapper {
+              line-height: $line-height !important;
+            }
           }
         }
+      }
+
+      // fixed data
+      .frc-table-fixed-tip {
+        top: $line-height !important;
       }
     }
   }
 }
 
-@mixin table-fixed-border-active(
-  $border,
-  $resize-border,
-  $resize-width,
-) {
+@mixin table-fixed-border-active($border, $resize-border, $resize-width) {
   .ant-table.ant-table-bordered {
     .ant-table-container {
       // header

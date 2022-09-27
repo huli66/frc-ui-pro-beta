@@ -1,4 +1,12 @@
-import React, { FC, ReactNode, Key, FunctionComponentElement } from "react";
+import React, {
+  FC,
+  ReactNode,
+  Key,
+  FunctionComponentElement,
+  useRef,
+  useState,
+  useEffect,
+} from "react";
 import classNames from "classnames";
 import {
   Table as AntdTable,
@@ -6,6 +14,7 @@ import {
   TooltipProps,
   SpinProps,
   CheckboxProps,
+  message,
 } from "antd";
 import { ColumnProps } from "antd/lib/table";
 import {
@@ -358,8 +367,14 @@ export interface FRCTableProps extends Omit<TableProps<RecordType>, "columns"> {
   pagination?: PaginationConfig | false;
   /** 表格行背景色类型 */
   rowBgType?: "default" | "cross";
+  /** 开启 表格首行 背景色渐变动效（dataSource 改变时触发） */
+  rowActiveFirstGradient?: boolean;
   /** 激活 row (唯一)，row 需有唯一 key 生效 */
   rowActive?: string | number;
+  /** 激活 row 时，固定数据变化。数据变化时，顶部提示 */
+  rowActiveFixedData?: boolean;
+  /** 激活 row，固定数据变化时，顶部提示内容 */
+  rowActiveFixedTip?: string;
   /** 表格行的类名 */
   rowClassName?: (record: RecordType, index: number) => string;
   /** 表格行 key 的取值，可以是字符串或一个函数 */
@@ -433,6 +448,7 @@ const EmptyNode = (props: { height: number }) => {
 export const Table: FC<FRCTableProps> = (props) => {
   const {
     className,
+    dataSource,
     bordered,
     borderedActiveFixed,
     loading,
@@ -441,12 +457,22 @@ export const Table: FC<FRCTableProps> = (props) => {
     rowBgType,
     headerSize,
     rowActive,
+    rowActiveFirstGradient,
+    rowActiveFixedData,
+    rowActiveFixedTip,
     rowClassName,
     rowSelection,
     columns,
     children,
+    onScrollEnd,
     ...restProps
   } = props;
+
+  const [rowActiveInner, setRowActiveInner] = useState<
+    string | number | null
+  >();
+  const [dataIsFixed, setDataIsFixed] = useState<boolean>(false);
+  const [fixedData, setFixedData] = useState<ColumnsTypeProps[] | undefined>();
 
   const classes = classNames("frc-table", className, {
     [`frc-row-bg-type-${rowBgType}`]: rowBgType,
@@ -455,6 +481,69 @@ export const Table: FC<FRCTableProps> = (props) => {
     [`frc-fixed-border-active frc-fixed-border-${borderedActiveFixed}`]:
       bordered && borderedActiveFixed,
   });
+
+  // scroll --------------------------------------------------------------
+
+  const ref = useRef<any>(null);
+
+  const onScrollHandle = () => {
+    if (ref.current && onScrollEnd) {
+      // 获取表格 dom 元素
+      const tableNode = ref.current?.querySelector(".ant-table-body");
+      // 容器可视区高度
+      const tableNodeHeight = tableNode?.clientHeight;
+      // 内容高度
+      const contentHeight = tableNode?.scrollHeight;
+      // 距离顶部的高度
+      const toTopHeight = tableNode?.scrollTop;
+
+      if (contentHeight - (toTopHeight + tableNodeHeight) < 0.5) {
+        onScrollEnd(); // 打接口
+      }
+    }
+  };
+
+  // fixed data ----------------------------------------------------------
+
+  useEffect(() => {
+    if (rowActive) {
+      setRowActiveInner(rowActive);
+    }
+  }, [rowActive]);
+
+  useEffect(() => {
+    if (rowActiveInner && rowActiveFixedData && !dataIsFixed) {
+      setFixedData(dataSource);
+      setDataIsFixed(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rowActiveInner, rowActiveFixedData]);
+
+  useEffect(() => {
+    if (rowActiveInner && rowActiveFixedData) {
+      showDataUpdateTip();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataSource]);
+
+  const showDataUpdateTip = () => {
+    const targetNode = ref.current?.querySelector(".ant-table-container");
+
+    if (targetNode.querySelector(".frc-table-fixed-tip")) {
+      return;
+    }
+
+    const tipNode = document.createElement("div");
+    tipNode.className = "frc-table-fixed-tip";
+    tipNode.innerHTML = rowActiveFixedTip || "数据已更新";
+    tipNode.addEventListener("click", () => {
+      setRowActiveInner(null);
+      setDataIsFixed(false);
+      targetNode.removeChild(tipNode);
+      targetNode.querySelector(".ant-table-body").scrollTop = 0;
+    });
+    targetNode.appendChild(tipNode);
+  };
 
   // children | columns --------------------------------------------------
 
@@ -531,7 +620,7 @@ export const Table: FC<FRCTableProps> = (props) => {
     });
   };
 
-  // --------------------------------------------------------------------
+  // pagination ----------------------------------------------------------
 
   // Pagination pre next icon replace render
   const PaginationRenderPreNext: ItemRender = (page, type, oe: any) => {
@@ -562,6 +651,7 @@ export const Table: FC<FRCTableProps> = (props) => {
   const options = {
     className: classes,
     bordered,
+    dataSource: dataIsFixed ? fixedData : dataSource,
     loading: loading
       ? typeof loading === "boolean"
         ? {
@@ -594,9 +684,13 @@ export const Table: FC<FRCTableProps> = (props) => {
     },
     rowClassName: (record: RecordType, index: number) => {
       let rowClasses = "";
+      // 开启首行渐变
+      if (rowActiveFirstGradient && index === 0) {
+        rowClasses += " frc-table-row-first-gradient";
+      }
       // active row className
-      if (rowActive && record?.key && rowActive === record.key) {
-        rowClasses = "frc-table-row-active";
+      if (rowActiveInner && record?.key && rowActiveInner === record.key) {
+        rowClasses += " frc-table-row-active";
       }
       // default row className
       if (rowClassName && typeof rowClassName === "function") {
@@ -611,7 +705,15 @@ export const Table: FC<FRCTableProps> = (props) => {
   } as TableProps<RecordType>;
 
   // main
-  return <AntdTable {...options} />;
+  return (
+    <div
+      ref={ref}
+      onScrollCapture={onScrollHandle}
+      className="frc-table-container"
+    >
+      <AntdTable {...options} />
+    </div>
+  );
 };
 
 // normal

@@ -6883,56 +6883,56 @@ export const _BK_ScrollEndComponent = () => {
 
   const dataMock: DataType[] = [
     {
-      key: "11",
+      key: (Math.random() * 100).toString(),
       name: "Jim Green",
       age: 42,
       address: "London No. 1 Lake Park",
       description: "something else",
     },
     {
-      key: "12",
+      key: (Math.random() * 100).toString(),
       name: "Joe Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
       description: "something else",
     },
     {
-      key: "13",
+      key: (Math.random() * 100).toString(),
       name: "John Brown",
       age: 32,
       address: "New York No. 1 Lake Park",
       description: "something else",
     },
     {
-      key: "14",
+      key: (Math.random() * 100).toString(),
       name: "Jim Green",
       age: 42,
       address: "London No. 1 Lake Park",
       description: "something else",
     },
     {
-      key: "15",
+      key: (Math.random() * 100).toString(),
       name: "Joe Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
       description: "something else",
     },
     {
-      key: "16",
+      key: (Math.random() * 100).toString(),
       name: "John Brown",
       age: 32,
       address: "New York No. 1 Lake Park",
       description: "something else",
     },
     {
-      key: "17",
+      key: (Math.random() * 100).toString(),
       name: "Jim Green",
       age: 42,
       address: "London No. 1 Lake Park",
       description: "something else",
     },
     {
-      key: "18",
+      key: (Math.random() * 100).toString(),
       name: "Joe Black",
       age: 32,
       address: "Sidney No. 1 Lake Park",
@@ -6990,10 +6990,187 @@ export const _BK_ScrollEndComponent = () => {
         dataSource={data}
         scroll={{ x: 1000, y: 200 }}
         pagination={false}
-        onScrollEnd={() => setData([...data, dataMock])}
+        onScrollEnd={() => setData([...data].concat(dataMock))}
       />
     </>
   );
 };
 
 _BK_ScrollEndComponent.storyName = "滚动加载（翻页拼接）";
+
+// ----------------------------------------------------------------
+
+export const _BL_MessageTipComponent = () => {
+  interface DataType {
+    key: string;
+    name: string;
+    age: number;
+    address: string;
+    description: string;
+  }
+
+  const [data, setData] = useState<any[]>([
+    {
+      key: "1",
+      name: "John Brown123",
+      age: 32,
+      address: "New York No. 1 Lake Park123",
+      description: "something else123",
+    },
+    {
+      key: "2",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "3",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "4",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "5",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "6",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "7",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "8",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "9",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "10",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+    },
+  ]);
+  const [activeRowKey, setActiveRowKey] = useState<string>();
+
+  // mock update data ---------------------------------------------
+
+  const dataMock: DataType[] = [
+    {
+      key: data.length + 1 + "",
+      name: "新推送：" + (data.length + 1),
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+  ];
+
+  setTimeout(() => {
+    setData([...dataMock].concat([...data]));
+  }, 4000);
+
+  // --------------------------------------------------------------
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      fixed: "left",
+      width: "120px",
+      align: "center",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+      align: "center",
+      width: "120px",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+      width: "400px",
+      align: "center",
+    },
+    {
+      title: "Description",
+      key: "description",
+      dataIndex: "description",
+      width: "150px",
+      fixed: "right",
+      align: "center",
+    },
+  ];
+
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+
+    // rowActiveFixedData 启动 “固定数据” 效果
+    // rowActiveFixedTip 设置 “固定提示” 文案
+    // rowActiveFirstGradient 启动 “首条数据” 渐变效果（每次 data change，都会触发）
+
+    // 注意：此功能必须设置 “scroll” 属性，否则无效。
+  `;
+
+  // --------------------------------------------------------------
+
+  return (
+    <>
+      <ImportCode code={code} />
+      <Table
+        columns={columns}
+        dataSource={data}
+        scroll={{ x: 1000, y: 200 }}
+        pagination={false}
+        rowActive={activeRowKey}
+        rowActiveFixedData={true}
+        rowActiveFixedTip={"有新消息"}
+        rowActiveFirstGradient={true}
+        onRow={(record) => {
+          return {
+            onClick: (e) => {
+              setActiveRowKey(record.key);
+            },
+          };
+        }}
+      />
+    </>
+  );
+};
+
+_BL_MessageTipComponent.storyName = "新消息提醒（常用于推送）";
