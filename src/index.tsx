@@ -13,6 +13,7 @@ export { default as TabsOnly } from "./components/TabsOnly";
 export { default as Socket } from "./components/Socket";
 export { default as Loading } from "./components/loading";
 export { default as Error } from "./components/Error";
+export { default as Slider } from "./components/Slider";
 export { default as SliderController } from "./components/SliderController";
 export { default as Pagination } from "./components/Pagination";
 export { default as Steps } from "./components/Steps";
@@ -26,14 +27,3 @@ export { default as Tabs } from "./components/Tabs";
 export { default as Table } from "./components/Table";
 export { default as Filter } from "./components/Filter";
 export { default as TreeSelect } from "./components/TreeSelect";
-
-// interface
-export type {
-  FRCTableProps,
-  ColumnsTypeProps,
-  FilterValue,
-  SorterResult,
-  PaginationConfig,
-  RowSelectionProps,
-} from "./components/Table/table";
-export type { FRCInputProps, InputRef } from "./components/Input/input";

@@ -41,15 +41,18 @@ import {
   InputNumber,
   Tooltip,
   Checkbox,
-  // type
+} from "../../index";
+
+import {
   FRCTableProps,
   ColumnsTypeProps,
-  InputRef,
   FilterValue,
   SorterResult,
   PaginationConfig,
   RowSelectionProps,
-} from "../../index";
+} from "./table";
+
+import { InputRef } from "../Input/input";
 
 // edit
 import { Form, Table as AntdTable } from "antd";
@@ -4575,7 +4578,8 @@ export const _AZ_EditCellComponent = () => {
     import React, { useContext, useEffect, useRef, useState } from 'react';
     import { Form } from 'antd';
     import type { FormInstance } from 'antd/es/form';
-    import { Button, Form, Input, Table, InputRef } from 'frc-ui-pro';
+    import { Button, Form, Input, Table } from 'frc-ui-pro';
+    import { InputRef } from "frc-ui-pro/components/Input/input"
 
     // 带单元格编辑功能的表格。当配合 shouldCellUpdate 使用时请注意闭包问题。
   `;
