@@ -1,8 +1,5 @@
 .frc-checkbox.ant-checkbox-wrapper,
-.frc-checkbox-group .ant-checkbox-wrapper,
-.frc-table .ant-checkbox-wrapper,
-.ant-table-filter-dropdown .ant-checkbox-wrapper,
-.ant-table-filter-dropdown-submenu .ant-checkbox-wrapper {
+.frc-checkbox-group .ant-checkbox-wrapper {
   padding: 0 4px;
   display: inline-flex;
   align-items: center;
@@ -49,9 +46,9 @@
   );
   .ant-checkbox {
     top: 0;
-    // .ant-checkbox-input {
-    //   display: none;
-    // }
+    .ant-checkbox-input {
+      display: none;
+    }
     // icon
     @include checkbox-indeterminate();
   }

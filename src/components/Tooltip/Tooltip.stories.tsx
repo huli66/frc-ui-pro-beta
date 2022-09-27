@@ -289,3 +289,30 @@ _ManualComponent.storyName = '手动显隐 tooltip';
 _ManualComponent.parameters = {
     controls: { hideNoControlsWarning: true },
 };
+
+// ----------------------------------------------------------------
+
+export const _OverTextComponent = () => {
+    const demoStyle = {
+        width: 280,
+        margin: '6px 0',
+        padding: 10,
+        border: '1px solid #ffffff',
+        borderRadius: 2
+    }
+    return (
+        <>
+            <Tooltip overText style={demoStyle}>
+                <span>当文本未超出容器文字提示不显示</span>
+            </Tooltip>
+            <Tooltip overText placement='bottom' style={demoStyle} title='当文本超出容器时文本末尾省略文字提示显示当文本超出容器时文本末尾省略文字提示显示'>
+                <span>当文本超出容器时文本末尾省略文字提示显示当文本超出容器时文本末尾省略文字提示显示</span>
+            </Tooltip>
+        </>
+    )
+};
+
+_OverTextComponent.storyName = '文本未超出容器不提示 tooltip';
+_OverTextComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};

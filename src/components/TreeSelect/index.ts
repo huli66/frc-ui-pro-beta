@@ -1,13 +1,9 @@
-import { FC } from "react";
-import TreeSelect, {
-  FRCTreeSelectProps,
-  ALL_BUTTON,
-  INVERT_BUTTON,
-} from "./treeSelect";
-import TreeNode from "./treeNode";
-import { TreeSelect as AntTreeSelect } from "antd";
+import {FC} from 'react';
+import TreeSelect, {FRCTreeSelectProps,ALL_BUTTON,INVERT_BUTTON} from './treeSelect';
+import TreeNode from './treeNode';
+import {TreeSelect as AntTreeSelect} from 'antd';
 
-const { SHOW_ALL, SHOW_CHILD, SHOW_PARENT } = AntTreeSelect;
+const {SHOW_ALL,SHOW_CHILD,SHOW_PARENT} = AntTreeSelect;
 
 export type FRCTreeSelectComponent = FC<FRCTreeSelectProps> & {
   TreeNode: typeof TreeNode;
@@ -16,7 +12,7 @@ export type FRCTreeSelectComponent = FC<FRCTreeSelectProps> & {
   SHOW_PARENT: typeof SHOW_PARENT;
   ALL_BUTTON: typeof ALL_BUTTON;
   INVERT_BUTTON: typeof INVERT_BUTTON;
-};
+}
 
 const TransTreeSelect = TreeSelect as FRCTreeSelectComponent;
 TransTreeSelect.TreeNode = TreeNode;
@@ -28,4 +24,4 @@ TransTreeSelect.INVERT_BUTTON = INVERT_BUTTON;
 
 export default TransTreeSelect;
 
-export type { FRCTreeSelectProps } from "./treeSelect";
+export type {FRCTreeSelectProps} from './treeSelect';

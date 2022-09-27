@@ -1,43 +1,38 @@
-import React, { FC, useEffect, useState } from "react";
-import {
-  LeftOutlined,
-  RightOutlined,
-  DownOutlined,
-  UpOutlined,
-} from "@ant-design/icons";
+import React, { FC, useEffect, useState } from 'react'
+import { LeftOutlined, RightOutlined, DownOutlined, UpOutlined } from '@ant-design/icons';
 import classNames from "classnames";
 
-export type PlacementType = "top" | "right" | "bottom" | "left";
+export type PlacementType = 'top' | 'right' | 'bottom' | 'left';
 
 export interface FRCSqueezeDrawerProps {
   /** 弹出层宽度 placement设置为 right 和 left 时生效 */
-  width?: number | string;
+  width?: number | string,
   /** 弹出层高度 placement设置为 top 和 bottom 时生效 */
-  height?: number | string;
+  height?: number | string,
   /** 折叠抽屉的外层类名 */
-  className?: string;
+  className?: string,
   /** 弹出方向 */
-  placement?: PlacementType;
+  placement?: PlacementType,
   /** 弹出层内容 */
-  extraContent?: React.ReactNode;
+  extraContent?: React.ReactNode,
   /** 主层内容 */
-  mainContent?: React.ReactNode;
+  mainContent?: React.ReactNode
   /** 开启图标 */
   // openIcon?: ReactElement,
   /** 关闭图标 */
   // closeIcon?: ReactElement
   /** 弹出层内容是否显示 */
-  extraContentVisible?: boolean;
+  extraContentVisible?: boolean
   /** 点击开关回调 */
-  onOpenChange?: (open: boolean) => void;
+  onOpenChange?: (open: boolean) => void
   /** SqueezeDrawer样式 */
-  style?: React.CSSProperties;
+  style?: React.CSSProperties
   /** 弹出层样式 */
-  extraContentStyle?: React.CSSProperties;
+  extraContentStyle?: React.CSSProperties
   /** 主层级样式 */
-  mainContentStyle?: React.CSSProperties;
+  mainContentStyle?: React.CSSProperties
   /** 开关样式 */
-  turnStyle?: React.CSSProperties;
+  turnStyle?: React.CSSProperties
 }
 
 export const SqueezeDrawer: FC<FRCSqueezeDrawerProps> = (props) => {
@@ -54,157 +49,131 @@ export const SqueezeDrawer: FC<FRCSqueezeDrawerProps> = (props) => {
     turnStyle: turnStyleProps,
     placement,
     onOpenChange,
-  } = props;
+  } = props
 
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(false)
 
-  useEffect(() => {
-    setVisible(!!extraContentVisible);
-  }, [extraContentVisible]);
+  useEffect(() => { setVisible(!!extraContentVisible) }, [extraContentVisible])
 
   const handleClick = (): void => {
     if (onOpenChange) {
       // 受控组件
-      onOpenChange(!visible);
+      onOpenChange(!visible)
     } else {
       // 默认切换
       if (extraContentVisible === undefined) {
-        setVisible(!visible);
+        setVisible(!visible)
       }
     }
-  };
+  }
 
-  const renderOpenIcon = (
-    currentPlacement: PlacementType,
-    currentVisible: boolean
-  ) => {
-    let openIcon = <LeftOutlined />;
-    if (currentPlacement === "top") {
-      openIcon = currentVisible ? <UpOutlined /> : <DownOutlined />;
+  const renderOpenIcon = (currentPlacement: PlacementType, currentVisible: boolean) => {
+    let openIcon = <LeftOutlined />
+    if (currentPlacement === 'top') {
+      openIcon = (currentVisible ? <UpOutlined /> : <DownOutlined />)
     }
-    if (currentPlacement === "bottom") {
-      openIcon = currentVisible ? <DownOutlined /> : <UpOutlined />;
+    if (currentPlacement === 'bottom') {
+      openIcon = (currentVisible ? <DownOutlined /> : <UpOutlined />)
     }
-    if (currentPlacement === "right") {
-      openIcon = currentVisible ? <RightOutlined /> : <LeftOutlined />;
+    if (currentPlacement === 'right') {
+      openIcon = (currentVisible ? <RightOutlined /> : <LeftOutlined />)
     }
-    if (currentPlacement === "left") {
-      openIcon = currentVisible ? <LeftOutlined /> : <RightOutlined />;
+    if (currentPlacement === 'left') {
+      openIcon = (currentVisible ? <LeftOutlined /> : <RightOutlined />)
     }
-    return openIcon;
-  };
+    return openIcon
+  }
 
   const getContentContainerStyle = (currentPlacement: PlacementType) => {
-    let style: React.CSSProperties = {};
+    let style: React.CSSProperties = {}
     const styleOfPlacement = {
-      top: "column-reverse",
-      right: "row",
-      bottom: "column",
-      left: "row-reverse",
-    };
-    style.flexDirection = styleOfPlacement[currentPlacement] as any;
-    return style;
-  };
-
-  const getExtraContentStyle = (
-    currentPlacement: PlacementType,
-    currentVisible: boolean
-  ) => {
-    let style: React.CSSProperties = {};
-    if (currentPlacement === "top" || currentPlacement === "bottom") {
-      style.height = currentVisible ? height : 0;
+      top: 'column-reverse',
+      right: 'row',
+      bottom: 'column',
+      left: 'row-reverse'
     }
-    if (currentPlacement === "right" || currentPlacement === "left") {
-      style.width = currentVisible ? width : 0;
+    style.flexDirection = styleOfPlacement[currentPlacement] as any
+    return style
+  }
+
+  const getExtraContentStyle = (currentPlacement: PlacementType, currentVisible: boolean) => {
+    let style: React.CSSProperties = {}
+    if (currentPlacement === 'top' || currentPlacement === 'bottom') {
+      style.height = currentVisible ? height : 0
+    }
+    if (currentPlacement === 'right' || currentPlacement === 'left') {
+      style.width = currentVisible ? width : 0
     }
     style = {
       ...style,
-      ...extraContentStyleProps,
-    };
-    return style;
-  };
+      ...extraContentStyleProps
+    }
+    return style
+  }
 
-  const getTurnStyle = (
-    currentPlacement: PlacementType,
-    currentVisible: boolean
-  ) => {
-    let style: React.CSSProperties = {};
+  const getTurnStyle = (currentPlacement: PlacementType, currentVisible: boolean) => {
+    let style: React.CSSProperties = {}
 
-    if (currentPlacement === "top" || currentPlacement === "bottom") {
-      style[currentPlacement] = currentVisible ? height : 0;
+    if (currentPlacement === 'top' || currentPlacement === 'bottom') {
+      style[currentPlacement] = currentVisible ? height : 0
     }
 
-    if (currentPlacement === "left" || currentPlacement === "right") {
-      style[currentPlacement] = currentVisible ? width : 0;
+    if (currentPlacement === 'left' || currentPlacement === 'right') {
+      style[currentPlacement] = currentVisible ? width : 0
     }
 
     style = {
       ...style,
-      ...turnStyleProps,
-    };
-    return style;
-  };
+      ...turnStyleProps
+    }
+    return style
+  }
 
-  const classes = classNames("frc-squeeze-drawer", className, {
+  const classes = classNames('frc-squeeze-drawer', className, {
     [`frc-squeeze-drawer-${placement}`]: placement,
-    "frc-squeeze-drawer-open": visible,
-  });
+    'frc-squeeze-drawer-open': visible
+  })
 
   return (
     <div className={classes} style={styleProps}>
-      <div
-        className="content-container"
-        style={getContentContainerStyle(placement!)}
-      >
-        <div
-          className="frc-squeeze-drawer-main-content"
-          style={mainContentStyle}
-        >
+      <div className='content-container' style={getContentContainerStyle(placement!)}>
+        <div className='frc-squeeze-drawer-main-content' style={mainContentStyle}>
           {mainContent}
         </div>
-        <div
-          className="frc-squeeze-drawer-extra-content"
-          style={getExtraContentStyle(placement!, visible)}
-        >
+        <div className='frc-squeeze-drawer-extra-content' style={getExtraContentStyle(placement!, visible)}>
           {visible && extraContent}
         </div>
       </div>
-      <div
-        className="open-btn"
-        onClick={handleClick}
-        style={getTurnStyle(placement!, visible)}
-      >
+      <div className='open-btn' onClick={handleClick} style={getTurnStyle(placement!, visible)} >
         {renderOpenIcon(placement!, visible)}
       </div>
     </div>
-  );
-};
+  )
+}
 
 // normal
 SqueezeDrawer.defaultProps = {
-  placement: "left",
+  placement: 'left',
   width: 300,
   height: 200,
   mainContent: (
     <div
       style={{
-        textAlign: "center",
-        height: "100%",
-        width: "100%",
-      }}
-    >
+        textAlign: 'center',
+        height: '100%',
+        width: '100%'
+      }}>
       我是主层级
     </div>
   ),
   extraContent: (
     <div
       style={{
-        textAlign: "center",
-      }}
-    >
+        textAlign: 'center',
+      }}>
       我是弹出层级
     </div>
-  ),
-};
+  )
+}
 
-export default SqueezeDrawer;
+export default SqueezeDrawer

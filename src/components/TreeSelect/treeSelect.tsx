@@ -1,37 +1,24 @@
-import React, { useMemo, useState, useCallback, useEffect } from "react";
-import classNames from "classnames";
-import { TreeSelect as AntTreeSelect, TreeSelectProps } from "antd";
-import { DownOutlined } from "@ant-design/icons";
-import useTreeData from "rc-tree-select/lib/hooks/useTreeData";
-import useDataEntities from "rc-tree-select/lib/hooks/useDataEntities";
-import useCheckedKeys from "rc-tree-select/lib/hooks/useCheckedKeys";
-import useMergedState from "rc-util/lib/hooks/useMergedState";
-import { formatStrategyValues } from "rc-tree-select/lib/utils/strategyUtil";
-import {
-  fillFieldNames,
-  toArray,
-  isNil,
-} from "rc-tree-select/lib/utils/valueUtil";
-import {
-  RawValueType,
-  LabeledValueType,
-  DraftValueType,
-  DefaultOptionType,
-} from "rc-tree-select/lib/TreeSelect";
-import Icon from "../Icon";
-import Button from "../Button";
-import { useLeafs } from "./hooks";
+import React,{useMemo,useState,useCallback,useEffect} from 'react';
+import classNames from 'classnames'
+import {TreeSelect as AntTreeSelect,TreeSelectProps} from 'antd';
+import {DownOutlined} from '@ant-design/icons';
+import useTreeData from 'rc-tree-select/lib/hooks/useTreeData';
+import useDataEntities from 'rc-tree-select/lib/hooks/useDataEntities';
+import useCheckedKeys from 'rc-tree-select/lib/hooks/useCheckedKeys';
+import useMergedState from 'rc-util/lib/hooks/useMergedState';
+import {formatStrategyValues} from 'rc-tree-select/lib/utils/strategyUtil';
+import {fillFieldNames, toArray,isNil} from 'rc-tree-select/lib/utils/valueUtil';
+import {RawValueType, LabeledValueType, DraftValueType, DefaultOptionType} from 'rc-tree-select/lib/TreeSelect';
+import Icon from '../Icon';
+import Button from '../Button';
+import {useLeafs} from './hooks';
 
-const { SHOW_ALL, SHOW_PARENT, SHOW_CHILD } = AntTreeSelect;
+const {SHOW_ALL,SHOW_PARENT,SHOW_CHILD} = AntTreeSelect;
 
-export const ALL_BUTTON = "ALL_BUTTON";
-export const INVERT_BUTTON = "INVERT_BUTTON";
+export const ALL_BUTTON = 'ALL_BUTTON';
+export const INVERT_BUTTON = 'INVERT_BUTTON';
 
-export type PlacementType =
-  | "bottomLeft"
-  | "bottomRight"
-  | "topLeft"
-  | "topRight";
+export type PlacementType = 'bottomLeft' | 'bottomRight' | 'topLeft' | 'topRight';
 
 export interface TreeNodeNormal {
   value: string | number | string[] | number[];
@@ -50,37 +37,35 @@ export interface TreeNodeSimpleMode {
 
 export type TreeData = TreeNodeNormal | TreeNodeSimpleMode;
 
-export type TreeNodeValue = string | number | string[] | number[];
+export type  TreeNodeValue = string | number | string[] | number[];
 
 interface BaseTreeSelectProps {
   /** 显示清除按钮 */
-  allowClear?: boolean;
+  allowClear?: boolean
   /** 选择器类名 */
-  className?: string;
+  className?:string;
   /** 指定默认选中的条目 */
   defaultValue?: string | string[];
   /** 是否禁用 */
-  disabled?: boolean;
+  disabled?: boolean
   /** 下拉菜单的 className 属性 */
   dropdownClassName?: string;
   /** 下拉菜单和选择器同宽。默认将设置 min-width，当值小于选择框宽度时会被忽略。false 时会关闭虚拟滚动 */
   dropdownMatchSelectWidth?: boolean | number;
   /** 	自定义下拉框内容 */
-  dropdownRender?: (originNode: React.ReactNode, props: any) => React.ReactNode;
+  dropdownRender?: (originNode: React.ReactNode, props:any) => React.ReactNode;
   /** 下拉菜单的样式 */
   dropdownStyle?: React.CSSProperties;
   /** 自定义节点 label、value、children 的字段 */
-  fieldNames?: { value?: string; label?: string; children?: string };
+  fieldNames?: {value?: string; label?: string; children?: string;}
   /** 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位 */
-  getPopupContainer?: (triggerNode: HTMLElement) => HTMLElement;
+  getPopupContainer?:(triggerNode: HTMLElement) => HTMLElement;
   /** 设置弹窗滚动高度 */
   listHeight?: number;
   /** 最多显示多少个 tag，响应式模式会对性能产生损耗 */
-  maxTagCount?: number | "responsive";
+  maxTagCount?: number | 'responsive';
   /** 隐藏 tag 时显示的内容 */
-  maxTagPlaceholder?:
-    | React.ReactNode
-    | ((omittedValues: any[]) => React.ReactNode);
+  maxTagPlaceholder?: React.ReactNode | ((omittedValues: any[]) => React.ReactNode);
   /** 支持多选（当设置 treeCheckable 时自动变为 true） */
   multiple?: boolean;
   /** 当下拉列表为空时显示的内容 */
@@ -88,7 +73,7 @@ interface BaseTreeSelectProps {
   /** 选择框默认文字 */
   placeholder?: string;
   /** 选择框弹出的位置 */
-  placement?: PlacementType;
+  placement?:PlacementType;
   /** 是否显示下拉小箭头 */
   showArrow?: boolean;
   /** 配置是否可搜索 */
@@ -100,12 +85,9 @@ interface BaseTreeSelectProps {
   /** 自定义的选择框后缀图标, 多选模式下必须同时设置 showArrow 为 true */
   suffixIcon?: React.ReactNode;
   /** 自定义树节点的展开/折叠图标 */
-  switcherIcon?: React.ReactNode | ((props: any) => React.ReactNode);
+  switcherIcon?: React.ReactNode | ((props:any) => React.ReactNode);
   /** 配置 treeCheckable 时，定义选中项回填的方式。TreeSelect.SHOW_ALL: 显示所有选中节点(包括父节点)。TreeSelect.SHOW_PARENT: 只显示父节点(当父节点下所有子节点都选中时)。 默认只显示子节点 */
-  showCheckedStrategy?:
-    | typeof SHOW_ALL
-    | typeof SHOW_PARENT
-    | typeof SHOW_CHILD;
+  showCheckedStrategy?: typeof SHOW_ALL| typeof SHOW_PARENT| typeof SHOW_CHILD
   /** 配置下拉选项是否展示复选框 */
   treeCheckable?: boolean;
   /** treeNodes 数据，如果设置则不需要手动构造 TreeNode 节点（value 在整个树范围内唯一 */
@@ -126,7 +108,7 @@ interface BaseTreeSelectProps {
   /** 是否展示 TreeNode title 前的图标，没有默认样式，如设置为 true，需要自行定义图标相关样式 */
   treeIcon?: boolean;
   /** 是否展示线条样式 */
-  treeLine?: boolean | { showLeafIcon: boolean };
+  treeLine?: boolean | { showLeafIcon: boolean; };
   /** （受控）已经加载的节点，需要配合 loadData 使用 */
   treeLoadedKeys?: React.Key[];
   /** 输入项过滤对应的 treeNode 属性 */
@@ -148,26 +130,24 @@ interface BaseTreeSelectProps {
   /** 展示节点时调用 */
   onTreeExpand?: (expandedKeys: string[]) => void;
   /** wrapper style */
-  wrapperStyle?: React.CSSProperties;
+  wrapperStyle?:React.CSSProperties;
   /** wrapper className */
-  wrapperClassName?: string;
+  wrapperClassName?:string;
   /** 回填到选择框样式，当值为'ellipsis'时showCheckedStrategy自动设置为TreeSelect.SHOW_CHILD且不可更改；default即为antd回填样式 */
-  fillMode?: "default" | "ellipsis";
+  fillMode?:'default' | 'ellipsis'
   /** 是否展示已勾选项 仅当fillMode为'ellipsis'时可以设置true */
   showSelected?: boolean;
   /** 展示 全选、反选 按钮 */
   showExtraButton?: string[];
   /** 回显文本分隔符 仅当fillMode='ellipsis'时生效 */
   separator?: string;
-}
+};
 
-export type FRCTreeSelectProps = BaseTreeSelectProps &
-  Omit<TreeSelectProps, "treeData">;
+export type FRCTreeSelectProps = BaseTreeSelectProps & Omit<TreeSelectProps, 'treeData'>;
 
-function isRawValue(
-  value: RawValueType | LabeledValueType
-): value is RawValueType {
-  return !value || typeof value !== "object";
+
+function isRawValue(value: RawValueType | LabeledValueType): value is RawValueType {
+  return !value || typeof value !== 'object';
 }
 
 export const TreeSelect: React.FC<FRCTreeSelectProps> = ({
@@ -208,9 +188,8 @@ export const TreeSelect: React.FC<FRCTreeSelectProps> = ({
   const treeConduction = !!(treeCheckable && !treeCheckStrictly);
   const mergedCheckable = treeCheckable || treeCheckStrictly;
   const mergedMultiple = mergedCheckable || multiple;
-  const mergedShowCheckedStrategy =
-    fillMode === "ellipsis" ? SHOW_CHILD : showCheckedStrategy;
-  const mergedShowSelected = fillMode === "ellipsis" ? showSelected : false;
+  const mergedShowCheckedStrategy = fillMode === 'ellipsis'? SHOW_CHILD : showCheckedStrategy;
+  const mergedShowSelected = fillMode === 'ellipsis' ? showSelected : false;
 
   const mergedFieldNames = useMemo(
     () => fillFieldNames(fieldNames),
@@ -219,11 +198,7 @@ export const TreeSelect: React.FC<FRCTreeSelectProps> = ({
   );
 
   // handle treeData & children to {key,title,value,children}
-  const mergedTreeData = useTreeData(
-    treeData as any,
-    children,
-    treeDataSimpleMode || false
-  );
+  const mergedTreeData = useTreeData(treeData as any ,children, treeDataSimpleMode || false);
 
   const allLeafs = useLeafs(mergedTreeData);
 
@@ -232,23 +207,20 @@ export const TreeSelect: React.FC<FRCTreeSelectProps> = ({
   const [fillContent, setFillContent] = useState<any[]>([]);
 
   // keyEntities {key: object},valueEntities Map{key => object}
-  const { keyEntities, valueEntities } = useDataEntities(
-    mergedTreeData,
-    mergedFieldNames
-  );
+  const {keyEntities, valueEntities} = useDataEntities(mergedTreeData, mergedFieldNames);
 
   const getLabel = useCallback(
     (item: DefaultOptionType) => {
-      if (item) {
-        if (treeNodeLabelProp) {
+      if(item) {
+        if(treeNodeLabelProp) {
           return item[treeNodeLabelProp];
         }
 
-        const { _title: titleList } = mergedFieldNames;
+        const {_title: titleList} = mergedFieldNames;
 
-        for (let i = 0; i < titleList.length; i += 1) {
+        for(let i = 0; i< titleList.length; i += 1) {
           const title = item[titleList[i]];
-          if (title !== undefined) {
+          if(title !== undefined) {
             return title;
           }
         }
@@ -256,65 +228,65 @@ export const TreeSelect: React.FC<FRCTreeSelectProps> = ({
     },
     [mergedFieldNames, treeNodeLabelProp]
   );
-
+  
   // convert raw value to {value:xxx}
-  const toLabeledValues = useCallback((dValues: DraftValueType) => {
-    const vals = toArray(dValues);
-    return vals.map((v) => {
-      if (isRawValue(v)) {
-        return { value: v };
-      }
-      return v;
-    });
-  }, []);
+  const toLabeledValues = useCallback(
+    (dValues: DraftValueType) => {
+      const vals = toArray(dValues);
+      return vals.map(v => {
+        if(isRawValue(v)) {
+          return {value: v};
+        }
+        return v;
+      });
+    },
+    []
+  );
 
   // convert to {label:xxx,value:raw,halfChecked:boolean,disabled:boolean}
   const convert2LabelValues = useCallback(
     (dValues: DraftValueType) => {
       const vals = toLabeledValues(dValues);
-      return vals.map((v) => {
-        let { label: rawLabel } = v;
-        const { value: rawValue, halfChecked: rawHalfChecked } = v;
-        let rawDisabled: boolean | undefined;
+      return vals.map(v => {
+        let {label: rawLabel} = v;
+        const {value: rawValue, halfChecked: rawHalfChecked} = v;
+        let rawDisabled: boolean | undefined ;
         const entity = valueEntities.get(rawValue!);
 
-        if (entity) {
+        if(entity) {
           rawLabel = rawLabel ?? getLabel(entity.node);
-          rawDisabled = entity.node.disabled;
+          rawDisabled = entity.node.disabled
         }
 
         return {
           label: rawLabel,
           value: rawValue,
           halfChecked: rawHalfChecked,
-          disabled: rawDisabled,
+          disabled: rawDisabled
         };
       });
     },
     [valueEntities, getLabel, toLabeledValues]
-  );
+  )
 
   // get value: string[]
-  const [internalValue] = useMergedState(undefined, { value: tValue });
-
-  const rawMixedLabeledValues = useMemo(
-    () => toLabeledValues(internalValue),
-    [internalValue, toLabeledValues]
-  );
+  const [internalValue] = useMergedState(undefined, {value:tValue});
+  
+  const rawMixedLabeledValues = useMemo(() => toLabeledValues(internalValue), [internalValue,toLabeledValues]);
 
   // split value into full check and half check
   const [rawLabeldValues, rawHalfLabeledValues] = useMemo(() => {
     const fullCheckValues: LabeledValueType[] = [];
     const halfCheckValues: LabeledValueType[] = [];
-    rawMixedLabeledValues.forEach((item) => {
-      if (item.halfChecked) {
+    rawMixedLabeledValues.forEach(item => {
+      if(item.halfChecked) {
         halfCheckValues.push(item);
-      } else {
+      }else {
         fullCheckValues.push(item);
       }
     });
     return [fullCheckValues, halfCheckValues];
-  }, [rawMixedLabeledValues]);
+  },[rawMixedLabeledValues])
 
   // const rawValues = useMemo(() => rawLabeldValues.map(r => r.value),[rawLabeldValues]);
 
@@ -333,16 +305,13 @@ export const TreeSelect: React.FC<FRCTreeSelectProps> = ({
       mergedFieldNames
     );
     // @ts-ignore
-    const values = displayKeys.map(
-      // @ts-ignore
-      (k) => keyEntities[k]?.node?.[mergedFieldNames.value] ?? k
-    );
+    const values = displayKeys.map(k => keyEntities[k]?.node?.[mergedFieldNames.value] ?? k);
 
-    const labeledValues = values.map((val) => {
-      const targetItem = rawLabeldValues.find((item) => item.value === val);
+    const labeledValues = values.map(val => {
+      const targetItem = rawLabeldValues.find(item => item.value === val);
       return {
-        value: val,
-        label: targetItem?.label,
+        value:val,
+        label:targetItem?.label
       };
     });
 
@@ -350,108 +319,92 @@ export const TreeSelect: React.FC<FRCTreeSelectProps> = ({
 
     const firstVal = rawDisplayValues[0];
 
-    if (
-      !mergedMultiple &&
-      firstVal &&
-      isNil(firstVal.value) &&
-      isNil(firstVal.label)
-    ) {
+    if(!mergedMultiple && firstVal && isNil(firstVal.value) && isNil(firstVal.label)) {
       return [];
     }
-    return rawDisplayValues.map((item) => ({
+    return rawDisplayValues.map(item => ({
       ...item,
-      label: item.label ?? item.value,
-    }));
-  }, [
+      label: item.label ?? item.value
+    }))
+
+  },[
     mergedFieldNames,
     mergedMultiple,
     rawCheckedValues,
     rawLabeldValues,
     mergedShowCheckedStrategy,
-    keyEntities,
+    keyEntities
   ]);
 
   // -------------------------------- handle classes --------------------------------
+  
+  const wrapperCls = classNames('frc-tree-select-wrapper',wrapperClassName, {
+    'frc-tree-select-wrapper-ellipsis': fillMode === 'ellipsis',
+    'frc-tree-select-wrapper-arrow': showArrow
+  })
 
-  const wrapperCls = classNames("frc-tree-select-wrapper", wrapperClassName, {
-    "frc-tree-select-wrapper-ellipsis": fillMode === "ellipsis",
-    "frc-tree-select-wrapper-arrow": showArrow,
+  const treeSelectcls = classNames('frc-select frc-tree-select',className, {});
+  
+  const hiddenSwitcher = useMemo(() => mergedTreeData.every(c => !c[mergedFieldNames.children]?.length), [mergedTreeData,mergedFieldNames]);
+  const dropdownCls = classNames('frc-select frc-tree-select-dropdown',dropdownClassName,{
+    'frc-tree-select-hidden-switcher': hiddenSwitcher
   });
 
-  const treeSelectcls = classNames("frc-select frc-tree-select", className, {});
-
-  const hiddenSwitcher = useMemo(
-    () => mergedTreeData.every((c) => !c[mergedFieldNames.children]?.length),
-    [mergedTreeData, mergedFieldNames]
-  );
-  const dropdownCls = classNames(
-    "frc-select frc-tree-select-dropdown",
-    dropdownClassName,
-    {
-      "frc-tree-select-hidden-switcher": hiddenSwitcher,
+  const triggerChange = useCallback((value: TreeNodeValue, label: any, extra: any) => {
+    if(typeof onChange === 'function'){
+      onChange(value, label, extra);
+    }else {
+      setTValue(value);
     }
-  );
-
-  const triggerChange = useCallback(
-    (value: TreeNodeValue, label: any, extra: any) => {
-      if (typeof onChange === "function") {
-        onChange(value, label, extra);
-      } else {
-        setTValue(value);
-      }
-    },
-    []
-  );
+  },[])
 
   // ------------------------------- useEffect --------------------------
 
   useEffect(() => {
-    setFillContent(
-      displayValues.map((d, i, arr) => {
-        let s = separator;
-        if (i === arr.length - 1) {
-          s = "";
-        }
-        return (
-          <>
-            {d.label}
-            <span>{s}</span>
-          </>
-        );
-      })
-    );
-  }, [displayValues, separator]);
+    setFillContent(displayValues.map((d,i,arr) => {
+      let s = separator;
+      if(i === arr.length - 1) {
+        s = '';
+      }
+      return (
+        <>
+          {d.label}
+          <span>{s}</span>
+        </>
+      )
+    }));
+  },[displayValues,separator]);
 
   useEffect(() => {
-    if (value) {
+    if(value) {
       setTValue(value);
     }
-  }, [value]);
+  },[value]);
 
   // ------------------------------ render -------------------------------
 
   const renderChecked = () => {
-    if (!mergedShowSelected) {
+    if(!mergedShowSelected){
       return null;
     }
-    const checkedList = displayValues.map((d) => ({
+    const checkedList = displayValues.map(d => ({
       title: d.label,
       value: d.value,
-      key: d.value,
+      key: d.value
     }));
-    const checkedValue: any = displayValues.map((d) => d.value);
+    const checkedValue:any = displayValues.map(d => d.value);
     const isDisabled = disabled || !checkedValue.length;
-    const selectedClas = classNames("frc-tree-selected-content", {
-      "frc-tree-selected-disabled": isDisabled,
+    const selectedClas = classNames('frc-tree-selected-content',{
+      'frc-tree-selected-disabled':isDisabled
     });
-    const clearClas = classNames("frc-tree-select-clear", {
-      "frc-tree-select-clear-disabled": isDisabled,
-    });
+    const clearClas = classNames('frc-tree-select-clear',{
+      'frc-tree-select-clear-disabled':isDisabled
+    })
     return (
       <div className="frc-tree-selected-wrapper">
-        <AntTreeSelect
-          className="frc-select frc-tree-select frc-tree-selected"
-          dropdownClassName="frc-select frc-tree-select-dropdown frc-tree-select-hidden-switcher"
+        <AntTreeSelect 
+          className='frc-select frc-tree-select frc-tree-selected'
+          dropdownClassName='frc-select frc-tree-select-dropdown frc-tree-select-hidden-switcher'
           notFoundContent={null}
           showArrow={false}
           treeData={checkedList}
@@ -461,98 +414,94 @@ export const TreeSelect: React.FC<FRCTreeSelectProps> = ({
           showSearch={false}
           onChange={triggerChange}
           disabled={isDisabled}
-        ></AntTreeSelect>
+        >
+        </AntTreeSelect>
         <div className={selectedClas}>
           <span>{checkedList.length}</span>
         </div>
-        <span
-          className={clearClas}
-          onClick={() => {
-            !isDisabled && triggerChange([], [], {});
-          }}
-        >
+        <span className={clearClas} onClick={() => {
+          !isDisabled && triggerChange([],[],{});
+        }}>
           <Icon className="frc-clear-icon" type="close-square" />
         </span>
       </div>
-    );
-  };
+    )
+  }
 
-  const handleClickAll = useCallback(() => {
-    const vals = allLeafs.map((l) => l.value) as TreeNodeValue;
-    const labels = allLeafs.map((l) => l.title);
-    triggerChange(vals, labels, {});
-  }, [triggerChange, allLeafs]);
+  const handleClickAll = useCallback(
+    () => {
+    const vals = allLeafs.map(l => l.value) as TreeNodeValue;
+    const labels = allLeafs.map(l => l.title);
+    triggerChange(vals, labels ,{});
+    },
+    [triggerChange,allLeafs]
+  );
 
-  const handleClickInvert = useCallback(() => {
-    const selectedVals = displayValues.map((d) => d.value);
-    const unSelectedVals = allLeafs.filter(
-      (l) => !selectedVals.includes(l.value)
-    );
-    const vals = unSelectedVals.map((l) => l.value) as TreeNodeValue;
-    const labels = unSelectedVals.map((l) => l.title);
-    triggerChange(vals, labels, {});
-  }, [triggerChange, displayValues, allLeafs]);
+  const handleClickInvert = useCallback(
+    () => {
+      const selectedVals = displayValues.map(d => d.value);
+      const unSelectedVals = allLeafs.filter(l => !selectedVals.includes(l.value));
+      const vals = unSelectedVals.map(l => l.value) as TreeNodeValue;
+      const labels = unSelectedVals.map(l => l.title);
+      triggerChange(vals, labels, {});
+    },
+    [triggerChange,displayValues,allLeafs]
+  );
 
   const renderExtraButton = useCallback(
-    (on: React.ReactNode, props: any) => {
+    (on: React.ReactNode, props:any) => {
       let dpNode = on;
-      let buttonNode: React.ReactNode[] = [];
-      if (showExtraButton?.includes(ALL_BUTTON)) {
+      let buttonNode:React.ReactNode[] = [];
+      if(showExtraButton?.includes(ALL_BUTTON)) {
         buttonNode = [
           ...buttonNode,
           <Button
-            key="frc-tree-select-all-button"
-            type="primary"
+            key='frc-tree-select-all-button'
+            type='primary'
             onClick={handleClickAll}
-          >
-            全选
-          </Button>,
+          >全选</Button>
         ];
       }
-      if (showExtraButton?.includes(INVERT_BUTTON)) {
+      if(showExtraButton?.includes(INVERT_BUTTON)) {
         buttonNode = [
           ...buttonNode,
           <Button
-            key="frc-tree-select-invert-button"
-            type="primary"
+            key='frc-tree-select-invert-button'
+            type='primary'
             onClick={handleClickInvert}
-          >
-            反选
-          </Button>,
+          >反选</Button>
         ];
       }
       dpNode = (
         <>
           {dpNode}
           {!!buttonNode.length && (
-            <div
-              className="frc-tree-select-extra-button-wrapper"
-              style={{
-                justifyContent:
-                  buttonNode.length === 2 ? "space-between" : "center",
-              }}
+            <div 
+              className='frc-tree-select-extra-button-wrapper' 
+              style={{justifyContent: buttonNode.length === 2 ? 'space-between':'center'}}
             >
               {buttonNode}
             </div>
-          )}
+          )
+          }
         </>
-      );
-      if (typeof dropdownRender === "function") {
+      )
+      if(typeof dropdownRender === 'function') {
         return dropdownRender(dpNode, props);
       }
       return dpNode;
     },
-    [dropdownRender, showExtraButton, handleClickAll, handleClickInvert]
+    [dropdownRender,showExtraButton,handleClickAll,handleClickInvert]
   );
 
   const options = {
     className: treeSelectcls,
     dropdownClassName: dropdownCls,
     fieldNames,
-    value: tValue,
+    value:tValue,
     treeDataSimpleMode,
     treeData,
-    showCheckedStrategy: mergedShowCheckedStrategy,
+    showCheckedStrategy:mergedShowCheckedStrategy,
     switcherIcon: switcherIcon || <DownOutlined />,
     showArrow,
     treeCheckable,
@@ -562,35 +511,41 @@ export const TreeSelect: React.FC<FRCTreeSelectProps> = ({
     onChange: triggerChange,
     disabled,
     dropdownRender: renderExtraButton,
-    ...resetProps,
+    ...resetProps
   } as TreeSelectProps;
 
-  const fillClas = classNames("frc-tree-select-fill-wrapper", {
-    "frc-tree-select-fill-disabled": disabled,
-  });
+  const fillClas = classNames('frc-tree-select-fill-wrapper',{
+    'frc-tree-select-fill-disabled':disabled
+  })
 
   return (
     <>
       <div className={wrapperCls} style={wrapperStyle}>
-        <AntTreeSelect {...options}>{children}</AntTreeSelect>
-        {fillMode === "ellipsis" && (
+        <AntTreeSelect {...options}>
+          {children}  
+        </AntTreeSelect>
+        {fillMode === 'ellipsis' && (
           <div className={fillClas}>
             <div className="frc-tree-select-fill-content">
-              {fillContent.map((c, i) => (
-                <span
-                  key={`frc-tree-select-item-${i}`}
-                  className="frc-tree-select-fill-item"
-                >
-                  {c}
-                </span>
-              ))}
+              {
+                fillContent.map(
+                  (c,i) => (
+                    <span 
+                      key={`frc-tree-select-item-${i}`}
+                      className="frc-tree-select-fill-item"
+                    >
+                      {c}
+                    </span>
+                  )
+                )
+              }
             </div>
           </div>
         )}
       </div>
       {renderChecked()}
     </>
-  );
+  )
 };
 
 TreeSelect.defaultProps = {
@@ -599,16 +554,16 @@ TreeSelect.defaultProps = {
   showArrow: true,
   showSearch: false,
   showCheckedStrategy: SHOW_CHILD,
-  placement: "bottomLeft",
-  fieldNames: {
-    label: "title",
-    value: "value",
-    children: "children",
+  placement: 'bottomLeft',
+  fieldNames:{
+    label: 'title',
+    value: 'value',
+    children: 'children'
   },
-  fillMode: "ellipsis",
+  fillMode: 'ellipsis',
   treeDataSimpleMode: false,
   showSelected: false,
-  separator: "、",
+  separator:'、'
 };
 
 export default TreeSelect;

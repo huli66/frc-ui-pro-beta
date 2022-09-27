@@ -3,25 +3,24 @@
 }
 .storybook-demo {
   .custom-pagination.frc-pagination {
-    .ant-pagination-prev,
-    .ant-pagination-next {
+    .ant-pagination-prev, .ant-pagination-next {
       background-color: transparent !important;
     }
   }
 }
 
-.frc-pagination.ant-pagination,
-.frc-table.ant-table-wrapper .ant-table-pagination,
-.frc-table.ant-table-wrapper .ant-table-pagination.mini {
+.frc-pagination.ant-pagination {
   font-size: $pagination-font-size;
   line-height: unset;
   color: $words-supporting;
 
   // pagination item
-  .ant-pagination-prev,
-  .ant-pagination-next {
-    @include pagination-item-a($words-supporting, $words-high-light);
-    .ant-pagination-item-link {
+  .ant-pagination-prev, .ant-pagination-next {
+    @include pagination-item-a(
+      $words-supporting,
+      $words-high-light
+    );
+    .ant-pagination-item-link{
       background: transparent;
       border-color: transparent;
       color: $words-supporting;
@@ -31,35 +30,33 @@
       }
     }
   }
-  .ant-pagination-prev,
-  .ant-pagination-next,
-  .ant-pagination-jump-prev,
-  .ant-pagination-jump-next {
+  .ant-pagination-prev, .ant-pagination-next, .ant-pagination-jump-prev, .ant-pagination-jump-next {
     @include pagination-item-base;
     &:hover {
       background-color: $pagination-hover;
     }
-
+    
     &.ant-pagination-disabled {
       &:hover {
         background-color: $pagination-item-background;
       }
-      .ant-pagination-item-link {
+      .ant-pagination-item-link{
         color: $pagination-item-disabled-color;
       }
     }
   }
-  .ant-pagination-prev,
-  .ant-pagination-jump-prev,
-  .ant-pagination-jump-next {
+  .ant-pagination-prev, .ant-pagination-jump-prev, .ant-pagination-jump-next{
     margin-right: $pagination-item-margin;
   }
-  .ant-pagination-item {
+  .ant-pagination-item{
     @include pagination-item-base;
-
-    @include pagination-item-a($words-supporting, $words-high-light);
-    &-active {
-      a {
+    
+    @include pagination-item-a(
+      $words-supporting,
+      $words-high-light
+    );
+    &-active{
+      a{
         color: $words-high-light;
       }
       background-color: $pagination-item-background;
@@ -71,10 +68,10 @@
 
   // ellipsis icon
   .ant-pagination-item-container {
-    .ant-pagination-item-link-icon {
+    .ant-pagination-item-link-icon{
       color: $words-supporting;
     }
-    .ant-pagination-item-ellipsis {
+    .ant-pagination-item-ellipsis{
       color: $words-supporting;
     }
   }
@@ -85,7 +82,7 @@
     line-height: 26px;
   }
   // pageSize options & quick jump
-  .ant-pagination-options {
+  .ant-pagination-options{
     margin-left: 8px;
     .ant-select {
       font-size: $pagination-font-size;
@@ -100,7 +97,7 @@
           line-height: $pagination-line-height;
         }
       }
-      .ant-select-arrow {
+      .ant-select-arrow{
         color: $words-supporting;
       }
       .ant-select-dropdown {
@@ -121,7 +118,7 @@
           background-color: $pagination-hover;
         }
       }
-      &.ant-select-focused {
+      &.ant-select-focused{
         border-color: $words-high-light;
         .ant-select-selector {
           border-color: $words-high-light;
@@ -154,8 +151,8 @@
       }
     }
   }
-
-  // simple
+  
+  // simple 
   &.ant-pagination-simple {
     .ant-pagination-simple-pager {
       margin-right: $pagination-item-margin;
@@ -173,7 +170,7 @@
           color: $words-high-light;
         }
       }
-      .ant-pagination-slash {
+      .ant-pagination-slash{
         margin: 0 $pagination-item-margin;
       }
     }
@@ -181,24 +178,20 @@
 
   // disabled
   &.ant-pagination-disabled {
-    .ant-pagination-prev,
-    .ant-pagination-next,
-    .ant-pagination-jump-prev,
-    .ant-pagination-jump-next {
+    .ant-pagination-prev, .ant-pagination-next, .ant-pagination-jump-prev, .ant-pagination-jump-next {
       &:hover {
         background-color: $pagination-item-disabled-background;
       }
     }
-    .ant-pagination-prev,
-    .ant-pagination-next {
+    .ant-pagination-prev, .ant-pagination-next {
       @include pagination-item-a(
         $pagination-item-disabled-color,
         $pagination-item-disabled-color
-      ) {
+      ){
         cursor: not-allowed;
       }
       cursor: not-allowed;
-      .ant-pagination-item-link {
+      .ant-pagination-item-link{
         color: $pagination-item-disabled-color;
         &:hover {
           color: $pagination-item-disabled-color;
@@ -211,31 +204,31 @@
         $pagination-item-disabled-color,
         $pagination-item-disabled-color
       );
-      &-active {
+      &-active{
         background-color: $pagination-item-background;
       }
     }
     .ant-pagination-item-container {
-      .ant-pagination-item-link-icon {
-        color: $pagination-item-disabled-color;
+      .ant-pagination-item-link-icon{
+        color: $pagination-item-disabled-color,;
       }
-      .ant-pagination-item-ellipsis {
-        color: $pagination-item-disabled-color;
+      .ant-pagination-item-ellipsis{
+        color: $pagination-item-disabled-color,;
       }
     }
     .ant-pagination-options {
       .ant-select {
-        border-color: $pagination-item-disabled-background;
+        border-color:$pagination-item-disabled-background;
       }
       .ant-select-selector {
-        color: $pagination-item-disabled-color;
+        color:$pagination-item-disabled-color;
       }
-      .ant-select-arrow {
+      .ant-select-arrow{
         color: $pagination-item-disabled-color;
       }
       .ant-pagination-options-quick-jumper {
         input {
-          border-color: $pagination-item-disabled-background;
+          border-color:$pagination-item-disabled-background;
           &:hover {
             background-color: $element-background;
           }
@@ -247,7 +240,7 @@
         color: $pagination-item-disabled-color;
         input {
           color: $pagination-item-disabled-color;
-          border-color: $pagination-item-disabled-background;
+          border-color:$pagination-item-disabled-background;
           &:hover {
             background-color: $element-background;
           }

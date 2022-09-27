@@ -1,20 +1,16 @@
-import React, { forwardRef, useState } from "react";
-import classNames from "classnames";
-import { Slider as AntdSlider } from "antd";
-import {
-  SliderMarks,
-  SliderRangeProps,
-  SliderSingleProps,
-} from "antd/es/slider";
-import { TooltipPlacement } from "antd/es/tooltip";
+import React, { forwardRef, useState} from 'react'
+import classNames from 'classnames'
+import { Slider as AntdSlider } from 'antd'
+import { SliderMarks, SliderRangeProps, SliderSingleProps } from 'antd/es/slider'
+import { TooltipPlacement } from 'antd/es/tooltip';
 
-export type SliderSizeType = "small" | "middle" | "large";
+export type SliderSizeType = 'small' | 'middle' | 'large';
 
 interface BaseSliderProps {
   /** 设置滑动的大小 */
   size?: SliderSizeType;
   /** 控制滑块显示的大小 */
-  type?: "default" | "small";
+  type?: 'default' | 'small';
   /** 设置初始取值。当 range 为 false 时，使用 number，否则用 [number, number] */
   defaultValue?: number | [number, number];
   /** 值为 true 时，滑块为禁用状态 */
@@ -47,40 +43,47 @@ interface BaseSliderProps {
   onChange?: (value: number | [number, number]) => void;
 }
 
-export type FRCSliderProps = BaseSliderProps &
-  (SliderSingleProps | SliderRangeProps);
+export type FRCSliderProps = BaseSliderProps & (SliderSingleProps | SliderRangeProps);
 
 export const Slider = forwardRef<unknown, FRCSliderProps>((props, ref: any) => {
   const [active, setActive] = useState<boolean>(false);
-  const { className, size, type, onChange, onAfterChange, ...restProps } =
-    props;
-
-  const classes = classNames("frc-ui-slider", className, {
+  const {
+    className,
+    size,
+    type,
+    onChange,
+    onAfterChange,
+    ...restProps
+  } = props
+  
+  const classes = classNames('frc-ui-slider', className, {
     [`frc-slider-ui-${size}`]: size,
-    "frc-slider-ui-active": active,
-    [`frc-slider-ui-type-${type}`]: type,
-  });
+    'frc-slider-ui-active': active,
+    [`frc-slider-ui-type-${type}`]: type
+  })
 
   const options = {
     className: classes,
     onChange: (value: number | [number, number]) => {
-      setActive(true);
+      setActive(true)
       onChange && onChange(value);
     },
     onAfterChange: (value: number | [number, number]) => {
-      setActive(false);
-      onAfterChange && onAfterChange(value);
+      setActive(false)
+      onAfterChange && onAfterChange(value)
     },
     ...restProps,
-  };
+  }
 
   // main
-  return <AntdSlider ref={ref} {...options} />;
-});
+  return (
+    <AntdSlider ref={ref} {...options} />
+  )
+})
 
 // normal
 Slider.defaultProps = {
-  size: "middle",
-};
+  size: 'middle'
+}
 
-export default Slider;
+export default Slider

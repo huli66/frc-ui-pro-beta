@@ -1,22 +1,24 @@
-import React, { FC } from "react";
-import Select from "antd/es/select";
+import React, { FC } from 'react'
+import Select from 'antd/es/select'
 
-const { OptGroup: AntdOptGroup } = Select;
+const { OptGroup: AntdOptGroup } = Select
 
 interface BaseOptGroupProps {
-  /** Key */
-  key?: string;
-  /** 组名 */
-  label?: string | React.ReactNode;
-  /** 子组件 */
-  children: React.ReactNode;
+    /** Key */
+    key?: string
+    /** 组名 */
+    label?: string | React.ReactNode
+    /** 子组件 */
+    children: React.ReactNode
 }
 
-export type FRCSelectOptGroupProps = BaseOptGroupProps;
+export type FRCSelectOptGroupProps = BaseOptGroupProps
 
 export const OptGroup: FC<FRCSelectOptGroupProps> = (props) => {
-  return <AntdOptGroup {...props} />;
-};
+    return (
+        <AntdOptGroup {...props} />
+    )
+}
 
 // normal
 OptGroup.defaultProps = {};
@@ -24,4 +26,4 @@ OptGroup.defaultProps = {};
 // rc-select validate children type error
 (OptGroup as any).isSelectOptGroup = true;
 
-export default OptGroup;
+export default OptGroup

@@ -50,10 +50,7 @@
       .ant-input-number-handler-up-inner,
       .ant-input-number-handler-down-inner {
         color: $words-normal;
-        font-size: 6px !important;
-        svg {
-          font-size: 6px !important;
-        }
+        font-size: 6px;
       }
     }
     .ant-input-number-handler-down {
@@ -163,7 +160,7 @@
       z-index: 10;
     }
   }
-
+  
   line-height: $input-number-line-height;
   .ant-input-number-wrapper.ant-input-number-group {
     display: inline-flex;
@@ -185,9 +182,9 @@
       }
     }
     // 前后缀
-    .ant-input-number.frc-input-number {
-      .ant-input-number-input-wrap {
-        .ant-input-number-input {
+    .ant-input-number.frc-input-number{
+      .ant-input-number-input-wrap{
+        .ant-input-number-input{
           line-height: $input-number-line-height;
           border-radius: 0px;
         }
@@ -197,7 +194,7 @@
 }
 
 // status error warning
-.frc-input-number.ant-input-number-status-error.ant-input-number,
+.frc-input-number.ant-input-number-status-error.ant-input-number, 
 .frc-input-number.ant-input-number-status-warning.ant-input-number {
   &:not(.ant-input-number-disabled):not(.ant-input-number-borderless) {
     background: $input-number-background;

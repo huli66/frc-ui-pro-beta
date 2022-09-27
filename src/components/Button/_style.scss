@@ -4,8 +4,7 @@
 
 // ----------------------------------------------------------------
 
-.frc-btn.ant-btn,
-.ant-table-filter-dropdown .ant-btn.ant-btn-primary {
+.frc-btn.ant-btn {
   display: inline-block;
   vertical-align: top;
   height: 24px;
@@ -115,6 +114,7 @@
       $words-disable
     );
   }
+
 }
 
 // lead
@@ -180,7 +180,7 @@
       $words-normal,
       $btn-background-gray,
       $words-supporting
-    );
+  );
   }
 }
 
