@@ -72,10 +72,6 @@ export default {
 
                     <Subheading>Tooltip</Subheading>
                     <ArgsTable of={Tooltip} />
-
-                    <Subheading>Tooltip.Text</Subheading>
-                    <Description>文本完全显示时Tooltip相关Api不生效</Description>
-                    <ArgsTable of={Tooltip.Text} />
                 </>
             ),
         },
@@ -297,21 +293,26 @@ _ManualComponent.parameters = {
 // ----------------------------------------------------------------
 
 export const _OverTextComponent = () => {
+    const demoStyle = {
+        width: 280,
+        margin: '6px 0',
+        padding: 10,
+        border: '1px solid #ffffff',
+        borderRadius: 2
+    }
     return (
-        <div className='tlt-wrapper'>
-            <div className='center' style={{width: 280}}>
-                <Tooltip.Text>
-                    <span>这是一段文本完全显示不带提示</span>
-                </Tooltip.Text>
-                <Tooltip.Text placement='bottom'>
-                    <span>这是一段不带提示的超长的文字这是一段不带提示的超长的文字这是一段不带提示的超长的文字</span>
-                </Tooltip.Text>
-            </div>
+        <div style={{width: 900}}>
+            <Tooltip overText style={demoStyle}>
+                <span>当文本未超出容器文字提示不显示</span>
+            </Tooltip>
+            <Tooltip overText placement='bottom' style={demoStyle} title='当文本超出容器时文本末尾省略文字提示显示'>
+                <span>当文本超出容器时文本末尾省略文字提示显示当文本超出容器时文本末尾省略文字提示显示</span>
+            </Tooltip>
         </div>
     )
 };
 
-_OverTextComponent.storyName = '文本完全显示 tooltip';
+_OverTextComponent.storyName = '文本未超出容器不提示 tooltip';
 _OverTextComponent.parameters = {
     controls: { hideNoControlsWarning: true },
 };

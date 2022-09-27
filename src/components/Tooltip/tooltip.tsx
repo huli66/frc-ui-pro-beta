@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useRef, useState, useEffect } from 'react'
 import classNames from 'classnames'
 import { Tooltip as AntdTooltip, TooltipProps as AntdTooltipProps } from 'antd'
 
@@ -6,6 +6,8 @@ export type ToolTipPlacementType = 'left' | 'right' | 'top' | 'bottom' | 'topLef
 export type ToolTipBorderType = 'thick' | 'thin'
 
 interface BaseTooltipProps {
+  /** 设置文本能完全显示时(文本未超出容器)有无文字提示 */
+  overText?: boolean
   /** 设置tooltip内容 */
   title?: React.ReactNode
   /** 设置tooltip显示位置*/
@@ -46,14 +48,22 @@ export type FRCTooltipProps = BaseTooltipProps & Omit<AntdTooltipProps, 'placeme
 
 export const Tooltip: FC<FRCTooltipProps> = (props) => {
   const {
+    overText,
     title,
     placement,
     hasArrow,
     borderType,
     overlayClassName,
     children,
+    className,
+    style,
     ...restProps
   } = props
+
+  const node = useRef<HTMLDivElement>(null)
+  const textWrap = useRef<HTMLSpanElement>(null)
+  const [show, setShow] = useState(false)
+  let size: number | null = null;
 
   const classes = classNames('frc-tooltip', overlayClassName, {
     [`frc-tooltip-without-arrow`]: !hasArrow,
@@ -68,16 +78,93 @@ export const Tooltip: FC<FRCTooltipProps> = (props) => {
     ...restProps,
   }
 
+  useEffect(() => {
+    if (overText) {
+      window.addEventListener('resize', handleSize);
+      handleSize();
+      return () => {
+        window.removeEventListener('resize', handleSize);
+      }
+    }
+  }, [])
+
+  const getWidth = () => {
+    if (textWrap.current && node.current) {
+      const thisWidth = node.current!.getBoundingClientRect().width;
+      const wrapWidth = textWrap.current!.getBoundingClientRect().width;
+      setShow(thisWidth < wrapWidth);
+    }
+  }
+
+  const handleSize = () => {
+    const width = document.documentElement.clientWidth;
+    const height = document.documentElement.clientHeight;
+    if (!size || width * height !== size) {
+      setTimeout(() => {
+        getWidth();
+      });
+    }
+    size = width * height;
+  };
+
+  const textContent = (
+    <span
+      style={{
+        whiteSpace: 'nowrap',
+        cursor: 'default',
+        textOverflow: 'ellipsis',
+        overflow: 'hidden',
+        maxWidth: '100%',
+        maxHeight: '100%',
+        display: 'inline-block'
+      }}
+    >
+      {children}
+    </span>
+  );
+
+  const renderTextToolTip = () => {
+    return (
+      <div
+        ref={node}
+        style={{
+          position: 'relative',
+          maxWidth: '100%',
+          maxHeight: '100%',
+          ...style
+        }}
+        className={className}
+      >
+        <span
+          ref={textWrap}
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            whiteSpace: 'nowrap',
+            opacity: 0,
+            zIndex: -1
+          }}
+        >
+          {children}
+        </span>
+        {show ? <Tooltip {...options}>{textContent}</Tooltip> : textContent}
+      </div>
+    )
+  }
+
   // main
   return (
-    <AntdTooltip {...options}>
-      {children}
-    </AntdTooltip>
+    overText ? renderTextToolTip() :
+      <AntdTooltip {...options} >
+        {children}
+      </AntdTooltip >
   )
 }
 
 // normal
 Tooltip.defaultProps = {
+  overText: false,
   placement: 'right',
   hasArrow: true,
   borderType: 'thin',
