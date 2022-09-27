@@ -4,10 +4,10 @@
       "module": "esnext",
       "target": "es5",
       "declaration": true,
-      "jsx": "react",
+      "jsx": "react-jsx",
       "moduleResolution":"Node",
       "allowSyntheticDefaultImports": true,
-      "skipLibCheck": true
+      "skipLibCheck": true,
     },
     "include": [
       "src",
