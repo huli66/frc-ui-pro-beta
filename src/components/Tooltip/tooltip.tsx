@@ -2,49 +2,68 @@ import React, { FC, useRef, useState, useEffect } from 'react'
 import classNames from 'classnames'
 import { Tooltip as AntdTooltip, TooltipProps as AntdTooltipProps } from 'antd'
 
-export type ToolTipPlacementType = 'left' | 'right' | 'top' | 'bottom' | 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight' | 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom'
-export type ToolTipBorderType = 'thick' | 'thin'
+export type ToolTipPlacementType =
+  | "left"
+  | "right"
+  | "top"
+  | "bottom"
+  | "topLeft"
+  | "topRight"
+  | "bottomLeft"
+  | "bottomRight"
+  | "leftTop"
+  | "leftBottom"
+  | "rightTop"
+  | "rightBottom";
+export type ToolTipBorderType = "thick" | "thin";
 
 interface BaseTooltipProps {
   /** 设置文本能完全显示时(文本未超出容器)有无文字提示 */
   overText?: boolean
   /** 设置tooltip内容 */
-  title?: React.ReactNode
+  title?: React.ReactNode;
   /** 设置tooltip显示位置*/
-  placement?: ToolTipPlacementType
+  placement?: ToolTipPlacementType;
   /** 设置tooltip是否携带箭头 */
-  hasArrow?: boolean
+  hasArrow?: boolean;
   /** 设置边框样式 */
-  borderType?: ToolTipBorderType
+  borderType?: ToolTipBorderType;
   /** 用于手动控制提示是否可见 */
-  visible?: boolean
+  visible?: boolean;
   /** 该值将合并到placement的配置中,设置内容参考dom-align*/
-  align?: object
+  align?: object;
   /** 箭头是否指向目标元素中心 */
-  arrowPointAtCenter?: boolean
+  arrowPointAtCenter?: boolean;
   /** tooltip位置受限时是否自动调整位置	 */
-  autoAdjustOverflow?: boolean
+  autoAdjustOverflow?: boolean;
   /** 默认显示状态 */
-  defaultVisible?: boolean
+  defaultVisible?: boolean;
   /** tooltip隐藏后是否销毁dom中的tooltip */
-  destroyTooltipOnHide?: boolean
+  destroyTooltipOnHide?: boolean;
   /** tooltip显示迟延（s） */
-  mouseEnterDelay?: number
+  mouseEnterDelay?: number;
   /** tooltip消失迟延（s） */
-  mouseLeaveDelay?: number
+  mouseLeaveDelay?: number;
   /** 提示框类名 */
-  overlayClassName?: string
+  overlayClassName?: string;
   /** 提示框外层样式 */
-  overlayStyle?: object
+  overlayStyle?: object;
   /** 提示框内层样式 */
-  overlayInnerStyle?: object
+  overlayInnerStyle?: object;
   /** 设置 tooltip 的 z-index */
-  zIndex?: number
+  zIndex?: number;
   /** tooltip可见状态变化的回调 */
-  onVisibleChange?: (visible: boolean) => void
+  onVisibleChange?: (visible: boolean) => void;
 }
 
-export type FRCTooltipProps = BaseTooltipProps & Omit<AntdTooltipProps, 'placement' | 'autoAdjustOverflow' | 'destroyTooltipOnHide' | 'onVisibleChange'>
+export type FRCTooltipProps = BaseTooltipProps &
+  Omit<
+    AntdTooltipProps,
+    | "placement"
+    | "autoAdjustOverflow"
+    | "destroyTooltipOnHide"
+    | "onVisibleChange"
+  >;
 
 export const Tooltip: FC<FRCTooltipProps> = (props) => {
   const {
@@ -58,7 +77,7 @@ export const Tooltip: FC<FRCTooltipProps> = (props) => {
     className,
     style,
     ...restProps
-  } = props
+  } = props;
 
   const node = useRef<HTMLDivElement>(null)
   const textWrap = useRef<HTMLSpanElement>(null)
@@ -69,14 +88,14 @@ export const Tooltip: FC<FRCTooltipProps> = (props) => {
     [`frc-tooltip-without-arrow`]: !hasArrow,
     [`frc-tooltip-placement-${placement}`]: placement,
     [`frc-tooltip-border-${borderType}`]: borderType,
-  })
+  });
 
   const options = {
     title: title,
     overlayClassName: classes,
     placement: placement,
     ...restProps,
-  }
+  };
 
   useEffect(() => {
     if (overText) {
@@ -167,14 +186,14 @@ Tooltip.defaultProps = {
   overText: false,
   placement: 'right',
   hasArrow: true,
-  borderType: 'thin',
+  borderType: "thin",
   arrowPointAtCenter: false,
   autoAdjustOverflow: true,
   defaultVisible: false,
   destroyTooltipOnHide: false,
   mouseEnterDelay: 0.1,
   mouseLeaveDelay: 0.1,
-  title: '文字提示',
-}
+  title: "文字提示",
+};
 
-export default Tooltip
+export default Tooltip;
