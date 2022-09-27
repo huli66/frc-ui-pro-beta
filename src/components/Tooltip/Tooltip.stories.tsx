@@ -72,6 +72,10 @@ export default {
 
                     <Subheading>Tooltip</Subheading>
                     <ArgsTable of={Tooltip} />
+
+                    <Subheading>Tooltip.Text</Subheading>
+                    <Description>文本完全显示时Tooltip相关Api不生效</Description>
+                    <ArgsTable of={Tooltip.Text} />
                 </>
             ),
         },
@@ -287,5 +291,27 @@ export const _ManualComponent = () => {
 
 _ManualComponent.storyName = '手动显隐 tooltip';
 _ManualComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+};
+
+// ----------------------------------------------------------------
+
+export const _OverTextComponent = () => {
+    return (
+        <div className='tlt-wrapper'>
+            <div className='center' style={{width: 280}}>
+                <Tooltip.Text>
+                    <span>这是一段文本完全显示不带提示</span>
+                </Tooltip.Text>
+                <Tooltip.Text placement='bottom'>
+                    <span>这是一段不带提示的超长的文字这是一段不带提示的超长的文字这是一段不带提示的超长的文字</span>
+                </Tooltip.Text>
+            </div>
+        </div>
+    )
+};
+
+_OverTextComponent.storyName = '文本完全显示 tooltip';
+_OverTextComponent.parameters = {
     controls: { hideNoControlsWarning: true },
 };
