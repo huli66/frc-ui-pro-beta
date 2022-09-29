@@ -344,7 +344,7 @@ export const _AA_RowBgComponent = () => {
 
   const code = `
     // import code
-    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps } from "frc-ui-pro/src/components/Table";
   `;
 
   // --------------------------------------------------------------
@@ -639,7 +639,7 @@ export const _AB_BorderComponent = () => {
 
   const code = `
     // import code
-    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps } from "frc-ui-pro/src/components/Table";
   `;
 
   // --------------------------------------------------------------
@@ -725,7 +725,7 @@ export const _AC_NoDataComponent = () => {
 
   const code = `
     // import code
-    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps } from "frc-ui-pro/src/components/Table";
   `;
 
   // --------------------------------------------------------------
@@ -847,7 +847,7 @@ export const _AD_LoadingComponent = () => {
 
   const code = `
     // import code
-    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps } from "frc-ui-pro/src/components/Table";
   `;
 
   // --------------------------------------------------------------
@@ -968,7 +968,7 @@ export const _AE_SizeComponent = () => {
 
   const code = `
     // import code
-    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps } from "frc-ui-pro/src/components/Table";
   `;
 
   // --------------------------------------------------------------
@@ -1120,7 +1120,7 @@ export const _AF_HeaderSizeComponent = () => {
 
   const code = `
     // import code
-    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps } from "frc-ui-pro/src/components/Table";
   `;
 
   // --------------------------------------------------------------
@@ -1434,7 +1434,7 @@ export const _AG_FixledCloumnsComponent = () => {
 
   const code = `
     // import code
-    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps } from "frc-ui-pro/src/components/Table";
   `;
 
   // --------------------------------------------------------------
@@ -1749,7 +1749,7 @@ export const _AH_SummaryComponent = () => {
 
   const code = `
     // import code
-    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps } from "frc-ui-pro/src/components/Table";
 
     // 用 summary 实现: 表格的 “总结栏” or “置顶功能”。
     // (tips: “总结栏” 与 “置顶功能”。一个表格中，仅能存在二者其中一个)
@@ -1948,7 +1948,7 @@ export const _AI_CustomCellTitleComponent = () => {
 
   const code = `
     // import code
-    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps } from "frc-ui-pro/src/components/Table";
 
     // 例：配合 Select 组件，实现表格 “单元格” 的自定义： “头部选择”、“数据选择”
   `;
@@ -2250,7 +2250,7 @@ export const _AJ_ActiveComponent = () => {
 
   const code = `
     // import code
-    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps } from "frc-ui-pro/src/components/Table";
   `;
 
   // --------------------------------------------------------------
@@ -2568,7 +2568,7 @@ export const _AK_SelectComponent = () => {
 
   const code = `
     // import code
-    import { ColumnsTypeProps, RowSelectionProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps, RowSelectionProps } from "frc-ui-pro/src/components/Table";
 
     // 第一列是联动的选择框。可以通过 rowSelection.type 属性指定选择类型，默认为checkbox。
   `;
@@ -2696,7 +2696,7 @@ export const _AL_ControlSelectComponent = () => {
 
   const code = `
     // import code
-    import { ColumnsTypeProps, RowSelectionProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps, RowSelectionProps } from "frc-ui-pro/src/components/Table";
 
     // 选择后进行操作，完成后清空选择，通过 rowSelection.selectedRowKeys 来控制选中项。
   `;
@@ -2817,7 +2817,7 @@ export const _AM_CustomSelectComponent = () => {
 
   const code = `
     // import code
-    import { ColumnsTypeProps, RowSelectionProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps, RowSelectionProps } from "frc-ui-pro/src/components/Table";
 
     // 通过 rowSelection.selections 自定义选择项，默认不显示下拉选项，设为 true 时显示默认选择项。
   `;
@@ -2949,7 +2949,7 @@ export const _AN_FilterAndSortComponent = () => {
 
   const code = `
     // import code
-    import { ColumnsTypeProps, FRCTableProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps, FRCTableProps } from "frc-ui-pro/src/components/Table";
 
     // 对某一列数据进行筛选，使用列的 filters属性来指定需要筛选菜单的列，onFilter 用于筛选当前数据，filterMultiple 用于指定多选和单选。
 
@@ -3065,7 +3065,7 @@ export const _AO_MultipleSortComponent = () => {
 
   const code = `
     // import code
-    import { ColumnsTypeProps, FRCTableProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps, FRCTableProps } from "frc-ui-pro/src/components/Table";
 
     // column.sorter 支持 multiple 字段以配置多列排序优先级。
     // 通过 sorter.compare 配置排序逻辑，你可以通过不设置该函数只启动多列排序的交互形式。
@@ -3201,7 +3201,7 @@ export const _AP_ControlFilterAndSelectComponent = () => {
 
   const code = `
     // import code
-    import { ColumnsTypeProps, FRCTableProps, SorterResult, FilterValue } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps, FRCTableProps, SorterResult, FilterValue } from "frc-ui-pro/src/components/Table";
 
     // 使用受控属性对筛选和排序状态进行控制。
     // 1. columns 中定义了 filteredValue 和sortOrder 属性即视为受控模式。
@@ -3396,9 +3396,9 @@ export const _AQ_ControlFilterAndSelectComponent = () => {
 
   const code = `
     // import code
-    import { ColumnsTypeProps, FilterConfirmProps } from "frc-ui-pro/components/Table/table";
-    import { InputRef } from "frc-ui-pro/components/Input/input"
-    import Highlighter from "react-highlight-words"
+    import { ColumnsTypeProps, FilterConfirmProps } from "frc-ui-pro/src/components/Table";
+    import { InputRef } from "frc-ui-pro/src/components/Input";
+    import Highlighter from "react-highlight-words";
 
     // 通过 filterDropdown 自定义的列筛选功能，并实现一个搜索列的示例。
     // 给函数 clearFilters 添加 boolean 类型参数 closeDropdown，是否关闭筛选菜单，默认为 true。
@@ -3526,7 +3526,7 @@ export const _AR_MockRequestComponent = () => {
   const code = `
     // import code
     import qs from "qs";
-    import { ColumnsTypeProps, PaginationConfig, SorterResult } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps, PaginationConfig, SorterResult } from "frc-ui-pro/src/components/Table";
 
     // 这个例子通过简单的 ajax读取方式，演示了如何从服务端读取并展现数据，具有筛选、排序等功能以及页面loading 效果。
     // 开发者可以自行接入其他数据处理方式。
@@ -3608,7 +3608,7 @@ export const _AS_HeaderAndFooterComponent = () => {
 
   const code = `
     // import code
-    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps } from "frc-ui-pro/src/components/Table";
 
     // 添加页头和页脚。
   `;
@@ -3701,7 +3701,7 @@ export const _AT_ExtendComponent = () => {
 
   const code = `
     // import code
-    import { ColumnsTypeProps} from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps} from "frc-ui-pro/src/components/Table";
 
     // 当表格内容较多不能一次性完全展示时。
     // (tips: rowBgType 为 cross，会出现背景色冲突，功能正常)
@@ -3785,7 +3785,7 @@ export const _AU_SpecialColSortComponent = () => {
 
   const code = `
     // import code
-    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps } from "frc-ui-pro/src/components/Table";
 
     // 你可以通过 Table.EXPAND_COLUMN 和 Table.SELECT_COLUMN 来控制选择和展开列的顺序。
   `;
@@ -3927,7 +3927,7 @@ export const _AV_CombineRowAndColComponent = () => {
   const code = `
     // import code
     import { Button } from "frc-ui-pro";
-    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps } from "frc-ui-pro/src/components/Table";
 
     // 表头只支持列合并，使用 column 里的 colSpan 进行设置。
     // 表格支持行/列合并，使用 render 里的单元格属性 colSpan 或者 rowSpan 设值为 0 时，设置的表格不会渲染。
@@ -4067,7 +4067,7 @@ export const _AW_TreeComponent = () => {
   const code = `
     // import code
     import { Switch } from "frc-ui-pro";
-    import { ColumnsTypeProps, RowSelectionProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps, RowSelectionProps } from "frc-ui-pro/src/components/Table";
 
     // 表格支持树形数据的展示，当数据中有 children 字段时会自动展示为树形表格，如果不需要或配置为其他字段可以用 childrenColumnName 进行配置。
     // 可以通过设置 indentSize 以控制每一层的缩进宽度。
@@ -4332,7 +4332,7 @@ export const _AY_TreeComponent = () => {
 
   const code = `
     // import code
-    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps } from "frc-ui-pro/src/components/Table";
 
     // columns[n] 可以内嵌 children，以渲染分组表头。
   `;
@@ -4579,7 +4579,7 @@ export const _AZ_EditCellComponent = () => {
     import { Form } from 'antd';
     import type { FormInstance } from 'antd/es/form';
     import { Button, Form, Input, Table } from 'frc-ui-pro';
-    import { InputRef } from "frc-ui-pro/components/Input/input"
+    import { InputRef } from "frc-ui-pro/src/components/Input";
 
     // 带单元格编辑功能的表格。当配合 shouldCellUpdate 使用时请注意闭包问题。
   `;
@@ -4995,7 +4995,7 @@ export const _BB_DragRowComponent = () => {
   const code = `
     // import code
     import React, { useCallback, useRef, useState } from 'react';
-    import { Table, ColumnsTypeProps } from 'frc-ui-pro';
+    import { Table, ColumnsTypeProps } from 'frc-ui-pro/src/components/Table';
 
     import update from 'immutability-helper';
     import { DndProvider, useDrag, useDrop } from 'react-dnd';
@@ -5148,7 +5148,7 @@ export const _BC_HandleDragRowComponent = () => {
     // import code
     import React, { useState } from 'react';
     import { Table } from 'frc-ui-pro';
-    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps } from "frc-ui-pro/src/components/Table";
 
     import { arrayMoveImmutable } from 'array-move';
 
@@ -5258,7 +5258,7 @@ export const _BD_CellEllipsisComponent = () => {
     // import code
     import React from 'react';
     import { Table, Button } from 'frc-ui-pro';
-    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps } from "frc-ui-pro/src/components/Table";
 
     // 设置 column.ellipsis 可以让单元格内容根据宽度自动省略。
   `;
@@ -5380,7 +5380,7 @@ export const _BE_CustomCellEllipsisToolTipComponent = () => {
     // import code
     import React from 'react';
     import { Table, Button, Tooltip } from 'frc-ui-pro';
-    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps } from "frc-ui-pro/src/components/Table";
 
     // 设置 column.ellipsis.showTitle 关闭单元格内容自动省略后默认的 title 提示, 使用 Tooltip 替代。
   `;
@@ -5657,7 +5657,7 @@ export const _ZZ_FixedTopComponent = () => {
     // import code
     import React, { useState } from 'react';
     import { Switch, Table, Button } from 'frc-ui-pro';
-    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps } from "frc-ui-pro/src/components/Table";
 
     // 对于长表格，需要滚动才能查看表头和滚动条，那么现在可以设置跟随页面固定表头和滚动条。
   `;
@@ -6504,7 +6504,7 @@ export const _BI_BoldBorderComponent = () => {
 
   const code = `
     // import code
-    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps } from "frc-ui-pro/src/components/Table";
   `;
 
   // --------------------------------------------------------------
@@ -6778,7 +6778,7 @@ export const _BJ_CheckboxGroupComponent = () => {
   const code = `
     // import code
     import { Table, Checkbox } from "frc-ui-pro";
-    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps } from "frc-ui-pro/src/components/Table";
   `;
 
   // --------------------------------------------------------------
@@ -6981,7 +6981,7 @@ export const _BK_ScrollEndComponent = () => {
 
   const code = `
     // import code
-    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps } from "frc-ui-pro/src/components/Table";
   `;
 
   // --------------------------------------------------------------
@@ -7142,7 +7142,7 @@ export const _BL_MessageTipComponent = () => {
 
   const code = `
     // import code
-    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+    import { ColumnsTypeProps } from "frc-ui-pro/src/components/Table";
 
     // rowActiveFixedData 启动 “固定数据” 效果
     // rowActiveFixedTip 设置 “固定提示” 文案

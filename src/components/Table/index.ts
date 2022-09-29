@@ -38,3 +38,12 @@ TransTable.Column = FRCTableColumn;
 TransTable.ColumnGroup = FRCTableColumnGroup;
 
 export default TransTable;
+
+export type {
+  FRCTableProps,
+  ColumnsTypeProps,
+  FilterValue,
+  SorterResult,
+  PaginationConfig,
+  RowSelectionProps,
+} from "./table";

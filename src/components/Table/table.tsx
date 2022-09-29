@@ -14,7 +14,6 @@ import {
   TooltipProps,
   SpinProps,
   CheckboxProps,
-  message,
 } from "antd";
 import { ColumnProps } from "antd/lib/table";
 import {
