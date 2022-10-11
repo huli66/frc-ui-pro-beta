@@ -105,7 +105,7 @@ export const Tooltip: FC<FRCTooltipProps> = (props) => {
         window.removeEventListener("resize", handleSize);
       };
     }
-  }, []);
+  }, [children]);
 
   const getWidth = () => {
     if (textWrap.current && node.current) {
