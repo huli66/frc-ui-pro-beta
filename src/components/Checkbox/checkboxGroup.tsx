@@ -6,7 +6,7 @@ import { CheckboxGroupProps } from "antd/es/checkbox/Group";
 const { Group: AntdGroup } = Checkbox;
 interface BaseCheckboxGroupProps extends CheckboxGroupProps {
   /** 默认选中的选项 */
-  defaultValue?: string[];
+  defaultValue?: (string | number | boolean)[];
   /** 整组失效 */
   disabled?: boolean;
   /** CheckboxGroup 下所有 input[type="checkbox"] 的 name 属性 */
@@ -15,7 +15,7 @@ interface BaseCheckboxGroupProps extends CheckboxGroupProps {
   options?:
     | string[]
     | number[]
-    | Array<{ label: string; value: string | number }>;
+    | Array<{ label: React.ReactNode; value: string | number | boolean; disabled?: boolean}>;
   /** 指定选中的选项 */
   value?: (string | number | boolean)[];
   /** 变化时回调函数 */
