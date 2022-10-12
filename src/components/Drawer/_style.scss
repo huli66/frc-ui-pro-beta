@@ -1,0 +1,72 @@
+.info-demo-drawer{
+  .site-description-item-profile-wrapper {
+    margin-bottom: 7px;
+    font-size: 14px;
+    line-height: 1.5715;
+  }
+  
+  [data-theme='compact'] .site-description-item-profile-wrapper {
+    font-size: 12px;
+    line-height: 1.66667;
+  }
+  
+  .ant-drawer-body p.site-description-item-profile-p {
+    display: block;
+    margin-bottom: 16px;
+    font-size: 16px;
+    line-height: 1.5715;
+  }
+  
+  [data-theme='compact'] .ant-drawer-body p.site-description-item-profile-p {
+    font-size: 14px;
+    line-height: 1.66667;
+  }
+  
+  .site-description-item-profile-p-label {
+    display: inline-block;
+    margin-right: 8px;
+  }
+}
+
+// ----------------------------------------------------------------
+.frc-drawer.ant-drawer{
+   &.ant-drawer-open {
+    .ant-drawer-content-wrapper {
+      @include modal-style(
+        $modal-background,
+        $modal-color,
+        $modal-border,
+        $modal-border-radius,
+        $modal-font-size-text,
+        $modal-font-weight
+      );
+    }
+  }
+
+  .ant-drawer-content {
+    background-color:transparent;
+    border-radius: $border-radius;
+  }
+  .ant-drawer-header {
+    background-color:transparent;
+    color:$words-normal;
+    border-bottom: none;
+    padding:4px;
+  }
+  .ant-drawer-title {
+    color:inherit;
+    font-size: $drawer-font-size;
+  }
+  .ant-drawer-close {
+    color:inherit;
+    font-size: 10px;
+  }
+
+  .ant-drawer-body {
+    padding:16px;
+  }
+  .ant-drawer-footer {
+    border-top:none;
+    padding: 4px;
+  }
+}
