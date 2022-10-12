@@ -5,6 +5,8 @@ import classNames from 'classnames';
 interface BaseDrawerProps extends Omit<DrawerProps,'push'>{
   /** 抽屉展开后是否将焦点切换至其 Dom 节点 */
   autoFocus?: boolean;
+  /** 切换抽屉时动画结束后的回调 */
+  afterVisibleChange?: (visible: boolean) => void;
   /** 可用于设置 Drawer 内容部分的样式 */
   bodyStyle?: React.CSSProperties;
   /** 对话框外层容器的类名 */
