@@ -1,6 +1,7 @@
 export { default as Button } from "./components/Button";
 export { default as Checkbox } from "./components/Checkbox";
 export { default as DatePicker } from "./components/DatePicker";
+export { default as Divider } from "./components/Divider";
 export { default as Input } from "./components/Input";
 export { default as InputNumber } from "./components/InputNumber";
 export { default as Modal } from "./components/Modal";
@@ -24,6 +25,6 @@ export { default as Icon } from "./components/Icon";
 export { default as DragCollapse } from "./components/DragCollapse";
 export { default as Tooltip } from "./components/Tooltip";
 export { default as Tabs } from "./components/Tabs";
-export { default as Table } from "./components/Table";
+// export { default as Table } from "./components/Table";
 export { default as Filter } from "./components/Filter";
 export { default as TreeSelect } from "./components/TreeSelect";
