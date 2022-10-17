@@ -4,19 +4,10 @@
     font-size: $table-base-font-size;
   }
 
-  height: 100%;
-  .ant-spin-nested-loading {
-    height: 100%;
-    .ant-spin-container {
-      height: 100%;
-    }
-  }
-
   // basic ------------------------------------------------------------------------------------------------
 
   // normal style
   .ant-table {
-    height: 100%;
     background: $table-background;
     border-radius: 0;
 
@@ -28,7 +19,6 @@
 
     // container
     .ant-table-container {
-      height: 100%;
       table {
         border-radius: 0;
 
@@ -942,6 +932,37 @@
     }
   }
 
+  // scroll -----------------------------------------------------------------------------------------------
+  .ant-table {
+    // 控制整个滚动条
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+      display: none;
+    }
+
+    // 滚动条中间滑动部分
+    ::-webkit-scrollbar-thumb {
+      background-color: $basic-filter;
+      border-radius: 4px;
+      border: 2px solid transparent;
+      background-clip: padding-box;
+
+      &:hover {
+        background-color: $btn-hover;
+      }
+    }
+
+    // 滚动条右下角区域
+    ::-webkit-scrollbar-corner {
+      background-color: transparent;
+    }
+    
+    .ant-table-cell-scrollbar:not([rowspan]) {
+      box-shadow: none;
+    }
+  }
+
   // drag sort rol ----------------------------------------------------------------------------------------
   tr.drop-over-downward td {
     border-bottom: $table-border-bold !important;
@@ -1162,8 +1183,7 @@
 // scrollbar --------------------------------------------------------------------------------------------
 
 .frc-table-container,
-.frc-table-scroll-bar,
-.ant-table-body-box {
+.frc-table-scroll-bar {
   position: relative;
   // 控制整个滚动条
   &::-webkit-scrollbar {
@@ -1188,30 +1208,6 @@
     background-color: transparent;
   }
 }
-
-// antd 横向滚动条
-.ant-table-body {
-  // 控制整个滚动条
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-// 虚拟滚动 - x 轴滚动条
-.frc-table-scroll-bar {
-  &::-webkit-scrollbar-track {
-    border-top: $table-border;
-  }
-}
-
-// 虚拟滚动 - y 轴滚动条
-.ant-table-body-box {
-  &::-webkit-scrollbar-track {
-    border-left: $table-border;
-  }
-}
-
-// ------------------------------------------------------------------------------------------------------
 
 .frc-table-scroll-bar {
   width: 100%;

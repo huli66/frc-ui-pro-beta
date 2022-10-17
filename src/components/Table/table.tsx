@@ -7,6 +7,7 @@ import React, {
   useState,
   useEffect,
 } from "react";
+import ReactDOM from "react-dom";
 import classNames from "classnames";
 import {
   Table as AntdTable,
@@ -342,6 +343,8 @@ export interface TableLocaleProps extends TableLocale {
 }
 
 export interface FRCTableProps extends Omit<TableProps<RecordType>, "columns"> {
+  /** 虚拟 dom */
+  virtualDom?: boolean;
   /** 是否展示外边框和列边框 */
   bordered?: boolean;
   /** 固定列外边框激活样式（bordered = true 时起效） */
@@ -447,6 +450,7 @@ const EmptyNode = (props: { height: number }) => {
 export const Table: FC<FRCTableProps> = (props) => {
   const {
     className,
+    virtualDom,
     dataSource,
     bordered,
     borderedActiveFixed,
@@ -488,7 +492,7 @@ export const Table: FC<FRCTableProps> = (props) => {
   const onScrollHandle = () => {
     if (ref.current && onScrollEnd) {
       // 获取表格 dom 元素
-      const tableNode = ref.current?.querySelector(".ant-table-body");
+      const tableNode = ref.current?.querySelector(".ant-table-body-box");
       // 容器可视区高度
       const tableNodeHeight = tableNode?.clientHeight;
       // 内容高度
@@ -498,6 +502,142 @@ export const Table: FC<FRCTableProps> = (props) => {
 
       if (contentHeight - (toTopHeight + tableNodeHeight) < 0.5) {
         onScrollEnd(); // 打接口
+      }
+    }
+  };
+
+  // ---------------------------------------------------------------------
+
+  useEffect(() => {
+    if (ref.current && virtualDom) {
+      const oldTableBody = ref.current.querySelector(".ant-table-body");
+
+      // x轴添加滚动事件
+      oldTableBody.addEventListener("scroll", onScrollSimulationY);
+
+      const newTableBody = document.createElement("div");
+      const headerHeight =
+        ref.current.querySelector(".ant-table-header").clientHeight;
+
+      newTableBody.className = "ant-table-body-box";
+      newTableBody.appendChild(oldTableBody);
+      newTableBody.style.height = `calc(100% - ${headerHeight}px)`;
+      newTableBody.style.overflow = "hidden scroll";
+      // y轴添加滚动事件
+      newTableBody.addEventListener(
+        "scroll",
+        function (e) {
+          console.log("e", e);
+          onScrollSimulationY();
+        },
+        false
+      );
+
+      ref.current
+        .querySelector(".ant-table-container")
+        .appendChild(newTableBody);
+    }
+  }, [ref]);
+
+  // virtual -------------------------------------------------------------
+
+  let tableWidth = 0;
+  const [rowSize, setRowSize] = useState<any[]>([0, 0]);
+  const [hiddenTopStyle, setHiddenTopStyle] = useState(0);
+  const [totalHeight, setTotalHeight] = useState<number>(0);
+  const [virtualData, setVirtualData] = useState<any[]>([]);
+  const [fixedYScroll, setFixedYScroll] = useState<boolean>(false);
+
+  useEffect(() => {
+    onScrollSimulationY();
+  }, []);
+
+  useEffect(() => {
+    if (rowSize.join() !== "0,0" && dataSource) {
+      console.log("rowSize", rowSize);
+      const newData = [...dataSource].slice(...rowSize) || [];
+      // console.log("newData", newData);
+      setVirtualData(newData);
+    }
+  }, [rowSize, dataSource]);
+
+  useEffect(() => {
+    if (ref.current && virtualDom) {
+      const innerNode = ref.current?.querySelector(".ant-table-body");
+      innerNode.style.height = totalHeight + "px";
+      innerNode.style.paddingTop = hiddenTopStyle + "px";
+    }
+  }, [hiddenTopStyle, virtualDom, totalHeight]);
+
+  const onScrollSimulationX = () => {
+    if (ref.current && virtualDom) {
+      const tableNode = ref.current; // 最外层容器（y轴滚动条）
+      const xScrollNode = tableNode.querySelector(".frc-table-scroll-bar"); // x 轴滚动条 node
+      const realXScrollNode = tableNode.querySelector(".ant-table-body"); // x 轴滚动条 node
+      if (xScrollNode) {
+        realXScrollNode.scrollLeft = xScrollNode.scrollLeft;
+      }
+    }
+  };
+
+  const onScrollSimulationY = () => {
+    if (ref.current && virtualDom) {
+      const tableNode = ref.current.querySelector(".ant-table-body-box"); // 最外层容器
+      const scrollTop = tableNode.scrollTop; // 滚动条距离顶部的高度
+      const xScrollNode = ref.current.querySelector(".frc-table-scroll-bar"); // x 轴滚动条 node
+      const realXScrollNode = tableNode.querySelector(".ant-table-body"); // x 轴滚动条 node
+
+      if (xScrollNode && !fixedYScroll) {
+        xScrollNode.scrollLeft = realXScrollNode.scrollLeft;
+      }
+
+      // 计算表格头部所占用的高度
+      const headerHeight =
+        ref.current.querySelector(".ant-table-header")?.clientHeight;
+      // 计算表格内容可视区域高度
+      const height = ref.current.clientHeight - headerHeight;
+
+      console.log("scrollTop", scrollTop, headerHeight, height);
+
+      const rowSizeNow = [0];
+      let totalHeight = 0;
+      let hiddenTopHeight = 0; // 计算顶部隐藏区域的高度
+      let currentStep = 0; // 0: 顶部被隐藏阶段；1: 可视区域阶段
+      const OFFSET_VERTICAL = 120;
+
+      if (!height) {
+        return;
+      }
+
+      // ----------------------------------------------------
+
+      [...(dataSource || [])]?.forEach((item, index) => {
+        const rowHeight = 24; // 每行高度
+        totalHeight += rowHeight;
+        if (currentStep === 0) {
+          if (totalHeight >= scrollTop - OFFSET_VERTICAL) {
+            // 偏移量 起始 0 - 120，随后根据 DEFAULT_ROW_HEIGHT 为基点偏移，本例子为 32px
+            console.log("in-start", totalHeight, scrollTop - OFFSET_VERTICAL);
+            // 根据 scrollTop 算出可视区域起始行号
+            rowSizeNow[0] = index;
+            currentStep += 1;
+          } else {
+            hiddenTopHeight += rowHeight;
+          }
+        } else if (currentStep === 1) {
+          if (totalHeight > scrollTop + height + OFFSET_VERTICAL) {
+            // 计算出可视区域结束行号
+            rowSizeNow[1] = index;
+            currentStep += 1;
+          }
+        }
+      });
+
+      if (rowSize.join() !== rowSizeNow.join()) {
+        // 可视区域的行号有了变化才重新进行渲染
+        setRowSize(rowSizeNow);
+        setHiddenTopStyle(hiddenTopHeight);
+        setTotalHeight(totalHeight);
       }
     }
   };
@@ -558,6 +698,13 @@ export const Table: FC<FRCTableProps> = (props) => {
         return React.cloneElement(childElement);
       }
 
+      // if (childElement.props && virtualDom) {
+      //   const width = Number(
+      //     (childElement.props.width || 0).toString().match(/\d+/i)?.[0]
+      //   );
+      //   tableWidth += width;
+      // }
+
       if (children) {
         childrenProps = {
           ...childrenProps,
@@ -586,9 +733,14 @@ export const Table: FC<FRCTableProps> = (props) => {
   const renderColumns = (columns: ColumnsTypeProps[]) => {
     const columnsLength = columns.length;
 
-    return columns.map((column, index) => {
+    const newColumns = columns.map((column, index) => {
       if (!column.title) {
         return column;
+      }
+
+      if (column.width && virtualDom) {
+        const width = Number(column.width.toString().match(/\d+/i)?.[0]);
+        tableWidth += width;
       }
 
       let columnProps: any = {};
@@ -617,6 +769,13 @@ export const Table: FC<FRCTableProps> = (props) => {
 
       return { ...column, ...columnProps };
     });
+
+    // if (tableWidth !== 0 && virtualDom && ref.current) {
+    //   const tableNode = ref.current.querySelector(".ant-table-body table");
+    //   tableNode.style.width = tableWidth;
+    // }
+
+    return newColumns;
   };
 
   // pagination ----------------------------------------------------------
@@ -650,7 +809,12 @@ export const Table: FC<FRCTableProps> = (props) => {
   const options = {
     className: classes,
     bordered,
-    dataSource: dataIsFixed ? fixedData : dataSource,
+    dataSource:
+      virtualData.length > 0
+        ? virtualData
+        : dataIsFixed
+        ? fixedData
+        : dataSource,
     loading: loading
       ? typeof loading === "boolean"
         ? {
@@ -709,8 +873,24 @@ export const Table: FC<FRCTableProps> = (props) => {
       ref={ref}
       onScrollCapture={onScrollHandle}
       className="frc-table-container"
+      style={{
+        height: "100%",
+        backgroundColor: "#172422",
+        // paddingBottom: 6,
+      }}
     >
       <AntdTable {...options} />
+      <div
+        className="frc-table-scroll-bar"
+        onMouseDown={() => setFixedYScroll(true)}
+        onMouseUp={() => setFixedYScroll(false)}
+        onScrollCapture={onScrollSimulationX}
+      >
+        <div
+          className="frc-table-scroll-bar-inner"
+          style={{ width: tableWidth }}
+        ></div>
+      </div>
     </div>
   );
 };
