@@ -231,13 +231,9 @@ export const Default = (args: FRCTableProps) => {
   ];
 
   return (
-    <Table
-      {...args}
-      bordered
-      columns={columns}
-      dataSource={data}
-      scroll={{ x: 1000, y: 200 }}
-    />
+    <div style={{ height: 256 }}>
+      <Table {...args} bordered columns={columns} dataSource={data} />
+    </div>
   );
 };
 
@@ -246,7 +242,7 @@ Default.storyName = "默认 table";
 // ----------------------------------------------------------------
 
 export const _AA_RowBgComponent = () => {
-  const columns: ColumnsTypeProps[]= [
+  const columns: ColumnsTypeProps[] = [
     { title: "A", dataIndex: "key", width: "250px" },
     { title: "B", dataIndex: "key", width: "250px" },
     { title: "C", dataIndex: "key", width: "250px" },
@@ -275,4 +271,3 @@ export const _AA_RowBgComponent = () => {
 };
 
 _AA_RowBgComponent.storyName = "虚拟滚动";
-

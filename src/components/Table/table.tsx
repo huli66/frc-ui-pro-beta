@@ -477,6 +477,14 @@ export const Table: FC<FRCTableProps> = (props) => {
   const [dataIsFixed, setDataIsFixed] = useState<boolean>(false);
   const [fixedData, setFixedData] = useState<ColumnsTypeProps[] | undefined>();
 
+  let tableWidthInner = 0;
+  const [rowSize, setRowSize] = useState<any[]>([0, 0]);
+  const [hiddenTopStyle, setHiddenTopStyle] = useState(0);
+  const [totalHeight, setTotalHeight] = useState<number>(0);
+  const [virtualData, setVirtualData] = useState<any[]>([]);
+  const [fixedYScroll, setFixedYScroll] = useState<boolean>(false);
+  const [showXScroll, setShowXScroll] = useState<boolean>(true);
+
   const classes = classNames("frc-table", className, {
     [`frc-row-bg-type-${rowBgType}`]: rowBgType,
     [`frc-title-size-${headerSize}`]: headerSize,
@@ -510,43 +518,37 @@ export const Table: FC<FRCTableProps> = (props) => {
 
   useEffect(() => {
     if (ref.current && virtualDom) {
-      const oldTableBody = ref.current.querySelector(".ant-table-body");
+      const containerNode = ref.current.querySelector(".ant-table-container");
 
-      // x轴添加滚动事件
-      oldTableBody.addEventListener("scroll", onScrollSimulationY);
+      // 获取 table header 高度
+      const headerNode = containerNode.querySelector(".ant-table-header");
+      const headerHeight = headerNode.clientHeight;
 
+      const oldTableBody = containerNode.querySelector(".ant-table-body");
       const newTableBody = document.createElement("div");
-      const headerHeight =
-        ref.current.querySelector(".ant-table-header").clientHeight;
 
+      // 设置滚动 box 属性
       newTableBody.className = "ant-table-body-box";
       newTableBody.appendChild(oldTableBody);
-      newTableBody.style.height = `calc(100% - ${headerHeight}px)`;
+      newTableBody.style.height = `calc(100% - ${headerHeight + 8}px)`;
       newTableBody.style.overflow = "hidden scroll";
-      // y轴添加滚动事件
-      newTableBody.addEventListener(
-        "scroll",
-        function (e) {
-          console.log("e", e);
-          onScrollSimulationY();
-        },
-        false
-      );
 
-      ref.current
-        .querySelector(".ant-table-container")
-        .appendChild(newTableBody);
+      oldTableBody.addEventListener("scroll", onScrollSimulationY); // x轴添加滚动事件
+      newTableBody.addEventListener("scroll", onScrollSimulationY); // y轴添加滚动事件
+
+      containerNode.appendChild(newTableBody);
+
+      if (tableWidthInner !== 0) {
+        onWindowResize(ref.current, headerHeight);
+        // 设定监听事件
+        window.addEventListener("resize", () => {
+          onWindowResize(ref.current, headerHeight);
+        });
+      }
     }
   }, [ref]);
 
   // virtual -------------------------------------------------------------
-
-  let tableWidth = 0;
-  const [rowSize, setRowSize] = useState<any[]>([0, 0]);
-  const [hiddenTopStyle, setHiddenTopStyle] = useState(0);
-  const [totalHeight, setTotalHeight] = useState<number>(0);
-  const [virtualData, setVirtualData] = useState<any[]>([]);
-  const [fixedYScroll, setFixedYScroll] = useState<boolean>(false);
 
   useEffect(() => {
     onScrollSimulationY();
@@ -554,7 +556,7 @@ export const Table: FC<FRCTableProps> = (props) => {
 
   useEffect(() => {
     if (rowSize.join() !== "0,0" && dataSource) {
-      console.log("rowSize", rowSize);
+      // console.log("rowSize", rowSize);
       const newData = [...dataSource].slice(...rowSize) || [];
       // console.log("newData", newData);
       setVirtualData(newData);
@@ -597,8 +599,6 @@ export const Table: FC<FRCTableProps> = (props) => {
       // 计算表格内容可视区域高度
       const height = ref.current.clientHeight - headerHeight;
 
-      console.log("scrollTop", scrollTop, headerHeight, height);
-
       const rowSizeNow = [0];
       let totalHeight = 0;
       let hiddenTopHeight = 0; // 计算顶部隐藏区域的高度
@@ -617,7 +617,7 @@ export const Table: FC<FRCTableProps> = (props) => {
         if (currentStep === 0) {
           if (totalHeight >= scrollTop - OFFSET_VERTICAL) {
             // 偏移量 起始 0 - 120，随后根据 DEFAULT_ROW_HEIGHT 为基点偏移，本例子为 32px
-            console.log("in-start", totalHeight, scrollTop - OFFSET_VERTICAL);
+            // console.log("in-start", totalHeight, scrollTop - OFFSET_VERTICAL);
             // 根据 scrollTop 算出可视区域起始行号
             rowSizeNow[0] = index;
             currentStep += 1;
@@ -638,6 +638,24 @@ export const Table: FC<FRCTableProps> = (props) => {
         setRowSize(rowSizeNow);
         setHiddenTopStyle(hiddenTopHeight);
         setTotalHeight(totalHeight);
+      }
+    }
+  };
+
+  const onWindowResize = (node: HTMLDivElement, headerHeight: number) => {
+    const width = node?.clientWidth;
+
+    const tableBody = node.querySelector(
+      ".ant-table-body-box"
+    ) as HTMLDivElement;
+
+    if (width) {
+      if (width >= tableWidthInner) {
+        tableBody.style.height = `calc(100% - ${headerHeight}px)`;
+        setShowXScroll(false);
+      } else {
+        tableBody.style.height = `calc(100% - ${headerHeight + 8}px)`;
+        setShowXScroll(true);
       }
     }
   };
@@ -698,12 +716,12 @@ export const Table: FC<FRCTableProps> = (props) => {
         return React.cloneElement(childElement);
       }
 
-      // if (childElement.props && virtualDom) {
-      //   const width = Number(
-      //     (childElement.props.width || 0).toString().match(/\d+/i)?.[0]
-      //   );
-      //   tableWidth += width;
-      // }
+      if (childElement.props && virtualDom) {
+        const width = Number(
+          (childElement.props.width || 0).toString().match(/\d+/i)?.[0]
+        );
+        tableWidthInner += width;
+      }
 
       if (children) {
         childrenProps = {
@@ -740,7 +758,7 @@ export const Table: FC<FRCTableProps> = (props) => {
 
       if (column.width && virtualDom) {
         const width = Number(column.width.toString().match(/\d+/i)?.[0]);
-        tableWidth += width;
+        tableWidthInner += width;
       }
 
       let columnProps: any = {};
@@ -770,9 +788,9 @@ export const Table: FC<FRCTableProps> = (props) => {
       return { ...column, ...columnProps };
     });
 
-    // if (tableWidth !== 0 && virtualDom && ref.current) {
+    // if (tableWidthInner !== 0 && virtualDom && ref.current) {
     //   const tableNode = ref.current.querySelector(".ant-table-body table");
-    //   tableNode.style.width = tableWidth;
+    //   tableNode.style.width = tableWidthInner;
     // }
 
     return newColumns;
@@ -872,25 +890,23 @@ export const Table: FC<FRCTableProps> = (props) => {
     <div
       ref={ref}
       onScrollCapture={onScrollHandle}
-      className="frc-table-container"
-      style={{
-        height: "100%",
-        backgroundColor: "#172422",
-        // paddingBottom: 6,
-      }}
+      className={`frc-table-container${bordered ? " frc-table-borderd" : ""}`}
     >
       <AntdTable {...options} />
-      <div
-        className="frc-table-scroll-bar"
-        onMouseDown={() => setFixedYScroll(true)}
-        onMouseUp={() => setFixedYScroll(false)}
-        onScrollCapture={onScrollSimulationX}
-      >
+      {showXScroll && (
         <div
-          className="frc-table-scroll-bar-inner"
-          style={{ width: tableWidth }}
-        ></div>
-      </div>
+          className="frc-table-scroll-bar"
+          onMouseDown={() => setFixedYScroll(true)}
+          onMouseUp={() => setFixedYScroll(false)}
+          onScrollCapture={onScrollSimulationX}
+          // style={{ border: borderd ? '' }}
+        >
+          <div
+            className="frc-table-scroll-bar-inner"
+            style={{ width: tableWidthInner }}
+          ></div>
+        </div>
+      )}
     </div>
   );
 };
@@ -899,17 +915,9 @@ export const Table: FC<FRCTableProps> = (props) => {
 Table.defaultProps = {
   size: "small",
   rowBgType: "default",
-  pagination: {
-    position: ["bottomLeft"],
-    defaultCurrent: 1,
-    defaultPageSize: 10,
-    hideOnSinglePage: false,
-    pageSizeOptions: ["10", "20", "50", "100"],
-    showLessItems: false,
-    showQuickJumper: false,
-    showTitle: true,
-    total: 0,
-  },
+  pagination: false,
+  scroll: { x: "infinite", y: "infinite" },
+  virtualDom: true,
 };
 
 export default Table;
