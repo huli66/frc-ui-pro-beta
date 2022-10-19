@@ -135,11 +135,11 @@ export default {
 
 // ----------------------------------------------------------------
 
-export const Default = (args: FRCTableProps) => {
+export const Default = () => {
   interface DataType {
-    key: string;
+    key: number;
     name: string;
-    age: number;
+    age: string;
     address: string;
   }
 
@@ -148,92 +148,45 @@ export const Default = (args: FRCTableProps) => {
       title: "Name",
       dataIndex: "name",
       key: "name",
+      width: 300,
     },
     {
       title: "Age",
       dataIndex: "age",
       key: "age",
+      width: 300,
     },
     {
       title: "Address",
       dataIndex: "address",
       key: "address",
+      width: 500,
     },
   ];
 
-  const data: DataType[] = [
-    {
-      key: "1",
-      name: "John Brown1",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-    },
-    {
-      key: "2",
-      name: "Jim Green2",
-      age: 42,
-      address: "London No. 1 Lake Park",
-    },
-    {
-      key: "3",
-      name: "Joe Black3",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "4",
-      name: "Joe Black4",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "5",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "6",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "7",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "8",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "9",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "10",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-    {
-      key: "11",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-    },
-  ];
+  const data: DataType[] = Array.from({ length: 100 }, (_, key) => ({
+    key: key,
+    name: `name-${key}`,
+    age: `age-${key}`,
+    address: `address-${key}`,
+  }));
+
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+
+    // 基于 虚拟滚动 的表格
+  `;
+
+  // --------------------------------------------------------------
 
   return (
-    <div style={{ height: 256 }}>
-      <Table {...args} bordered columns={columns} dataSource={data} />
-    </div>
+    <>
+      <ImportCode code={code} />
+      <Table columns={columns} dataSource={data} />
+    </>
   );
 };
 
@@ -242,32 +195,184 @@ Default.storyName = "默认 table";
 // ----------------------------------------------------------------
 
 export const _AA_RowBgComponent = () => {
+  interface DataType {
+    key: number;
+    name: string;
+    age: string;
+    address: string;
+  }
+
   const columns: ColumnsTypeProps[] = [
-    { title: "A", dataIndex: "key", width: "250px" },
-    { title: "B", dataIndex: "key", width: "250px" },
-    { title: "C", dataIndex: "key", width: "250px" },
-    { title: "D", dataIndex: "key", width: "250px" },
-    { title: "E", dataIndex: "key", width: "250px" },
-    { title: "F", dataIndex: "key", width: "250px" },
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      width: 300,
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+      width: 300,
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+      width: 500,
+    },
   ];
 
-  const data = Array.from({ length: 100 }, (_, key) => ({ key }));
+  const data: DataType[] = Array.from({ length: 100 }, (_, key) => ({
+    key: key,
+    name: `name-${key}`,
+    age: `age-${key}`,
+    address: `address-${key}`,
+  }));
+
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+  `;
+
+  // --------------------------------------------------------------
 
   return (
     <>
-      <div style={{ height: 296 }}>
-        <Table
-          bordered
-          rowBgType="default"
-          columns={columns}
-          dataSource={data}
-          pagination={false}
-          scroll={{ x: "infinite", y: "infinite" }}
-          virtualDom
-        />
-      </div>
+      <ImportCode code={code} />
+      default
+      <Table rowBgType="default" columns={columns} dataSource={data} />
+      <br />
+      cross
+      <Table rowBgType="cross" columns={columns} dataSource={data} />
     </>
   );
 };
 
-_AA_RowBgComponent.storyName = "虚拟滚动";
+_AA_RowBgComponent.storyName = "不同行背景 rowBgType";
+
+// ----------------------------------------------------------------
+
+export const _AB_BorderComponent = () => {
+  interface DataType {
+    key: number;
+    name: string;
+    age: string;
+    address: string;
+  }
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      width: 300,
+      fixed: "left",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+      width: 300,
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+      width: 500,
+    },
+  ];
+
+  const data: DataType[] = Array.from({ length: 100 }, (_, key) => ({
+    key: key,
+    name: `name-${key}`,
+    age: `age-${key}`,
+    address: `address-${key}`,
+  }));
+
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+  `;
+
+  // --------------------------------------------------------------
+
+  return (
+    <>
+      <ImportCode code={code} />
+      default
+      <Table bordered rowBgType="default" columns={columns} dataSource={data} />
+      <br />
+      cross
+      <Table bordered rowBgType="cross" columns={columns} dataSource={data} />
+    </>
+  );
+};
+
+_AB_BorderComponent.storyName = "边框 border";
+
+// ----------------------------------------------------------------
+
+export const _AC_NoDataComponent = () => {
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      width: 300,
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+      width: 300,
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+      width: 500,
+    },
+  ];
+
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+
+    // 根据 height 属性，自动计算出 empty 表格的高度
+    // height 属性，默认为 300
+  `;
+
+  // --------------------------------------------------------------
+
+  return (
+    <>
+      <ImportCode code={code} />
+      default
+      <Table
+        rowBgType="default"
+        columns={columns}
+        dataSource={[]}
+        height="256px"
+      />
+      <br />
+      cross
+      <Table
+        rowBgType="cross"
+        columns={columns}
+        dataSource={[]}
+        height="256px"
+      />
+    </>
+  );
+};
+
+_AC_NoDataComponent.storyName = "暂无数据";
+
+// ----------------------------------------------------------------

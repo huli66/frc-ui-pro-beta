@@ -1,13 +1,13 @@
 // entry
 .frc-table-container {
-  height: 100%;
+  position: relative;
   .frc-table.ant-table-wrapper {
-    * {
-      font-size: $table-base-font-size;
-    }
-
     height: 100%;
+    // global config ----------------------------------------------------------------------------------------
     .ant-spin-nested-loading {
+      * {
+        font-size: $table-base-font-size;
+      }
       height: 100%;
       .ant-spin-container {
         height: 100%;
@@ -15,7 +15,6 @@
     }
 
     // basic ------------------------------------------------------------------------------------------------
-
     // normal style
     .ant-table {
       height: 100%;
@@ -32,19 +31,8 @@
       .ant-table-container {
         height: 100%;
         overflow: scroll hidden;
-
-        table {
-          border-radius: 0;
-
-          thead > tr:first-child {
-            th {
-              &:first-child,
-              &:last-child {
-                border-radius: 0;
-              }
-            }
-          }
-        }
+        border-radius: 0;
+        position: relative;
 
         // table first head
         colgroup {
@@ -54,68 +42,79 @@
           }
 
           .ant-table-selection-col {
-            width: 32px;
+            // width: 32px;
+            min-width: 36px;
           }
         }
 
-        // table header
-        .ant-table-thead {
-          tr {
-            .ant-table-cell {
-              color: $table-color-title;
-              background: $table-background-title;
-              border-bottom: none;
-              padding: 0 6px;
+        // header
+        .ant-table-header {
+          padding-right: 8px;
+          background-color: $table-background-title;
+          border-bottom: $table-border-title;
 
-              // select all
-              .ant-table-selection {
-                display: flex;
-                align-content: center;
-                justify-content: center;
-              }
+          table {
+            border-radius: 0;
+            .ant-table-thead {
+              tr {
+                .ant-table-cell {
+                  padding: 0 6px;
+                  color: $table-color-title;
+                  background: $table-background-title;
+                  border-bottom: none;
+                  border-radius: 0;
 
-              // sort title
-              &.ant-table-column-has-sorters {
-                .ant-table-column-sorters {
-                  .ant-table-column-sorter {
-                    color: $table-color-title;
+                  // select all
+                  .ant-table-selection {
+                    display: flex;
+                    align-content: center;
+                    justify-content: center;
+                  }
 
-                    .ant-table-column-sorter-inner {
+                  // sort title
+                  &.ant-table-column-has-sorters {
+                    .ant-table-column-sorters {
+                      .ant-table-column-sorter {
+                        color: $table-color-title;
+
+                        .ant-table-column-sorter-inner {
+                          span {
+                            svg {
+                              width: 10px;
+                              height: 10px;
+                            }
+                          }
+
+                          .ant-table-column-sorter-up.active,
+                          .ant-table-column-sorter-down.active {
+                            color: $table-color-title-active;
+                          }
+                        }
+
+                        &.ant-table-column-sorter-full {
+                          .ant-table-column-sorter-inner {
+                            position: relative;
+                            top: -2px;
+                          }
+                        }
+                      }
+                    }
+                  }
+
+                  // filter
+                  .ant-table-filter-column {
+                    .ant-dropdown-trigger.ant-table-filter-trigger {
+                      color: $table-color-title;
+
+                      &.ant-dropdown-open {
+                        color: $table-color-title-active;
+                      }
+
                       span {
                         svg {
                           width: 10px;
-                          height: 10px;
                         }
                       }
-
-                      .ant-table-column-sorter-up.active,
-                      .ant-table-column-sorter-down.active {
-                        color: $table-color-title-active;
-                      }
-                    }
-
-                    &.ant-table-column-sorter-full {
-                      .ant-table-column-sorter-inner {
-                        position: relative;
-                        top: -2px;
-                      }
-                    }
-                  }
-                }
-              }
-
-              // filter
-              .ant-table-filter-column {
-                .ant-dropdown-trigger.ant-table-filter-trigger {
-                  color: $table-color-title;
-
-                  &.ant-dropdown-open {
-                    color: $table-color-title-active;
-                  }
-
-                  span {
-                    svg {
-                      width: 10px;
                     }
                   }
                 }
@@ -124,85 +123,111 @@
           }
         }
 
-        // table body
-        .ant-table-tbody {
-          // normal row
-          .ant-table-row,
-          tr {
-            .ant-table-cell {
-              color: $table-color-text;
-              border-bottom: $table-border;
-              background: $table-background;
-              padding: 0 6px;
+        // body
+        .ant-table-body-box {
+          .ant-table-body {
+            table {
+              .ant-table-tbody {
+                // normal row
+                .ant-table-row,
+                tr {
+                  .ant-table-cell {
+                    color: $table-color-text;
+                    border-bottom: $table-border;
+                    background: $table-background;
+                    padding: 0 6px;
 
-              // flexd column
-              &.ant-table-cell-fix-left,
-              &.ant-table-cell-fix-right {
-                background: $table-background-title;
-                border-bottom: $table-border-title;
-              }
+                    // flexd column
+                    &.ant-table-cell-fix-left,
+                    &.ant-table-cell-fix-right {
+                      background: $table-background-title;
+                      border-bottom: $table-border-title;
+                    }
 
-              // hover item
-              &.ant-table-cell-row-hover {
-                background: $table-background-hover !important;
-                border-bottom: $table-border-title !important;
-              }
+                    // hover item
+                    &.ant-table-cell-row-hover {
+                      background: $table-background-hover !important;
+                      border-bottom: $table-border-title !important;
+                    }
 
-              // select item
-              &.ant-table-selection-column {
-                padding: 0;
+                    // select item
+                    &.ant-table-selection-column {
+                      padding: 0;
 
-                .ant-checkbox-wrapper {
-                  padding: 0;
+                      .ant-checkbox-wrapper {
+                        padding: 0;
+                      }
+                    }
+
+                    // sort item
+                    &.ant-table-column-sort {
+                      background: $table-background;
+                    }
+
+                    // extend icon
+                    &.ant-table-row-expand-icon-cell,
+                    &.ant-table-cell-with-append {
+                      .ant-table-row-expand-icon {
+                        background: $checkbox-background-icon;
+                        color: $checkbox-color;
+                        border: $checkbox-border-icon;
+                      }
+                    }
+                  }
+
+                  // selected item
+                  &.ant-table-row-selected,
+                  &.frc-table-row-active {
+                    .ant-table-cell {
+                      background: $table-background-active !important;
+                      border-bottom: $table-border-title !important;
+                    }
+
+                    .ant-table-cell-row-hover {
+                      background: $table-background-hover !important;
+                      border-bottom: $table-border-title !important;
+                    }
+                  }
                 }
-              }
 
-              // sort item
-              &.ant-table-column-sort {
-                background: $table-background;
-              }
+                // extend row
+                .ant-table-expanded-row,
+                tr {
+                  .ant-table-cell {
+                    color: $table-color-text;
+                    background: $table-background;
+                    border-bottom: $table-border;
+                    padding: 0 8px;
 
-              // extend icon
-              &.ant-table-row-expand-icon-cell,
-              &.ant-table-cell-with-append {
-                .ant-table-row-expand-icon {
-                  background: $checkbox-background-icon;
-                  color: $checkbox-color;
-                  border: $checkbox-border-icon;
+                    .ant-table-expanded-row-fixed {
+                      margin: 0;
+                      padding: 0;
+
+                      &::after {
+                        border-right: none;
+                      }
+                    }
+                  }
                 }
-              }
-            }
 
-            // selected item
-            &.ant-table-row-selected,
-            &.frc-table-row-active {
-              .ant-table-cell {
-                background: $table-background-active !important;
-                border-bottom: $table-border-title !important;
-              }
+                // empty
+                .ant-table-placeholder {
+                  .ant-table-cell {
+                    border-bottom: none;
+                    background: transparent;
+                    padding: 0;
 
-              .ant-table-cell-row-hover {
-                background: $table-background-hover !important;
-                border-bottom: $table-border-title !important;
-              }
-            }
-          }
-
-          // extend row
-          .ant-table-expanded-row,
-          tr {
-            .ant-table-cell {
-              color: $table-color-text;
-              background: $table-background;
-              border-bottom: $table-border;
-              padding: 0 8px;
-
-              .ant-table-expanded-row-fixed {
-                margin: 0;
-                padding: 0;
-
-                &::after {
-                  border-right: none;
+                    // empty style -> custom
+                    .frc-table-empty {
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      color: $table-color-text-supporting;
+                      // top: 4px;
+                      position: relative;
+                      width: 100%;
+                    }
+                  }
                 }
               }
             }
@@ -211,7 +236,7 @@
 
         // summary
         .ant-table-summary {
-          top: -1px;
+          top: 0px;
           background: $table-background-title;
           box-shadow: none !important;
 
@@ -229,13 +254,13 @@
 
             &:first-child {
               .ant-table-cell {
-                border-top: $table-border-bold;
+                border-top: $table-border;
               }
             }
 
             &:last-child {
               .ant-table-cell {
-                border-bottom: $table-border;
+                border-bottom: $table-border-bold;
               }
             }
 
@@ -246,6 +271,16 @@
             }
           }
         }
+
+        // fixed data
+        .frc-table-fixed-tip {
+          position: absolute;
+          width: 100%;
+          background-color: $words-high-light-tip-80-opacity;
+          z-index: 10000;
+          text-align: center;
+          color: $table-color-text;
+        }
       }
 
       // footer
@@ -254,77 +289,6 @@
         color: $table-color-text;
         border-radius: 0;
         padding: 0 8px;
-      }
-
-      // empty
-      .ant-table-placeholder {
-        .ant-table-cell {
-          border-bottom: none;
-
-          // empty style -> custom
-          .frc-table-empty {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: $table-color-text-supporting;
-            // top: 4px;
-            position: relative;
-            width: 100%;
-          }
-        }
-
-        &:hover {
-          td.ant-table-cell {
-            background: transparent;
-          }
-        }
-      }
-
-      // scroll
-      &.ant-table-scroll-horizontal {
-        colgroup {
-          .ant-table-selection-col {
-            min-width: 36px;
-          }
-        }
-        .ant-table-container {
-          position: relative;
-
-          // fixed data
-          .frc-table-fixed-tip {
-            position: absolute;
-            width: 100%;
-            background-color: $words-high-light-tip-80-opacity;
-            z-index: 10000;
-            text-align: center;
-            color: $table-color-text;
-          }
-
-          // header
-          .ant-table-header {
-            padding-right: 8px;
-            background-color: $table-background-title;
-            border-bottom: $table-border-title;
-          }
-        }
-
-        // summary
-        .ant-table-summary {
-          top: 0px;
-          tr {
-            &:first-child {
-              .ant-table-cell {
-                border-top: $table-border;
-              }
-            }
-
-            &:last-child {
-              .ant-table-cell {
-                border-bottom: $table-border-bold;
-              }
-            }
-          }
-        }
       }
 
       // border
@@ -337,14 +301,9 @@
 
         // container
         .ant-table-container {
-          border-radius: 0;
-          border-left: $table-border;
-
-          .ant-table-content {
+          // header
+          .ant-table-header {
             table {
-              border-top: $table-border;
-
-              // header
               .ant-table-thead {
                 tr {
                   th {
@@ -362,44 +321,49 @@
                   }
                 }
               }
+            }
+          }
 
-              // body
-              .ant-table-tbody {
-                .ant-table-row,
-                .ant-table-expanded-row {
-                  .ant-table-cell {
-                    border-right: $table-border;
+          // body
+          .ant-table-body-box {
+            .ant-table-body {
+              table {
+                .ant-table-tbody {
+                  .ant-table-row,
+                  .ant-table-expanded-row {
+                    .ant-table-cell {
+                      border-right: $table-border;
 
-                    &.ant-table-cell-fix-left {
-                      border-right: $table-border-title;
-                    }
-
-                    &.ant-table-cell-fix-right-first {
-                      &::after {
+                      &.ant-table-cell-fix-left {
                         border-right: $table-border-title;
                       }
-                    }
 
-                    // hover item
-                    &.ant-table-cell-row-hover {
-                      border-right: $table-border-title !important;
+                      &.ant-table-cell-fix-right-first {
+                        &::after {
+                          border-right: $table-border-title;
+                        }
+                      }
+
+                      // hover item
+                      &.ant-table-cell-row-hover {
+                        border-right: $table-border-title !important;
+                      }
+
+                      // last cell
+                      &.frc-table-cell-last {
+                        border-right: $table-border !important;
+                      }
                     }
                   }
 
-                  &:last-child {
-                    .ant-table-cell {
-                      border-bottom: $table-border !important;
-                    }
-                  }
-                }
-
-                // empty
-                .ant-table-placeholder {
-                  td {
-                    border-right: $table-border;
-                    .ant-table-expanded-row-fixed {
-                      &::after {
-                        border-right: none;
+                  // empty
+                  .ant-table-placeholder {
+                    td {
+                      border-right: $table-border;
+                      .ant-table-expanded-row-fixed {
+                        &::after {
+                          border-right: none;
+                        }
                       }
                     }
                   }
@@ -554,54 +518,64 @@
         // container
         .ant-table-container {
           // header
-          .ant-table-thead {
-            tr {
-              th {
-                &.ant-table-cell {
-                  background: $basic-plate;
-                  border-bottom: none;
+          .ant-table-header {
+            background-color: $table-background;
+            border-bottom: none;
+            table {
+              .ant-table-thead {
+                tr {
+                  .ant-table-cell {
+                    background: $basic-plate;
+                    border-bottom: none;
+                  }
                 }
               }
             }
           }
 
           // body
-          .ant-table-tbody {
-            .ant-table-row {
-              &:nth-child(odd) {
-                background: $part-plate;
+          .ant-table-body-box {
+            .ant-table-body {
+              table {
+                .ant-table-tbody {
+                  .ant-table-row {
+                    &:nth-child(odd) {
+                      background: $basic-plate;
 
-                .ant-table-cell {
-                  background: $part-plate;
-                }
-              }
+                      .ant-table-cell {
+                        background: $basic-plate;
+                      }
+                    }
 
-              &:nth-child(even) {
-                background: $basic-plate;
+                    &:nth-child(even) {
+                      background: $part-plate;
 
-                .ant-table-cell {
-                  background: $basic-plate;
-                }
-              }
+                      .ant-table-cell {
+                        background: $part-plate;
+                      }
+                    }
 
-              .ant-table-cell {
-                border-bottom: none;
+                    .ant-table-cell {
+                      border-bottom: none;
 
-                // hover item
-                &.ant-table-cell-row-hover {
-                  border-bottom: none !important;
-                }
-              }
+                      // hover item
+                      &.ant-table-cell-row-hover {
+                        border-bottom: none !important;
+                      }
+                    }
 
-              // selected item
-              &.ant-table-row-selected,
-              &.frc-table-row-active {
-                .ant-table-cell {
-                  border-bottom: none !important;
-                }
+                    // selected item
+                    &.ant-table-row-selected,
+                    &.frc-table-row-active {
+                      .ant-table-cell {
+                        border-bottom: none !important;
+                      }
 
-                .ant-table-cell-row-hover {
-                  border-bottom: none !important;
+                      .ant-table-cell-row-hover {
+                        border-bottom: none !important;
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -681,26 +655,6 @@
 
         // scroll
         &.ant-table-scroll-horizontal {
-          .ant-table-tbody {
-            .ant-table-row {
-              &:nth-child(odd) {
-                background: $basic-plate;
-
-                .ant-table-cell {
-                  background: $basic-plate;
-                }
-              }
-
-              &:nth-child(even) {
-                background: $part-plate;
-
-                .ant-table-cell {
-                  background: $part-plate;
-                }
-              }
-            }
-          }
-
           // border
           &.ant-table-bordered {
             .ant-table-container {
@@ -830,7 +784,6 @@
     }
 
     // size --------------------------------------------------------------------------------------------------
-
     // row bg type default
     &.frc-row-bg-type-default {
       // small
@@ -1033,8 +986,8 @@
   }
 
   .frc-table-scroll-bar {
-    width: 100%;
-    height: 10px;
+    width: calc(100% - 8px);
+    height: 9px;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -1043,15 +996,17 @@
     overflow: scroll hidden;
     box-sizing: border-box;
     .frc-table-scroll-bar-inner {
-      height: 1px;
-      width: 1500px;
+      height: 1px; // 占位
     }
   }
 
   // borderd
   &.frc-table-borderd {
+    // scroll
     .frc-table-scroll-bar {
       border: $table-border;
+      border-top: none;
+      border-right: none;
     }
   }
 }
@@ -1196,10 +1151,8 @@
 
 // scrollbar --------------------------------------------------------------------------------------------
 
-.frc-table-container,
 .frc-table-scroll-bar,
 .ant-table-body-box {
-  position: relative;
   // 控制整个滚动条
   &::-webkit-scrollbar {
     width: 8px;
@@ -1231,19 +1184,3 @@
     display: none;
   }
 }
-
-// 虚拟滚动 - x 轴滚动条
-.frc-table-scroll-bar {
-  &::-webkit-scrollbar-track {
-    // border-top: $table-border;
-  }
-}
-
-// 虚拟滚动 - y 轴滚动条
-.ant-table-body-box {
-  &::-webkit-scrollbar-track {
-    // border-left: $table-border;
-  }
-}
-
-// ------------------------------------------------------------------------------------------------------

@@ -36,11 +36,6 @@ import {
   BackwardOutlined,
 } from "@ant-design/icons";
 
-import {
-  ItemRender,
-  replaceIcon as PaginationReplaceIcon,
-} from "../Pagination/pagination";
-
 import { Icon } from "../../index";
 
 export type FilterValue = (React.Key | boolean)[];
@@ -343,18 +338,18 @@ export interface TableLocaleProps extends TableLocale {
 }
 
 export interface FRCTableProps extends Omit<TableProps<RecordType>, "columns"> {
-  /** 虚拟 dom */
-  virtualDom?: boolean;
+  /** 表格高度 */
+  height?: number | string;
   /** 是否展示外边框和列边框 */
   bordered?: boolean;
   /** 固定列外边框激活样式（bordered = true 时起效） */
   borderedActiveFixed?: "normal" | "bold";
   /** 表格列的配置描述，配置项，具体项见下表 */
-  columns?: ColumnsTypeProps[];
+  columns: ColumnsTypeProps[];
   /** 覆盖默认的 table 元素 -> 细节参数请查阅 antd 文档 */
   components?: TableComponents<RecordType>;
   /** 数据数组 */
-  dataSource?: object[];
+  dataSource: object[];
   /** 配置展开属性，配置项，具体项见下表 */
   expandable?: ExpandableProps;
   /** 表格尾部 */
@@ -365,8 +360,6 @@ export interface FRCTableProps extends Omit<TableProps<RecordType>, "columns"> {
   loading?: boolean | SpinProps;
   /** 默认文案配置项，具体项见下表。目前包括排序、过滤、空数据文案 */
   locale?: TableLocaleProps;
-  /** 分页器，部分可参考配置项，如下表。或 pagination 文档，设为 false 时不展示和进行分页 */
-  pagination?: PaginationConfig | false;
   /** 表格行背景色类型 */
   rowBgType?: "default" | "cross";
   /** 开启 表格首行 背景色渐变动效（dataSource 改变时触发） */
@@ -434,11 +427,9 @@ export interface FRCTableProps extends Omit<TableProps<RecordType>, "columns"> {
     record?: RecordType,
     index?: number
   ) => React.HTMLAttributes<any> | React.TdHTMLAttributes<any>;
-  /** 滚动至底部加载 */
-  onScrollEnd?: () => void;
 }
 
-const EmptyNode = (props: { height: number }) => {
+const EmptyNode = (props: { height: number | string }) => {
   const { height } = props;
   return (
     <div className="frc-table-empty" style={{ height: height }}>
@@ -450,12 +441,11 @@ const EmptyNode = (props: { height: number }) => {
 export const Table: FC<FRCTableProps> = (props) => {
   const {
     className,
-    virtualDom,
+    height,
     dataSource,
     bordered,
     borderedActiveFixed,
     loading,
-    pagination,
     locale,
     rowBgType,
     headerSize,
@@ -467,7 +457,6 @@ export const Table: FC<FRCTableProps> = (props) => {
     rowSelection,
     columns,
     children,
-    onScrollEnd,
     ...restProps
   } = props;
 
@@ -497,27 +486,10 @@ export const Table: FC<FRCTableProps> = (props) => {
 
   const ref = useRef<any>(null);
 
-  const onScrollHandle = () => {
-    if (ref.current && onScrollEnd) {
-      // 获取表格 dom 元素
-      const tableNode = ref.current?.querySelector(".ant-table-body-box");
-      // 容器可视区高度
-      const tableNodeHeight = tableNode?.clientHeight;
-      // 内容高度
-      const contentHeight = tableNode?.scrollHeight;
-      // 距离顶部的高度
-      const toTopHeight = tableNode?.scrollTop;
-
-      if (contentHeight - (toTopHeight + tableNodeHeight) < 0.5) {
-        onScrollEnd(); // 打接口
-      }
-    }
-  };
-
   // ---------------------------------------------------------------------
 
   useEffect(() => {
-    if (ref.current && virtualDom) {
+    if (ref.current) {
       const containerNode = ref.current.querySelector(".ant-table-container");
 
       // 获取 table header 高度
@@ -530,7 +502,7 @@ export const Table: FC<FRCTableProps> = (props) => {
       // 设置滚动 box 属性
       newTableBody.className = "ant-table-body-box";
       newTableBody.appendChild(oldTableBody);
-      newTableBody.style.height = `calc(100% - ${headerHeight + 8}px)`;
+      newTableBody.style.height = `calc(100% - ${headerHeight + 9}px)`;
       newTableBody.style.overflow = "hidden scroll";
 
       oldTableBody.addEventListener("scroll", onScrollSimulationY); // x轴添加滚动事件
@@ -538,13 +510,11 @@ export const Table: FC<FRCTableProps> = (props) => {
 
       containerNode.appendChild(newTableBody);
 
-      if (tableWidthInner !== 0) {
+      onWindowResize(ref.current, headerHeight);
+      // 设定监听事件
+      window.addEventListener("resize", () => {
         onWindowResize(ref.current, headerHeight);
-        // 设定监听事件
-        window.addEventListener("resize", () => {
-          onWindowResize(ref.current, headerHeight);
-        });
-      }
+      });
     }
   }, [ref]);
 
@@ -564,33 +534,33 @@ export const Table: FC<FRCTableProps> = (props) => {
   }, [rowSize, dataSource]);
 
   useEffect(() => {
-    if (ref.current && virtualDom) {
+    if (ref.current && dataSource.length > 0) {
       const innerNode = ref.current?.querySelector(".ant-table-body");
       innerNode.style.height = totalHeight + "px";
       innerNode.style.paddingTop = hiddenTopStyle + "px";
     }
-  }, [hiddenTopStyle, virtualDom, totalHeight]);
+  }, [hiddenTopStyle, totalHeight, dataSource]);
 
   const onScrollSimulationX = () => {
-    if (ref.current && virtualDom) {
+    if (ref.current) {
       const tableNode = ref.current; // 最外层容器（y轴滚动条）
       const xScrollNode = tableNode.querySelector(".frc-table-scroll-bar"); // x 轴滚动条 node
       const realXScrollNode = tableNode.querySelector(".ant-table-body"); // x 轴滚动条 node
       if (xScrollNode) {
-        realXScrollNode.scrollLeft = xScrollNode.scrollLeft;
+        realXScrollNode.scrollLeft = xScrollNode?.scrollLeft;
       }
     }
   };
 
   const onScrollSimulationY = () => {
-    if (ref.current && virtualDom) {
+    if (ref.current) {
       const tableNode = ref.current.querySelector(".ant-table-body-box"); // 最外层容器
       const scrollTop = tableNode.scrollTop; // 滚动条距离顶部的高度
       const xScrollNode = ref.current.querySelector(".frc-table-scroll-bar"); // x 轴滚动条 node
       const realXScrollNode = tableNode.querySelector(".ant-table-body"); // x 轴滚动条 node
 
       if (xScrollNode && !fixedYScroll) {
-        xScrollNode.scrollLeft = realXScrollNode.scrollLeft;
+        xScrollNode.scrollLeft = realXScrollNode?.scrollLeft;
       }
 
       // 计算表格头部所占用的高度
@@ -645,7 +615,7 @@ export const Table: FC<FRCTableProps> = (props) => {
   const onWindowResize = (node: HTMLDivElement, headerHeight: number) => {
     const width = node?.clientWidth;
 
-    const tableBody = node.querySelector(
+    const tableBody = node?.querySelector(
       ".ant-table-body-box"
     ) as HTMLDivElement;
 
@@ -654,7 +624,7 @@ export const Table: FC<FRCTableProps> = (props) => {
         tableBody.style.height = `calc(100% - ${headerHeight}px)`;
         setShowXScroll(false);
       } else {
-        tableBody.style.height = `calc(100% - ${headerHeight + 8}px)`;
+        tableBody.style.height = `calc(100% - ${headerHeight + 9}px)`;
         setShowXScroll(true);
       }
     }
@@ -716,7 +686,7 @@ export const Table: FC<FRCTableProps> = (props) => {
         return React.cloneElement(childElement);
       }
 
-      if (childElement.props && virtualDom) {
+      if (childElement.props) {
         const width = Number(
           (childElement.props.width || 0).toString().match(/\d+/i)?.[0]
         );
@@ -756,7 +726,7 @@ export const Table: FC<FRCTableProps> = (props) => {
         return column;
       }
 
-      if (column.width && virtualDom) {
+      if (column.width) {
         const width = Number(column.width.toString().match(/\d+/i)?.[0]);
         tableWidthInner += width;
       }
@@ -788,40 +758,30 @@ export const Table: FC<FRCTableProps> = (props) => {
       return { ...column, ...columnProps };
     });
 
-    // if (tableWidthInner !== 0 && virtualDom && ref.current) {
-    //   const tableNode = ref.current.querySelector(".ant-table-body table");
-    //   tableNode.style.width = tableWidthInner;
-    // }
-
     return newColumns;
   };
 
-  // pagination ----------------------------------------------------------
+  // empty ----------------------------------------------------------
 
   // Pagination pre next icon replace render
-  const PaginationRenderPreNext: ItemRender = (page, type, oe: any) => {
-    let node: React.ReactNode;
-    switch (type) {
-      case "prev":
-        node = React.cloneElement(oe, undefined, <CaretLeftOutlined />);
-        break;
-      case "next":
-        node = React.cloneElement(oe, undefined, <CaretRightOutlined />);
-        break;
-      case "jump-prev":
-        node = PaginationReplaceIcon(oe, BackwardOutlined);
-        break;
-      case "jump-next":
-        node = PaginationReplaceIcon(oe, ForwardOutlined);
-        break;
-      default:
-        node = oe;
-        break;
+  const calEmptyHeight = (tableHeight: string | number) => {
+    if (ref.current && tableHeight) {
+      const headerHeight =
+        ref.current.querySelector(".ant-table-header")?.clientHeight;
+
+      if (typeof tableHeight === "number") {
+        return tableHeight - headerHeight - 10;
+      }
+
+      if (tableHeight.indexOf("calc") !== -1) {
+        return `calc(${tableHeight} - ${headerHeight}px - 10px)`;
+      }
+
+      const heightNumber = Number(tableHeight.toString().match(/\d+/i)?.[0]);
+      return heightNumber - headerHeight - 10;
     }
-    if (pagination && typeof pagination.itemRender === "function") {
-      return pagination.itemRender(page, type, node);
-    }
-    return node;
+
+    return tableHeight;
   };
 
   const options = {
@@ -847,20 +807,14 @@ export const Table: FC<FRCTableProps> = (props) => {
           }
         : loading
       : false,
-    pagination:
-      typeof pagination === "boolean"
-        ? pagination
-        : {
-            ...pagination,
-            itemRender: PaginationRenderPreNext,
-          },
+    pagination: false,
     locale: {
       ...locale,
       emptyText:
         locale && locale.emptyText ? (
           locale.emptyText
         ) : (
-          <EmptyNode height={locale?.emptyHeight || 200} />
+          <EmptyNode height={calEmptyHeight(height as string | number)} />
         ),
     },
     rowClassName: (record: RecordType, index: number) => {
@@ -889,8 +843,8 @@ export const Table: FC<FRCTableProps> = (props) => {
   return (
     <div
       ref={ref}
-      onScrollCapture={onScrollHandle}
       className={`frc-table-container${bordered ? " frc-table-borderd" : ""}`}
+      style={{ height: height }}
     >
       <AntdTable {...options} />
       {showXScroll && (
@@ -899,7 +853,6 @@ export const Table: FC<FRCTableProps> = (props) => {
           onMouseDown={() => setFixedYScroll(true)}
           onMouseUp={() => setFixedYScroll(false)}
           onScrollCapture={onScrollSimulationX}
-          // style={{ border: borderd ? '' }}
         >
           <div
             className="frc-table-scroll-bar-inner"
@@ -914,10 +867,9 @@ export const Table: FC<FRCTableProps> = (props) => {
 // normal
 Table.defaultProps = {
   size: "small",
+  height: 300,
   rowBgType: "default",
-  pagination: false,
   scroll: { x: "infinite", y: "infinite" },
-  virtualDom: true,
 };
 
 export default Table;
