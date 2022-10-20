@@ -338,6 +338,8 @@ export interface TableLocaleProps extends TableLocale {
 }
 
 export interface FRCTableProps extends Omit<TableProps<RecordType>, "columns"> {
+  /** 测试 api */
+  test?: boolean;
   /** 表格高度 */
   height?: number | string;
   /** 是否展示外边框和列边框 */
@@ -376,12 +378,6 @@ export interface FRCTableProps extends Omit<TableProps<RecordType>, "columns"> {
   rowKey?: string | ((record: RecordType) => string);
   /** 表格行是否可选择，配置项，具体项见下表 */
   rowSelection?: RowSelectionProps;
-  /** 表格是否可滚动，也可以指定滚动区域的宽、高，配置项 */
-  scroll?: {
-    x?: number | true | string;
-    y?: number | string;
-    scrollToFirstRowOnChange?: boolean;
-  };
   /** 是否显示表头 */
   showHeader?: boolean;
   /** 表头是否显示下一次排序的 tooltip 提示。当参数类型为对象时，将被设置为 Tooltip 的属性 */
@@ -440,10 +436,13 @@ const EmptyNode = (props: { height: number | string }) => {
 
 export const Table: FC<FRCTableProps> = (props) => {
   const {
+    test,
     className,
     height,
+    size = "small",
     dataSource,
     bordered,
+    summary,
     borderedActiveFixed,
     loading,
     locale,
@@ -496,13 +495,17 @@ export const Table: FC<FRCTableProps> = (props) => {
       const headerNode = containerNode.querySelector(".ant-table-header");
       const headerHeight = headerNode.clientHeight;
 
+      // 补足 header width
+      fillHeaderWidth(headerNode);
+
       const oldTableBody = containerNode.querySelector(".ant-table-body");
       const newTableBody = document.createElement("div");
 
       // 设置滚动 box 属性
       newTableBody.className = "ant-table-body-box";
       newTableBody.appendChild(oldTableBody);
-      newTableBody.style.height = `calc(100% - ${headerHeight + 9}px)`;
+
+      // newTableBody.style.height = `calc(100% - ${headerHeight + 9}px)`;
       newTableBody.style.overflow = "hidden scroll";
 
       oldTableBody.addEventListener("scroll", onScrollSimulationY); // x轴添加滚动事件
@@ -515,8 +518,42 @@ export const Table: FC<FRCTableProps> = (props) => {
       window.addEventListener("resize", () => {
         onWindowResize(ref.current, headerHeight);
       });
+
+      // 设置 scroll 高度
+      calHeaderHeight(containerNode, newTableBody);
     }
   }, [ref]);
+
+  const calHeaderHeight = async (boxNode: any, bodyNode: any) => {
+    const heightNode = await boxNode.querySelector(".ant-table-header");
+
+    if (height) {
+      bodyNode.style.height = `calc(100% - ${heightNode.clientHeight + 9}px)`;
+    }
+  };
+
+  const fillHeaderWidth = async (node: any) => {
+    // col
+    const headerColgroupNode = await node.querySelector("colgroup");
+
+    if (headerColgroupNode) {
+      const oldWidth = headerColgroupNode.lastChild.style.width;
+      headerColgroupNode.lastChild.style.width =
+        Number(oldWidth.toString().match(/\d+/i)?.[0]) + 8 + "px";
+    }
+
+    // fixed right
+    const fixedRightHeader = await node.querySelectorAll(
+      ".ant-table-cell-fix-right:not(.frc-table-cell-last)"
+    );
+
+    if (fixedRightHeader.length > 0) {
+      fixedRightHeader.forEach((item: any) => {
+        item.style.right =
+          Number(item.style.right.toString().match(/\d+/i)?.[0]) + 8 + "px";
+      });
+    }
+  };
 
   // virtual -------------------------------------------------------------
 
@@ -582,12 +619,11 @@ export const Table: FC<FRCTableProps> = (props) => {
       // ----------------------------------------------------
 
       [...(dataSource || [])]?.forEach((item, index) => {
-        const rowHeight = 24; // 每行高度
+        const rowHeight = size === "small" ? 24 : size === "middle" ? 32 : 48; // 每行高度
         totalHeight += rowHeight;
         if (currentStep === 0) {
           if (totalHeight >= scrollTop - OFFSET_VERTICAL) {
             // 偏移量 起始 0 - 120，随后根据 DEFAULT_ROW_HEIGHT 为基点偏移，本例子为 32px
-            // console.log("in-start", totalHeight, scrollTop - OFFSET_VERTICAL);
             // 根据 scrollTop 算出可视区域起始行号
             rowSizeNow[0] = index;
             currentStep += 1;
@@ -761,7 +797,7 @@ export const Table: FC<FRCTableProps> = (props) => {
     return newColumns;
   };
 
-  // empty ----------------------------------------------------------
+  // empty ---------------------------------------------------------------
 
   // Pagination pre next icon replace render
   const calEmptyHeight = (tableHeight: string | number) => {
@@ -786,6 +822,7 @@ export const Table: FC<FRCTableProps> = (props) => {
 
   const options = {
     className: classes,
+    size,
     bordered,
     dataSource:
       virtualData.length > 0
@@ -836,6 +873,8 @@ export const Table: FC<FRCTableProps> = (props) => {
     rowSelection,
     columns: columns ? renderColumns(columns) : columns,
     children: children ? renderChildren(children) : children,
+    scroll: { x: "infinite", y: "infinite" },
+    summary,
     ...restProps,
   } as TableProps<RecordType>;
 
@@ -869,7 +908,6 @@ Table.defaultProps = {
   size: "small",
   height: 300,
   rowBgType: "default",
-  scroll: { x: "infinite", y: "infinite" },
 };
 
 export default Table;

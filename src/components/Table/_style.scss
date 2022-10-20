@@ -49,7 +49,7 @@
 
         // header
         .ant-table-header {
-          padding-right: 8px;
+          // padding-right: 8px;
           background-color: $table-background-title;
           border-bottom: $table-border-title;
 
@@ -301,13 +301,23 @@
 
         // container
         .ant-table-container {
+          border: $table-border;
+          border-radius: 0;
+
           // header
           .ant-table-header {
+            border-bottom: none;
             table {
+              border-top: $table-border;
               .ant-table-thead {
                 tr {
-                  th {
+                  .ant-table-cell {
                     border-right: $table-border-title;
+                    border-bottom: $table-border-title;
+
+                    &.ant-table-cell-scrollbar {
+                      border-right: none;
+                    }
 
                     &.ant-table-cell-fix-right-first {
                       &::after {
@@ -317,6 +327,27 @@
 
                     &.frc-table-cell-last {
                       border-right: $table-border;
+                    }
+                  }
+                }
+              }
+
+              // summary
+              .ant-table-summary {
+                border-top: $table-border-title;
+                tr {
+                  .ant-table-cell {
+                    border-right: $table-border-title;
+
+                    &:last-child {
+                      border-right: none;
+                      right: 0px !important;
+                    }
+
+                    &.ant-table-cell-fix-right {
+                      &::after {
+                        border-right: $table-border-title;
+                      }
                     }
                   }
                 }
@@ -334,7 +365,9 @@
                     .ant-table-cell {
                       border-right: $table-border;
 
-                      &.ant-table-cell-fix-left {
+                      &.ant-table-cell-fix-left,
+                      &.ant-table-cell-fix-left-last,
+                      &.ant-table-cell-fix-right {
                         border-right: $table-border-title;
                       }
 
@@ -344,14 +377,14 @@
                         }
                       }
 
+                      // last cell
+                      &.frc-table-cell-last {
+                        border-right: $table-border;
+                      }
+
                       // hover item
                       &.ant-table-cell-row-hover {
                         border-right: $table-border-title !important;
-                      }
-
-                      // last cell
-                      &.frc-table-cell-last {
-                        border-right: $table-border !important;
                       }
                     }
                   }
@@ -377,108 +410,6 @@
         .ant-table-footer {
           border: $table-border;
           border-top: none;
-        }
-
-        // summary
-        .ant-table-summary {
-          tr {
-            .ant-table-cell {
-              border-right: $table-border-title;
-
-              &:last-child {
-                border-right: none;
-              }
-
-              &.ant-table-cell-fix-right {
-                &::after {
-                  border-right: $table-border-title;
-                }
-              }
-            }
-          }
-        }
-
-        // scroll
-        &.ant-table-scroll-horizontal {
-          .ant-table-container {
-            border: $table-border;
-            border-radius: 0;
-
-            // header
-            .ant-table-header {
-              table {
-                border-top: $table-border;
-
-                .ant-table-thead {
-                  tr {
-                    th {
-                      border-right: $table-border-title;
-
-                      &.ant-table-cell-scrollbar {
-                        border-right: none;
-                      }
-
-                      // fixed right
-                      &.ant-table-cell-fix-right-first {
-                        &::after {
-                          border-right: $table-border-title;
-                        }
-                      }
-
-                      &.frc-table-cell-last {
-                        border-right: $table-border-title;
-                      }
-                    }
-                  }
-                }
-
-                // summary
-                .ant-table-summary {
-                  tr {
-                    .ant-table-cell {
-                      &.ant-table-cell-fix-right {
-                        &::before {
-                          content: "";
-                          width: 1px;
-                          height: 100%;
-                          border-right: $table-border-title;
-                          position: absolute;
-                          right: 8px;
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-
-            // body
-            .ant-table-body {
-              table {
-                tbody {
-                  tr {
-                    td {
-                      border-right: $table-border;
-
-                      // fixed left
-                      &.ant-table-cell-fix-left,
-                      &.ant-table-cell-fix-left-last,
-                      &.ant-table-cell-fix-right {
-                        border-right: $table-border-title;
-                      }
-
-                      // fixed right
-                      &.ant-table-cell-fix-right-first {
-                        &::after {
-                          border-right: $table-border-title;
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
         }
 
         // empty
@@ -596,104 +527,46 @@
 
           // container
           .ant-table-container {
-            .ant-table-content {
-              // header
-              .ant-table-thead {
-                tr {
-                  th {
-                    border-right: $table-border;
-                  }
-                  &:not(:first-child) {
-                    .ant-table-cell {
-                      border-top: $table-border;
-                    }
-                  }
-                }
-              }
-
-              // body
-              .ant-table-tbody {
-                .ant-table-row {
-                  &:nth-child(odd) {
-                    .ant-table-cell {
-                      border-right: $table-border-title;
-
-                      &:last-child {
-                        border-right: $table-border;
-                      }
-
-                      &.ant-table-cell-fix-right-first {
-                        &::after {
-                          border-right: $table-border-title;
-                        }
-                      }
-                    }
-                  }
-
-                  &:nth-child(even) {
+            border-bottom: $table-border;
+            // header
+            .ant-table-header {
+              table {
+                border-top: none;
+                .ant-table-thead {
+                  tr {
                     .ant-table-cell {
                       border-right: $table-border;
+
+                      &.ant-table-cell-scrollbar {
+                        border-right: none;
+                      }
 
                       &.ant-table-cell-fix-right-first {
                         &::after {
                           border-right: $table-border;
                         }
                       }
-                    }
-                  }
 
-                  &:last-child {
-                    .ant-table-cell {
-                      border-bottom: $table-border !important;
+                      &.frc-table-cell-last {
+                        border-right: $table-border-title;
+                      }
+                    }
+
+                    &:not(:first-child) {
+                      .ant-table-cell {
+                        border-top: $table-border;
+                      }
                     }
                   }
                 }
               }
             }
-          }
-        }
 
-        // scroll
-        &.ant-table-scroll-horizontal {
-          // border
-          &.ant-table-bordered {
-            .ant-table-container {
-              border-bottom: $table-border;
-
-              // header
-              .ant-table-header {
-                table {
-                  border-top: none;
-
-                  .ant-table-thead {
-                    tr {
-                      th {
-                        border-right: $table-border;
-
-                        &.ant-table-cell-scrollbar {
-                          border-right: none;
-                        }
-
-                        &.ant-table-cell-fix-right-first {
-                          &::after {
-                            border-right: $table-border;
-                          }
-                        }
-                      }
-
-                      &:not(:first-child) {
-                        .ant-table-cell {
-                          border-top: $table-border;
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-
-              // body
+            // body
+            .ant-table-body-box {
               .ant-table-body {
                 table {
+                  // body
                   .ant-table-tbody {
                     .ant-table-row {
                       &:nth-child(odd) {
@@ -717,6 +590,20 @@
                               border-right: $table-border-title;
                             }
                           }
+                        }
+                      }
+
+                      .ant-table-cell {
+                        // last cell
+                        &.frc-table-cell-last,
+                        &.frc-table-cell-last.ant-table-cell-fix-right {
+                          border-right: $table-border;
+                        }
+                      }
+
+                      &:last-child {
+                        .ant-table-cell {
+                          border-bottom: $table-border !important;
                         }
                       }
                     }
@@ -877,6 +764,7 @@
         z-index: 1000;
         .frc-table-loading {
           &.icon-spin {
+            top: 52%;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -885,9 +773,10 @@
         }
 
         .ant-spin-text {
+          left: -4px;
+          padding-top: 0;
           color: $basic-btn;
           text-shadow: none;
-          left: 4px;
         }
       }
 
@@ -1008,6 +897,25 @@
       border-top: none;
       border-right: none;
     }
+
+    // mask block
+    .frc-table-mask-block {
+      border-bottom: none;
+      top: 1px;
+      right: 1px;
+    }
+  }
+
+  // mask block
+  .frc-table-mask-block {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #fff;
+    width: 8px;
+    background: $table-background-title;
+    border-bottom: $table-border-title;
+    box-sizing: border-box;
   }
 }
 
