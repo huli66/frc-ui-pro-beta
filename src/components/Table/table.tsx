@@ -491,12 +491,8 @@ export const Table: FC<FRCTableProps> = (props) => {
     if (ref.current) {
       const containerNode = ref.current.querySelector(".ant-table-container");
 
-      // 获取 table header 高度
-      const headerNode = containerNode.querySelector(".ant-table-header");
-      const headerHeight = headerNode.clientHeight;
-
       // 补足 header width
-      fillHeaderWidth(headerNode);
+      fillHeaderWidth(containerNode);
 
       const oldTableBody = containerNode.querySelector(".ant-table-body");
       const newTableBody = document.createElement("div");
@@ -505,36 +501,35 @@ export const Table: FC<FRCTableProps> = (props) => {
       newTableBody.className = "ant-table-body-box";
       newTableBody.appendChild(oldTableBody);
 
+      // summary bottom
+      reInsertSummary(containerNode);
+
       // newTableBody.style.height = `calc(100% - ${headerHeight + 9}px)`;
       newTableBody.style.overflow = "hidden scroll";
 
       oldTableBody.addEventListener("scroll", onScrollSimulationY); // x轴添加滚动事件
       newTableBody.addEventListener("scroll", onScrollSimulationY); // y轴添加滚动事件
 
+      console.log("in-fin---------------------------");
       containerNode.appendChild(newTableBody);
 
-      onWindowResize(ref.current, headerHeight);
+      onWindowResize(containerNode, newTableBody);
       // 设定监听事件
       window.addEventListener("resize", () => {
-        onWindowResize(ref.current, headerHeight);
+        onWindowResize(containerNode, newTableBody);
       });
 
       // 设置 scroll 高度
-      calHeaderHeight(containerNode, newTableBody);
+      // calHeaderHeight(containerNode, newTableBody);
     }
   }, [ref]);
 
-  const calHeaderHeight = async (boxNode: any, bodyNode: any) => {
-    const heightNode = await boxNode.querySelector(".ant-table-header");
-
-    if (height) {
-      bodyNode.style.height = `calc(100% - ${heightNode.clientHeight + 9}px)`;
-    }
-  };
-
-  const fillHeaderWidth = async (node: any) => {
+  const fillHeaderWidth = async (boxNode: any) => {
+    console.log("in0");
+    // 获取 table header 高度
+    const headerNode = await boxNode.querySelector(".ant-table-header");
     // col
-    const headerColgroupNode = await node.querySelector("colgroup");
+    const headerColgroupNode = headerNode.querySelector("colgroup");
 
     if (headerColgroupNode) {
       const oldWidth = headerColgroupNode.lastChild.style.width;
@@ -543,15 +538,90 @@ export const Table: FC<FRCTableProps> = (props) => {
     }
 
     // fixed right
-    const fixedRightHeader = await node.querySelectorAll(
-      ".ant-table-cell-fix-right:not(.frc-table-cell-last)"
+    const fixedRightHeader = await headerNode.querySelectorAll(
+      ".ant-table-cell-fix-right"
     );
 
     if (fixedRightHeader.length > 0) {
       fixedRightHeader.forEach((item: any) => {
-        item.style.right =
-          Number(item.style.right.toString().match(/\d+/i)?.[0]) + 8 + "px";
+        if (item.style.right !== "0px") {
+          item.style.right =
+            Number(item.style.right.toString().match(/\d+/i)?.[0]) + 8 + "px";
+        }
       });
+    }
+  };
+
+  const reInsertSummary = async (boxNode: any) => {
+    console.log("in1");
+    const bottomSummary = await boxNode.querySelector(
+      ".ant-table-container > .ant-table-summary"
+    );
+
+    if (bottomSummary) {
+      // col
+      const colgroupNode = bottomSummary.querySelector("colgroup");
+      const oldLastColWidth = colgroupNode.lastElementChild.style.width;
+
+      colgroupNode.lastElementChild.style.width =
+        Number(oldLastColWidth.toString().match(/\d+/i)?.[0]) + 8 + "px";
+
+      // fixed right
+      const fixedRightSummary = await bottomSummary.querySelectorAll(
+        ".ant-table-cell-fix-right"
+      );
+
+      if (fixedRightSummary.length > 0) {
+        fixedRightSummary.forEach((item: any) => {
+          if (item.style.right !== "0px") {
+            item.style.right =
+              Number(item.style.right.toString().match(/\d+/i)?.[0]) + 8 + "px";
+          }
+        });
+      }
+
+      boxNode.appendChild(bottomSummary);
+    }
+  };
+
+  const onWindowResize = async (boxNode: any, bodyNode: any) => {
+    console.log("in2");
+
+    const heightNode = await boxNode.querySelector(".ant-table-header");
+    const width = boxNode?.clientWidth;
+
+    const summaryNode = boxNode.querySelector(
+      ".ant-table-container > .ant-table-summary"
+    );
+
+    if (width) {
+      if (width >= tableWidthInner) {
+        bodyNode.style.height = `calc(100% - ${
+          heightNode.clientHeight + (summaryNode?.clientHeight || 0)
+        }px)`;
+        setShowXScroll(false);
+      } else {
+        bodyNode.style.height = `calc(100% - ${
+          heightNode.clientHeight + (summaryNode?.clientHeight || 0) + 9
+        }px)`;
+        setShowXScroll(true);
+      }
+    }
+  };
+
+  const calHeaderHeight = async (boxNode: any, bodyNode: any) => {
+    console.log("in3");
+
+    const heightNode = await boxNode.querySelector(".ant-table-header");
+
+    const summaryNode = boxNode.querySelector(
+      ".ant-table-container > .ant-table-summary"
+    );
+
+    if (height) {
+      bodyNode.style.height = `calc(100% - ${
+        heightNode.clientHeight + (summaryNode?.clientHeight || 0) + 9
+      }px)`;
     }
   };
 
@@ -644,24 +714,6 @@ export const Table: FC<FRCTableProps> = (props) => {
         setRowSize(rowSizeNow);
         setHiddenTopStyle(hiddenTopHeight);
         setTotalHeight(totalHeight);
-      }
-    }
-  };
-
-  const onWindowResize = (node: HTMLDivElement, headerHeight: number) => {
-    const width = node?.clientWidth;
-
-    const tableBody = node?.querySelector(
-      ".ant-table-body-box"
-    ) as HTMLDivElement;
-
-    if (width) {
-      if (width >= tableWidthInner) {
-        tableBody.style.height = `calc(100% - ${headerHeight}px)`;
-        setShowXScroll(false);
-      } else {
-        tableBody.style.height = `calc(100% - ${headerHeight + 9}px)`;
-        setShowXScroll(true);
       }
     }
   };

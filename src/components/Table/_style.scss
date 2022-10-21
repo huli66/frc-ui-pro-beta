@@ -234,7 +234,7 @@
           }
         }
 
-        // summary
+        // top summary
         .ant-table-summary {
           top: 0px;
           background: $table-background-title;
@@ -267,6 +267,37 @@
             &:hover {
               .ant-table-cell {
                 background: $table-background-hover !important;
+              }
+            }
+          }
+        }
+
+        // bottom summary
+        & > .ant-table-summary {
+          top: -1px;
+          border-top: $table-border-bold;
+          table {
+            .ant-table-summary {
+              tr {
+                .ant-table-cell {
+                  border-right: $table-border-title;
+
+                  &.ant-table-cell-fix-right-first {
+                    &::after {
+                      border-right: $table-border-title;
+                    }
+                  }
+
+                  &:last-child {
+                    border-right: $table-border;
+                  }
+                }
+
+                &:last-child {
+                  .ant-table-cell {
+                    border-bottom: none;
+                  }
+                }
               }
             }
           }
@@ -679,6 +710,36 @@
           $table-small-line-height,
           $table-small-empty-top
         );
+
+        .ant-table-container {
+          // body
+          .ant-table-body-box {
+            .ant-table-body {
+              table {
+                .ant-table-tbody {
+                  .ant-table-row {
+                    .ant-table-cell {
+                      // combin component
+
+                      // select
+                      .frc-select-container {
+                        .frc-select {
+                          .ant-select-selector {
+                            &::after,
+                            .ant-select-selection-search,
+                            .ant-select-selection-item {
+                              line-height: 21px !important;
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
 
       // middle

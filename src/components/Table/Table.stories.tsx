@@ -949,10 +949,10 @@ export const _AG_FixledCloumnsComponent = () => {
   return (
     <>
       <ImportCode code={code} />
-      <Table bordered columns={columns} dataSource={data} />
-      <Table bordered rowBgType="cross" columns={columns} dataSource={data} />
-      <Table bordered size="middle" columns={columns} dataSource={data} />
-      <Table bordered size="large" columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={data} />
+      <Table rowBgType="cross" columns={columns} dataSource={data} />
+      <Table size="middle" columns={columns} dataSource={data} />
+      <Table size="large" columns={columns} dataSource={data} />
     </>
   );
 };
@@ -1018,6 +1018,7 @@ export const _AH_SummaryComponent = () => {
       key: "phone",
       dataIndex: "phone",
       width: "200px",
+      fixed: "right",
     },
     {
       title: "Description",
@@ -1290,7 +1291,54 @@ export const _AH_SummaryComponent = () => {
             </Table.Summary>
           );
         }}
-        test={true}
+      />
+
+      <Table
+        bordered
+        columns={columns}
+        dataSource={data}
+        summary={() => {
+          return (
+            <Table.Summary fixed="bottom">
+              <Table.Summary.Row>
+                <Table.Summary.Cell index={0}>top1</Table.Summary.Cell>
+                <Table.Summary.Cell index={1}>2</Table.Summary.Cell>
+                <Table.Summary.Cell index={2}>
+                  This is a summary content
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={3}>5</Table.Summary.Cell>
+                <Table.Summary.Cell index={4}>6</Table.Summary.Cell>
+                <Table.Summary.Cell index={5}>7</Table.Summary.Cell>
+                <Table.Summary.Cell index={6}>8</Table.Summary.Cell>
+                <Table.Summary.Cell index={7}>end</Table.Summary.Cell>
+              </Table.Summary.Row>
+              <Table.Summary.Row>
+                <Table.Summary.Cell index={0}>top2</Table.Summary.Cell>
+                <Table.Summary.Cell index={1}>2</Table.Summary.Cell>
+                <Table.Summary.Cell index={2}>
+                  This is a summary content
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={3}>5</Table.Summary.Cell>
+                <Table.Summary.Cell index={4}>6</Table.Summary.Cell>
+                <Table.Summary.Cell index={5}>7</Table.Summary.Cell>
+                <Table.Summary.Cell index={6}>8</Table.Summary.Cell>
+                <Table.Summary.Cell index={7}>end</Table.Summary.Cell>
+              </Table.Summary.Row>
+              <Table.Summary.Row>
+                <Table.Summary.Cell index={0}>top3</Table.Summary.Cell>
+                <Table.Summary.Cell index={1}>2</Table.Summary.Cell>
+                <Table.Summary.Cell index={2}>
+                  This is a summary content
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={3}>5</Table.Summary.Cell>
+                <Table.Summary.Cell index={4}>6</Table.Summary.Cell>
+                <Table.Summary.Cell index={5}>7</Table.Summary.Cell>
+                <Table.Summary.Cell index={6}>8</Table.Summary.Cell>
+                <Table.Summary.Cell index={7}>end</Table.Summary.Cell>
+              </Table.Summary.Row>
+            </Table.Summary>
+          );
+        }}
       />
     </>
   );
@@ -1299,3 +1347,294 @@ export const _AH_SummaryComponent = () => {
 _AH_SummaryComponent.storyName = "总结栏/置顶拦";
 
 // ----------------------------------------------------------------
+
+export const _AI_CustomCellTitleComponent = () => {
+  interface DataType {
+    key: string | number;
+    name?: string;
+    interval?: string | React.ReactNode;
+    address?: string;
+  }
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      width: 350,
+    },
+    {
+      title: (
+        <Select
+          defaultValue="day"
+          type="no-border"
+          style={{
+            width: "calc(100% + 12px)",
+            marginLeft: "-6px",
+            marginRight: "-6px",
+          }}
+          wrapperStyle={{ width: "100%" }}
+        >
+          <Select.Option value="day">Day </Select.Option>
+          <Select.Option value="week">Week </Select.Option>
+          <Select.Option value="month">Month </Select.Option>
+          <Select.Option value="year">Year </Select.Option>
+        </Select>
+      ),
+      dataIndex: "interval",
+      key: "interval",
+      width: 150,
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+      width: 350,
+    },
+  ];
+
+  const data: any[] = Array.from({ length: 30 }, (_, key) => ({
+    key: key.toString(),
+    name: `name-${key}`,
+    interval: (
+      <Select
+        defaultValue="2022-01-01"
+        type="no-border"
+        style={{
+          width: "calc(100% + 10px)",
+          marginLeft: "-5px",
+          marginRight: "-5px",
+        }}
+        wrapperStyle={{ width: "100%" }}
+      >
+        <Select.Option value="2022-01-01">2022-01-01 </Select.Option>
+        <Select.Option value="2022-01-02">2022-01-02 </Select.Option>
+        <Select.Option value="2022-01-03">2022-01-03 </Select.Option>
+        <Select.Option value="2022-01-04">2022-01-04 </Select.Option>
+      </Select>
+    ),
+    address: `address-${key}`,
+  }));
+
+  // const data: DataType[] = [
+  //   {
+  //     key: "1",
+  //     name: "John Brown",
+  //     interval: "2022-01-01",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  //   {
+  //     key: "2",
+  //     name: "John Brown",
+  //     interval: (
+  //       <Select
+  //         defaultValue="2022-01-01"
+  //         type="no-border"
+  //         style={{
+  //           width: "calc(100% + 10px)",
+  //           marginLeft: "-5px",
+  //           marginRight: "-5px",
+  //         }}
+  //         wrapperStyle={{ width: "100%" }}
+  //       >
+  //         <Select.Option value="2022-01-01">2022-01-01 </Select.Option>
+  //         <Select.Option value="2022-01-02">2022-01-02 </Select.Option>
+  //         <Select.Option value="2022-01-03">2022-01-03 </Select.Option>
+  //         <Select.Option value="2022-01-04">2022-01-04 </Select.Option>
+  //       </Select>
+  //     ),
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  //   {
+  //     key: "3",
+  //     name: "John Brown",
+  //     interval: "2022-01-01",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  //   {
+  //     key: "4",
+  //     name: "John Brown",
+  //     interval: "2022-01-01",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  //   {
+  //     key: "5",
+  //     name: "John Brown",
+  //     interval: "2022-01-01",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  //   {
+  //     key: "6",
+  //     name: "John Brown",
+  //     interval: "2022-01-03",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  //   {
+  //     key: "7",
+  //     name: "John Brown",
+  //     interval: "2022-01-03",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  //   {
+  //     key: "8",
+  //     name: "John Brown",
+  //     interval: "2022-01-03",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  //   {
+  //     key: "9",
+  //     name: "John Brown",
+  //     interval: "2022-01-03",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  //   {
+  //     key: "10",
+  //     name: "John Brown",
+  //     interval: "2022-01-03",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+
+  //   {
+  //     key: "11",
+  //     name: "John Brown",
+  //     interval: "2022-01-03",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  //   {
+  //     key: "12",
+  //     name: "John Brown",
+  //     interval: "2022-01-03",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  //   {
+  //     key: "13",
+  //     name: "John Brown",
+  //     interval: "2022-01-03",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  //   {
+  //     key: "14",
+  //     name: "John Brown",
+  //     interval: "2022-01-03",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  //   {
+  //     key: "15",
+  //     name: "John Brown",
+  //     interval: "2022-01-03",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  //   {
+  //     key: "16",
+  //     name: "John Brown",
+  //     interval: "2022-01-03",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  //   {
+  //     key: "17",
+  //     name: "John Brown",
+  //     interval: "2022-01-03",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  //   {
+  //     key: "18",
+  //     name: "John Brown",
+  //     interval: "2022-01-03",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  //   {
+  //     key: "19",
+  //     name: "John Brown",
+  //     interval: "2022-01-03",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  //   {
+  //     key: "20",
+  //     name: "John Brown",
+  //     interval: "2022-01-03",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+
+  //   {
+  //     key: "21",
+  //     name: "John Brown",
+  //     interval: "2022-01-03",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  //   {
+  //     key: "22",
+  //     name: "John Brown",
+  //     interval: "2022-01-03",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  //   {
+  //     key: "23",
+  //     name: "John Brown",
+  //     interval: "2022-01-03",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  //   {
+  //     key: "24",
+  //     name: "John Brown",
+  //     interval: "2022-01-03",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  //   {
+  //     key: "25",
+  //     name: "John Brown",
+  //     interval: "2022-01-03",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  //   {
+  //     key: "26",
+  //     name: "John Brown",
+  //     interval: "2022-01-03",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  //   {
+  //     key: "27",
+  //     name: "John Brown",
+  //     interval: "2022-01-03",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  //   {
+  //     key: "28",
+  //     name: "John Brown",
+  //     interval: "2022-01-03",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  //   {
+  //     key: "29",
+  //     name: "John Brown",
+  //     interval: "2022-01-03",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  //   {
+  //     key: "30",
+  //     name: "John Brown",
+  //     interval: "2022-01-03",
+  //     address: "New York No. 1 Lake Park",
+  //   },
+  // ];
+
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+
+    // 例：配合 Select 组件，实现表格 “单元格” 的自定义： “头部选择”、“数据选择”
+  `;
+
+  // --------------------------------------------------------------
+
+  return (
+    <>
+      <ImportCode code={code} />
+      <Table bordered columns={columns} dataSource={data} />
+      <Table rowBgType="cross" columns={columns} dataSource={data} />
+    </>
+  );
+};
+
+_AI_CustomCellTitleComponent.storyName = "自定义单元格";
