@@ -69,6 +69,11 @@
                     display: flex;
                     align-content: center;
                     justify-content: center;
+                    .ant-checkbox-wrapper {
+                      display: flex;
+                      align-content: center;
+                      justify-content: center;
+                    }
                   }
 
                   // sort title
@@ -144,6 +149,14 @@
                       border-bottom: $table-border-title;
                     }
 
+                    // fixed shadow
+                    &.ant-table-cell-fix-left-last,
+                    &.ant-table-cell-fix-right-first {
+                      &::after {
+                        bottom: 0;
+                      }
+                    }
+
                     // hover item
                     &.ant-table-cell-row-hover {
                       background: $table-background-hover !important;
@@ -216,6 +229,7 @@
                     border-bottom: none;
                     background: transparent;
                     padding: 0;
+                    overflow: hidden;
 
                     // empty style -> custom
                     .frc-table-empty {
@@ -241,6 +255,8 @@
           box-shadow: none !important;
 
           tr {
+            position: relative;
+
             .ant-table-cell {
               color: $table-color-text;
               border-bottom: $table-border-title;
@@ -249,12 +265,6 @@
               &.ant-table-cell-fix-left,
               &.ant-table-cell-fix-right {
                 background: $table-background-title;
-              }
-            }
-
-            &:first-child {
-              .ant-table-cell {
-                border-top: $table-border;
               }
             }
 
@@ -416,6 +426,26 @@
                       // hover item
                       &.ant-table-cell-row-hover {
                         border-right: $table-border-title !important;
+                      }
+
+                      // select
+                      &.ant-table-selection-column {
+                        // radio
+                        .ant-radio-wrapper {
+                          line-height: 23px;
+                        }
+                      }
+                    }
+
+                    // selected item
+                    &.ant-table-row-selected,
+                    &.frc-table-row-active {
+                      .ant-table-cell {
+                        border-right: $table-border-title !important;
+
+                        &:last-child {
+                          border-right: $table-border !important;
+                        }
                       }
                     }
                   }
@@ -632,11 +662,11 @@
                         }
                       }
 
-                      &:last-child {
-                        .ant-table-cell {
-                          border-bottom: $table-border !important;
-                        }
-                      }
+                      // &:last-child {
+                      //   .ant-table-cell {
+                      //     border-bottom: $table-border !important;
+                      //   }
+                      // }
                     }
                   }
                 }
@@ -703,6 +733,7 @@
 
     // size --------------------------------------------------------------------------------------------------
     // row bg type default
+    // &.frc-row-bg-type-cross,
     &.frc-row-bg-type-default {
       // small
       .ant-table.ant-table-small {
@@ -712,6 +743,29 @@
         );
 
         .ant-table-container {
+          // header
+          .ant-table-header {
+            table {
+              .ant-table-thead {
+                tr {
+                  .ant-table-cell {
+                    // select
+                    .frc-select-container {
+                      .frc-select {
+                        .ant-select-selector {
+                          &::after,
+                          .ant-select-selection-search,
+                          .ant-select-selection-item {
+                            line-height: 21px !important;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
           // body
           .ant-table-body-box {
             .ant-table-body {

@@ -81,7 +81,7 @@ import { VariableSizeGrid as Grid } from "react-window";
 import { Resizable } from "react-resizable";
 
 export default {
-  title: "数据显示/Table表格",
+  title: "数据显示/Table表格 Beta",
   component: Table,
   parameters: {
     docs: {
@@ -269,7 +269,6 @@ export const _AB_BorderComponent = () => {
       dataIndex: "name",
       key: "name",
       width: 300,
-      fixed: "left",
     },
     {
       title: "Age",
@@ -569,15 +568,22 @@ export const _AE_SizeComponent = () => {
       />
       <br />
       large
-      <Table size="large" columns={columns} dataSource={data} />
-      <Table size="large" columns={columns} dataSource={[]} />
+      <Table bordered size="large" columns={columns} dataSource={data} />
+      <Table bordered size="large" columns={columns} dataSource={[]} />
       <Table
+        bordered
         size="large"
         rowBgType="cross"
         columns={columns}
         dataSource={data}
       />
-      <Table size="large" rowBgType="cross" columns={columns} dataSource={[]} />
+      <Table
+        bordered
+        size="large"
+        rowBgType="cross"
+        columns={columns}
+        dataSource={[]}
+      />
     </>
   );
 };
@@ -635,8 +641,9 @@ export const _AF_HeaderSizeComponent = () => {
     <>
       <ImportCode code={code} />
       small{" => "}is default
-      <Table headerSize="small" columns={columns} dataSource={data} />
+      <Table bordered headerSize="small" columns={columns} dataSource={data} />
       <Table
+        bordered
         headerSize="small"
         rowBgType="cross"
         columns={columns}
@@ -644,8 +651,9 @@ export const _AF_HeaderSizeComponent = () => {
       />
       <br />
       middle
-      <Table headerSize="middle" columns={columns} dataSource={data} />
+      <Table bordered headerSize="middle" columns={columns} dataSource={data} />
       <Table
+        bordered
         headerSize="middle"
         rowBgType="cross"
         columns={columns}
@@ -653,8 +661,9 @@ export const _AF_HeaderSizeComponent = () => {
       />
       <br />
       large
-      <Table headerSize="large" columns={columns} dataSource={data} />
+      <Table bordered headerSize="large" columns={columns} dataSource={data} />
       <Table
+        bordered
         headerSize="large"
         rowBgType="cross"
         columns={columns}
@@ -687,38 +696,38 @@ export const _AG_FixledCloumnsComponent = () => {
       dataIndex: "name",
       key: "name",
       fixed: "left",
-      width: "150px",
+      width: "100px",
     },
     {
       title: "Age",
       dataIndex: "age",
       key: "age",
       // fixed: "left",
-      width: "100px",
+      width: "80px",
     },
     {
       title: "Address",
       dataIndex: "address",
       key: "address",
-      width: "300px",
+      width: "200px",
     },
     {
       title: "Tags",
       key: "tags",
       dataIndex: "tags",
-      width: "200px",
+      width: "50px",
     },
     {
       title: "Action",
       dataIndex: "action",
       key: "action",
-      width: "200px",
+      width: "100px",
     },
     {
       title: "Sex",
       dataIndex: "sex",
       key: "sex",
-      width: "200px",
+      width: "100px",
     },
     {
       title: "Phone",
@@ -949,10 +958,10 @@ export const _AG_FixledCloumnsComponent = () => {
   return (
     <>
       <ImportCode code={code} />
-      <Table columns={columns} dataSource={data} />
-      <Table rowBgType="cross" columns={columns} dataSource={data} />
-      <Table size="middle" columns={columns} dataSource={data} />
-      <Table size="large" columns={columns} dataSource={data} />
+      <Table bordered columns={columns} dataSource={data} />
+      <Table bordered rowBgType="cross" columns={columns} dataSource={data} />
+      <Table bordered size="middle" columns={columns} dataSource={data} />
+      <Table bordered size="large" columns={columns} dataSource={data} />
     </>
   );
 };
@@ -987,31 +996,31 @@ export const _AH_SummaryComponent = () => {
       dataIndex: "age",
       key: "age",
       fixed: "left",
-      width: "100px",
+      width: "50px",
     },
     {
       title: "Address",
       dataIndex: "address",
       key: "address",
-      width: "300px",
+      width: "200px",
     },
     {
       title: "Tags",
       key: "tags",
       dataIndex: "tags",
-      width: "200px",
+      width: "50px",
     },
     {
       title: "Action",
       dataIndex: "action",
       key: "action",
-      width: "200px",
+      width: "100px",
     },
     {
       title: "Sex",
       dataIndex: "sex",
       key: "sex",
-      width: "200px",
+      width: "80px",
     },
     {
       title: "Phone",
@@ -1349,13 +1358,6 @@ _AH_SummaryComponent.storyName = "总结栏/置顶拦";
 // ----------------------------------------------------------------
 
 export const _AI_CustomCellTitleComponent = () => {
-  interface DataType {
-    key: string | number;
-    name?: string;
-    interval?: string | React.ReactNode;
-    address?: string;
-  }
-
   const columns: ColumnsTypeProps[] = [
     {
       title: "Name",
@@ -1383,7 +1385,7 @@ export const _AI_CustomCellTitleComponent = () => {
       ),
       dataIndex: "interval",
       key: "interval",
-      width: 150,
+      width: 350,
     },
     {
       title: "Address",
@@ -1415,210 +1417,6 @@ export const _AI_CustomCellTitleComponent = () => {
     ),
     address: `address-${key}`,
   }));
-
-  // const data: DataType[] = [
-  //   {
-  //     key: "1",
-  //     name: "John Brown",
-  //     interval: "2022-01-01",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  //   {
-  //     key: "2",
-  //     name: "John Brown",
-  //     interval: (
-  //       <Select
-  //         defaultValue="2022-01-01"
-  //         type="no-border"
-  //         style={{
-  //           width: "calc(100% + 10px)",
-  //           marginLeft: "-5px",
-  //           marginRight: "-5px",
-  //         }}
-  //         wrapperStyle={{ width: "100%" }}
-  //       >
-  //         <Select.Option value="2022-01-01">2022-01-01 </Select.Option>
-  //         <Select.Option value="2022-01-02">2022-01-02 </Select.Option>
-  //         <Select.Option value="2022-01-03">2022-01-03 </Select.Option>
-  //         <Select.Option value="2022-01-04">2022-01-04 </Select.Option>
-  //       </Select>
-  //     ),
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  //   {
-  //     key: "3",
-  //     name: "John Brown",
-  //     interval: "2022-01-01",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  //   {
-  //     key: "4",
-  //     name: "John Brown",
-  //     interval: "2022-01-01",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  //   {
-  //     key: "5",
-  //     name: "John Brown",
-  //     interval: "2022-01-01",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  //   {
-  //     key: "6",
-  //     name: "John Brown",
-  //     interval: "2022-01-03",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  //   {
-  //     key: "7",
-  //     name: "John Brown",
-  //     interval: "2022-01-03",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  //   {
-  //     key: "8",
-  //     name: "John Brown",
-  //     interval: "2022-01-03",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  //   {
-  //     key: "9",
-  //     name: "John Brown",
-  //     interval: "2022-01-03",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  //   {
-  //     key: "10",
-  //     name: "John Brown",
-  //     interval: "2022-01-03",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-
-  //   {
-  //     key: "11",
-  //     name: "John Brown",
-  //     interval: "2022-01-03",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  //   {
-  //     key: "12",
-  //     name: "John Brown",
-  //     interval: "2022-01-03",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  //   {
-  //     key: "13",
-  //     name: "John Brown",
-  //     interval: "2022-01-03",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  //   {
-  //     key: "14",
-  //     name: "John Brown",
-  //     interval: "2022-01-03",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  //   {
-  //     key: "15",
-  //     name: "John Brown",
-  //     interval: "2022-01-03",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  //   {
-  //     key: "16",
-  //     name: "John Brown",
-  //     interval: "2022-01-03",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  //   {
-  //     key: "17",
-  //     name: "John Brown",
-  //     interval: "2022-01-03",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  //   {
-  //     key: "18",
-  //     name: "John Brown",
-  //     interval: "2022-01-03",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  //   {
-  //     key: "19",
-  //     name: "John Brown",
-  //     interval: "2022-01-03",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  //   {
-  //     key: "20",
-  //     name: "John Brown",
-  //     interval: "2022-01-03",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-
-  //   {
-  //     key: "21",
-  //     name: "John Brown",
-  //     interval: "2022-01-03",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  //   {
-  //     key: "22",
-  //     name: "John Brown",
-  //     interval: "2022-01-03",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  //   {
-  //     key: "23",
-  //     name: "John Brown",
-  //     interval: "2022-01-03",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  //   {
-  //     key: "24",
-  //     name: "John Brown",
-  //     interval: "2022-01-03",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  //   {
-  //     key: "25",
-  //     name: "John Brown",
-  //     interval: "2022-01-03",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  //   {
-  //     key: "26",
-  //     name: "John Brown",
-  //     interval: "2022-01-03",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  //   {
-  //     key: "27",
-  //     name: "John Brown",
-  //     interval: "2022-01-03",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  //   {
-  //     key: "28",
-  //     name: "John Brown",
-  //     interval: "2022-01-03",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  //   {
-  //     key: "29",
-  //     name: "John Brown",
-  //     interval: "2022-01-03",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  //   {
-  //     key: "30",
-  //     name: "John Brown",
-  //     interval: "2022-01-03",
-  //     address: "New York No. 1 Lake Park",
-  //   },
-  // ];
-
-  // --------------------------------------------------------------
-
   const code = `
     // import code
     import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
@@ -1632,9 +1430,1107 @@ export const _AI_CustomCellTitleComponent = () => {
     <>
       <ImportCode code={code} />
       <Table bordered columns={columns} dataSource={data} />
-      <Table rowBgType="cross" columns={columns} dataSource={data} />
+      <Table bordered rowBgType="cross" columns={columns} dataSource={data} />
     </>
   );
 };
 
 _AI_CustomCellTitleComponent.storyName = "自定义单元格";
+
+// ----------------------------------------------------------------
+
+export const _AJ_ActiveComponent = () => {
+  const [activeItem, setActiveItem] = useState<string | number | undefined>();
+  interface DataType {
+    key: string;
+    name: string;
+    age: number;
+    address: string;
+    tags: string;
+    action: string;
+    sex: "male" | "female";
+    phone: number;
+    description: string;
+  }
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      fixed: "left",
+      width: "150px",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+      fixed: "left",
+      width: "100px",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+      width: "200px",
+    },
+    {
+      title: "Tags",
+      key: "tags",
+      dataIndex: "tags",
+      width: "50px",
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
+      width: "80px",
+    },
+    {
+      title: "Sex",
+      dataIndex: "sex",
+      key: "sex",
+      width: "80px",
+    },
+    {
+      title: "Phone",
+      key: "phone",
+      dataIndex: "phone",
+      width: "200px",
+      fixed: "right",
+    },
+    {
+      title: "Description",
+      key: "description",
+      dataIndex: "description",
+      width: "200px",
+      fixed: "right",
+    },
+  ];
+
+  const data: DataType[] = [
+    {
+      key: "1",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "2",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "3",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "4",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "5",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "6",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "7",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "8",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "9",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "10",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "11",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "12",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "13",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "14",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "15",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "16",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "17",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "18",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+  ];
+
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+  `;
+
+  // --------------------------------------------------------------
+
+  return (
+    <>
+      <ImportCode code={code} />
+      <Table
+        bordered
+        columns={columns}
+        dataSource={data}
+        rowActive={activeItem}
+        onRow={(record) => {
+          return {
+            onClick: () => {
+              setActiveItem(record.key);
+            }, // 点击行
+          };
+        }}
+      />
+    </>
+  );
+};
+
+_AJ_ActiveComponent.storyName = "激活选中 row";
+
+// ----------------------------------------------------------------
+
+export const _AK_SelectComponent = () => {
+  interface DataType {
+    key?: string;
+    name?: string;
+    age?: number;
+    address?: string;
+    tags?: string;
+    action?: string;
+    sex?: "male" | "female";
+    phone?: number;
+    description?: string;
+  }
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      fixed: "left",
+      width: "150px",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+      fixed: "left",
+      width: "100px",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+      width: "200px",
+    },
+    {
+      title: "Tags",
+      key: "tags",
+      dataIndex: "tags",
+      width: "50px",
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
+      width: "100px",
+    },
+    {
+      title: "Sex",
+      dataIndex: "sex",
+      key: "sex",
+      width: "80px",
+    },
+    {
+      title: "Phone",
+      key: "phone",
+      dataIndex: "phone",
+      width: "100px",
+    },
+    {
+      title: "Description",
+      key: "description",
+      dataIndex: "description",
+      width: "300px",
+      fixed: "right",
+    },
+  ];
+
+  const data: DataType[] = [
+    {
+      key: "1",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "2",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "3",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "4",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "5",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "6",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "7",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "8",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "9",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "10",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "11",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "12",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "13",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "14",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "15",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "16",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "17",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "18",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+
+    {
+      key: "19",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "20",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "21",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "22",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "23",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "24",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "25",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "26",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "27",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "28",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "29",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "30",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "31",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "32",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "33",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+    {
+      key: "34",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968711111,
+      description: "something else",
+    },
+    {
+      key: "35",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "male",
+      phone: 13968722222,
+      description: "something else",
+    },
+    {
+      key: "36",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: "1",
+      action: "create",
+      sex: "female",
+      phone: 13968733333,
+      description: "something else",
+    },
+  ];
+
+  // rowSelection object indicates the need for row selection
+  const rowSelection: RowSelectionProps = {
+    onChange: (selectedRowKeys?: React.Key[], selectedRows?: DataType[]) => {
+      console.log(
+        `selectedRowKeys: ${selectedRowKeys}`,
+        "selectedRows: ",
+        selectedRows
+      );
+    },
+    getCheckboxProps: (record: DataType) => ({
+      disabled: record.name === "Disabled User", // Column configuration not to be checked
+      name: record.name,
+    }),
+  };
+
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps, RowSelectionProps } from "frc-ui-pro/components/Table/table";
+
+    // 第一列是联动的选择框。可以通过 rowSelection.type 属性指定选择类型，默认为checkbox。
+  `;
+
+  // --------------------------------------------------------------
+
+  return (
+    <>
+      <ImportCode code={code} />
+      <Table
+        bordered
+        rowSelection={{
+          type: "checkbox",
+          ...rowSelection,
+        }}
+        columns={columns}
+        dataSource={data}
+      />
+      <Table
+        bordered
+        size="middle"
+        rowSelection={{
+          type: "checkbox",
+          ...rowSelection,
+        }}
+        columns={columns}
+        dataSource={data}
+      />
+      <Table
+        bordered
+        rowBgType="cross"
+        rowSelection={{
+          type: "checkbox",
+          ...rowSelection,
+        }}
+        columns={columns}
+        dataSource={data}
+      />
+      <Table
+        bordered
+        rowSelection={{
+          type: "radio",
+          ...rowSelection,
+        }}
+        columns={columns}
+        dataSource={data}
+      />
+      <Table
+        bordered
+        rowBgType="cross"
+        rowSelection={{
+          type: "radio",
+          ...rowSelection,
+        }}
+        columns={columns}
+        dataSource={data}
+      />
+    </>
+  );
+};
+
+_AK_SelectComponent.storyName = "可选择";
+
+// ----------------------------------------------------------------
+
+export const _BL_MessageTipComponent = () => {
+  interface DataType {
+    key: string;
+    name: string;
+    age: number;
+    address: string;
+    description: string;
+  }
+
+  const [data, setData] = useState<any[]>([
+    {
+      key: "1",
+      name: "John Brown123",
+      age: 32,
+      address: "New York No. 1 Lake Park123",
+      description: "something else123",
+    },
+    {
+      key: "2",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "3",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "4",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "5",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "6",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "7",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "8",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "9",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "10",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "11",
+      name: "John Brown123",
+      age: 32,
+      address: "New York No. 1 Lake Park123",
+      description: "something else123",
+    },
+    {
+      key: "12",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "13",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "14",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "15",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "16",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "17",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "18",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "19",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "20",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+    },
+  ]);
+  const [activeRowKey, setActiveRowKey] = useState<string>();
+
+  // mock update data ---------------------------------------------
+
+  const dataMock: DataType[] = [
+    {
+      key: data.length + 1 + "",
+      name: "新推送：" + (data.length + 1),
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+  ];
+
+  setTimeout(() => {
+    setData([...dataMock].concat([...data]));
+  }, 4000);
+
+  // --------------------------------------------------------------
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      fixed: "left",
+      width: "300px",
+      align: "center",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+      align: "center",
+      width: "120px",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+      width: "400px",
+      align: "center",
+    },
+    {
+      title: "Description",
+      key: "description",
+      dataIndex: "description",
+      width: "300px",
+      fixed: "right",
+      align: "center",
+    },
+  ];
+
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+
+    // rowActiveFixedData 启动 “固定数据” 效果
+    // rowActiveFixedTip 设置 “固定提示” 文案
+    // rowActiveFirstGradient 启动 “首条数据” 渐变效果（每次 data change，都会触发）
+  `;
+
+  // --------------------------------------------------------------
+
+  return (
+    <>
+      <ImportCode code={code} />
+      <Table
+        columns={columns}
+        dataSource={data}
+        rowActive={activeRowKey}
+        rowActiveFixedData={true}
+        rowActiveFixedTip={"有新消息"}
+        rowActiveFirstGradient={true}
+        onRow={(record) => {
+          return {
+            onClick: (e) => {
+              setActiveRowKey(record.key);
+            },
+          };
+        }}
+      />
+    </>
+  );
+};
+
+_BL_MessageTipComponent.storyName = "新消息提醒（常用于推送）";

@@ -455,9 +455,12 @@ export const Table: FC<FRCTableProps> = (props) => {
     rowClassName,
     rowSelection,
     columns,
+    scroll,
     children,
     ...restProps
   } = props;
+
+  const ref = useRef<any>(null);
 
   const [rowActiveInner, setRowActiveInner] = useState<
     string | number | null
@@ -481,55 +484,93 @@ export const Table: FC<FRCTableProps> = (props) => {
       bordered && borderedActiveFixed,
   });
 
-  // scroll --------------------------------------------------------------
+  useEffect(() => {
+    if (rowActive) {
+      setRowActiveInner(rowActive);
+    }
+  }, [rowActive]);
 
-  const ref = useRef<any>(null);
+  useEffect(() => {
+    if (rowActiveInner && rowActiveFixedData && !dataIsFixed) {
+      setFixedData(dataSource);
+      setDataIsFixed(true);
+    }
+  }, [rowActiveInner, rowActiveFixedData]);
 
-  // ---------------------------------------------------------------------
+  useEffect(() => {
+    if (rowActiveInner && rowActiveFixedData) {
+      showDataUpdateTip();
+    }
+  }, [dataSource]);
+
+  // virtual scroll --------------------------------------------------------------
 
   useEffect(() => {
     if (ref.current) {
       const containerNode = ref.current.querySelector(".ant-table-container");
-
-      // 补足 header width
-      fillHeaderWidth(containerNode);
-
       const oldTableBody = containerNode.querySelector(".ant-table-body");
       const newTableBody = document.createElement("div");
 
       // 设置滚动 box 属性
       newTableBody.className = "ant-table-body-box";
-      newTableBody.appendChild(oldTableBody);
-
-      // summary bottom
-      reInsertSummary(containerNode);
-
-      // newTableBody.style.height = `calc(100% - ${headerHeight + 9}px)`;
       newTableBody.style.overflow = "hidden scroll";
-
-      oldTableBody.addEventListener("scroll", onScrollSimulationY); // x轴添加滚动事件
-      newTableBody.addEventListener("scroll", onScrollSimulationY); // y轴添加滚动事件
-
-      console.log("in-fin---------------------------");
+      newTableBody.appendChild(oldTableBody);
       containerNode.appendChild(newTableBody);
 
-      onWindowResize(containerNode, newTableBody);
-      // 设定监听事件
+      fitHeaderWidth(containerNode); // 适配 header width
+      fitSummaryButtom(containerNode); // 适配 summary bottom
+
+      onWindowResize(containerNode, newTableBody); // 设定监听事件
       window.addEventListener("resize", () => {
         onWindowResize(containerNode, newTableBody);
-      });
-
-      // 设置 scroll 高度
-      // calHeaderHeight(containerNode, newTableBody);
+      }); // 设定监听事件
     }
   }, [ref]);
 
-  const fillHeaderWidth = async (boxNode: any) => {
-    console.log("in0");
-    // 获取 table header 高度
-    const headerNode = await boxNode.querySelector(".ant-table-header");
-    // col
-    const headerColgroupNode = headerNode.querySelector("colgroup");
+  useEffect(() => {
+    onScrollSimulationY();
+  }, []);
+
+  useEffect(() => {
+    const containerNode = ref.current.querySelector(".ant-table-container");
+    const yScrollNode = containerNode.querySelector(".ant-table-body-box");
+    const xScrollNode = yScrollNode.querySelector(".ant-table-body");
+
+    xScrollNode.addEventListener("scroll", onScrollSimulationY); // x轴添加滚动事件
+    yScrollNode.addEventListener("scroll", onScrollSimulationY); // y轴添加滚动事件
+
+    return () => {
+      xScrollNode.removeEventListener("scroll", onScrollSimulationY); // x轴添加滚动事件
+      yScrollNode.removeEventListener("scroll", onScrollSimulationY); // y轴添加滚动事件
+    };
+  }, [dataSource, fixedData]);
+
+  useEffect(() => {
+    if (rowSize.join() !== "0,0") {
+      // console.log("rowSize", rowSize);
+
+      let newData: any[] = [];
+      if (!dataIsFixed) {
+        newData = [...(dataSource || [])].slice(...rowSize) || [];
+      } else {
+        newData = [...(fixedData || [])].slice(...rowSize) || [];
+      }
+
+      setVirtualData(newData);
+    }
+  }, [rowSize, dataSource, fixedData]);
+
+  useEffect(() => {
+    if (ref.current) {
+      const innerNode = ref.current?.querySelector(".ant-table-body");
+      innerNode.style.height = (totalHeight || innerNode.style.height) + "px";
+      innerNode.style.paddingTop = hiddenTopStyle + "px";
+    }
+  }, [hiddenTopStyle, totalHeight]);
+
+  const fitHeaderWidth = async (boxNode: any) => {
+    const headerNode = await boxNode.querySelector(".ant-table-header"); // 获取 table header 高度
+    const headerColgroupNode = headerNode.querySelector("colgroup"); // col
 
     if (headerColgroupNode) {
       const oldWidth = headerColgroupNode.lastChild.style.width;
@@ -552,8 +593,7 @@ export const Table: FC<FRCTableProps> = (props) => {
     }
   };
 
-  const reInsertSummary = async (boxNode: any) => {
-    console.log("in1");
+  const fitSummaryButtom = async (boxNode: any) => {
     const bottomSummary = await boxNode.querySelector(
       ".ant-table-container > .ant-table-summary"
     );
@@ -585,68 +625,31 @@ export const Table: FC<FRCTableProps> = (props) => {
   };
 
   const onWindowResize = async (boxNode: any, bodyNode: any) => {
-    console.log("in2");
-
     const heightNode = await boxNode.querySelector(".ant-table-header");
     const width = boxNode?.clientWidth;
 
-    const summaryNode = boxNode.querySelector(
+    const bottomSummary = boxNode.querySelector(
       ".ant-table-container > .ant-table-summary"
     );
+
+    console.log("in", bodyNode);
 
     if (width) {
       if (width >= tableWidthInner) {
         bodyNode.style.height = `calc(100% - ${
-          heightNode.clientHeight + (summaryNode?.clientHeight || 0)
+          heightNode.clientHeight + (bottomSummary?.clientHeight || 0)
         }px)`;
+        heightNode.style.paddingRight = "8px";
         setShowXScroll(false);
       } else {
         bodyNode.style.height = `calc(100% - ${
-          heightNode.clientHeight + (summaryNode?.clientHeight || 0) + 9
+          heightNode.clientHeight + (bottomSummary?.clientHeight || 0) + 9
         }px)`;
+        heightNode.style.paddingRight = "0px";
         setShowXScroll(true);
       }
     }
   };
-
-  const calHeaderHeight = async (boxNode: any, bodyNode: any) => {
-    console.log("in3");
-
-    const heightNode = await boxNode.querySelector(".ant-table-header");
-
-    const summaryNode = boxNode.querySelector(
-      ".ant-table-container > .ant-table-summary"
-    );
-
-    if (height) {
-      bodyNode.style.height = `calc(100% - ${
-        heightNode.clientHeight + (summaryNode?.clientHeight || 0) + 9
-      }px)`;
-    }
-  };
-
-  // virtual -------------------------------------------------------------
-
-  useEffect(() => {
-    onScrollSimulationY();
-  }, []);
-
-  useEffect(() => {
-    if (rowSize.join() !== "0,0" && dataSource) {
-      // console.log("rowSize", rowSize);
-      const newData = [...dataSource].slice(...rowSize) || [];
-      // console.log("newData", newData);
-      setVirtualData(newData);
-    }
-  }, [rowSize, dataSource]);
-
-  useEffect(() => {
-    if (ref.current && dataSource.length > 0) {
-      const innerNode = ref.current?.querySelector(".ant-table-body");
-      innerNode.style.height = totalHeight + "px";
-      innerNode.style.paddingTop = hiddenTopStyle + "px";
-    }
-  }, [hiddenTopStyle, totalHeight, dataSource]);
 
   const onScrollSimulationX = () => {
     if (ref.current) {
@@ -677,7 +680,7 @@ export const Table: FC<FRCTableProps> = (props) => {
       const height = ref.current.clientHeight - headerHeight;
 
       const rowSizeNow = [0];
-      let totalHeight = 0;
+      let listTotalHeight = 0;
       let hiddenTopHeight = 0; // 计算顶部隐藏区域的高度
       let currentStep = 0; // 0: 顶部被隐藏阶段；1: 可视区域阶段
       const OFFSET_VERTICAL = 120;
@@ -688,63 +691,49 @@ export const Table: FC<FRCTableProps> = (props) => {
 
       // ----------------------------------------------------
 
-      [...(dataSource || [])]?.forEach((item, index) => {
-        const rowHeight = size === "small" ? 24 : size === "middle" ? 32 : 48; // 每行高度
-        totalHeight += rowHeight;
-        if (currentStep === 0) {
-          if (totalHeight >= scrollTop - OFFSET_VERTICAL) {
-            // 偏移量 起始 0 - 120，随后根据 DEFAULT_ROW_HEIGHT 为基点偏移，本例子为 32px
-            // 根据 scrollTop 算出可视区域起始行号
-            rowSizeNow[0] = index;
-            currentStep += 1;
-          } else {
-            hiddenTopHeight += rowHeight;
-          }
-        } else if (currentStep === 1) {
-          if (totalHeight > scrollTop + height + OFFSET_VERTICAL) {
-            // 计算出可视区域结束行号
-            rowSizeNow[1] = index;
-            currentStep += 1;
+      // console.log("dataIsFixed-scroll", dataIsFixed);
+
+      [...((dataIsFixed ? fixedData : dataSource) || [])]?.forEach(
+        (item, index) => {
+          const rowHeight = size === "small" ? 24 : size === "middle" ? 32 : 48; // 每行高度
+          listTotalHeight += rowHeight;
+          if (currentStep === 0) {
+            if (listTotalHeight >= scrollTop - OFFSET_VERTICAL) {
+              // 偏移量 起始 0 - 120，随后根据 DEFAULT_ROW_HEIGHT 为基点偏移，本例子为 32px
+              // 根据 scrollTop 算出可视区域起始行号
+              rowSizeNow[0] = index;
+              currentStep += 1;
+            } else {
+              hiddenTopHeight += rowHeight;
+            }
+          } else if (currentStep === 1) {
+            if (listTotalHeight > scrollTop + height + OFFSET_VERTICAL) {
+              // 计算出可视区域结束行号
+              rowSizeNow[1] = index;
+              currentStep += 1;
+            }
           }
         }
-      });
+      );
 
       if (rowSize.join() !== rowSizeNow.join()) {
         // 可视区域的行号有了变化才重新进行渲染
         setRowSize(rowSizeNow);
         setHiddenTopStyle(hiddenTopHeight);
-        setTotalHeight(totalHeight);
+      }
+
+      if (listTotalHeight !== totalHeight) {
+        setTotalHeight(listTotalHeight);
       }
     }
   };
 
   // fixed data ----------------------------------------------------------
 
-  useEffect(() => {
-    if (rowActive) {
-      setRowActiveInner(rowActive);
-    }
-  }, [rowActive]);
-
-  useEffect(() => {
-    if (rowActiveInner && rowActiveFixedData && !dataIsFixed) {
-      setFixedData(dataSource);
-      setDataIsFixed(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rowActiveInner, rowActiveFixedData]);
-
-  useEffect(() => {
-    if (rowActiveInner && rowActiveFixedData) {
-      showDataUpdateTip();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dataSource]);
-
   const showDataUpdateTip = () => {
-    const targetNode = ref.current?.querySelector(".ant-table-container");
+    const containerNode = ref.current?.querySelector(".ant-table-container");
 
-    if (targetNode.querySelector(".frc-table-fixed-tip")) {
+    if (containerNode.querySelector(".frc-table-fixed-tip")) {
       return;
     }
 
@@ -754,10 +743,10 @@ export const Table: FC<FRCTableProps> = (props) => {
     tipNode.addEventListener("click", () => {
       setRowActiveInner(null);
       setDataIsFixed(false);
-      targetNode.removeChild(tipNode);
-      targetNode.querySelector(".ant-table-body").scrollTop = 0;
+      containerNode.removeChild(tipNode);
+      containerNode.querySelector(".ant-table-body").scrollTop = 0;
     });
-    targetNode.appendChild(tipNode);
+    containerNode.appendChild(tipNode);
   };
 
   // children | columns --------------------------------------------------
@@ -876,12 +865,7 @@ export const Table: FC<FRCTableProps> = (props) => {
     className: classes,
     size,
     bordered,
-    dataSource:
-      virtualData.length > 0
-        ? virtualData
-        : dataIsFixed
-        ? fixedData
-        : dataSource,
+    dataSource: [...virtualData],
     loading: loading
       ? typeof loading === "boolean"
         ? {
