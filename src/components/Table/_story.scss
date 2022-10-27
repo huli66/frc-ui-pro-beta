@@ -1,0 +1,20 @@
+.storybook-demo {
+  .frc-table-container {
+    margin-bottom: 16px;
+  }
+  .docblock-source {
+    margin: 0 0 24px 0;
+  }
+}
+
+#anchor--数据显示-table表格--zz-fixed-top-component {
+  .sbdocs.sbdocs-preview {
+    overflow: initial;
+    .docs-story {
+      overflow: initial;
+      div {
+        overflow: initial;
+      }
+    }
+  }
+}
