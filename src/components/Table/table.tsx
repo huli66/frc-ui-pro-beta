@@ -632,7 +632,7 @@ export const Table: FC<FRCTableProps> = (props) => {
       ".ant-table-container > .ant-table-summary"
     );
 
-    console.log("in", bodyNode);
+    // console.log("in", bodyNode);
 
     if (width) {
       if (width >= tableWidthInner) {
