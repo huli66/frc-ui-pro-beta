@@ -817,11 +817,7 @@
 }
 
 // slider
-@mixin slider-ui-handle (
-  $size,
-  $size-handle,
-  $size-border,
-) {
+@mixin slider-ui-handle($size, $size-handle, $size-border) {
   height: $size;
   width: $size;
   top: calc(50% - 0.5 * $size);
@@ -834,11 +830,7 @@
   }
 }
 
-@mixin slider-ui-handle-vertical (
-  $size,
-  $size-handle,
-  $size-border,
-) {
+@mixin slider-ui-handle-vertical($size, $size-handle, $size-border) {
   height: $size;
   width: $size;
   left: calc(50% - 0.5 * $size);
@@ -852,11 +844,7 @@
   }
 }
 
-@mixin slider-ui-dot (
-  $size,
-  $size-handle,
-  $size-border,
-) {
+@mixin slider-ui-dot($size, $size-handle, $size-border) {
   height: $size;
   width: $size;
   top: calc(50% - 0.5 * $size);
@@ -866,11 +854,7 @@
   }
 }
 
-@mixin slider-ui-dot-vertical (
-  $size,
-  $size-handle,
-  $size-border,
-) {
+@mixin slider-ui-dot-vertical($size, $size-handle, $size-border) {
   height: $size;
   width: $size;
   left: calc(50% - 0.5 * $size);
@@ -881,16 +865,12 @@
   }
 }
 
-@mixin slider-ui-rail-track (
-  $height,
-) {
+@mixin slider-ui-rail-track($height) {
   height: $height;
   top: calc(50% - 0.5 * $height);
 }
 
-@mixin slider-ui-rail-track-vertical (
-  $width
-) {
+@mixin slider-ui-rail-track-vertical($width) {
   width: $width;
   height: 100%;
   top: auto;
@@ -1096,32 +1076,53 @@
   // container
   .ant-table-container {
     // header
-    .ant-table-thead {
-      tr {
-        .ant-table-cell {
-          line-height: $line-height - 1;
-          .ant-checkbox-wrapper {
-            line-height: $line-height - 1;
+    .ant-table-header {
+      &::after {
+        content: " ";
+        position: absolute;
+        right: 0;
+        top: $line-height;
+        height: 1px;
+        width: 8px;
+        background-color: $table-background;
+      }
+
+      table {
+        .ant-table-thead {
+          tr {
+            .ant-table-cell {
+              line-height: $line-height - 1;
+              .ant-checkbox-wrapper {
+                line-height: $line-height - 1;
+              }
+            }
           }
         }
       }
     }
 
     // body
-    .ant-table-tbody {
-      .ant-table-row {
-        .ant-table-cell {
-          line-height: $line-height - 1;
-          .ant-checkbox-wrapper {
-            line-height: $line-height - 1;
-          }
-        }
-      }
+    .ant-table-body-box {
+      .ant-table-body {
+        table {
+          .ant-table-tbody {
+            .ant-table-row {
+              .ant-table-cell {
+                line-height: $line-height - 1;
+                .ant-checkbox-wrapper,
+                .ant-radio-wrapper {
+                  line-height: $line-height - 1;
+                }
+              }
+            }
 
-      // extend row
-      .ant-table-expanded-row {
-        .ant-table-cell {
-          line-height: $line-height - 1;
+            // extend row
+            .ant-table-expanded-row {
+              .ant-table-cell {
+                line-height: $line-height - 1;
+              }
+            }
+          }
         }
       }
     }
@@ -1174,24 +1175,64 @@
 
   // container
   .ant-table-container {
-    .ant-table-thead {
-      tr {
-        .ant-table-cell {
-          line-height: $line-height;
+    //header
+    .ant-table-header {
+      table {
+        .ant-table-thead {
+          tr {
+            .ant-table-cell {
+              line-height: $line-height;
+              .ant-checkbox-wrapper {
+                line-height: $line-height;
+              }
+            }
+          }
         }
       }
     }
-    .ant-table-tbody {
-      .ant-table-row {
-        .ant-table-cell {
-          line-height: $line-height;
-        }
-      }
 
-      // extend row
-      .ant-table-expanded-row {
-        .ant-table-cell {
-          line-height: $line-height;
+    //body
+    .ant-table-body-box {
+      .ant-table-body {
+        table {
+          .ant-table-tbody {
+            .ant-table-row {
+              .ant-table-cell {
+                line-height: $line-height;
+                .ant-checkbox-wrapper,
+                .ant-radio-wrapper {
+                  line-height: $line-height;
+                }
+              }
+            }
+
+            // extend row
+            .ant-table-expanded-row {
+              .ant-table-cell {
+                line-height: $line-height;
+              }
+            }
+
+            // empty
+            .ant-table-placeholder {
+              background: linear-gradient(
+                0deg,
+                $basic-plate 50%,
+                $part-plate 50%
+              );
+              background-size: 100px $line-height * 2;
+
+              td {
+                background-color: transparent;
+              }
+            }
+
+            .ant-table-cell {
+              .frc-table-empty {
+                top: $empty-top-text;
+              }
+            }
+          }
         }
       }
     }
@@ -1201,25 +1242,6 @@
       tr {
         .ant-table-cell {
           line-height: $line-height - 1;
-        }
-      }
-    }
-
-    // empty
-    .ant-table-tbody {
-      // empty data
-      .ant-table-placeholder {
-        background: linear-gradient(0deg, $basic-plate 50%, $part-plate 50%);
-        background-size: 100px $line-height * 2;
-
-        td {
-          background-color: transparent;
-        }
-      }
-
-      .ant-table-cell {
-        .frc-table-empty {
-          top: $empty-top-text;
         }
       }
     }
@@ -1240,12 +1262,21 @@
 @mixin table-title-size($line-height) {
   .ant-table {
     .ant-table-container {
-      .ant-table-thead {
-        tr {
-          .ant-table-cell {
-            line-height: $line-height !important;
-            .ant-checkbox-wrapper {
-              line-height: $line-height !important;
+      // header
+      .ant-table-header {
+        &::after {
+          top: $line-height + 1;
+        }
+
+        table {
+          .ant-table-thead {
+            tr {
+              .ant-table-cell {
+                line-height: $line-height !important;
+                .ant-checkbox-wrapper {
+                  line-height: $line-height !important;
+                }
+              }
             }
           }
         }

@@ -674,9 +674,9 @@ $table-small-line-height:                          $line-height-base !default;
 $table-middle-line-height:                         $line-height-lg !default;
 $table-large-line-height:                          $line-height-max !default;
 
-$table-small-empty-top:                            6px !default;
-$table-middle-empty-top:                           -6px !default;
-$table-large-empty-top:                            12px !default;
+$table-small-empty-top:                            0px !default;
+$table-middle-empty-top:                           -16px !default;
+$table-large-empty-top:                            0px !default;
 
 // normal
 $table-color-title:                                $tittle-word !default;
