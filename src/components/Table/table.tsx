@@ -713,7 +713,8 @@ export const Table: FC<FRCTableProps> = (props) => {
     let listTotalHeight = 0;
     let hiddenTopHeight = 0; // 计算顶部隐藏区域的高度
     let currentStep = 0; // 0: 顶部被隐藏阶段；1: 可视区域阶段
-    const OFFSET_VERTICAL = 120;
+    const rowHeight = size === "small" ? 24 : size === "middle" ? 32 : 48; // 每行高度
+    const OFFSET_VERTICAL = rowHeight * 20;
 
     if (!height) {
       return;
@@ -721,7 +722,6 @@ export const Table: FC<FRCTableProps> = (props) => {
 
     [...((dataIsFixed ? fixedData : dataSource) || [])]?.forEach(
       (item, index) => {
-        const rowHeight = size === "small" ? 24 : size === "middle" ? 32 : 48; // 每行高度
         listTotalHeight += rowHeight;
         if (currentStep === 0) {
           if (listTotalHeight >= scrollTop - OFFSET_VERTICAL) {
