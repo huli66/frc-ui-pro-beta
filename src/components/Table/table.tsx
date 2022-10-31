@@ -1,3 +1,4 @@
+import debounce from "lodash/debounce";
 import React, {
   FC,
   ReactNode,
@@ -7,7 +8,7 @@ import React, {
   useState,
   useEffect,
 } from "react";
-import ReactDOM from "react-dom";
+import { controlScrollSpeed } from "./../../utils/index";
 import classNames from "classnames";
 import {
   Table as AntdTable,
@@ -472,6 +473,8 @@ export const Table: FC<FRCTableProps> = (props) => {
 
   // virtual sroll
   let tableWidthInner = 0;
+  // let scrollPosition = 0;
+  const [initScroll, setInitScroll] = useState<boolean>(false);
   const [rowSize, setRowSize] = useState<any[]>([0, 0]);
   const [hiddenTopStyle, setHiddenTopStyle] = useState(0);
   const [totalHeight, setTotalHeight] = useState<number>(0);
@@ -509,21 +512,15 @@ export const Table: FC<FRCTableProps> = (props) => {
   }, [dataSource]); // 固定 data 后，当 dataSource 更新时，弹出 “提示框” 提示用户
 
   useEffect(() => {
-    // 添加 x、y 滚动条 scorll 事件
-    const containerNode = ref.current.querySelector(".ant-table-container");
-    const yScrollNode = containerNode.querySelector(".ant-table-body-box");
-    const xScrollNode = yScrollNode.querySelector(".ant-table-body");
+    // 添加 y 滚动条 scorll 事件
+    const yScrollNode = ref.current.querySelector(".ant-table-body-box");
 
-    onScrollSimulationX();
     onScrollSimulationY();
-    if (xScrollNode && yScrollNode) {
-      xScrollNode.addEventListener("scroll", onScrollSimulationX); // x轴添加滚动事件
-      yScrollNode.addEventListener("scroll", onScrollSimulationY); // y轴添加滚动事件
-    }
+    yScrollNode && yScrollNode.addEventListener("scroll", onScrollSimulationY); // y轴 添加 滚动事件
 
     return () => {
-      xScrollNode.removeEventListener("scroll", onScrollSimulationX); // x轴添加滚动事件
-      yScrollNode.removeEventListener("scroll", onScrollSimulationY); // y轴添加滚动事件
+      yScrollNode &&
+        yScrollNode.removeEventListener("scroll", onScrollSimulationY); // y轴 移除 滚动事件
     };
   }, [dataSource, fixedData]); // review 完后决定是否拆分：1. dataSource change 2. fixedData change
 
@@ -548,6 +545,40 @@ export const Table: FC<FRCTableProps> = (props) => {
     }
   }, [hiddenTopStyle, totalHeight]); // 根据 scroll 滚动，控制整体滚动流畅度 （本质： padding-top 与 totalHeight 的相对值）
 
+  const scrollMove = () => {
+    const tableNode = ref.current.querySelector(".ant-table-body-box");
+
+    controlScrollSpeed(tableNode, 4);
+    // if (init) {
+    //   tableNode.scrollTop = 0;
+    // } else {
+    //   controlScrollSpeed(tableNode, 24);
+    // }
+  };
+
+  useEffect(() => {
+    scrollMove();
+  }, []);
+
+  useEffect(() => {
+    console.log("scrollMove", initScroll);
+    const tableNode = ref.current.querySelector(".ant-table-body-box");
+
+    if (initScroll) {
+      tableNode.scrollTop = 0;
+
+      setTimeout(() => {
+        setInitScroll(false);
+      }, 100);
+    } else {
+      tableNode.addEventListener("scroll", scrollMove);
+    }
+
+    return () => {
+      tableNode.removeEventListener("scroll", scrollMove);
+    };
+  }, [initScroll]);
+
   // virtual scroll ------------------------------------------------------------------
 
   const virtualScrollInit = () => {
@@ -560,6 +591,9 @@ export const Table: FC<FRCTableProps> = (props) => {
     newTableBody.style.overflow = "hidden scroll";
     newTableBody.appendChild(oldTableBody);
     containerNode.appendChild(newTableBody);
+
+    oldTableBody.addEventListener("scroll", onScrollSimulationX);
+    // newTableBody.addEventListener("scroll", scrollMove);
 
     fitHeaderWidth(containerNode); // 适配 header width
     fitSummaryButtom(containerNode); // 适配 summary bottom
@@ -701,7 +735,9 @@ export const Table: FC<FRCTableProps> = (props) => {
   const onScrollSimulationY = () => {
     // console.log("in-y");
     const tableNode = ref.current.querySelector(".ant-table-body-box"); // 最外层容器
-    const scrollTop = tableNode.scrollTop; // 滚动条距离顶部的高度
+    const realScrollTop = tableNode.scrollTop; // 滚动条距离顶部的高度
+
+    const scrollTop = realScrollTop; // 滚动条距离顶部的高度
 
     // 计算表格头部所占用的高度
     const headerHeight =
@@ -714,7 +750,7 @@ export const Table: FC<FRCTableProps> = (props) => {
     let hiddenTopHeight = 0; // 计算顶部隐藏区域的高度
     let currentStep = 0; // 0: 顶部被隐藏阶段；1: 可视区域阶段
     const rowHeight = size === "small" ? 24 : size === "middle" ? 32 : 48; // 每行高度
-    const OFFSET_VERTICAL = rowHeight * 20;
+    const OFFSET_VERTICAL = 24;
 
     if (!height) {
       return;
@@ -768,7 +804,7 @@ export const Table: FC<FRCTableProps> = (props) => {
       setDataIsFixed(false);
       setFixedData([]);
       containerNode.removeChild(tipNode);
-      containerNode.querySelector(".ant-table-body-box").scrollTop = 0;
+      setInitScroll(true);
     });
     containerNode.appendChild(tipNode);
   }; // 固定数据时 tooltip 显示

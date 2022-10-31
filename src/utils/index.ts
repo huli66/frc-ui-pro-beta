@@ -28,3 +28,31 @@ export function isString(value: any): boolean {
 export function isNumber(value: any): boolean {
   return typeof value === "number";
 }
+
+let scrollPosition = 0;
+export function controlScrollSpeed(
+  node: HTMLElement,
+  maxSpeed: number,
+  // scrollPosition: number, 
+  // init?: boolean
+) {
+  const scrollTop = node.scrollTop;
+
+  console.log('in-scroll');
+
+  // 向下
+  if (scrollTop > scrollPosition) {
+    if (scrollTop - scrollPosition > maxSpeed) {
+      node.scrollTop = scrollPosition + maxSpeed; // 滚动速度 > 4 时，仅 + 4;
+    }
+  }
+
+  // 向上
+  if (scrollTop < scrollPosition) {
+    if (scrollPosition - scrollTop > maxSpeed) {
+      node.scrollTop = scrollPosition - maxSpeed;
+    }
+  }
+
+  scrollPosition = node.scrollTop;
+};

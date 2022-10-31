@@ -2750,7 +2750,7 @@ export const _ZZ_CustomTableComponent = () => {
   const open = (socket: any, event: any) => {
     // console.log("open");
     socket.send('{"cmd":"snapshot"}');
-    socket.send('{"cmd":"subscribe"}');
+    // socket.send('{"cmd":"subscribe"}');
   };
 
   const sendRequest = (socket: any, event: any) => {
@@ -2841,3 +2841,5 @@ export const _ZZ_CustomTableComponent = () => {
 };
 
 _ZZ_CustomTableComponent.storyName = "最优报价 demo";
+
+// ----------------------------------------------------------------
