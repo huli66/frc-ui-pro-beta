@@ -2304,6 +2304,7 @@ export const _BL_MessageTipComponent = () => {
     age: number;
     address: string;
     description: string;
+    animeRowKey?: string | number;
   }
 
   const [data, setData] = useState<any[]>([
@@ -2462,6 +2463,7 @@ export const _BL_MessageTipComponent = () => {
             age: 42,
             address: "London No. 1 Lake Park",
             description: "something else",
+            animeRowKey: pre.length + 1 + "",
           },
         ];
 
@@ -2522,6 +2524,7 @@ export const _BL_MessageTipComponent = () => {
     <>
       <ImportCode code={code} />
       <Table
+        animeRowKey="animeRowKey"
         columns={columns}
         dataSource={data}
         rowActive={activeRowKey}

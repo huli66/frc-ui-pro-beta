@@ -340,8 +340,6 @@ export interface TableLocaleProps extends TableLocale {
 }
 
 export interface FRCTableProps extends Omit<TableProps<RecordType>, "columns"> {
-  /** 测试 api */
-  test?: boolean;
   /** 表格高度 */
   height?: number | string;
   /** 是否展示外边框和列边框 */
@@ -368,6 +366,8 @@ export interface FRCTableProps extends Omit<TableProps<RecordType>, "columns"> {
   rowBgType?: "default" | "cross";
   /** 开启 表格首行 背景色渐变动效（dataSource 改变时触发） */
   rowActiveFirstGradient?: boolean;
+  /** 开启渐变效果 row 的唯一 key 名称 */
+  animeRowKey?: string | number;
   /** 激活 row (唯一)，row 需有唯一 key 生效 */
   rowActive?: string | number;
   /** 激活 row 时，固定数据变化。数据变化时，顶部提示 */
@@ -440,7 +440,7 @@ const EmptyNode = (props: { height: number | string }) => {
 let scrollPosition = 0;
 export const Table: FC<FRCTableProps> = (props) => {
   const {
-    test,
+    animeRowKey,
     className,
     height,
     size = "small",
@@ -465,6 +465,7 @@ export const Table: FC<FRCTableProps> = (props) => {
   } = props;
 
   const ref = useRef<any>(null);
+  const [initData, setInitData] = useState<any[]>([]);
 
   // active | fixed
   const [emptyHeight, setEmptyHeight] = useState<string | number>(0);
@@ -481,7 +482,6 @@ export const Table: FC<FRCTableProps> = (props) => {
   const [virtualData, setVirtualData] = useState<any[]>([]);
   const [fixedYScroll, setFixedYScroll] = useState<boolean>(false);
   const [showXScroll, setShowXScroll] = useState<boolean>(true);
-  const [isFirst, setIsFirst] = useState<boolean>(true);
 
   const classes = classNames("frc-table", className, {
     [`frc-row-bg-type-${rowBgType}`]: rowBgType,
@@ -492,12 +492,8 @@ export const Table: FC<FRCTableProps> = (props) => {
   });
 
   useEffect(() => {
-    return () => {
-      if (dataSource.length !== 0 && isFirst) {
-        setIsFirst(false);
-      }
-    };
-  }, [dataSource, isFirst]);
+    setInitData([...dataSource]);
+  }, [dataSource]);
 
   useEffect(() => {
     const containerNode = ref.current.querySelector(".ant-table-container");
@@ -531,7 +527,7 @@ export const Table: FC<FRCTableProps> = (props) => {
 
   useEffect(() => {
     if (rowActiveInner && rowActiveFixedData && !dataIsFixed) {
-      setFixedData(dataSource);
+      setFixedData(initData);
       setDataIsFixed(true);
     }
   }, [rowActiveInner, rowActiveFixedData]); // 启动 固定 data 模式后，点击 active row，将 data 固定
@@ -540,13 +536,13 @@ export const Table: FC<FRCTableProps> = (props) => {
     if (rowActiveInner && rowActiveFixedData && dataIsFixed) {
       showDataUpdateTip();
     }
-  }, [dataSource]); // 固定 data 后，当 dataSource 更新时，弹出 “提示框” 提示用户
+  }, [initData]); // 固定 data 后，当 dataSource 更新时，弹出 “提示框” 提示用户
 
   useEffect(() => {
     if (rowSize.join() !== "0,0" && !dataIsFixed) {
-      setVirtualData([...(dataSource || [])].slice(...rowSize));
+      setVirtualData([...(initData || [])].slice(...rowSize));
     }
-  }, [rowSize, dataSource, dataIsFixed]); // 根据 ”dataSource 截取区间，例:[3,20]“，截取最终展示用的 table data
+  }, [rowSize, initData, dataIsFixed]); // 根据 ”dataSource 截取区间，例:[3,20]“，截取最终展示用的 table data
 
   useEffect(() => {
     if (rowSize.join() !== "0,0" && dataIsFixed) {
@@ -736,7 +732,7 @@ export const Table: FC<FRCTableProps> = (props) => {
       return;
     }
 
-    [...((dataIsFixed ? fixedData : dataSource) || [])]?.forEach(
+    [...((dataIsFixed ? fixedData : initData) || [])]?.forEach(
       (item, index) => {
         listTotalHeight += rowHeight;
         if (currentStep === 0) {
@@ -910,9 +906,7 @@ export const Table: FC<FRCTableProps> = (props) => {
     rowClassName: (record: RecordType, index: number) => {
       let rowClasses = "";
       // 开启首行渐变
-      if (rowActiveFirstGradient && !isFirst) {
-        console.log("in-test");
-
+      if (rowActiveFirstGradient && animeRowKey && record[animeRowKey]) {
         rowClasses += " frc-table-row-first-gradient";
       }
       // active row className
