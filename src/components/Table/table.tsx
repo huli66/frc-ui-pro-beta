@@ -1,4 +1,3 @@
-import debounce from "lodash/debounce";
 import React, {
   FC,
   ReactNode,
@@ -465,6 +464,7 @@ export const Table: FC<FRCTableProps> = (props) => {
   } = props;
 
   const ref = useRef<any>(null);
+  const [initData, setInitData] = useState<any[]>([]);
 
   // active | fixed
   const [emptyHeight, setEmptyHeight] = useState<string | number>(0);
@@ -491,8 +491,25 @@ export const Table: FC<FRCTableProps> = (props) => {
   });
 
   useEffect(() => {
+    setInitData([...dataSource]);
+  }, [dataSource]); // 单独存一份 dataSource 的备份，以便后续拓展
+
+  useEffect(() => {
     rowActive && setRowActiveInner(rowActive);
   }, [rowActive]); // 设置 active key，用于 active 状态
+
+  useEffect(() => {
+    if (rowActiveInner && rowActiveFixedData && !dataIsFixed) {
+      setFixedData(initData);
+      setDataIsFixed(true);
+    }
+  }, [rowActiveInner, rowActiveFixedData]); // 启动 固定 data 模式后，点击 active row，将 data 固定
+
+  useEffect(() => {
+    if (rowActiveInner && rowActiveFixedData && dataIsFixed) {
+      showDataUpdateTip();
+    }
+  }, [initData]); // 固定 data 后，当 dataSource 更新时，弹出 “提示框” 提示用户
 
   useEffect(() => {
     const containerNode = ref.current.querySelector(".ant-table-container");
@@ -520,43 +537,33 @@ export const Table: FC<FRCTableProps> = (props) => {
   }, []); // 组件加载时，执行 “虚拟滚动” 初始化的必要操作
 
   useEffect(() => {
-    onScrollSimulationY();
-  }, []);
-
-  useEffect(() => {
     const newTableBody = ref.current.querySelector(".ant-table-body-box");
-    
+
+    if (!dataIsFixed) {
+      onScrollSimulationY();
+    }
+
+    // const testS = debounce(onScrollSimulationY, 0);
+
     newTableBody.addEventListener("scroll", onScrollSimulationY);
 
     return () => {
       newTableBody.removeEventListener("scroll", onScrollSimulationY);
     };
-  }, []);
-
-  useEffect(() => {
-    if (rowActiveInner && rowActiveFixedData && !dataIsFixed) {
-      setFixedData(dataSource);
-      setDataIsFixed(true);
-    }
-  }, [rowActiveInner, rowActiveFixedData]); // 启动 固定 data 模式后，点击 active row，将 data 固定
-
-  useEffect(() => {
-    if (rowActiveInner && rowActiveFixedData && dataIsFixed) {
-      showDataUpdateTip();
-    }
-  }, [dataSource]); // 固定 data 后，当 dataSource 更新时，弹出 “提示框” 提示用户
+  }, [initData, dataIsFixed]);
 
   useEffect(() => {
     if (rowSize.join() !== "0,0" && !dataIsFixed) {
-      setVirtualData([...(dataSource || [])].slice(...rowSize));
+      setVirtualData([...(initData || [])].slice(...rowSize));
     }
-  }, [rowSize, dataSource, dataIsFixed]); // 根据 ”dataSource 截取区间，例:[3,20]“，截取最终展示用的 table data
+  }, [rowSize, initData, dataIsFixed]); // 根据 ”dataSource 截取区间，例:[3,20]“，截取最终展示用的 table data
 
   useEffect(() => {
     if (rowSize.join() !== "0,0" && dataIsFixed) {
+      console.log("in", dataIsFixed, rowSize);
       setVirtualData([...(fixedData || [])].slice(...rowSize));
     }
-  }, [rowSize, dataIsFixed, fixedData]); // 根据 ”fixedData 截取区间，例:[3,20]“，截取最终展示用的 table data
+  }, [rowSize, dataIsFixed]); // 根据 ”fixedData 截取区间，例:[3,20]“，截取最终展示用的 table data
 
   useEffect(() => {
     if (ref.current) {
@@ -716,7 +723,7 @@ export const Table: FC<FRCTableProps> = (props) => {
     }
   }; // x 轴滚动
 
-  const onScrollSimulationY = () => {
+  const onScrollSimulationY = async () => {
     console.log("in-y");
     const tableNode = ref.current.querySelector(".ant-table-body-box"); // 最外层容器
     const realScrollTop = tableNode.scrollTop; // 滚动条距离顶部的高度
@@ -740,7 +747,7 @@ export const Table: FC<FRCTableProps> = (props) => {
       return;
     }
 
-    [...((dataIsFixed ? fixedData : dataSource) || [])]?.forEach(
+    [...((dataIsFixed ? fixedData : initData) || [])]?.forEach(
       (item, index) => {
         listTotalHeight += rowHeight;
         if (currentStep === 0) {
@@ -762,15 +769,10 @@ export const Table: FC<FRCTableProps> = (props) => {
       }
     );
 
-    console.log("rowSizeNow", rowSize, rowSizeNow);
-
     if (rowSize.join() !== rowSizeNow.join()) {
-      // 可视区域的行号有了变化才重新进行渲染
-      setRowSize(rowSizeNow);
+      // 顺序不能变，否则会导致 抖动
+      setRowSize(rowSizeNow); // 可视区域的行号有了变化才重新进行渲染
       setHiddenTopStyle(hiddenTopHeight);
-    }
-
-    if (listTotalHeight !== totalHeight) {
       setTotalHeight(listTotalHeight);
     }
   }; // y 轴滚动
