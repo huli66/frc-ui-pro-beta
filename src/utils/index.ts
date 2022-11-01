@@ -38,7 +38,7 @@ export function controlScrollSpeed(
 ) {
   const scrollTop = node.scrollTop;
 
-  console.log('in-scroll');
+  // console.log('in-scroll');
 
   // 向下
   if (scrollTop > scrollPosition) {

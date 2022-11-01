@@ -465,6 +465,7 @@ export const Table: FC<FRCTableProps> = (props) => {
   } = props;
 
   const ref = useRef<any>(null);
+  const [initData, setInitData] = useState<any[]>([]);
 
   // active | fixed
   const [emptyHeight, setEmptyHeight] = useState<string | number>(0);
@@ -491,6 +492,10 @@ export const Table: FC<FRCTableProps> = (props) => {
   });
 
   useEffect(() => {
+    setInitData([...dataSource]);
+  }, [dataSource]); // 单独存一份 dataSource 的备份，以便后续拓展
+
+  useEffect(() => {
     rowActive && setRowActiveInner(rowActive);
   }, [rowActive]); // 设置 active key，用于 active 状态
 
@@ -505,8 +510,9 @@ export const Table: FC<FRCTableProps> = (props) => {
     newTableBody.appendChild(oldTableBody);
     containerNode.appendChild(newTableBody);
 
+    onScrollSimulationY();
     oldTableBody.addEventListener("scroll", onScrollSimulationX); // x 轴不需要重置，不需要监听，故在初始化即添加事件。需反复重置的事件为：y轴滚动、滚动速度
-    // newTableBody.addEventListener("scroll", onScrollSimulationY); // y轴 移除 滚动事件
+    newTableBody.addEventListener("scroll", onScrollSimulationY); // y轴 移除 滚动事件
 
     fitHeaderWidth(containerNode); // 适配 header width
     fitSummaryButtom(containerNode); // 适配 summary bottom
@@ -520,22 +526,8 @@ export const Table: FC<FRCTableProps> = (props) => {
   }, []); // 组件加载时，执行 “虚拟滚动” 初始化的必要操作
 
   useEffect(() => {
-    onScrollSimulationY();
-  }, []);
-
-  useEffect(() => {
-    const newTableBody = ref.current.querySelector(".ant-table-body-box");
-    
-    newTableBody.addEventListener("scroll", onScrollSimulationY);
-
-    return () => {
-      newTableBody.removeEventListener("scroll", onScrollSimulationY);
-    };
-  }, []);
-
-  useEffect(() => {
     if (rowActiveInner && rowActiveFixedData && !dataIsFixed) {
-      setFixedData(dataSource);
+      setFixedData(initData);
       setDataIsFixed(true);
     }
   }, [rowActiveInner, rowActiveFixedData]); // 启动 固定 data 模式后，点击 active row，将 data 固定
@@ -544,13 +536,13 @@ export const Table: FC<FRCTableProps> = (props) => {
     if (rowActiveInner && rowActiveFixedData && dataIsFixed) {
       showDataUpdateTip();
     }
-  }, [dataSource]); // 固定 data 后，当 dataSource 更新时，弹出 “提示框” 提示用户
+  }, [initData]); // 固定 data 后，当 dataSource 更新时，弹出 “提示框” 提示用户
 
   useEffect(() => {
     if (rowSize.join() !== "0,0" && !dataIsFixed) {
-      setVirtualData([...(dataSource || [])].slice(...rowSize));
+      setVirtualData([...(initData || [])].slice(...rowSize));
     }
-  }, [rowSize, dataSource, dataIsFixed]); // 根据 ”dataSource 截取区间，例:[3,20]“，截取最终展示用的 table data
+  }, [rowSize, initData, dataIsFixed]); // 根据 ”dataSource 截取区间，例:[3,20]“，截取最终展示用的 table data
 
   useEffect(() => {
     if (rowSize.join() !== "0,0" && dataIsFixed) {
@@ -717,7 +709,7 @@ export const Table: FC<FRCTableProps> = (props) => {
   }; // x 轴滚动
 
   const onScrollSimulationY = () => {
-    console.log("in-y");
+    // console.log("in-y");
     const tableNode = ref.current.querySelector(".ant-table-body-box"); // 最外层容器
     const realScrollTop = tableNode.scrollTop; // 滚动条距离顶部的高度
 
@@ -740,7 +732,7 @@ export const Table: FC<FRCTableProps> = (props) => {
       return;
     }
 
-    [...((dataIsFixed ? fixedData : dataSource) || [])]?.forEach(
+    [...((dataIsFixed ? fixedData : initData) || [])]?.forEach(
       (item, index) => {
         listTotalHeight += rowHeight;
         if (currentStep === 0) {
@@ -761,8 +753,6 @@ export const Table: FC<FRCTableProps> = (props) => {
         }
       }
     );
-
-    console.log("rowSizeNow", rowSize, rowSizeNow);
 
     if (rowSize.join() !== rowSizeNow.join()) {
       // 可视区域的行号有了变化才重新进行渲染

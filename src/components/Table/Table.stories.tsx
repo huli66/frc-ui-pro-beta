@@ -2515,7 +2515,7 @@ export const _BL_MessageTipComponent = () => {
 
     // rowActiveFixedData 启动 “固定数据” 效果
     // rowActiveFixedTip 设置 “固定提示” 文案
-    // rowActiveFirstGradient 启动 “首条数据” 渐变效果 (每次 data change, 都会触发)
+    // rowActiveFirstGradient 启动 “数据” 渐变效果 (每次 data change, 都会触发)
     // animeRowKey 为 “数据” 渐变效果的 key。(!!!: 有推送时，处理 item 时自行添加 animeRowKey, 否则无效)
   `;
 
@@ -2758,7 +2758,7 @@ export const _ZZ_CustomTableComponent = () => {
   const open = (socket: any, event: any) => {
     // console.log("open");
     socket.send('{"cmd":"snapshot"}');
-    socket.send('{"cmd":"subscribe"}');
+    // socket.send('{"cmd":"subscribe"}');
   };
 
   const sendRequest = (socket: any, event: any) => {
