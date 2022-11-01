@@ -29,11 +29,11 @@ export function isNumber(value: any): boolean {
   return typeof value === "number";
 }
 
-let scrollPosition = 0;
+// let scrollPosition = 0;
 export function controlScrollSpeed(
   node: HTMLElement,
   maxSpeed: number,
-  // scrollPosition: number, 
+  scrollPosition: number, 
   // init?: boolean
 ) {
   const scrollTop = node.scrollTop;
@@ -54,5 +54,7 @@ export function controlScrollSpeed(
     }
   }
 
-  scrollPosition = node.scrollTop;
+  return node.scrollTop;
+
+  // scrollPosition = node.scrollTop;
 };
