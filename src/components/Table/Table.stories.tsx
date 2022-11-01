@@ -2304,7 +2304,7 @@ export const _BL_MessageTipComponent = () => {
     age: number;
     address: string;
     description: string;
-    animeRowKey?: string | number;
+    animeKey?: string | number;
   }
 
   const [data, setData] = useState<any[]>([
@@ -2463,7 +2463,7 @@ export const _BL_MessageTipComponent = () => {
             age: 42,
             address: "London No. 1 Lake Park",
             description: "something else",
-            animeRowKey: pre.length + 1 + "",
+            animeKey: pre.length + 1 + "", // 用于动画
           },
         ];
 
@@ -2515,7 +2515,8 @@ export const _BL_MessageTipComponent = () => {
 
     // rowActiveFixedData 启动 “固定数据” 效果
     // rowActiveFixedTip 设置 “固定提示” 文案
-    // rowActiveFirstGradient 启动 “首条数据” 渐变效果（每次 data change，都会触发）
+    // rowActiveFirstGradient 启动 “首条数据” 渐变效果 (每次 data change, 都会触发)
+    // animeRowKey 为 “数据” 渐变效果的 key。(!!!: 有推送时，处理 item 时自行添加 animeRowKey, 否则无效)
   `;
 
   // --------------------------------------------------------------
@@ -2524,7 +2525,7 @@ export const _BL_MessageTipComponent = () => {
     <>
       <ImportCode code={code} />
       <Table
-        animeRowKey="animeRowKey"
+        animeRowKey="animeKey"
         columns={columns}
         dataSource={data}
         rowActive={activeRowKey}

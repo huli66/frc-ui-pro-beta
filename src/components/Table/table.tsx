@@ -493,7 +493,11 @@ export const Table: FC<FRCTableProps> = (props) => {
 
   useEffect(() => {
     setInitData([...dataSource]);
-  }, [dataSource]);
+  }, [dataSource]); // 单独存一份 dataSource 的备份，以便后续拓展
+
+  useEffect(() => {
+    rowActive && setRowActiveInner(rowActive);
+  }, [rowActive]); // 设置 active key，用于 active 状态
 
   useEffect(() => {
     const containerNode = ref.current.querySelector(".ant-table-container");
@@ -520,10 +524,6 @@ export const Table: FC<FRCTableProps> = (props) => {
       onWindowResize(containerNode, newTableBody);
     }); // 设定监听事件
   }, []); // 组件加载时，执行 “虚拟滚动” 初始化的必要操作
-
-  useEffect(() => {
-    rowActive && setRowActiveInner(rowActive);
-  }, [rowActive]); // 设置 active key，用于 active 状态
 
   useEffect(() => {
     if (rowActiveInner && rowActiveFixedData && !dataIsFixed) {
