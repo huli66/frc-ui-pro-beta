@@ -2452,19 +2452,23 @@ export const _BL_MessageTipComponent = () => {
 
   // mock update data ---------------------------------------------
 
-  const dataMock: DataType[] = [
-    {
-      key: data.length + 1 + "",
-      name: "新推送：" + (data.length + 1),
-      age: 42,
-      address: "London No. 1 Lake Park",
-      description: "something else",
-    },
-  ];
+  useEffect(() => {
+    setInterval(() => {
+      setData((pre) => {
+        const dataMock: DataType[] = [
+          {
+            key: pre.length + 1 + "",
+            name: "新推送：" + (pre.length + 1),
+            age: 42,
+            address: "London No. 1 Lake Park",
+            description: "something else",
+          },
+        ];
 
-  setTimeout(() => {
-    setData([...dataMock].concat([...data]));
-  }, 4000);
+        return [...dataMock].concat([...pre]);
+      });
+    }, 1000);
+  }, []);
 
   // --------------------------------------------------------------
 

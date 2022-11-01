@@ -437,6 +437,7 @@ const EmptyNode = (props: { height: number | string }) => {
   );
 };
 
+let scrollPosition = 0;
 export const Table: FC<FRCTableProps> = (props) => {
   const {
     test,
@@ -473,7 +474,6 @@ export const Table: FC<FRCTableProps> = (props) => {
 
   // virtual sroll
   let tableWidthInner = 0;
-  let scrollPosition = 0;
   const [initScroll, setInitScroll] = useState<boolean>(false);
   const [rowSize, setRowSize] = useState<any[]>([0, 0]);
   const [hiddenTopStyle, setHiddenTopStyle] = useState(0);
@@ -481,6 +481,7 @@ export const Table: FC<FRCTableProps> = (props) => {
   const [virtualData, setVirtualData] = useState<any[]>([]);
   const [fixedYScroll, setFixedYScroll] = useState<boolean>(false);
   const [showXScroll, setShowXScroll] = useState<boolean>(true);
+  const [isFirst, setIsFirst] = useState<boolean>(true);
 
   const classes = classNames("frc-table", className, {
     [`frc-row-bg-type-${rowBgType}`]: rowBgType,
@@ -491,7 +492,37 @@ export const Table: FC<FRCTableProps> = (props) => {
   });
 
   useEffect(() => {
-    virtualScrollInit();
+    return () => {
+      if (dataSource.length !== 0 && isFirst) {
+        setIsFirst(false);
+      }
+    };
+  }, [dataSource, isFirst]);
+
+  useEffect(() => {
+    const containerNode = ref.current.querySelector(".ant-table-container");
+    const oldTableBody = containerNode.querySelector(".ant-table-body");
+    const newTableBody = document.createElement("div");
+
+    // 设置滚动 box 属性
+    newTableBody.className = "ant-table-body-box";
+    newTableBody.style.overflow = "hidden scroll";
+    newTableBody.appendChild(oldTableBody);
+    containerNode.appendChild(newTableBody);
+
+    onScrollSimulationY();
+    oldTableBody.addEventListener("scroll", onScrollSimulationX); // x 轴不需要重置，不需要监听，故在初始化即添加事件。需反复重置的事件为：y轴滚动、滚动速度
+    newTableBody.addEventListener("scroll", onScrollSimulationY); // y轴 移除 滚动事件
+
+    fitHeaderWidth(containerNode); // 适配 header width
+    fitSummaryButtom(containerNode); // 适配 summary bottom
+    calEmptyHeight(height || 300); // 计算 empty 高度
+    scrollMove(); // 初始化滚动速度控制
+
+    onWindowResize(containerNode, newTableBody); // 设定监听事件
+    window.addEventListener("resize", () => {
+      onWindowResize(containerNode, newTableBody);
+    }); // 设定监听事件
   }, []); // 组件加载时，执行 “虚拟滚动” 初始化的必要操作
 
   useEffect(() => {
@@ -512,29 +543,16 @@ export const Table: FC<FRCTableProps> = (props) => {
   }, [dataSource]); // 固定 data 后，当 dataSource 更新时，弹出 “提示框” 提示用户
 
   useEffect(() => {
-    // 添加 y 滚动条 scorll 事件
-    const yScrollNode = ref.current.querySelector(".ant-table-body-box");
-
-    onScrollSimulationY();
-    yScrollNode.addEventListener("scroll", onScrollSimulationY); // y轴 添加 滚动事件
-
-    return () => {
-      yScrollNode.removeEventListener("scroll", onScrollSimulationY); // y轴 移除 滚动事件
-    };
-  }, [dataSource, fixedData]); // review 完后决定是否拆分：1. dataSource change 2. fixedData change
+    if (rowSize.join() !== "0,0" && !dataIsFixed) {
+      setVirtualData([...(dataSource || [])].slice(...rowSize));
+    }
+  }, [rowSize, dataSource, dataIsFixed]); // 根据 ”dataSource 截取区间，例:[3,20]“，截取最终展示用的 table data
 
   useEffect(() => {
-    if (rowSize.join() !== "0,0") {
-      let newData: any[] = [];
-      if (!dataIsFixed) {
-        newData = [...(dataSource || [])].slice(...rowSize) || [];
-      } else {
-        newData = [...(fixedData || [])].slice(...rowSize) || [];
-      }
-
-      setVirtualData(newData);
+    if (rowSize.join() !== "0,0" && dataIsFixed) {
+      setVirtualData([...(fixedData || [])].slice(...rowSize));
     }
-  }, [rowSize, dataSource, fixedData]); // 根据 ”截取区间，例:[3,20]“，截取最终展示用的 table data
+  }, [rowSize, dataIsFixed, fixedData]); // 根据 ”fixedData 截取区间，例:[3,20]“，截取最终展示用的 table data
 
   useEffect(() => {
     if (ref.current) {
@@ -549,6 +567,7 @@ export const Table: FC<FRCTableProps> = (props) => {
 
     if (initScroll) {
       tableNode.scrollTop = 0;
+      scrollPosition = 0;
       setInitScroll(false);
     } else {
       tableNode.addEventListener("scroll", scrollMove);
@@ -560,30 +579,6 @@ export const Table: FC<FRCTableProps> = (props) => {
   }, [initScroll]);
 
   // virtual scroll ------------------------------------------------------------------
-
-  const virtualScrollInit = () => {
-    const containerNode = ref.current.querySelector(".ant-table-container");
-    const oldTableBody = containerNode.querySelector(".ant-table-body");
-    const newTableBody = document.createElement("div");
-
-    // 设置滚动 box 属性
-    newTableBody.className = "ant-table-body-box";
-    newTableBody.style.overflow = "hidden scroll";
-    newTableBody.appendChild(oldTableBody);
-    containerNode.appendChild(newTableBody);
-
-    oldTableBody.addEventListener("scroll", onScrollSimulationX); // x 轴不需要重置，不需要监听，故在初始化即添加事件。需反复重置的事件为：y轴滚动、滚动速度
-
-    fitHeaderWidth(containerNode); // 适配 header width
-    fitSummaryButtom(containerNode); // 适配 summary bottom
-    calEmptyHeight(height || 300); // 计算 empty 高度
-    scrollMove(); // 初始化滚动速度控制
-
-    onWindowResize(containerNode, newTableBody); // 设定监听事件
-    window.addEventListener("resize", () => {
-      onWindowResize(containerNode, newTableBody);
-    }); // 设定监听事件
-  }; // 虚拟滚动初始化
 
   const fitHeaderWidth = async (boxNode: any) => {
     const headerNode = await boxNode.querySelector(".ant-table-header"); // 获取 table header 高度
@@ -785,7 +780,7 @@ export const Table: FC<FRCTableProps> = (props) => {
     tipNode.className = "frc-table-fixed-tip";
     tipNode.innerHTML = rowActiveFixedTip || "数据已更新";
     tipNode.addEventListener("click", () => {
-      setRowActiveInner(null);
+      // setRowActiveInner(null);
       setDataIsFixed(false);
       setFixedData([]);
       containerNode.removeChild(tipNode);
@@ -915,7 +910,9 @@ export const Table: FC<FRCTableProps> = (props) => {
     rowClassName: (record: RecordType, index: number) => {
       let rowClasses = "";
       // 开启首行渐变
-      if (rowActiveFirstGradient && index === 0) {
+      if (rowActiveFirstGradient && !isFirst) {
+        console.log("in-test");
+
         rowClasses += " frc-table-row-first-gradient";
       }
       // active row className
