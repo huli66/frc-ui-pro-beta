@@ -2750,7 +2750,7 @@ export const _ZZ_CustomTableComponent = () => {
   const open = (socket: any, event: any) => {
     // console.log("open");
     socket.send('{"cmd":"snapshot"}');
-    // socket.send('{"cmd":"subscribe"}');
+    socket.send('{"cmd":"subscribe"}');
   };
 
   const sendRequest = (socket: any, event: any) => {

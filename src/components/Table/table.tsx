@@ -544,27 +544,15 @@ export const Table: FC<FRCTableProps> = (props) => {
     }
   }, [hiddenTopStyle, totalHeight]); // 根据 scroll 滚动，控制整体滚动流畅度 （本质： padding-top 与 totalHeight 的相对值）
 
-  const scrollMove = () => {
-    const tableNode = ref.current.querySelector(".ant-table-body-box");
-    scrollPosition = controlScrollSpeed(tableNode, 24, scrollPosition);
-  };
-
-  useEffect(() => {
-    scrollMove();
-  }, []);
-
   useEffect(() => {
     const tableNode = ref.current.querySelector(".ant-table-body-box");
 
     if (initScroll) {
       tableNode.scrollTop = 0;
+      setInitScroll(false);
     } else {
       tableNode.addEventListener("scroll", scrollMove);
     }
-
-    setTimeout(() => {
-      setInitScroll(false);
-    }, 100);
 
     return () => {
       tableNode.removeEventListener("scroll", scrollMove);
@@ -589,6 +577,7 @@ export const Table: FC<FRCTableProps> = (props) => {
     fitHeaderWidth(containerNode); // 适配 header width
     fitSummaryButtom(containerNode); // 适配 summary bottom
     calEmptyHeight(height || 300); // 计算 empty 高度
+    scrollMove(); // 初始化滚动速度控制
 
     onWindowResize(containerNode, newTableBody); // 设定监听事件
     window.addEventListener("resize", () => {
@@ -673,6 +662,11 @@ export const Table: FC<FRCTableProps> = (props) => {
 
     return tableHeight;
   }; // 计算 empty 高度
+
+  const scrollMove = () => {
+    const tableNode = ref.current.querySelector(".ant-table-body-box");
+    scrollPosition = controlScrollSpeed(tableNode, 120, scrollPosition);
+  }; // 初始化滚动速度控制
 
   const onWindowResize = async (boxNode: any, bodyNode: any) => {
     const heightNode = await boxNode.querySelector(".ant-table-header");
