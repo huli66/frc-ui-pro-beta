@@ -560,17 +560,14 @@ export const Table: FC<FRCTableProps> = (props) => {
 
   useEffect(() => {
     if (rowSize.join() !== "0,0" && dataIsFixed) {
-      console.log("in", dataIsFixed, rowSize);
       setVirtualData([...(fixedData || [])].slice(...rowSize));
     }
-  }, [rowSize, dataIsFixed]); // 根据 ”fixedData 截取区间，例:[3,20]“，截取最终展示用的 table data
+  }, [rowSize, dataIsFixed, fixedData]); // 根据 ”fixedData 截取区间，例:[3,20]“，截取最终展示用的 table data
 
   useEffect(() => {
-    if (ref.current) {
-      const innerNode = ref.current?.querySelector(".ant-table-body");
-      innerNode.style.height = (totalHeight || innerNode.style.height) + "px";
-      innerNode.style.paddingTop = hiddenTopStyle + "px";
-    }
+    const innerNode = ref.current?.querySelector(".ant-table-body");
+    innerNode.style.height = (totalHeight || innerNode.style.height) + "px";
+    innerNode.style.paddingTop = hiddenTopStyle + "px";
   }, [hiddenTopStyle, totalHeight]); // 根据 scroll 滚动，控制整体滚动流畅度 （本质： padding-top 与 totalHeight 的相对值）
 
   useEffect(() => {
@@ -724,7 +721,7 @@ export const Table: FC<FRCTableProps> = (props) => {
   }; // x 轴滚动
 
   const onScrollSimulationY = async () => {
-    console.log("in-y");
+    // console.log("in-y");
     const tableNode = ref.current.querySelector(".ant-table-body-box"); // 最外层容器
     const realScrollTop = tableNode.scrollTop; // 滚动条距离顶部的高度
 
