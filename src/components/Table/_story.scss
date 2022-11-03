@@ -18,3 +18,33 @@
     }
   }
 }
+
+.right {
+  width: 76%;
+  .tool {
+    padding: 0px 8px;
+    height: 24px;
+    background-color: #0c261f;
+    border-bottom: 10px solid #000;
+    box-sizing: content-box;
+    display: flex;
+    align-items: center;
+    .config {
+      font-size: 14px;
+      margin-left: 4px;
+      cursor: pointer;
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+  .top {
+    height: 400px;
+  }
+  .bottom {
+    padding: 0px 8px;
+    height: 300px;
+    background-color: #0c261f;
+    border-top: 10px solid #000;
+  }
+}

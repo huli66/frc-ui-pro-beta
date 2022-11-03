@@ -42,6 +42,7 @@ import {
   InputNumber,
   Tooltip,
   Checkbox,
+  Modal,
 } from "../../index";
 
 import {
@@ -2550,22 +2551,43 @@ _BL_MessageTipComponent.storyName = "新消息提醒（常用于推送）";
 
 export const _ZZ_CustomTableComponent = () => {
   const [tableData, setTableData] = useState<any[]>([]);
-  const [test, setTest] = useState<boolean>(false);
   const [socketMessage, setSocketMessage] = useState<any[]>([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const [modalList, setModalList] = useState<any[]>([]);
+  const [tableColumns, setTableColumns] = useState<any[]>([]);
+  const [checkedKeys, setCheckedKeys] = useState<any[]>(
+    localStorage.getItem("checkedConfig")?.split(",") || []
+  );
 
   const columns: any[] = [
     {
       title: "剩余期限",
       dataIndex: "residualMaturity",
       key: "residualMaturity",
-      // fixed: 'left',
+      // fixed: "left",
+      width: "100px",
+    },
+    {
+      title: "bondKey",
+      dataIndex: "bondKey",
+      key: "bondKey",
+      ellipsis: true,
+      // fixed: "left",
+      width: "100px",
+    },
+    {
+      title: "listedMarket",
+      dataIndex: "listedMarket",
+      key: "listedMarket",
+      // fixed: "left",
       width: "100px",
     },
     {
       title: "债券简称",
       dataIndex: "bondNm",
       key: "bondNm",
-      width: "400px",
+      width: "200px",
     },
     {
       title: "票面利率",
@@ -2755,23 +2777,45 @@ export const _ZZ_CustomTableComponent = () => {
     },
   ];
 
-  const open = (socket: any, event: any) => {
-    // console.log("open");
-    socket.send('{"cmd":"snapshot"}');
-    // socket.send('{"cmd":"subscribe"}');
+  // -------------------------------------------------------------------------------------------------------------------
+
+  const open = (socket: any) => {
+    // console.log('open', e);
+    socket.send('{"cmd":"schema", "id": 0}');
+    socket.send('{"cmd":"snapshot", "id": 1}');
+    // socket.send('{"cmd":"subscribe", "id": 2}');
   };
 
   const sendRequest = (socket: any, event: any) => {
     const data: any = JSON.parse(event.data);
 
-    // console.log("data", data);
+    if (data.id === 0) {
+      // console.log('data', data.payload.properties);
+      let config: any = [];
+      for (let key in data.payload.properties) {
+        config.push({
+          title: data.payload.properties[key]?.cnName || key,
+          key,
+        });
+      }
 
-    if (data?.payload?.list && !test) {
+      const newKeys = (config as any[]).map((item) => item.key);
+      const newColumns = columns.filter(
+        (column) => newKeys.indexOf(column.key) !== -1
+      );
+      setModalList(newColumns);
+
+      if (!localStorage.getItem("checkedConfig")) {
+        setTableColumns(newColumns);
+      }
+    }
+
+    if (data?.payload?.list) {
       setTableData(data.payload.list);
-      setTest(true);
     }
 
     if (Object.prototype.toString.call(data) === "[object Array]") {
+      // console.log('this ----------------------------->', data);
       setSocketMessage(data);
     }
   };
@@ -2788,6 +2832,7 @@ export const _ZZ_CustomTableComponent = () => {
     socket.addEventListener("message", sendRequestBox);
 
     return () => {
+      console.log("in-unmound");
       socket.removeEventListener("open", openBox);
       socket.removeEventListener("message", sendRequestBox);
     };
@@ -2798,12 +2843,13 @@ export const _ZZ_CustomTableComponent = () => {
   }, [socketMessage]);
 
   const dealData = (message: any) => {
-    // console.log('dealData', message);
+    // console.log("dealData", message);
+
     let newData: any[] = [...tableData];
     message.forEach((item: any) => {
       if (item.action === "ADD") {
         newData = [...newData].concat([item.payload]);
-        // console.log('ADD', item.payload.msgSeq, newData.length);
+        // console.log("ADD", item.payload.msgSeq, newData.length);
       }
 
       if (item.action === "REMOVE") {
@@ -2814,10 +2860,10 @@ export const _ZZ_CustomTableComponent = () => {
               i.bondKey === item.payload.bondKey
             )
         );
-        // console.log('REMOVE', item.payload.msgSeq, newData.length);
+        // console.log("REMOVE", item.payload.msgSeq, newData.length);
       }
 
-      if (item.action === "UPDATE") {
+      if (item.action === "MODIFY") {
         newData = [...newData].filter(
           (i) =>
             !(
@@ -2826,24 +2872,99 @@ export const _ZZ_CustomTableComponent = () => {
             )
         );
         newData = [...newData].concat([item.payload]);
-        // console.log('UPDATE', item.payload.msgSeq, newData.length);
+        // console.log("UPDATE", item.payload.msgSeq, newData.length);
       }
     });
 
     newData = orderBy(newData, ["marketDataTm"], ["desc"]);
+
+    // console.log("newData", newData);
     setTableData(newData);
   };
 
+  // modal --------------------------------------------------------------------------------------------------------------
+
+  useEffect(() => {
+    if (!isModalVisible) {
+      const localData = localStorage.getItem("checkedConfig")?.split(",");
+      if (localData && localData.length > 0) {
+        const newColumns = columns.filter(
+          (item) => localData?.indexOf(item.key) !== -1
+        );
+        // console.log("newColumns", newColumns);
+        setTableColumns([...newColumns]);
+      }
+    }
+  }, [isModalVisible]);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+    localStorage.setItem("checkedConfig", `${checkedKeys}`);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+    setCheckedKeys(localStorage.getItem("checkedConfig")?.split(",") || []);
+  };
+
+  const onCheckboxChange = (checkedValue: (string | number | boolean)[]) => {
+    setCheckedKeys(checkedValue);
+  };
+
+  const tableColumnsOptions =
+    modalList &&
+    modalList.map((item) => {
+      return {
+        label: <div style={{ width: 100 }}>{item.title}</div>,
+        value: item.key,
+      };
+    });
+
+  // --------------------------------------------------------------------------------------------------------------------
+
   return (
     <>
-      <Table
-        bordered
-        rowKey={(record) => {
-          return record.msgSeq;
-        }}
-        columns={columns}
-        dataSource={tableData || []}
-      />
+      <div className="right">
+        <div className="tool">
+          Tool:
+          <Icon className="config" type="setting" onClick={showModal} />
+        </div>
+        <div className="top">
+          {tableColumns.length > 0 && (
+            <Table
+              rowKey="msgSeq"
+              columns={tableColumns || []}
+              dataSource={tableData || []}
+              height={"100%"}
+            />
+          )}
+        </div>
+      </div>
+
+      <Modal
+        title="表格设置"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        width={500}
+      >
+        <p>设置需要展示的列：</p>
+        {modalList && modalList.length > 0 && (
+          <Checkbox.Group
+            options={tableColumnsOptions}
+            value={
+              checkedKeys.length > 0
+                ? checkedKeys
+                : tableColumns.map((item) => item.key)
+            }
+            onChange={onCheckboxChange}
+          />
+        )}
+      </Modal>
     </>
   );
 };

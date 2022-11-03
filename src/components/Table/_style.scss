@@ -996,7 +996,7 @@
     bottom: 0;
     left: 0;
     background: $table-background;
-    z-index: 10000;
+    z-index: 1;
     overflow: scroll hidden;
     box-sizing: border-box;
     .frc-table-scroll-bar-inner {

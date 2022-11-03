@@ -465,6 +465,7 @@ export const Table: FC<FRCTableProps> = (props) => {
 
   const ref = useRef<any>(null);
   const [initData, setInitData] = useState<any[]>([]);
+  const [tableColumns, setTableColumns] = useState<any[]>([]);
 
   // active | fixed
   const [emptyHeight, setEmptyHeight] = useState<string | number>(0);
@@ -493,6 +494,12 @@ export const Table: FC<FRCTableProps> = (props) => {
   useEffect(() => {
     setInitData([...dataSource]);
   }, [dataSource]); // 单独存一份 dataSource 的备份，以便后续拓展
+
+  useEffect(() => {
+    console.log("in-columns");
+
+    setTableColumns([...columns]);
+  }, [columns]);
 
   useEffect(() => {
     rowActive && setRowActiveInner(rowActive);
@@ -586,14 +593,18 @@ export const Table: FC<FRCTableProps> = (props) => {
     };
   }, [initScroll]);
 
+  useEffect(() => {
+    console.log("showXScroll", showXScroll);
+  }, [showXScroll]);
+
   // virtual scroll ------------------------------------------------------------------
 
   const fitHeaderWidth = async (boxNode: any) => {
     const headerNode = await boxNode.querySelector(".ant-table-header"); // 获取 table header 高度
-    const headerColgroupNode = headerNode.querySelector("colgroup"); // col
+    const headerColgroupNode = await headerNode.querySelector("colgroup"); // col
 
     if (headerColgroupNode) {
-      const oldWidth = headerColgroupNode.lastChild.style.width;
+      const oldWidth = await headerColgroupNode?.lastChild.style.width;
       headerColgroupNode.lastChild.style.width =
         Number(oldWidth.toString().match(/\d+/i)?.[0]) + 8 + "px";
     }
@@ -645,25 +656,12 @@ export const Table: FC<FRCTableProps> = (props) => {
   }; // 适配 summary bottom 时的 ui
 
   const calEmptyHeight = async (tableHeight: string | number) => {
-    if (ref.current && tableHeight) {
+    if (tableHeight) {
       const headerNode = await ref.current.querySelector(".ant-table-header");
       const headerHeight = headerNode.clientHeight;
-
-      let emptyHeight: string | number = 0;
-
-      if (typeof tableHeight === "number") {
-        emptyHeight = tableHeight - headerHeight;
-      } else if (tableHeight.indexOf("calc") !== -1) {
-        emptyHeight = `calc(${tableHeight} - ${headerHeight}px - 10px)`;
-      } else {
-        const heightNumber = Number(tableHeight.toString().match(/\d+/i)?.[0]);
-        emptyHeight = heightNumber - headerHeight - 10;
-      }
-
-      setEmptyHeight(emptyHeight);
+      const tableHeight = await ref.current.clientHeight;
+      setEmptyHeight(tableHeight - headerHeight - 10);
     }
-
-    return tableHeight;
   }; // 计算 empty 高度
 
   const scrollMove = () => {
@@ -672,30 +670,32 @@ export const Table: FC<FRCTableProps> = (props) => {
   }; // 初始化滚动速度控制
 
   const onWindowResize = async (boxNode: any, bodyNode: any) => {
-    const heightNode = await boxNode.querySelector(".ant-table-header");
-    const width = boxNode?.clientWidth;
+    setTimeout(() => {
+      const heightNode = boxNode.querySelector(".ant-table-header");
+      const width = boxNode?.clientWidth;
 
-    const bottomSummary = boxNode.querySelector(
-      ".ant-table-container > .ant-table-summary"
-    );
+      const bottomSummary = boxNode.querySelector(
+        ".ant-table-container > .ant-table-summary"
+      );
 
-    // console.log("in", bodyNode);
+      console.log("in", width, tableWidthInner);
 
-    if (width) {
-      if (width >= tableWidthInner) {
-        bodyNode.style.height = `calc(100% - ${
-          heightNode.clientHeight + (bottomSummary?.clientHeight || 0)
-        }px)`;
-        heightNode.style.paddingRight = "8px";
-        setShowXScroll(false);
-      } else {
-        bodyNode.style.height = `calc(100% - ${
-          heightNode.clientHeight + (bottomSummary?.clientHeight || 0) + 9
-        }px)`;
-        heightNode.style.paddingRight = "0px";
-        setShowXScroll(true);
+      if (width) {
+        if (width >= tableWidthInner) {
+          bodyNode.style.height = `calc(100% - ${
+            heightNode.clientHeight + (bottomSummary?.clientHeight || 0)
+          }px)`;
+          heightNode.style.paddingRight = "8px";
+          setShowXScroll(false);
+        } else {
+          bodyNode.style.height = `calc(100% - ${
+            heightNode.clientHeight + (bottomSummary?.clientHeight || 0) + 9
+          }px)`;
+          heightNode.style.paddingRight = "0px";
+          setShowXScroll(true);
+        }
       }
-    }
+    }, 0);
   }; // 全局监听 resize
 
   const onMockScrollX = () => {
