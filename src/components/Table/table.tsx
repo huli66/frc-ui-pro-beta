@@ -465,7 +465,6 @@ export const Table: FC<FRCTableProps> = (props) => {
 
   const ref = useRef<any>(null);
   const [initData, setInitData] = useState<any[]>([]);
-  const [tableColumns, setTableColumns] = useState<any[]>([]);
 
   // active | fixed
   const [emptyHeight, setEmptyHeight] = useState<string | number>(0);
@@ -496,12 +495,6 @@ export const Table: FC<FRCTableProps> = (props) => {
   }, [dataSource]); // 单独存一份 dataSource 的备份，以便后续拓展
 
   useEffect(() => {
-    console.log("in-columns");
-
-    setTableColumns([...columns]);
-  }, [columns]);
-
-  useEffect(() => {
     rowActive && setRowActiveInner(rowActive);
   }, [rowActive]); // 设置 active key，用于 active 状态
 
@@ -529,19 +522,30 @@ export const Table: FC<FRCTableProps> = (props) => {
     newTableBody.appendChild(oldTableBody);
     containerNode.appendChild(newTableBody);
 
-    oldTableBody.addEventListener("scroll", onScrollSimulationX); // x 轴不需要重置，不需要监听，故在初始化即添加事件。需反复重置的事件为：y轴滚动、滚动速度
-    // newTableBody.addEventListener("scroll", onScrollSimulationY); // y轴 移除 滚动事件
-
     fitHeaderWidth(containerNode); // 适配 header width
     fitSummaryButtom(containerNode); // 适配 summary bottom
     calEmptyHeight(height || 300); // 计算 empty 高度
     scrollMove(); // 初始化滚动速度控制
-
-    onWindowResize(containerNode, newTableBody); // 设定监听事件
-    window.addEventListener("resize", () => {
-      onWindowResize(containerNode, newTableBody);
-    }); // 设定监听事件
   }, []); // 组件加载时，执行 “虚拟滚动” 初始化的必要操作
+
+  useEffect(() => {
+    const containerNode = ref.current.querySelector(".ant-table-container");
+    const tableBoxNode = containerNode.querySelector(".ant-table-body-box");
+    const tableBodyNode = tableBoxNode.querySelector(".ant-table-body");
+
+    const resizeBox = () => {
+      onWindowResize(containerNode, tableBoxNode);
+    };
+
+    onWindowResize(containerNode, tableBoxNode); // 设定监听事件
+    window.addEventListener("resize", resizeBox); // 设定监听事件
+    tableBodyNode.addEventListener("scroll", onScrollSimulationX); //
+
+    return () => {
+      window.removeEventListener("resize", resizeBox);
+      tableBodyNode.removeEventListener("scroll", onScrollSimulationX);
+    };
+  }, [columns]); // 添加：1.视口 resize 事件 | 2.x 轴滚动监听
 
   useEffect(() => {
     const newTableBody = ref.current.querySelector(".ant-table-body-box");
@@ -550,14 +554,12 @@ export const Table: FC<FRCTableProps> = (props) => {
       onScrollSimulationY();
     }
 
-    // const testS = debounce(onScrollSimulationY, 0);
-
     newTableBody.addEventListener("scroll", onScrollSimulationY);
 
     return () => {
       newTableBody.removeEventListener("scroll", onScrollSimulationY);
     };
-  }, [initData, dataIsFixed]);
+  }, [initData, dataIsFixed]); // 添加 y 轴滚动监听
 
   useEffect(() => {
     if (rowSize.join() !== "0,0" && !dataIsFixed) {
@@ -592,10 +594,6 @@ export const Table: FC<FRCTableProps> = (props) => {
       tableNode.removeEventListener("scroll", scrollMove);
     };
   }, [initScroll]);
-
-  useEffect(() => {
-    console.log("showXScroll", showXScroll);
-  }, [showXScroll]);
 
   // virtual scroll ------------------------------------------------------------------
 
@@ -670,32 +668,28 @@ export const Table: FC<FRCTableProps> = (props) => {
   }; // 初始化滚动速度控制
 
   const onWindowResize = async (boxNode: any, bodyNode: any) => {
-    setTimeout(() => {
-      const heightNode = boxNode.querySelector(".ant-table-header");
-      const width = boxNode?.clientWidth;
+    const heightNode = await boxNode.querySelector(".ant-table-header");
+    const width = boxNode?.clientWidth;
 
-      const bottomSummary = boxNode.querySelector(
-        ".ant-table-container > .ant-table-summary"
-      );
+    const bottomSummary = boxNode.querySelector(
+      ".ant-table-container > .ant-table-summary"
+    );
 
-      console.log("in", width, tableWidthInner);
-
-      if (width) {
-        if (width >= tableWidthInner) {
-          bodyNode.style.height = `calc(100% - ${
-            heightNode.clientHeight + (bottomSummary?.clientHeight || 0)
-          }px)`;
-          heightNode.style.paddingRight = "8px";
-          setShowXScroll(false);
-        } else {
-          bodyNode.style.height = `calc(100% - ${
-            heightNode.clientHeight + (bottomSummary?.clientHeight || 0) + 9
-          }px)`;
-          heightNode.style.paddingRight = "0px";
-          setShowXScroll(true);
-        }
+    if (width) {
+      if (width >= tableWidthInner) {
+        bodyNode.style.height = `calc(100% - ${
+          heightNode.clientHeight + (bottomSummary?.clientHeight || 0)
+        }px)`;
+        heightNode.style.paddingRight = "8px";
+        setShowXScroll(false);
+      } else {
+        bodyNode.style.height = `calc(100% - ${
+          heightNode.clientHeight + (bottomSummary?.clientHeight || 0) + 9
+        }px)`;
+        heightNode.style.paddingRight = "0px";
+        setShowXScroll(true);
       }
-    }, 0);
+    }
   }; // 全局监听 resize
 
   const onMockScrollX = () => {

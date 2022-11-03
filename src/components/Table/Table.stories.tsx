@@ -2783,7 +2783,7 @@ export const _ZZ_CustomTableComponent = () => {
     // console.log('open', e);
     socket.send('{"cmd":"schema", "id": 0}');
     socket.send('{"cmd":"snapshot", "id": 1}');
-    // socket.send('{"cmd":"subscribe", "id": 2}');
+    socket.send('{"cmd":"subscribe", "id": 2}');
   };
 
   const sendRequest = (socket: any, event: any) => {
