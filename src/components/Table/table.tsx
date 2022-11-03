@@ -366,7 +366,7 @@ export interface FRCTableProps extends Omit<TableProps<RecordType>, "columns"> {
   /** 开启 表格首行 背景色渐变动效（dataSource 改变时触发） */
   rowActiveFirstGradient?: boolean;
   /** 开启渐变效果 row 的唯一 key 名称 */
-  animeRowKey?: string | number;
+  animeRowKey?: string;
   /** 激活 row (唯一)，row 需有唯一 key 生效 */
   rowActive?: string | number;
   /** 激活 row 时，固定数据变化。数据变化时，顶部提示 */
@@ -877,51 +877,73 @@ export const Table: FC<FRCTableProps> = (props) => {
     return newColumns;
   };
 
+  // other config --------------------------------------------------------
+
+  const fitRowClassName = (record: RecordType, index: number) => {
+    // console.log("record", record.noAnime);
+
+    let rowClasses = "";
+    // 开启首行渐变
+    if (
+      rowActiveFirstGradient &&
+      animeRowKey &&
+      record[animeRowKey]
+    ) {
+      rowClasses += " frc-table-row-first-gradient";
+    }
+    // active row className
+    if (rowActiveInner && record?.key && rowActiveInner === record.key) {
+      rowClasses += " frc-table-row-active";
+    }
+    // default row className
+    if (rowClassName && typeof rowClassName === "function") {
+      rowClasses += rowClassName(record, index);
+    }
+    return rowClasses;
+  }; // 适配 rowClassName
+
+  const fitLoading = () => {
+    const loadingConfig = {
+      size: "large",
+      tip: "加载中...",
+      indicator: (
+        <Icon
+          className="icon-spin frc-table-loading"
+          type="loading--quarters"
+        />
+      ),
+    };
+
+    if (loading) {
+      if (typeof loading === "boolean") {
+        return loadingConfig;
+      }
+      return loading; // user custom loading config
+    }
+    return false;
+  }; // 适配 loading
+
+  const localeConfig = {
+    ...locale,
+    emptyText:
+      locale && locale.emptyText ? (
+        locale.emptyText
+      ) : (
+        <EmptyNode height={emptyHeight} />
+      ),
+  }; // locale config -> 可 empty 等等
+
+  // options -------------------------------------------------------------
+
   const options = {
     className: classes,
     size,
     bordered,
     dataSource: [...virtualData],
-    loading: loading
-      ? typeof loading === "boolean"
-        ? {
-            size: "large",
-            tip: "加载中...",
-            indicator: (
-              <Icon
-                className="icon-spin frc-table-loading"
-                type="loading--quarters"
-              />
-            ),
-          }
-        : loading
-      : false,
+    loading: fitLoading,
     pagination: false,
-    locale: {
-      ...locale,
-      emptyText:
-        locale && locale.emptyText ? (
-          locale.emptyText
-        ) : (
-          <EmptyNode height={emptyHeight} />
-        ),
-    },
-    rowClassName: (record: RecordType, index: number) => {
-      let rowClasses = "";
-      // 开启首行渐变
-      if (rowActiveFirstGradient && animeRowKey && record[animeRowKey]) {
-        rowClasses += " frc-table-row-first-gradient";
-      }
-      // active row className
-      if (rowActiveInner && record?.key && rowActiveInner === record.key) {
-        rowClasses += " frc-table-row-active";
-      }
-      // default row className
-      if (rowClassName && typeof rowClassName === "function") {
-        rowClasses += rowClassName(record, index);
-      }
-      return rowClasses;
-    },
+    locale: localeConfig,
+    rowClassName: fitRowClassName,
     rowSelection,
     columns: columns ? renderColumns(columns) : columns,
     children: children ? renderChildren(children) : children,
@@ -929,6 +951,8 @@ export const Table: FC<FRCTableProps> = (props) => {
     summary,
     ...restProps,
   } as TableProps<RecordType>;
+
+  // ---------------------------------------------------------------------
 
   // main
   return (
