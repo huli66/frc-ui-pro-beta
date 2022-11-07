@@ -353,8 +353,8 @@ export interface FRCTableProps extends Omit<TableProps<RecordType>, "columns"> {
   dataSource: object[];
   /** 配置展开属性，配置项，具体项见下表 */
   expandable?: ExpandableProps;
-  /** 表格尾部 */
-  footer?: (currentPageData: readonly RecordType[]) => ReactNode;
+  // /** 表格尾部 */
+  // footer?: (currentPageData: readonly RecordType[]) => ReactNode;
   /** 设置表格内各类浮层的渲染节点，如筛选菜单 */
   getPopupContainer?: (triggerNode: HTMLElement) => HTMLElement;
   /** 页面是否加载中 */
@@ -402,8 +402,8 @@ export interface FRCTableProps extends Omit<TableProps<RecordType>, "columns"> {
   summary?: (currentData: readonly RecordType[]) => ReactNode;
   /** 表格元素的 table-layout 属性，设为 fixed 表示内容不会影响列的布局 */
   tableLayout?: "auto" | "fixed";
-  /** 表格标题 */
-  title?: (currentData: readonly RecordType[]) => ReactNode;
+  // /** 表格标题 */
+  // title?: (currentData: readonly RecordType[]) => ReactNode;
   /** 分页、排序、筛选变化时触发 */
   onChange?: (
     pagination: PaginationConfig,
@@ -460,6 +460,8 @@ export const Table: FC<FRCTableProps> = (props) => {
     columns,
     scroll,
     children,
+    rowKey,
+    expandable,
     ...restProps
   } = props;
 
@@ -595,6 +597,17 @@ export const Table: FC<FRCTableProps> = (props) => {
     };
   }, [initScroll]);
 
+  // ------------------------------------------------------------------
+
+  const [expandRowKeys, setExpandRowKeys] = useState<any[]>([]); // 展开行的 key
+
+  useEffect(() => {
+    // console.log("expandRowKeys", expandRowKeys);
+    onScrollSimulationY();
+  }, [expandRowKeys]);
+
+  // ------------------------------------------------------------------
+
   // virtual scroll ------------------------------------------------------------------
 
   const fitHeaderWidth = async (boxNode: any) => {
@@ -715,7 +728,7 @@ export const Table: FC<FRCTableProps> = (props) => {
   }; // x 轴滚动
 
   const onScrollSimulationY = async () => {
-    // console.log("in-y");
+    console.log("in-y");
     const tableNode = ref.current.querySelector(".ant-table-body-box"); // 最外层容器
     const realScrollTop = tableNode.scrollTop; // 滚动条距离顶部的高度
 
@@ -741,6 +754,19 @@ export const Table: FC<FRCTableProps> = (props) => {
     [...((dataIsFixed ? fixedData : initData) || [])]?.forEach(
       (item, index) => {
         listTotalHeight += rowHeight;
+
+        if (expandRowKeys.indexOf(item[rowKey as string]) !== -1) {
+          // console.log("item[rowKey as string]", item[rowKey as string]);
+          const expandedNode = tableNode.querySelector(
+            `.row-expand-${item[rowKey as string]}`
+          );
+
+          const expandedNodeHeight = expandedNode.clientHeight;
+
+          // console.log("expandedNodeHeight", expandedNodeHeight);
+          listTotalHeight += expandedNodeHeight;
+        }
+
         if (currentStep === 0) {
           if (listTotalHeight >= scrollTop - OFFSET_VERTICAL) {
             // 偏移量 起始 0 - 120，随后根据 DEFAULT_ROW_HEIGHT 为基点偏移，本例子为 32px
@@ -787,6 +813,29 @@ export const Table: FC<FRCTableProps> = (props) => {
     });
     containerNode.appendChild(tipNode);
   }; // 固定数据时 tooltip 显示
+
+  // expandable ----------------------------------------------------------
+
+  const fitExpandable = () => {
+    console.log("in-fitExpandable");
+
+    let newExpandableConfig = {};
+
+    if (expandable) {
+      newExpandableConfig = {
+        ...expandable,
+        onExpandedRowsChange: (expandedRows: any[]) => {
+          if (expandable.onExpandedRowsChange) {
+            expandable.onExpandedRowsChange(expandedRows);
+          }
+
+          setExpandRowKeys(expandedRows);
+        },
+      };
+    }
+
+    return newExpandableConfig;
+  };
 
   // children | columns --------------------------------------------------
 
@@ -880,15 +929,11 @@ export const Table: FC<FRCTableProps> = (props) => {
   // other config --------------------------------------------------------
 
   const fitRowClassName = (record: RecordType, index: number) => {
-    // console.log("record", record.noAnime);
+    // console.log("record");
 
     let rowClasses = "";
     // 开启首行渐变
-    if (
-      rowActiveFirstGradient &&
-      animeRowKey &&
-      record[animeRowKey]
-    ) {
+    if (rowActiveFirstGradient && animeRowKey && record[animeRowKey]) {
       rowClasses += " frc-table-row-first-gradient";
     }
     // active row className
@@ -940,7 +985,7 @@ export const Table: FC<FRCTableProps> = (props) => {
     size,
     bordered,
     dataSource: [...virtualData],
-    loading: fitLoading,
+    loading: fitLoading(),
     pagination: false,
     locale: localeConfig,
     rowClassName: fitRowClassName,
@@ -949,6 +994,8 @@ export const Table: FC<FRCTableProps> = (props) => {
     children: children ? renderChildren(children) : children,
     scroll: { x: "infinite", y: "infinite" },
     summary,
+    expandable: fitExpandable(),
+    rowKey,
     ...restProps,
   } as TableProps<RecordType>;
 
