@@ -473,6 +473,7 @@ export const Table: FC<FRCTableProps> = (props) => {
   const [rowActiveInner, setRowActiveInner] = useState<keyType>();
   const [dataIsFixed, setDataIsFixed] = useState<boolean>(false);
   const [fixedData, setFixedData] = useState<ColumnsTypeProps[]>([]);
+  const [expandRowArrs, setExpandRowArrs] = useState<any>({}); // 本地维护 -> 展开行
 
   // virtual sroll
   let tableWidthInner = 0;
@@ -491,6 +492,8 @@ export const Table: FC<FRCTableProps> = (props) => {
     [`frc-fixed-border-active frc-fixed-border-${borderedActiveFixed}`]:
       bordered && borderedActiveFixed,
   });
+
+  // ------------------------------------------------------------------
 
   useEffect(() => {
     setInitData([...dataSource]);
@@ -561,7 +564,7 @@ export const Table: FC<FRCTableProps> = (props) => {
     return () => {
       newTableBody.removeEventListener("scroll", onScrollSimulationY);
     };
-  }, [initData, dataIsFixed]); // 添加 y 轴滚动监听
+  }, [initData, dataIsFixed, expandRowArrs]); // 添加 y 轴滚动监听
 
   useEffect(() => {
     if (rowSize.join() !== "0,0" && !dataIsFixed) {
@@ -597,16 +600,13 @@ export const Table: FC<FRCTableProps> = (props) => {
     };
   }, [initScroll]);
 
-  // ------------------------------------------------------------------
-
-  const [expandRowKeys, setExpandRowKeys] = useState<any[]>([]); // 展开行的 key
-
   useEffect(() => {
-    // console.log("expandRowKeys", expandRowKeys);
-    onScrollSimulationY();
-  }, [expandRowKeys]);
+    if (expandable?.expandedRowKeys) {
+      console.log("yep------------------------------------------>");
 
-  // ------------------------------------------------------------------
+      updateExpandObj(expandable?.expandedRowKeys as any[]);
+    }
+  }, [expandable?.expandedRowKeys]);
 
   // virtual scroll ------------------------------------------------------------------
 
@@ -728,7 +728,7 @@ export const Table: FC<FRCTableProps> = (props) => {
   }; // x 轴滚动
 
   const onScrollSimulationY = async () => {
-    console.log("in-y");
+    // console.log("in-y");
     const tableNode = ref.current.querySelector(".ant-table-body-box"); // 最外层容器
     const realScrollTop = tableNode.scrollTop; // 滚动条距离顶部的高度
 
@@ -746,6 +746,7 @@ export const Table: FC<FRCTableProps> = (props) => {
     let currentStep = 0; // 0: 顶部被隐藏阶段；1: 可视区域阶段
     const rowHeight = size === "small" ? 24 : size === "middle" ? 32 : 48; // 每行高度
     const OFFSET_VERTICAL = 120;
+    const expandedKeys = Object.keys(expandRowArrs);
 
     if (!height) {
       return;
@@ -755,16 +756,11 @@ export const Table: FC<FRCTableProps> = (props) => {
       (item, index) => {
         listTotalHeight += rowHeight;
 
-        if (expandRowKeys.indexOf(item[rowKey as string]) !== -1) {
-          // console.log("item[rowKey as string]", item[rowKey as string]);
-          const expandedNode = tableNode.querySelector(
-            `.row-expand-${item[rowKey as string]}`
-          );
-
-          const expandedNodeHeight = expandedNode.clientHeight;
-
-          // console.log("expandedNodeHeight", expandedNodeHeight);
-          listTotalHeight += expandedNodeHeight;
+        if (
+          expandable &&
+          expandedKeys.indexOf(item[rowKey as any].toString()) !== -1
+        ) {
+          listTotalHeight += expandRowArrs[item[rowKey as any].toString()] || 0;
         }
 
         if (currentStep === 0) {
@@ -775,6 +771,13 @@ export const Table: FC<FRCTableProps> = (props) => {
             currentStep += 1;
           } else {
             hiddenTopHeight += rowHeight;
+            if (
+              expandable &&
+              expandedKeys.indexOf(item[rowKey as any].toString()) !== -1
+            ) {
+              hiddenTopHeight +=
+                expandRowArrs[item[rowKey as any].toString()] || 0;
+            }
           }
         } else if (currentStep === 1) {
           if (listTotalHeight > scrollTop + height + OFFSET_VERTICAL) {
@@ -786,7 +789,10 @@ export const Table: FC<FRCTableProps> = (props) => {
       }
     );
 
-    if (rowSize.join() !== rowSizeNow.join()) {
+    if (
+      rowSize.join() !== rowSizeNow.join() ||
+      listTotalHeight !== totalHeight
+    ) {
       // 顺序不能变，否则会导致 抖动
       setRowSize(rowSizeNow); // 可视区域的行号有了变化才重新进行渲染
       setHiddenTopStyle(hiddenTopHeight);
@@ -816,9 +822,28 @@ export const Table: FC<FRCTableProps> = (props) => {
 
   // expandable ----------------------------------------------------------
 
-  const fitExpandable = () => {
-    console.log("in-fitExpandable");
+  const updateExpandObj = async (arrs: string[]) => {
+    if (arrs.length > 0) {
+      const tableNode = await ref.current.querySelector(".ant-table-body-box");
 
+      let newArr: any = {};
+      arrs.forEach((item) => {
+        const expandedNode = tableNode.querySelector(`.row-expand-${item}`);
+        const expandedNodeHeight =
+          expandedNode?.clientHeight || expandRowArrs[item.toString()] || 0;
+        newArr = {
+          ...newArr,
+          [item.toString()]: expandedNodeHeight,
+        };
+      });
+
+      setExpandRowArrs(newArr);
+    } else {
+      setExpandRowArrs({});
+    }
+  };
+
+  const fitExpandable = () => {
     let newExpandableConfig = {};
 
     if (expandable) {
@@ -829,7 +854,25 @@ export const Table: FC<FRCTableProps> = (props) => {
             expandable.onExpandedRowsChange(expandedRows);
           }
 
-          setExpandRowKeys(expandedRows);
+          if (!expandable?.expandedRowKeys) {
+            updateExpandObj(expandedRows);
+          }
+        },
+        expandedRowClassName: (record: any, index: number, intent: any) => {
+          let rowClasses = `row-expand-${record[rowKey as any]} `;
+          // default row className
+          if (
+            expandable.expandedRowClassName &&
+            typeof expandable.expandedRowClassName === "function"
+          ) {
+            rowClasses += expandable.expandedRowClassName(
+              record,
+              index,
+              intent
+            );
+          }
+
+          return rowClasses;
         },
       };
     }
