@@ -844,9 +844,12 @@ export const Table: FC<FRCTableProps> = (props) => {
   };
 
   const fitExpandable = () => {
+    // console.log('in0');
+    
     let newExpandableConfig = {};
 
     if (expandable) {
+      console.log("in1");
       newExpandableConfig = {
         ...expandable,
         onExpandedRowsChange: (expandedRows: any[]) => {
