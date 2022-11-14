@@ -29,21 +29,32 @@ export function isNumber(value: any): boolean {
   return typeof value === "number";
 }
 
-// let scrollPosition = 0;
+let oldMiddlePosition = 0;
 export function controlScrollSpeed(
   node: HTMLElement,
   maxSpeed: number,
-  scrollPosition: number, 
+  scrollPosition: number,
+  innerNode?: HTMLElement,
+  middleCallBack?: () => void
   // init?: boolean
 ) {
   const scrollTop = node.scrollTop;
 
-  // console.log('in-scroll');
+  // console.log('in-scroll', scrollTop, innerNode?.clientHeight, oldMiddlePosition);
 
   // 向下
   if (scrollTop > scrollPosition) {
     if (scrollTop - scrollPosition > maxSpeed) {
-      node.scrollTop = scrollPosition + maxSpeed; // 滚动速度 > 4 时，仅 + 4;
+      node.scrollTop = scrollPosition + maxSpeed; // 例: 滚动速度 > 4 时，仅 + 4;
+    }
+
+    if (
+      innerNode &&
+      (scrollTop - oldMiddlePosition === innerNode.clientHeight / 2 ||
+        (scrollPosition - oldMiddlePosition < innerNode.clientHeight / 2 && scrollTop - oldMiddlePosition > innerNode.clientHeight / 2)
+      )) {
+      oldMiddlePosition = scrollTop - oldMiddlePosition;
+      middleCallBack && middleCallBack();
     }
   }
 

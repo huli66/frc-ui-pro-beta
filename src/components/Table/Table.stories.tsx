@@ -16,6 +16,7 @@ import {
   Source,
 } from "@storybook/addon-docs";
 import Table from "./index";
+import throttle from "lodash/throttle";
 import { ImportCode } from "../../utils/importComponent";
 
 import {
@@ -41,6 +42,7 @@ import {
   Checkbox,
   Modal,
   Filter,
+  Divider,
 } from "../../index";
 
 import {
@@ -54,9 +56,9 @@ import {
 
 import { InputRef } from "../Input/input";
 
-// edit
-import { Form, Table as AntdTable } from "antd";
-import type { FormInstance } from "antd/es/form";
+// // edit
+// import { Form, Table as AntdTable } from "antd";
+// import type { FormInstance } from "antd/es/form";
 
 // drag sort
 import update from "immutability-helper";
@@ -80,7 +82,6 @@ import { VariableSizeGrid as Grid } from "react-window";
 // resize
 import { Resizable } from "react-resizable";
 
-import orderBy from "lodash/orderBy";
 import "./_story.scss";
 
 export default {
@@ -138,63 +139,66 @@ export default {
 
 // // ----------------------------------------------------------------
 
-export const Default = () => {
-  interface DataType {
-    key: number;
-    name: string;
-    age: string;
-    address: string;
-  }
+// export const Default = () => {
+//   interface DataType {
+//     key: number;
+//     name: string;
+//     age: string;
+//     address: string;
+//   }
 
-  const columns: ColumnsTypeProps[] = [
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-      width: 300,
-    },
-    {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
-      width: 300,
-    },
-    {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
-      width: 500,
-    },
-  ];
+//   const columns: ColumnsTypeProps[] = [
+//     {
+//       title: "Name",
+//       dataIndex: "name",
+//       key: "name",
+//       width: 300,
+//     },
+//     {
+//       title: "Age",
+//       dataIndex: "age",
+//       key: "age",
+//       width: 300,
+//     },
+//     {
+//       title: "Address",
+//       dataIndex: "address",
+//       key: "address",
+//       width: 500,
+//     },
+//   ];
 
-  const data: DataType[] = Array.from({ length: 10 }, (_, key) => ({
-    key: key,
-    name: `name-${key}`,
-    age: `age-${key}`,
-    address: `address-${key}`,
-    children: [{ key: key + 201, name: "name-1" }, { key: key + 401, name: "name-2" }],
-  }));
+//   const data: DataType[] = Array.from({ length: 10 }, (_, key) => ({
+//     key: key,
+//     name: `name-${key}`,
+//     age: `age-${key}`,
+//     address: `address-${key}`,
+//     children: [
+//       { key: key + 201, name: "name-1" },
+//       { key: key + 401, name: "name-2" },
+//     ],
+//   }));
 
-  // --------------------------------------------------------------
+//   // --------------------------------------------------------------
 
-  const code = `
-    // import code
-    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+//   const code = `
+//     // import code
+//     import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
 
-    // 基于 虚拟滚动 的表格
-  `;
+//     // 基于 虚拟滚动 的表格
+//   `;
 
-  // --------------------------------------------------------------
+//   // --------------------------------------------------------------
 
-  return (
-    <>
-      <ImportCode code={code} />
-      <Table columns={columns} dataSource={data} />
-    </>
-  );
-};
+//   return (
+//     <>
+//       <ImportCode code={code} />
+//       <Table columns={columns} dataSource={data} />
+//     </>
+//   );
+// };
 
-Default.storyName = "默认 table";
+// Default.storyName = "默认 table";
 
 // // ----------------------------------------------------------------
 
@@ -4437,7 +4441,7 @@ Default.storyName = "默认 table";
 //         expandable={{
 //           onExpandedRowsChange: (expandedRows) => {
 //             console.log("this ----------------------->", expandedRows);
-//           }
+//           },
 //         }}
 //       />
 //     </>
@@ -4445,6 +4449,88 @@ Default.storyName = "默认 table";
 // };
 
 // _AW_TreeComponent.storyName = "树形数据展示";
+
+// // ----------------------------------------------------------------
+
+// export const _AS_ScrollPageComponent = () => {
+//   interface DataType {
+//     key: number;
+//     name: string;
+//     age: string;
+//     address: string;
+//   }
+
+//   const columns: ColumnsTypeProps[] = [
+//     {
+//       title: "Name",
+//       dataIndex: "name",
+//       key: "name",
+//       width: 300,
+//     },
+//     {
+//       title: "Age",
+//       dataIndex: "age",
+//       key: "age",
+//       width: 300,
+//     },
+//     {
+//       title: "Address",
+//       dataIndex: "address",
+//       key: "address",
+//       width: 500,
+//     },
+//   ];
+
+//   const data: DataType[] = Array.from({ length: 50 }, (_, key) => ({
+//     key: key,
+//     name: `name-${key}`,
+//     age: `age-${key}`,
+//     address: `address-${key}`,
+//   }));
+
+//   const [tableData, setTableData] = useState<any[]>(data);
+
+//   const concatData: DataType[] = Array.from({ length: 50 }, (_, key) => ({
+//     key: tableData.length + key,
+//     name: `name-${key} nextPage-${tableData.length + key}`,
+//     age: `age-${key} nextPage-${tableData.length + key}`,
+//     address: `address-${key} nextPage-${tableData.length + key}`,
+//   }));
+
+//   const onScrllDownMiddle = () => {
+//     // console.log("onScrollMiddle", tableData, concatData);
+//     const oldData = [...tableData];
+//     setTableData([...oldData, ...concatData]);
+//   };
+
+//   // useEffect(() => {
+//   //   console.log("tableData", tableData);
+//   // }, [tableData]);
+
+//   // --------------------------------------------------------------
+
+//   const code = `
+//     // import code
+//     import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+
+//     // 基于 虚拟滚动 的表格
+//   `;
+
+//   // --------------------------------------------------------------
+
+//   return (
+//     <>
+//       <ImportCode code={code} />
+//       <Table
+//         columns={columns}
+//         dataSource={tableData || []}
+//         onScrllDownMiddle={onScrllDownMiddle}
+//       />
+//     </>
+//   );
+// };
+
+// _AS_ScrollPageComponent.storyName = "滚动翻页(剩余的中间)";
 
 // // ----------------------------------------------------------------
 
@@ -4699,517 +4785,965 @@ Default.storyName = "默认 table";
 
 // // ----------------------------------------------------------------
 
-// const socket = new WebSocket("ws://172.16.74.20:8088");
-// export const _ZZ_CustomTableComponent = () => {
-//   const [tableData, setTableData] = useState<any[]>([]);
-//   const [socketMessage, setSocketMessage] = useState<any[]>([]);
-//   const [isModalVisible, setIsModalVisible] = useState(false);
+const socket = new WebSocket("wss://web.qa.sumscope.com:28888/nqb/ws");
 
-//   const [modalList, setModalList] = useState<any[]>([]);
-//   const [tableColumns, setTableColumns] = useState<any[]>([]);
-//   const [checkedKeys, setCheckedKeys] = useState<any[]>(
-//     localStorage.getItem("checkedConfig")?.split(",") || []
-//   );
+let refData: any[] = [];
+export const _ZZ_CustomTableComponent = () => {
+  const localStorageKeys = localStorage.getItem("checkedConfig")?.split(",");
 
-//   const [isOpen, setIsOpen] = useState<boolean>(false);
-//   const [requstId, setRequestId] = useState<number>(-1);
-//   const [filterRadio, setFilterRadio] = useState<any[]>(["ALL"]);
+  // --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
 
-//   const columns: any[] = [
-//     {
-//       title: "剩余期限",
-//       dataIndex: "residualMaturity",
-//       key: "residualMaturity",
-//       // fixed: "left",
-//       width: "100px",
-//     },
-//     {
-//       title: "bondKey",
-//       dataIndex: "bondKey",
-//       key: "bondKey",
-//       ellipsis: true,
-//       // fixed: "left",
-//       width: "100px",
-//     },
-//     {
-//       title: "listedMarket",
-//       dataIndex: "listedMarket",
-//       key: "listedMarket",
-//       // fixed: "left",
-//       width: "100px",
-//     },
-//     {
-//       title: "债券简称",
-//       dataIndex: "bondNm",
-//       key: "bondNm",
-//       width: "200px",
-//     },
-//     {
-//       title: "票面利率",
-//       dataIndex: "couponRt",
-//       key: "couponRt",
-//       width: "100px",
-//     },
-//     {
-//       title: "主体评级",
-//       dataIndex: "instRt",
-//       key: "instRt",
-//       width: "100px",
-//     },
-//     {
-//       title: "债项评级",
-//       dataIndex: "bondRt",
-//       key: "bondRt",
-//       width: "100px",
-//     },
-//     {
-//       title: "展望评级",
-//       dataIndex: "brokerOfrFwdYld",
-//       key: "brokerOfrFwdYld",
-//       width: "100px",
-//     },
-//     {
-//       title: "含权类型",
-//       dataIndex: "optEmbeddedTyp",
-//       key: "optEmbeddedTyp",
-//       width: "100px",
-//     },
-//     {
-//       title: "行权日",
-//       dataIndex: "strikeDt",
-//       key: "strikeDt",
-//       width: "100px",
-//     },
-//     {
-//       title: "到期日",
-//       dataIndex: "maturityDt",
-//       key: "maturityDt",
-//       width: "100px",
-//     },
-//     {
-//       title: "跨市场",
-//       dataIndex: "bnkFlg",
-//       key: "bnkFlg",
-//       width: "100px",
-//     },
-//     {
-//       title: "债券余额(亿)",
-//       dataIndex: "outstandingAmt",
-//       key: "outstandingAmt",
-//       width: "100px",
-//     },
-//     {
-//       title: "产品",
-//       dataIndex: "securitySubTyp",
-//       key: "securitySubTyp",
-//       width: "100px",
-//     },
-//     {
-//       title: "经纪商",
-//       dataIndex: "contributorId",
-//       key: "contributorId",
-//       width: "100px",
-//     },
-//     {
-//       title: "最后更新",
-//       dataIndex: "marketDataTm",
-//       key: "marketDataTm",
-//       width: "200px",
-//     },
-//     {
-//       title: "Vol.Bid",
-//       dataIndex: "bidVol",
-//       key: "bidVol",
-//       width: "100px",
-//     },
-//     {
-//       title: "Bid参考净价",
-//       dataIndex: "bidPrc",
-//       key: "bidPrc",
-//       width: "100px",
-//     },
-//     {
-//       title: "Bid",
-//       dataIndex: "bidPx",
-//       key: "bidPx",
-//       width: "100px",
-//     },
-//     {
-//       title: "Ofr",
-//       dataIndex: "ofrPx",
-//       key: "ofrPx",
-//       width: "100px",
-//     },
-//     {
-//       title: "Ofr参考净价",
-//       dataIndex: "askPrc",
-//       key: "askPrc",
-//       width: "100px",
-//     },
-//     {
-//       title: "Vol.Ofr",
-//       dataIndex: "askVol",
-//       key: "askVol",
-//       width: "100px",
-//     },
-//     {
-//       title: "中债估值到期",
-//       dataIndex: "valuation1",
-//       key: "valuation1",
-//       width: "100px",
-//     },
-//     {
-//       title: "中债估值行权",
-//       dataIndex: "valuation5",
-//       key: "valuation5",
-//       width: "100px",
-//     },
-//     {
-//       title: "中证估值到期",
-//       dataIndex: "valuation2",
-//       key: "valuation2",
-//       width: "100px",
-//     },
-//     {
-//       title: "中证估值行权",
-//       dataIndex: "valuation6",
-//       key: "valuation6",
-//       width: "100px",
-//     },
-//     {
-//       title: "bid-中债(BP)",
-//       dataIndex: "bidSpread1",
-//       key: "bidSpread1",
-//       width: "100px",
-//     },
-//     {
-//       title: "中债-Ofr(BP)",
-//       dataIndex: "askSpread1",
-//       key: "askSpread1",
-//       width: "100px",
-//     },
-//     {
-//       title: "bid-中证(BP)",
-//       dataIndex: "bidSpread2",
-//       key: "bidSpread2",
-//       width: "100px",
-//     },
-//     {
-//       title: "中证-Ofr(BP)",
-//       dataIndex: "askSpread2",
-//       key: "askSpread2",
-//       width: "100px",
-//     },
-//     {
-//       title: "Bid报价状态",
-//       dataIndex: "bidQuoteSts",
-//       key: "bidQuoteSts",
-//       width: "100px",
-//     },
-//     {
-//       title: "Ask报价状态",
-//       dataIndex: "askQuoteSts",
-//       key: "askQuoteSts",
-//       width: "100px",
-//     },
-//     {
-//       title: "消息序号",
-//       dataIndex: "msgSeq",
-//       key: "msgSeq",
-//       width: "300px",
-//     },
-//     {
-//       title: "Bid编号",
-//       dataIndex: "bidQuoteId",
-//       key: "bidQuoteId",
-//       width: "300px",
-//     },
-//     {
-//       title: "Ask编号",
-//       dataIndex: "askQuoteId",
-//       key: "askQuoteId",
-//       width: "300px",
-//     },
-//   ];
+  const [tableData, setTableData] = useState<any[]>([]);
+  const [socketMessage, setSocketMessage] = useState<any[]>([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [activeRowKey, setActiveRowKey] = useState<string>();
+  const [modalList, setModalList] = useState<any[]>([]);
+  const [tableColumns, setTableColumns] = useState<any[]>([]);
+  const [checkedKeys, setCheckedKeys] = useState<any[]>(localStorageKeys || []);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [requstId, setRequestId] = useState<number>(-1);
+  const [filterRadio, setFilterRadio] = useState<any[]>(["ALL"]);
+  const [productKeys, setProductKeys] = useState<any[]>(["ALL"]);
+  const [bidMin, setBidMin] = useState<number | null>(null);
+  const [bidMax, setBidMax] = useState<number | null>(null);
+  const [ofrMin, setOfrMin] = useState<number | null>(null);
+  const [ofrMax, setOfrMax] = useState<number | null>(null);
+  // |bid-中债|
+  const [bidSpread1Range, setBidSpread1Range] = useState<any[]>([null, null]);
+  const [bidSpread1RangeArrow, setBidSpread1RangeArrow] =
+    useState<boolean>(true);
+  // |中债-ofr|
+  const [askSpread1Range, setAskSpread1Range] = useState<any[]>([null, null]);
+  const [askSpread1RangeArrow, setAskSpread1RangeArrow] =
+    useState<boolean>(true);
+  // Vol.Bid
+  const [bidVolRange, setBidVolRange] = useState<any[]>([null, null]);
+  const [bidVolRangeArrow, setBidVolRangeArrow] = useState<boolean>(true);
+  // Vol.Ofr
+  const [askVolRange, setAskVolRange] = useState<any[]>([null, null]);
+  const [askVolRangeArrow, setAskVolRangeArrow] = useState<boolean>(true);
+  const [saveData, setSaveData] = useState<any[]>([]);
 
-//   // -------------------------------------------------------------
+  // --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
 
-//   const fetchColumns = (e: any) => {
-//     socket.send(`{"cmd":"schema", "id": ${requstId + 1}}`);
-//     setRequestId(requstId + 1);
-//     setIsOpen(true);
-//   };
+  const updateTableData = useCallback(
+    throttle(() => {
+      setTableData(refData);
+    }, 300),
+    []
+  );
 
-//   const sendRequest = (event: any) => {
-//     const data: any = JSON.parse(event.data);
-//     // console.log('in-data', data);
+  useEffect(() => {
+    updateTableData();
+  }, [saveData]);
 
-//     if (data.id === 0) {
-//       setRequestId(0);
-//     }
+  // sort --------------------------------------------------------
 
-//     if (data?.payload?.title === "quote") {
-//       // console.log('data', data);
-//       let config: any = [];
-//       for (let key in data.payload.properties) {
-//         config.push({
-//           title: data.payload.properties[key]?.cnName || key,
-//           key,
-//         });
-//       }
+  const [sortObj, setSortObj] = useState<any>({
+    property: "bondKey",
+    direction: null,
+  });
 
-//       const newKeys = (config as any[]).map((item) => item.key);
-//       const newColumns = columns.filter(
-//         (column) => newKeys.indexOf(column.key) !== -1
-//       );
-//       setModalList(newColumns);
+  const onTableChange = (pagination: any, filters: any, sorter: any) => {
+    console.log("onTableChange", sorter, sortObj);
 
-//       if (!localStorage.getItem("checkedConfig")) {
-//         setTableColumns(newColumns);
-//       }
-//     } // columns
+    let tableSort: any = {
+      property: sorter.field,
+    };
 
-//     if (data?.payload?.list) {
-//       // console.log('in-data');
+    if (sorter.order) {
+      tableSort = {
+        ...tableSort,
+        direction: sorter.order === "ascend" ? "ASC" : "DESC",
+      };
+    } else {
+      tableSort = {
+        ...tableSort,
+        direction: null,
+      };
+    }
 
-//       setTableData(data.payload.list);
-//     } // data
+    console.log("tableSort", tableSort);
 
-//     if (Object.prototype.toString.call(data) === "[object Array]") {
-//       // console.log('this ----------------------------->', data);
-//       setSocketMessage(data);
-//     } // subscribe
-//   };
+    setSortObj(tableSort);
+  };
 
-//   useEffect(() => {
-//     socket.addEventListener("open", fetchColumns);
-//     socket.addEventListener("message", sendRequest);
+  const columns: any[] = [
+    {
+      title: "剩余期限",
+      dataIndex: "residualMaturity",
+      key: "residualMaturity",
+      // fixed: "left",
+      width: "200px",
+    },
+    {
+      title: "债券简称",
+      dataIndex: "bondNm",
+      key: "bondNm",
+      width: "250px",
+    },
+    {
+      title: "bondKey",
+      dataIndex: "bondKey",
+      key: "bondKey",
+      ellipsis: true,
+      // fixed: "left",
+      width: "250px",
+      sorter: true,
+    },
+    {
+      title: "listedMarket",
+      dataIndex: "listedMarket",
+      key: "listedMarket",
+      // fixed: "left",
+      width: "100px",
+    },
+    {
+      title: "票面利率",
+      dataIndex: "couponRt",
+      key: "couponRt",
+      width: "100px",
+    },
+    {
+      title: "多笔卖量",
+      dataIndex: "multAskVol",
+      key: "multAskVol",
+      width: "200px",
+      ellipsis: true,
+    },
+    {
+      title: "主体评级",
+      dataIndex: "instRt",
+      key: "instRt",
+      width: "100px",
+    },
+    {
+      title: "多笔买量",
+      dataIndex: "multBidVol",
+      key: "multBidVol",
+      width: "200px",
+      ellipsis: true,
+    },
+    {
+      title: "债项评级",
+      dataIndex: "bondRt",
+      key: "bondRt",
+      width: "100px",
+    },
+    {
+      title: "展望评级",
+      dataIndex: "brokerOfrFwdYld",
+      key: "brokerOfrFwdYld",
+      width: "100px",
+    },
+    {
+      title: "含权类型",
+      dataIndex: "optEmbeddedTyp",
+      key: "optEmbeddedTyp",
+      width: "100px",
+    },
+    {
+      title: "行权日",
+      dataIndex: "strikeDt",
+      key: "strikeDt",
+      width: "100px",
+    },
+    {
+      title: "到期日",
+      dataIndex: "maturityDt",
+      key: "maturityDt",
+      width: "100px",
+    },
+    {
+      title: "跨市场",
+      dataIndex: "bnkFlg",
+      key: "bnkFlg",
+      width: "100px",
+    },
+    {
+      title: "债券余额(亿)",
+      dataIndex: "outstandingAmt",
+      key: "outstandingAmt",
+      width: "100px",
+    },
+    {
+      title: "产品",
+      dataIndex: "securitySubTyp",
+      key: "securitySubTyp",
+      width: "100px",
+    },
+    {
+      title: "经纪商",
+      dataIndex: "contributorId",
+      key: "contributorId",
+      width: "100px",
+    },
+    {
+      title: "最后更新",
+      dataIndex: "marketDataTm",
+      key: "marketDataTm",
+      width: "200px",
+    },
+    {
+      title: "Vol.Bid",
+      dataIndex: "bidVol",
+      key: "bidVol",
+      width: "100px",
+    },
+    {
+      title: "Bid参考净价",
+      dataIndex: "bidPrc",
+      key: "bidPrc",
+      width: "100px",
+    },
+    {
+      title: "Bid",
+      dataIndex: "bidPx",
+      key: "bidPx",
+      width: "100px",
+    },
+    {
+      title: "Ofr",
+      dataIndex: "ofrPx",
+      key: "ofrPx",
+      width: "100px",
+    },
+    {
+      title: "Ofr参考净价",
+      dataIndex: "askPrc",
+      key: "askPrc",
+      width: "100px",
+    },
+    {
+      title: "Vol.Ofr",
+      dataIndex: "askVol",
+      key: "askVol",
+      width: "100px",
+    },
+    {
+      title: "中债估值到期",
+      dataIndex: "valuation1",
+      key: "valuation1",
+      width: "100px",
+    },
+    {
+      title: "中债估值行权",
+      dataIndex: "valuation5",
+      key: "valuation5",
+      width: "100px",
+    },
+    {
+      title: "中证估值到期",
+      dataIndex: "valuation2",
+      key: "valuation2",
+      width: "100px",
+    },
+    {
+      title: "中证估值行权",
+      dataIndex: "valuation6",
+      key: "valuation6",
+      width: "100px",
+    },
+    {
+      title: "bid-中债(BP)",
+      dataIndex: "bidSpread1",
+      key: "bidSpread1",
+      width: "100px",
+    },
+    {
+      title: "中债-Ofr(BP)",
+      dataIndex: "askSpread1",
+      key: "askSpread1",
+      width: "100px",
+    },
+    {
+      title: "bid-中证(BP)",
+      dataIndex: "bidSpread2",
+      key: "bidSpread2",
+      width: "100px",
+    },
+    {
+      title: "中证-Ofr(BP)",
+      dataIndex: "askSpread2",
+      key: "askSpread2",
+      width: "100px",
+    },
+    {
+      title: "Bid报价状态",
+      dataIndex: "bidQuoteSts",
+      key: "bidQuoteSts",
+      width: "100px",
+    },
+    {
+      title: "Ask报价状态",
+      dataIndex: "askQuoteSts",
+      key: "askQuoteSts",
+      width: "100px",
+    },
+    {
+      title: "消息序号",
+      dataIndex: "msgSeq",
+      key: "msgSeq",
+      width: "300px",
+    },
+    {
+      title: "Bid编号",
+      dataIndex: "bidQuoteId",
+      key: "bidQuoteId",
+      width: "300px",
+    },
+    {
+      title: "Ask编号",
+      dataIndex: "askQuoteId",
+      key: "askQuoteId",
+      width: "300px",
+    },
+  ].map((column) => {
+    let tableSort: any;
 
-//     return () => {
-//       socket.removeEventListener("open", fetchColumns);
-//       socket.removeEventListener("message", sendRequest);
-//     };
-//   }, []);
+    if (sortObj.direction) {
+      tableSort = sortObj.direction === "ASC" ? "ascend" : "descend";
+    } else {
+      tableSort = null;
+    }
 
-//   useEffect(() => {
-//     if (isOpen) {
-//       const snapshotConifg: any = {
-//         cmd: "snapshot",
-//         id: requstId + 1,
-//       }; // 快照 params config
+    return {
+      ...column,
+      sorter: true,
+      // sortDirections: ['ascend', 'descend', 'ascend'], // 禁止排序恢复到默认状态
+      showSorterTooltip: false,
+      sortOrder: column.key === sortObj.property ? tableSort : null,
+    };
+  });
 
-//       const subscribeConifg: any = {
-//         cmd: "subscribe",
-//         id: requstId + 2,
-//       }; // 推送 params config
+  // -------------------------------------------------------------
 
-//       if (filterRadio.join() !== "ALL") {
-//         const otherConfig = {
-//           type: "TOP_N",
-//           n: 1000,
-//           filter: {
-//             contributorId: filterRadio.join(),
-//           },
-//         };
+  const fetchColumns = () => {
+    socket.send(`{"cmd":"schema", "id": ${requstId + 1}}`);
+    setRequestId(requstId + 1);
+    setIsOpen(true);
+  };
 
-//         snapshotConifg.payload = otherConfig;
-//         subscribeConifg.payload = otherConfig;
-//       }
+  const sendRequest = (event: any) => {
+    const data: any = JSON.parse(event.data);
+    // console.log('in-data', data);
 
-//       // console.log('snapshotConifg', snapshotConifg);
-//       // console.log('subscribeConifg', subscribeConifg);
+    if (data.id === 0) {
+      setRequestId(0);
+    }
 
-//       socket.send(JSON.stringify(snapshotConifg));
-//       // socket.send(JSON.stringify(subscribeConifg));
-//       setRequestId(requstId + 2);
+    if (data?.payload?.title === "quote") {
+      // console.log('data', data);
+      const config: any = [];
+      Object.keys(data.payload.properties).forEach((key) => {
+        config.push({
+          title: data.payload.properties[key]?.cnName || key,
+          key,
+        });
+      });
 
-//       return () => {
-//         console.log("in-unmound");
-//         const unsubscribeConifg = {
-//           cmd: "unsubscribe",
-//         }; // 推送 params config
+      const newKeys = (config as any[]).map((item) => item.key);
+      const newColumns = columns.filter(
+        (column) => newKeys.indexOf(column.key) !== -1
+      );
+      setModalList(newColumns);
 
-//         // socket.send(JSON.stringify(unsubscribeConifg));
-//       };
-//     }
-//   }, [filterRadio, isOpen]);
+      if (!localStorage.getItem("checkedConfig")) {
+        setTableColumns(newColumns);
+      }
+    } // columns
 
-//   useEffect(() => {
-//     dealData(socketMessage);
-//   }, [socketMessage]);
+    if (data?.payload?.list) {
+      console.log("in-data", data.payload.list.length);
+      refData = data.payload.list;
+      setTableData(data.payload.list);
+      setSaveData(data.payload.list);
+    } // data
 
-//   const dealData = (message: any) => {
-//     // console.log('dealData', message);
+    if (Object.prototype.toString.call(data) === "[object Array]") {
+      // console.log('this ----------------------------->', data);
+      setSocketMessage(data);
+    } // subscribe
+  };
 
-//     let newData: any[] = [...tableData];
-//     message.forEach((item: any) => {
-//       if (item.action === "ADD") {
-//         newData = [...newData].concat([item.payload]);
-//         // console.log("ADD", item.payload.msgSeq, newData.length);
-//       }
+  const dealData = (message: any) => {
+    // console.log('dealData', Math.random(), message);
+    // const newData: any[] = [...tableData];
+    const newData: any[] = [...saveData];
 
-//       if (item.action === "REMOVE") {
-//         newData = [...newData].filter(
-//           (i) =>
-//             !(
-//               i.contributorId === item.payload.contributorId &&
-//               i.bondKey === item.payload.bondKey
-//             )
-//         );
-//         // console.log("REMOVE", item.payload.msgSeq, newData.length);
-//       }
+    // console.log('newData-before', newData.length);
 
-//       if (item.action === "MODIFY") {
-//         newData = [...newData].filter(
-//           (i) =>
-//             !(
-//               i.contributorId === item.payload.contributorId &&
-//               i.bondKey === item.payload.bondKey
-//             )
-//         );
-//         newData = [...newData].concat([item.payload]);
-//         // console.log("UPDATE", item.payload.msgSeq, newData.length);
-//       }
-//     });
+    message.forEach((item: any) => {
+      if (item.action === "ADD") {
+        newData.splice(item.index, 0, item.payload);
+        // console.log('ADD', newData);
+      }
 
-//     newData = orderBy(newData, ["marketDataTm"], ["desc"]);
+      if (item.action === "REMOVE") {
+        newData.splice(item.index, 1);
+        // console.log('REMOVE', newData);
+      }
 
-//     // console.log('newData', newData);
-//     setTableData(newData);
-//   };
+      if (item.action === "MODIFY") {
+        newData.splice(item.index, 1, item.payload);
+        // console.log('MODIFY', newData);
+      }
+    });
 
-//   // modal ---------------------------------------------------------
+    // console.log('newData-after', newData.length);
 
-//   useEffect(() => {
-//     if (!isModalVisible) {
-//       const localData = localStorage.getItem("checkedConfig")?.split(",");
-//       if (localData && localData.length > 0) {
-//         const newColumns = columns.filter(
-//           (item) => localData?.indexOf(item.key) !== -1
-//         );
-//         // console.log('newColumns', newColumns);
-//         setTableColumns([...newColumns]);
-//       }
-//     }
-//   }, [isModalVisible]);
+    refData = newData;
+    setSaveData(newData);
 
-//   const showModal = () => {
-//     setIsModalVisible(true);
-//   };
+    // setTableData(newData);
+  };
 
-//   const handleOk = () => {
-//     setIsModalVisible(false);
-//     localStorage.setItem("checkedConfig", `${checkedKeys}`);
-//   };
+  // -------------------------------------------------------------
 
-//   const handleCancel = () => {
-//     setIsModalVisible(false);
-//     setCheckedKeys(localStorage.getItem("checkedConfig")?.split(",") || []);
-//   };
+  useEffect(() => {
+    socket.addEventListener("open", fetchColumns);
+    socket.addEventListener("message", sendRequest);
 
-//   const onCheckboxChange = (checkedValue: (string | number | boolean)[]) => {
-//     setCheckedKeys(checkedValue);
-//   };
+    return () => {
+      socket.removeEventListener("open", fetchColumns);
+      socket.removeEventListener("message", sendRequest);
+    };
+  }, []);
 
-//   const tableColumnsOptions =
-//     modalList &&
-//     modalList.map((item) => {
-//       return {
-//         label: <div style={{ width: 100 }}>{item.title}</div>,
-//         value: item.key,
-//       };
-//     });
+  useEffect(() => {
+    if (isOpen) {
+      const snapshotConifg: any = {
+        cmd: "snapshot",
+        id: requstId + 1,
+        payload: { type: "TOP_N", n: 1000 },
+      }; // 快照 params config
 
-//   // -------------------------------------------------------------
+      const subscribeConifg: any = {
+        cmd: "subscribe",
+        id: requstId + 2,
+        payload: { type: "TOP_N", n: 1000 },
+      }; // 推送 params config
 
-//   const filterOptions = [
-//     {
-//       label: "国际(暂无)",
-//       value: "CFIC",
-//     },
-//     {
-//       label: "中诚(暂无)",
-//       value: "CBBJ",
-//     },
-//     {
-//       label: "平安",
-//       value: "PATR",
-//     },
-//     {
-//       label: "信唐",
-//       value: "TJXT",
-//     },
-//     {
-//       label: "国利(暂无)",
-//       value: "TPSC",
-//     },
-//   ];
+      let otherConfig = {};
 
-//   const onFilterChange = (
-//     value: (string | number)[],
-//     allValue?: (string | number)[]
-//   ): void => {
-//     // console.log('value, allValue', value, allValue);
-//     setFilterRadio(value);
-//   };
+      if (sortObj.direction) {
+        snapshotConifg.payload.sort = [sortObj];
+        subscribeConifg.payload.sort = [sortObj];
+      }
 
-//   // -------------------------------------------------------------
+      if (filterRadio.join() !== "ALL") {
+        otherConfig = {
+          ...otherConfig,
+          contributorId: filterRadio.join(),
+        };
+      } // filter 经纪商
 
-//   return (
-//     <div className={`ss-demo`}>
-//       <div className="left">Left</div>
-//       <div className="right">
-//         <div className="config-box">
-//           <div className="tool">
-//             Tool:
-//             <Icon className="config" type="setting" onClick={showModal} />
-//           </div>
+      if (productKeys.join() !== "ALL") {
+        otherConfig = {
+          ...otherConfig,
+          productIds: productKeys,
+        };
+      } // filter 产品
 
-//           <div className="filter">
-//             <Filter
-//               options={filterOptions}
-//               value={filterRadio}
-//               onChange={onFilterChange}
-//             />
-//           </div>
-//         </div>
-//         <div className="top">
-//           {tableColumns.length > 0 && (
-//             <Table
-//               rowKey={"msgSeq"}
-//               columns={tableColumns || []}
-//               dataSource={tableData || []}
-//               height={"100%"}
-//             />
-//           )}
-//         </div>
-//         <div className="bottom">Bottom</div>
-//       </div>
+      if (bidMin || bidMin === 0 || bidMax || bidMax === 0) {
+        otherConfig = {
+          ...otherConfig,
+          bidPxRange: [bidMin || null, bidMax || null],
+        };
+      } // filter Bid
 
-//       <Modal
-//         title="表格设置"
-//         visible={isModalVisible}
-//         onOk={handleOk}
-//         onCancel={handleCancel}
-//         width={500}
-//       >
-//         <p>设置需要展示的列：</p>
-//         {modalList && modalList.length > 0 && (
-//           <Checkbox.Group
-//             options={tableColumnsOptions}
-//             value={
-//               checkedKeys.length > 0
-//                 ? checkedKeys
-//                 : tableColumns.map((item) => item.key)
-//             }
-//             onChange={onCheckboxChange}
-//           />
-//         )}
-//       </Modal>
-//     </div>
-//   );
-// };
+      if (ofrMin || ofrMin === 0 || ofrMax || ofrMax === 0) {
+        otherConfig = {
+          ...otherConfig,
+          ofrPxRange: [ofrMin || null, ofrMax || null],
+        };
+      } // filter Ofr
 
-// _ZZ_CustomTableComponent.storyName = "最优报价 demo";
+      if (bidSpread1Range[0] !== null || bidSpread1Range[1] !== null) {
+        otherConfig = {
+          ...otherConfig,
+          bidSpread1Range,
+        };
+      } // bidSpread1Range
 
-// // ----------------------------------------------------------------
+      if (askSpread1Range[0] !== null || askSpread1Range[1] !== null) {
+        otherConfig = {
+          ...otherConfig,
+          askSpread1Range,
+        };
+      } // askSpread1Range
+
+      if (bidVolRange[0] !== null || bidVolRange[1] !== null) {
+        otherConfig = {
+          ...otherConfig,
+          bidVolRange,
+        };
+      } // bidVolRange
+
+      if (askVolRange[0] !== null || askVolRange[1] !== null) {
+        otherConfig = {
+          ...otherConfig,
+          askVolRange,
+        };
+      } // askVolRange
+
+      snapshotConifg.payload.filter = otherConfig;
+      subscribeConifg.payload.filter = otherConfig;
+
+      console.log("snapshotConifg", snapshotConifg);
+      console.log("subscribeConifg", subscribeConifg);
+
+      socket.send(JSON.stringify(snapshotConifg));
+      // socket.send(JSON.stringify(subscribeConifg));
+      setRequestId(requstId + 2);
+    }
+    return () => {
+      if (isOpen) {
+        const unsubscribeConifg = {
+          cmd: "unsubscribe",
+        }; // 推送 params config
+
+        socket.send(JSON.stringify(unsubscribeConifg));
+      }
+    };
+  }, [
+    filterRadio,
+    productKeys,
+    bidMin,
+    bidMax,
+    ofrMin,
+    ofrMax,
+    isOpen,
+    bidSpread1Range,
+    askSpread1Range,
+    bidVolRange,
+    askVolRange,
+    sortObj,
+  ]);
+
+  useEffect(() => {
+    dealData(socketMessage);
+  }, [socketMessage]);
+
+  // modal ---------------------------------------------------------
+
+  useEffect(() => {
+    if (!isModalVisible) {
+      const localData = localStorage.getItem("checkedConfig")?.split(",");
+      if ((localData && localData.length > 0) || sortObj.direction) {
+        const newColumns = columns.filter(
+          (item) => localData?.indexOf(item.key) !== -1
+        );
+        // console.log('newColumns', newColumns);
+        setTableColumns([...newColumns]);
+      }
+    }
+  }, [isModalVisible, sortObj]);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+    localStorage.setItem("checkedConfig", `${checkedKeys}`);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+    setCheckedKeys(localStorage.getItem("checkedConfig")?.split(",") || []);
+  };
+
+  const onCheckboxChange = (checkedValue: (string | number | boolean)[]) => {
+    console.log("in->", checkedValue);
+
+    setCheckedKeys(checkedValue);
+  };
+
+  const tableColumnsOptions =
+    modalList &&
+    modalList.map((item) => {
+      return {
+        label: <div style={{ width: 100 }}>{item.title}</div>,
+        value: item.key,
+      };
+    });
+
+  // -------------------------------------------------------------
+
+  const filterOptions = [
+    {
+      label: "国际",
+      value: "CNEX",
+    },
+    {
+      label: "中诚",
+      value: "CCTB",
+    },
+    {
+      label: "平安",
+      value: "PATR",
+    },
+    {
+      label: "信唐",
+      value: "TJXT",
+    },
+    {
+      label: "国利",
+      value: "TPSH",
+    },
+  ];
+
+  const onFilterChange = (value: (string | number)[]): void => {
+    // console.log('value, allValue', value, allValue);
+    setFilterRadio(value);
+  };
+
+  const productOptions = [
+    {
+      label: "国债",
+      value: "1",
+    },
+    {
+      label: "央票",
+      value: "2",
+    },
+    {
+      label: "金融债",
+      value: "3",
+    },
+    {
+      label: "地方债",
+      value: "4",
+    },
+    {
+      label: "短融",
+      value: "5",
+    },
+    {
+      label: "中票",
+      value: "6",
+    },
+    {
+      label: "企业债",
+      value: "7",
+    },
+    {
+      label: "公司债",
+      value: "8",
+    },
+    {
+      label: "PPN",
+      value: "9",
+    },
+    {
+      label: "NCD",
+      value: "10",
+    },
+    {
+      label: "ABS",
+      value: "11",
+    },
+    {
+      label: "CRM",
+      value: "12",
+    },
+    {
+      label: "可转债",
+      value: "13",
+    },
+    {
+      label: "次级债",
+      value: "14",
+    },
+    {
+      label: "其他",
+      value: "15",
+    },
+  ];
+
+  const onFilterProductChange = (value: (string | number)[]): void => {
+    // console.log('value', value);
+    setProductKeys(value);
+  };
+
+  // -------------------------------------------------------------
+
+  // onChange 事件
+  const onBidMinChange = (e: any) => {
+    setBidMin(e.target.value as number);
+  };
+
+  const onBidMaxChange = (e: any) => {
+    setBidMax(e.target.value as number);
+  };
+
+  const onOfrMinChange = (e: any) => {
+    setOfrMin(e.target.value as number);
+  };
+
+  const onOfrMaxChange = (e: any) => {
+    setOfrMax(e.target.value as number);
+  };
+
+  // -------------------------------------------------------------
+
+  // |bid-中债|
+  const onBidSpread1RangeChange = (e: any) => {
+    if (e.target.value) {
+      setBidSpread1Range(
+        bidSpread1RangeArrow
+          ? [e.target.value as number, null]
+          : [null, e.target.value as number]
+      );
+    } else {
+      setBidSpread1Range([null, null]);
+    }
+  };
+
+  // |中债-ofr|
+  const onAskSpread1RangeChange = (e: any) => {
+    if (e.target.value) {
+      setAskSpread1Range(
+        askSpread1RangeArrow
+          ? [e.target.value as number, null]
+          : [null, e.target.value as number]
+      );
+    } else {
+      setAskSpread1Range([null, null]);
+    }
+  };
+
+  // Vol.Bid
+  const onBidVolRangeChange = (e: any) => {
+    if (e.target.value) {
+      setBidVolRange(
+        bidVolRangeArrow
+          ? [e.target.value as number, null]
+          : [null, e.target.value as number]
+      );
+    } else {
+      setBidVolRange([null, null]);
+    }
+  };
+
+  // Vol.Ofr
+  const onAskVolRangeChange = (e: any) => {
+    if (e.target.value) {
+      setAskVolRange(
+        askVolRangeArrow
+          ? [e.target.value as number, null]
+          : [null, e.target.value as number]
+      );
+    } else {
+      setAskVolRange([null, null]);
+    }
+  };
+
+  // -------------------------------------------------------------
+
+  return (
+    <div className="ss-demo">
+      <div className="left">
+        Filter:
+        <div className="left-filter-box">
+          <div className="filter-item">
+            <span className="filter-title">Bid</span>
+            <span>
+              <InputNumber
+                keyboard
+                onPressEnter={onBidMinChange}
+                onBlur={onBidMinChange}
+              />
+              -
+              <InputNumber
+                keyboard
+                onPressEnter={onBidMaxChange}
+                onBlur={onBidMaxChange}
+              />
+            </span>
+          </div>
+          <div className="filter-item">
+            <span className="filter-title">Ofr</span>
+            <span>
+              <InputNumber
+                keyboard
+                onPressEnter={onOfrMinChange}
+                onBlur={onOfrMinChange}
+              />
+              -
+              <InputNumber
+                keyboard
+                onPressEnter={onOfrMaxChange}
+                onBlur={onOfrMaxChange}
+              />
+            </span>
+          </div>
+
+          <div className="filter-item">
+            <span className="filter-title">|bid-中债|</span>
+            <span>
+              <Button
+                style={{ marginRight: 8 }}
+                onClick={() => setBidSpread1RangeArrow(!bidSpread1RangeArrow)}
+              >
+                <Icon
+                  type={bidSpread1RangeArrow ? "right" : "left"}
+                  style={{ fontSize: 12 }}
+                />
+              </Button>
+              <InputNumber
+                keyboard
+                onPressEnter={onBidSpread1RangeChange}
+                onBlur={onBidSpread1RangeChange}
+              />
+            </span>
+          </div>
+
+          <div className="filter-item">
+            <span className="filter-title">|中债-ofr|</span>
+            <span>
+              <Button
+                style={{ marginRight: 8 }}
+                onClick={() => setAskSpread1RangeArrow(!askSpread1RangeArrow)}
+              >
+                <Icon
+                  type={askSpread1RangeArrow ? "right" : "left"}
+                  style={{ fontSize: 12 }}
+                />
+              </Button>
+              <InputNumber
+                keyboard
+                onPressEnter={onAskSpread1RangeChange}
+                onBlur={onAskSpread1RangeChange}
+              />
+            </span>
+          </div>
+
+          <div className="filter-item">
+            <span className="filter-title">Vol.Bid</span>
+            <span>
+              <Button
+                style={{ marginRight: 8 }}
+                onClick={() => setBidVolRangeArrow(!bidVolRangeArrow)}
+              >
+                <Icon
+                  type={bidVolRangeArrow ? "right" : "left"}
+                  style={{ fontSize: 12 }}
+                />
+              </Button>
+              <InputNumber
+                keyboard
+                onPressEnter={onBidVolRangeChange}
+                onBlur={onBidVolRangeChange}
+              />
+            </span>
+          </div>
+
+          <div className="filter-item">
+            <span className="filter-title">Vol.Ofr</span>
+            <span>
+              <Button
+                style={{ marginRight: 8 }}
+                onClick={() => setAskVolRangeArrow(!askVolRangeArrow)}
+              >
+                <Icon
+                  type={askVolRangeArrow ? "right" : "left"}
+                  style={{ fontSize: 12 }}
+                />
+              </Button>
+              <InputNumber
+                keyboard
+                onPressEnter={onAskVolRangeChange}
+                onBlur={onAskVolRangeChange}
+              />
+            </span>
+          </div>
+
+          <Divider />
+
+          <div className="flex-l_r">
+            <div className="filter-title">产品</div>
+            <div>
+              <Filter
+                multiple
+                options={productOptions}
+                value={productKeys}
+                onChange={onFilterProductChange}
+              />
+            </div>
+          </div>
+
+          <Divider />
+        </div>
+      </div>
+      <div className="right">
+        <div className="config-box">
+          <div className="tool">
+            Tool:
+            <Icon className="config" type="setting" onClick={showModal} />
+          </div>
+
+          <div className="filter">
+            <Filter
+              options={filterOptions}
+              value={filterRadio}
+              onChange={onFilterChange}
+            />
+          </div>
+        </div>
+        <div className="top">
+          {tableColumns.length > 0 && (
+            <Table
+              rowKey="msgSeq"
+              columns={tableColumns || []}
+              dataSource={tableData || []}
+              height="100%"
+              rowActive={activeRowKey}
+              rowActiveFixedData
+              onRow={(record) => {
+                return {
+                  onClick: () => {
+                    setActiveRowKey(record.msgSeq);
+                  },
+                };
+              }}
+              onChange={onTableChange}
+              loading={tableData.length === 0}
+            />
+          )}
+        </div>
+        <div className="bottom">Bottom</div>
+      </div>
+
+      <Modal
+        title="表格设置"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        width={500}
+      >
+        <p>设置需要展示的列：</p>
+        {modalList && modalList.length > 0 && (
+          <Checkbox.Group
+            options={tableColumnsOptions}
+            value={
+              checkedKeys.length > 0
+                ? checkedKeys
+                : tableColumns.map((item) => item.key)
+            }
+            onChange={onCheckboxChange}
+          />
+        )}
+      </Modal>
+    </div>
+  );
+};
+
+_ZZ_CustomTableComponent.storyName = "最优报价 demo";
+
+// ----------------------------------------------------------------

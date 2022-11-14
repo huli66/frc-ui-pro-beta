@@ -339,6 +339,8 @@ export interface TableLocaleProps extends TableLocale {
 }
 
 export interface FRCTableProps extends Omit<TableProps<RecordType>, "columns"> {
+  /** 表格 “向下” 滑动至中间位置时，触发 */
+  onScrllDownMiddle?: () => void;
   /** 表格高度 */
   height?: number | string;
   /** 是否展示外边框和列边框 */
@@ -462,6 +464,7 @@ export const Table: FC<FRCTableProps> = (props) => {
     children,
     rowKey,
     expandable,
+    onScrllDownMiddle,
     ...restProps
   } = props;
 
@@ -598,7 +601,7 @@ export const Table: FC<FRCTableProps> = (props) => {
     return () => {
       tableNode.removeEventListener("scroll", scrollMove);
     };
-  }, [initScroll]);
+  }, [initScroll, dataSource]);
 
   useEffect(() => {
     if (expandable?.expandedRowKeys) {
@@ -675,9 +678,16 @@ export const Table: FC<FRCTableProps> = (props) => {
     }
   }; // 计算 empty 高度
 
-  const scrollMove = () => {
-    const tableNode = ref.current.querySelector(".ant-table-body-box");
-    scrollPosition = controlScrollSpeed(tableNode, 120, scrollPosition);
+  const scrollMove = async () => {
+    const tableNode = await ref.current.querySelector(".ant-table-body-box");
+    const innerNode = ref.current.querySelector(".ant-table-body");
+    scrollPosition = controlScrollSpeed(
+      tableNode,
+      120,
+      scrollPosition,
+      innerNode,
+      onScrllDownMiddle
+    );
   }; // 初始化滚动速度控制
 
   const onWindowResize = async (boxNode: any, bodyNode: any) => {
@@ -742,7 +752,7 @@ export const Table: FC<FRCTableProps> = (props) => {
 
     const rowSizeNow = [0];
     let listTotalHeight = 0;
-    let hiddenTopHeight = 0; // 计算顶部隐藏区域的高度
+    let listTotalhiddenTopHeight = 0; // 计算顶部隐藏区域的高度
     let currentStep = 0; // 0: 顶部被隐藏阶段；1: 可视区域阶段
     const rowHeight = size === "small" ? 24 : size === "middle" ? 32 : 48; // 每行高度
     const OFFSET_VERTICAL = 120;
@@ -770,12 +780,12 @@ export const Table: FC<FRCTableProps> = (props) => {
             rowSizeNow[0] = index;
             currentStep += 1;
           } else {
-            hiddenTopHeight += rowHeight;
+            listTotalhiddenTopHeight += rowHeight;
             if (
               expandable &&
               expandedKeys.indexOf(item[rowKey as any].toString()) !== -1
             ) {
-              hiddenTopHeight +=
+              listTotalhiddenTopHeight +=
                 expandRowArrs[item[rowKey as any].toString()] || 0;
             }
           }
@@ -795,7 +805,7 @@ export const Table: FC<FRCTableProps> = (props) => {
     ) {
       // 顺序不能变，否则会导致 抖动
       setRowSize(rowSizeNow); // 可视区域的行号有了变化才重新进行渲染
-      setHiddenTopStyle(hiddenTopHeight);
+      setHiddenTopStyle(listTotalhiddenTopHeight);
       setTotalHeight(listTotalHeight);
     }
   }; // y 轴滚动
@@ -845,7 +855,7 @@ export const Table: FC<FRCTableProps> = (props) => {
 
   const fitExpandable = () => {
     // console.log('in0');
-    
+
     let newExpandableConfig = {};
 
     if (expandable) {

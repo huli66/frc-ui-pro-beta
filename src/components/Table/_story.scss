@@ -23,33 +23,57 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: 0px;
   .frc-table-container {
     margin-bottom: 0;
   }
 }
 
 .left {
-  padding: 0px 8px;
-  width: 24%;
-  height: calc(90vh - 20px);
+  width: 20%;
+  height: calc(100vh - 20px);
+  padding: 0 8px;
   background-color: #0c261f;
   border-right: 10px solid #000;
+  .left-filter-box {
+    // global ----------------------------------------------
+    .filter-title {
+      display: inline-block;
+      width: 80px;
+      height: 24px;
+      margin-right: 8px;
+      padding: 0 8px;
+      background-color: #154236;
+    }
+
+    // ------------------------------------------------------
+
+    .filter-item {
+      margin-bottom: 8px;
+    }
+
+    .flex-l_r {
+      display: flex;
+      .filter-title {
+        flex-shrink: 0;
+      }
+    }
+  }
 }
 .right {
-  width: 76%;
+  width: 80%;
   .config-box {
     .tool {
-      padding: 0px 8px;
+      display: flex;
+      align-items: center;
+      box-sizing: content-box;
+      padding: 0 8px;
       // height: 24px;
       background-color: #0c261f;
       border-bottom: 10px solid #000;
-      box-sizing: content-box;
-      display: flex;
-      align-items: center;
       .config {
-        font-size: 14px;
         margin-left: 4px;
+        font-size: 14px;
         cursor: pointer;
         &:hover {
           color: #fff;
@@ -58,19 +82,53 @@
     }
 
     .filter {
-      margin-bottom: 6px;
       display: flex;
       align-items: center;
+      margin-bottom: 6px;
     }
   }
 
   .top {
-    height: calc(60vh - 90px);
+    height: calc(70vh - 90px);
   }
   .bottom {
-    padding: 0px 8px;
     height: 30vh;
+    padding: 0 8px;
     background-color: #0c261f;
     border-top: 10px solid #000;
+  }
+}
+
+.out {
+  width: 100vw;
+  height: 100vh;
+  overflow: scroll;
+
+  .in {
+    width: 50vw;
+    height: 300vh;
+    background: linear-gradient(0deg, #3b9078, #c70025);
+  }
+
+  // 控制整个滚动条
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  // 滚动条中间滑动部分
+  &::-webkit-scrollbar-thumb {
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    &:hover {
+      background-color: #ccc;
+    }
+  }
+
+  // 滚动条右下角区域
+  &::-webkit-scrollbar-corner {
+    background-color: transparent;
   }
 }
