@@ -4534,256 +4534,272 @@ export default {
 
 // // ----------------------------------------------------------------
 
-// export const _BL_MessageTipComponent = () => {
-//   interface DataType {
-//     key: string;
-//     name: string;
-//     age: number;
-//     address: string;
-//     description: string;
-//     animeKey?: string | number;
-//   }
+export const _BL_MessageTipComponent = () => {
+  interface DataType {
+    key: string;
+    name: string;
+    age: number;
+    address: string;
+    description: string;
+    animeKey?: string | number;
+  }
 
-//   const [data, setData] = useState<any[]>([
-//     {
-//       key: "1",
-//       name: "John Brown123",
-//       age: 32,
-//       address: "New York No. 1 Lake Park123",
-//       description: "something else123",
-//     },
-//     {
-//       key: "2",
-//       name: "Jim Green",
-//       age: 42,
-//       address: "London No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "3",
-//       name: "Joe Black",
-//       age: 32,
-//       address: "Sidney No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "4",
-//       name: "John Brown",
-//       age: 32,
-//       address: "New York No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "5",
-//       name: "Jim Green",
-//       age: 42,
-//       address: "London No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "6",
-//       name: "Joe Black",
-//       age: 32,
-//       address: "Sidney No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "7",
-//       name: "John Brown",
-//       age: 32,
-//       address: "New York No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "8",
-//       name: "Jim Green",
-//       age: 42,
-//       address: "London No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "9",
-//       name: "Joe Black",
-//       age: 32,
-//       address: "Sidney No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "10",
-//       name: "John Brown",
-//       age: 32,
-//       address: "New York No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "11",
-//       name: "John Brown123",
-//       age: 32,
-//       address: "New York No. 1 Lake Park123",
-//       description: "something else123",
-//     },
-//     {
-//       key: "12",
-//       name: "Jim Green",
-//       age: 42,
-//       address: "London No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "13",
-//       name: "Joe Black",
-//       age: 32,
-//       address: "Sidney No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "14",
-//       name: "John Brown",
-//       age: 32,
-//       address: "New York No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "15",
-//       name: "Jim Green",
-//       age: 42,
-//       address: "London No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "16",
-//       name: "Joe Black",
-//       age: 32,
-//       address: "Sidney No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "17",
-//       name: "John Brown",
-//       age: 32,
-//       address: "New York No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "18",
-//       name: "Jim Green",
-//       age: 42,
-//       address: "London No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "19",
-//       name: "Joe Black",
-//       age: 32,
-//       address: "Sidney No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "20",
-//       name: "John Brown",
-//       age: 32,
-//       address: "New York No. 1 Lake Park",
-//       description: "something else",
-//     },
-//   ]);
-//   const [activeRowKey, setActiveRowKey] = useState<string>();
+  const [data, setData] = useState<any[]>([
+    {
+      key: "1",
+      name: "John Brown123",
+      age: 32,
+      address: "New York No. 1 Lake Park123",
+      description: "something else123",
+    },
+    {
+      key: "2",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "3",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "4",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "5",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "6",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "7",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "8",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "9",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "10",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "11",
+      name: "John Brown123",
+      age: 32,
+      address: "New York No. 1 Lake Park123",
+      description: "something else123",
+    },
+    {
+      key: "12",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "13",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "14",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "15",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "16",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "17",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "18",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "19",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "20",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+    },
+  ]);
+  const [activeRowKey, setActiveRowKey] = useState<string>();
 
-//   // mock update data ---------------------------------------------
+  // useEffect(() => {
+  //   // let time = Date.now();
+  //   setData(
+  //     data.map((item) => {
+  //       return {
+  //         ...item,
+  //         // animeKey: time,
+  //       };
+  //     })
+  //   );
+  // }, []);
 
-//   useEffect(() => {
-//     setInterval(() => {
-//       setData((pre) => {
-//         const dataMock: DataType[] = [
-//           {
-//             key: pre.length + 1 + "",
-//             name: "新推送：" + (pre.length + 1),
-//             age: 42,
-//             address: "London No. 1 Lake Park",
-//             description: "something else",
-//             animeKey: pre.length + 1 + "", // 用于动画
-//           },
-//         ];
+  // mock update data ---------------------------------------------
 
-//         return [...dataMock].concat([...pre]);
-//       });
-//     }, 1000);
-//   }, []);
+  useEffect(() => {
+    setInterval(() => {
+      setData((pre) => {
+        const dataMock: DataType[] = [
+          {
+            key: pre.length + 1 + "",
+            name: "新推送：" + (pre.length + 1),
+            age: 42,
+            address: "London No. 1 Lake Park",
+            description: "something else",
+            animeKey: Date.now(), // 用于动画
+          },
+        ];
 
-//   // --------------------------------------------------------------
+        return [...dataMock].concat([...pre]);
+      });
+    }, 500);
+  }, []);
 
-//   const columns: ColumnsTypeProps[] = [
-//     {
-//       title: "Name",
-//       dataIndex: "name",
-//       key: "name",
-//       fixed: "left",
-//       width: "300px",
-//       align: "center",
-//     },
-//     {
-//       title: "Age",
-//       dataIndex: "age",
-//       key: "age",
-//       align: "center",
-//       width: "120px",
-//     },
-//     {
-//       title: "Address",
-//       dataIndex: "address",
-//       key: "address",
-//       width: "400px",
-//       align: "center",
-//     },
-//     {
-//       title: "Description",
-//       key: "description",
-//       dataIndex: "description",
-//       width: "300px",
-//       fixed: "right",
-//       align: "center",
-//     },
-//   ];
+  useEffect(() => {
+    console.log("data", Date.now(), data);
+  }, [data]);
 
-//   // --------------------------------------------------------------
+  // --------------------------------------------------------------
 
-//   const code = `
-//     // import code
-//     import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      fixed: "left",
+      width: "300px",
+      align: "center",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+      align: "center",
+      width: "120px",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+      width: "400px",
+      align: "center",
+    },
+    {
+      title: "Description",
+      key: "description",
+      dataIndex: "description",
+      width: "300px",
+      fixed: "right",
+      align: "center",
+    },
+  ];
 
-//     // rowActiveFixedData 启动 “固定数据” 效果
-//     // rowActiveFixedTip 设置 “固定提示” 文案
-//     // rowActiveFirstGradient 启动 “数据” 渐变效果 (每次 data change, 都会触发)
-//     // animeRowKey 为 “数据” 渐变效果的 key。(!!!: 有推送时，处理 item 时自行添加 animeRowKey, 否则无效)
-//   `;
+  // --------------------------------------------------------------
 
-//   // --------------------------------------------------------------
+  const code = `
+    // import code
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
 
-//   return (
-//     <>
-//       <ImportCode code={code} />
-//       <Table
-//         animeRowKey="animeKey"
-//         columns={columns}
-//         dataSource={data}
-//         rowActive={activeRowKey}
-//         rowActiveFixedData={true}
-//         rowActiveFixedTip={"有新消息"}
-//         rowActiveFirstGradient={true}
-//         onRow={(record) => {
-//           return {
-//             onClick: (e) => {
-//               setActiveRowKey(record.key);
-//             },
-//           };
-//         }}
-//       />
-//     </>
-//   );
-// };
+    // rowActiveFixedData 启动 “固定数据” 效果
+    // rowActiveFixedTip 设置 “固定提示” 文案
+    // rowActiveFirstGradient 启动 “数据” 渐变效果 (每次 data change, 都会触发)
+    // animeRowKey 为 “数据” 渐变效果的 key。(!!!: 有推送时，处理 item 时自行添加 animeRowKey, 否则无效)
+  `;
 
-// _BL_MessageTipComponent.storyName = "新消息提醒（常用于推送，defective）";
+  // --------------------------------------------------------------
 
-// // ----------------------------------------------------------------
+  return (
+    <>
+      <ImportCode code={code} />
+      <Table
+        animeRowKey="animeKey"
+        columns={columns}
+        dataSource={data}
+        rowActive={activeRowKey}
+        rowActiveFixedData={true}
+        rowActiveFixedTip={"有新消息"}
+        rowActiveFirstGradient={true}
+        onRow={(record) => {
+          return {
+            onClick: (e) => {
+              setActiveRowKey(record.key);
+            },
+          };
+        }}
+      />
+    </>
+  );
+};
+
+_BL_MessageTipComponent.storyName = "新消息提醒（常用于推送，defective）";
+
+// ----------------------------------------------------------------
 
 const socket = new WebSocket("wss://web.qa.sumscope.com:28888/nqb/ws");
 
@@ -5298,7 +5314,7 @@ export const _ZZ_CustomTableComponent = () => {
       console.log("subscribeConifg", subscribeConifg);
 
       socket.send(JSON.stringify(snapshotConifg));
-      // socket.send(JSON.stringify(subscribeConifg));
+      socket.send(JSON.stringify(subscribeConifg));
       setRequestId(requstId + 2);
     }
     return () => {
@@ -5699,12 +5715,15 @@ export const _ZZ_CustomTableComponent = () => {
         <div className="top">
           {tableColumns.length > 0 && (
             <Table
+              animeRowKey="msgSeq"
               rowKey="msgSeq"
               columns={tableColumns || []}
               dataSource={tableData || []}
               height="100%"
               rowActive={activeRowKey}
               rowActiveFixedData
+              rowActiveFixedTip={"有新消息"}
+              rowActiveFirstGradient={true}
               onRow={(record) => {
                 return {
                   onClick: () => {

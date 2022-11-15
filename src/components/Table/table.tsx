@@ -601,7 +601,7 @@ export const Table: FC<FRCTableProps> = (props) => {
     return () => {
       tableNode.removeEventListener("scroll", scrollMove);
     };
-  }, [initScroll, dataSource]);
+  }, [initScroll, initData]);
 
   useEffect(() => {
     if (expandable?.expandedRowKeys) {
@@ -985,12 +985,79 @@ export const Table: FC<FRCTableProps> = (props) => {
   // other config --------------------------------------------------------
 
   const fitRowClassName = (record: RecordType, index: number) => {
-    // console.log("record");
-
     let rowClasses = "";
     // 开启首行渐变
-    if (rowActiveFirstGradient && animeRowKey && record[animeRowKey]) {
-      rowClasses += " frc-table-row-first-gradient";
+    if (
+      rowActiveFirstGradient &&
+      animeRowKey &&
+      record[animeRowKey] &&
+      typeof record[animeRowKey] === "number"
+    ) {
+      // if (Date.now() - 3000 < record[animeRowKey]) {
+      //   rowClasses += " frc-table-row-first-gradient-3-0s";
+      // } 
+
+      if (Date.now() - 100 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-3-0s";
+      } else if (Date.now() - 200 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-2-9s";
+      } else if (Date.now() - 300 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-2-8s";
+      } else if (Date.now() - 400 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-2-7s";
+      } else if (Date.now() - 500 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-2-6s";
+      } else if (Date.now() - 600 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-2-5s";
+      } else if (Date.now() - 700 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-2-4s";
+      } else if (Date.now() - 800 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-2-3s";
+      } else if (Date.now() - 900 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-2-2s";
+      } else if (Date.now() - 1000 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-2-1s";
+      } else if (Date.now() - 1100 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-2-0s";
+      } else if (Date.now() - 1200 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-1-9s";
+      } else if (Date.now() - 1300 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-1-8s";
+      } else if (Date.now() - 1400 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-1-7s";
+      } else if (Date.now() - 1500 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-1-6s";
+      } else if (Date.now() - 1600 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-1-5s";
+      } else if (Date.now() - 1700 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-1-4s";
+      } else if (Date.now() - 1800 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-1-3s";
+      } else if (Date.now() - 1900 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-1-2s";
+      } else if (Date.now() - 2000 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-1-1s";
+      } else if (Date.now() - 2100 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-1-0s";
+      } else if (Date.now() - 2200 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-0-9s";
+      } else if (Date.now() - 2300 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-0-8s";
+      } else if (Date.now() - 2400 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-0-7s";
+      } else if (Date.now() - 2500 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-0-6s";
+      } else if (Date.now() - 2600 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-0-5s";
+      } else if (Date.now() - 2700 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-0-4s";
+      } else if (Date.now() - 2800 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-0-3s";
+      } else if (Date.now() - 2900 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-0-2s";
+      } else if (Date.now() - 3000 < record[animeRowKey]) {
+        rowClasses += " frc-table-row-first-gradient-0-1s";
+      }
     }
     // active row className
     if (rowActiveInner && record?.key && rowActiveInner === record.key) {
