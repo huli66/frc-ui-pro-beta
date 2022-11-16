@@ -4849,7 +4849,7 @@ export const _ZZ_CustomTableComponent = () => {
   const updateTableData = useCallback(
     throttle(() => {
       setTableData(refData);
-    }, 300),
+    }, 200),
     []
   );
 
@@ -5187,35 +5187,41 @@ export const _ZZ_CustomTableComponent = () => {
   };
 
   const dealData = (message: any) => {
-    // console.log('dealData', Math.random(), message);
+    console.log('dealData', Math.random(), message);
     // const newData: any[] = [...tableData];
     const newData: any[] = [...saveData];
 
     // console.log('newData-before', newData.length);
+    if (message.length > 0) {
+      message.forEach((item: any) => {
+        let itemData = {
+          ...item?.payload,
+          animeKey: Date.now()
+        }
+        if (item.action === "ADD") {
+          newData.splice(item.index, 0, itemData);
+          // console.log('ADD', newData);
+        }
 
-    message.forEach((item: any) => {
-      if (item.action === "ADD") {
-        newData.splice(item.index, 0, item.payload);
-        // console.log('ADD', newData);
-      }
+        if (item.action === "REMOVE") {
+          newData.splice(item.index, 1);
+          // console.log('REMOVE', newData);
+        }
 
-      if (item.action === "REMOVE") {
-        newData.splice(item.index, 1);
-        // console.log('REMOVE', newData);
-      }
+        if (item.action === "MODIFY") {
+          newData.splice(item.index, 1, itemData);
+          // console.log('MODIFY', newData);
+        }
+      });
 
-      if (item.action === "MODIFY") {
-        newData.splice(item.index, 1, item.payload);
-        // console.log('MODIFY', newData);
-      }
-    });
+      // console.log('newData-after', newData.length);
 
-    // console.log('newData-after', newData.length);
+      refData = newData;
+      setSaveData(newData);
 
-    refData = newData;
-    setSaveData(newData);
+      // setTableData(newData);
+    }
 
-    // setTableData(newData);
   };
 
   // -------------------------------------------------------------
@@ -5715,7 +5721,7 @@ export const _ZZ_CustomTableComponent = () => {
         <div className="top">
           {tableColumns.length > 0 && (
             <Table
-              animeRowKey="msgSeq"
+              animeRowKey="animeKey"
               rowKey="msgSeq"
               columns={tableColumns || []}
               dataSource={tableData || []}
