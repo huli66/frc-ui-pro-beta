@@ -4805,324 +4805,282 @@ const socket = new WebSocket("wss://web.qa.sumscope.com:28888/nqb/ws");
 
 let refData: any[] = [];
 export const _ZZ_CustomTableComponent = () => {
-  const localStorageKeys = localStorage.getItem("checkedConfig")?.split(",");
-
-  // --------------------------------------------------------------------------
-  // --------------------------------------------------------------------------
-  // --------------------------------------------------------------------------
-
   const [tableData, setTableData] = useState<any[]>([]);
-  const [socketMessage, setSocketMessage] = useState<any[]>([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [activeRowKey, setActiveRowKey] = useState<string>();
   const [modalList, setModalList] = useState<any[]>([]);
   const [tableColumns, setTableColumns] = useState<any[]>([]);
-  const [checkedKeys, setCheckedKeys] = useState<any[]>(localStorageKeys || []);
+  const [checkedKeys, setCheckedKeys] = useState<any[]>(localStorage.getItem('checkedConfig')?.split(',') || []);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [requstId, setRequestId] = useState<number>(-1);
-  const [filterRadio, setFilterRadio] = useState<any[]>(["ALL"]);
-  const [productKeys, setProductKeys] = useState<any[]>(["ALL"]);
+  const [sortObj, setSortObj] = useState<any>({
+    property: 'bondKey',
+    direction: null
+  });
+  const [paging, setPaging] = useState<number>(0);
+  // const [tableRowSize, setTableRowSize] = useState<any[]>([null, null]);
+  const tableRowSize = useRef<any[]>([null, null])
+
+  const [filterRadio, setFilterRadio] = useState<any[]>(['ALL']);
+  const [productKeys, setProductKeys] = useState<any[]>(['ALL']);
+
   const [bidMin, setBidMin] = useState<number | null>(null);
   const [bidMax, setBidMax] = useState<number | null>(null);
+
   const [ofrMin, setOfrMin] = useState<number | null>(null);
   const [ofrMax, setOfrMax] = useState<number | null>(null);
+
   // |bid-中债|
   const [bidSpread1Range, setBidSpread1Range] = useState<any[]>([null, null]);
-  const [bidSpread1RangeArrow, setBidSpread1RangeArrow] =
-    useState<boolean>(true);
+  const [bidSpread1RangeArrow, setBidSpread1RangeArrow] = useState<boolean>(true);
+
   // |中债-ofr|
   const [askSpread1Range, setAskSpread1Range] = useState<any[]>([null, null]);
-  const [askSpread1RangeArrow, setAskSpread1RangeArrow] =
-    useState<boolean>(true);
+  const [askSpread1RangeArrow, setAskSpread1RangeArrow] = useState<boolean>(true);
+
   // Vol.Bid
   const [bidVolRange, setBidVolRange] = useState<any[]>([null, null]);
   const [bidVolRangeArrow, setBidVolRangeArrow] = useState<boolean>(true);
+
   // Vol.Ofr
   const [askVolRange, setAskVolRange] = useState<any[]>([null, null]);
   const [askVolRangeArrow, setAskVolRangeArrow] = useState<boolean>(true);
-  const [saveData, setSaveData] = useState<any[]>([]);
-
-  // --------------------------------------------------------------------------
-  // --------------------------------------------------------------------------
-  // --------------------------------------------------------------------------
-
-  const updateTableData = useCallback(
-    throttle(() => {
-      setTableData(refData);
-    }, 200),
-    []
-  );
-
-  useEffect(() => {
-    updateTableData();
-  }, [saveData]);
-
-  // sort --------------------------------------------------------
-
-  const [sortObj, setSortObj] = useState<any>({
-    property: "bondKey",
-    direction: null,
-  });
-
-  const onTableChange = (pagination: any, filters: any, sorter: any) => {
-    console.log("onTableChange", sorter, sortObj);
-
-    let tableSort: any = {
-      property: sorter.field,
-    };
-
-    if (sorter.order) {
-      tableSort = {
-        ...tableSort,
-        direction: sorter.order === "ascend" ? "ASC" : "DESC",
-      };
-    } else {
-      tableSort = {
-        ...tableSort,
-        direction: null,
-      };
-    }
-
-    console.log("tableSort", tableSort);
-
-    setSortObj(tableSort);
-  };
 
   const columns: any[] = [
     {
-      title: "剩余期限",
-      dataIndex: "residualMaturity",
-      key: "residualMaturity",
+      title: '剩余期限',
+      dataIndex: 'residualMaturity',
+      key: 'residualMaturity',
       // fixed: "left",
-      width: "200px",
+      width: '200px'
     },
     {
-      title: "债券简称",
-      dataIndex: "bondNm",
-      key: "bondNm",
-      width: "250px",
+      title: '债券简称',
+      dataIndex: 'bondNm',
+      key: 'bondNm',
+      width: '250px'
     },
     {
-      title: "bondKey",
-      dataIndex: "bondKey",
-      key: "bondKey",
+      title: 'bondKey',
+      dataIndex: 'bondKey',
+      key: 'bondKey',
       ellipsis: true,
       // fixed: "left",
-      width: "250px",
-      sorter: true,
+      width: '250px',
+      sorter: true
     },
     {
-      title: "listedMarket",
-      dataIndex: "listedMarket",
-      key: "listedMarket",
+      title: 'listedMarket',
+      dataIndex: 'listedMarket',
+      key: 'listedMarket',
       // fixed: "left",
-      width: "100px",
+      width: '100px'
     },
     {
-      title: "票面利率",
-      dataIndex: "couponRt",
-      key: "couponRt",
-      width: "100px",
+      title: '票面利率',
+      dataIndex: 'couponRt',
+      key: 'couponRt',
+      width: '100px'
     },
     {
-      title: "多笔卖量",
-      dataIndex: "multAskVol",
-      key: "multAskVol",
-      width: "200px",
-      ellipsis: true,
+      title: '多笔卖量',
+      dataIndex: 'multAskVol',
+      key: 'multAskVol',
+      width: '200px',
+      ellipsis: true
     },
     {
-      title: "主体评级",
-      dataIndex: "instRt",
-      key: "instRt",
-      width: "100px",
+      title: '主体评级',
+      dataIndex: 'instRt',
+      key: 'instRt',
+      width: '100px'
     },
     {
-      title: "多笔买量",
-      dataIndex: "multBidVol",
-      key: "multBidVol",
-      width: "200px",
-      ellipsis: true,
+      title: '多笔买量',
+      dataIndex: 'multBidVol',
+      key: 'multBidVol',
+      width: '200px',
+      ellipsis: true
     },
     {
-      title: "债项评级",
-      dataIndex: "bondRt",
-      key: "bondRt",
-      width: "100px",
+      title: '债项评级',
+      dataIndex: 'bondRt',
+      key: 'bondRt',
+      width: '100px'
     },
     {
-      title: "展望评级",
-      dataIndex: "brokerOfrFwdYld",
-      key: "brokerOfrFwdYld",
-      width: "100px",
+      title: '展望评级',
+      dataIndex: 'brokerOfrFwdYld',
+      key: 'brokerOfrFwdYld',
+      width: '100px'
     },
     {
-      title: "含权类型",
-      dataIndex: "optEmbeddedTyp",
-      key: "optEmbeddedTyp",
-      width: "100px",
+      title: '含权类型',
+      dataIndex: 'optEmbeddedTyp',
+      key: 'optEmbeddedTyp',
+      width: '100px'
     },
     {
-      title: "行权日",
-      dataIndex: "strikeDt",
-      key: "strikeDt",
-      width: "100px",
+      title: '行权日',
+      dataIndex: 'strikeDt',
+      key: 'strikeDt',
+      width: '100px'
     },
     {
-      title: "到期日",
-      dataIndex: "maturityDt",
-      key: "maturityDt",
-      width: "100px",
+      title: '到期日',
+      dataIndex: 'maturityDt',
+      key: 'maturityDt',
+      width: '100px'
     },
     {
-      title: "跨市场",
-      dataIndex: "bnkFlg",
-      key: "bnkFlg",
-      width: "100px",
+      title: '跨市场',
+      dataIndex: 'bnkFlg',
+      key: 'bnkFlg',
+      width: '100px'
     },
     {
-      title: "债券余额(亿)",
-      dataIndex: "outstandingAmt",
-      key: "outstandingAmt",
-      width: "100px",
+      title: '债券余额(亿)',
+      dataIndex: 'outstandingAmt',
+      key: 'outstandingAmt',
+      width: '100px'
     },
     {
-      title: "产品",
-      dataIndex: "securitySubTyp",
-      key: "securitySubTyp",
-      width: "100px",
+      title: '产品',
+      dataIndex: 'securitySubTyp',
+      key: 'securitySubTyp',
+      width: '100px'
     },
     {
-      title: "经纪商",
-      dataIndex: "contributorId",
-      key: "contributorId",
-      width: "100px",
+      title: '经纪商',
+      dataIndex: 'contributorId',
+      key: 'contributorId',
+      width: '100px'
     },
     {
-      title: "最后更新",
-      dataIndex: "marketDataTm",
-      key: "marketDataTm",
-      width: "200px",
+      title: '最后更新',
+      dataIndex: 'marketDataTm',
+      key: 'marketDataTm',
+      width: '200px'
     },
     {
-      title: "Vol.Bid",
-      dataIndex: "bidVol",
-      key: "bidVol",
-      width: "100px",
+      title: 'Vol.Bid',
+      dataIndex: 'bidVol',
+      key: 'bidVol',
+      width: '100px'
     },
     {
-      title: "Bid参考净价",
-      dataIndex: "bidPrc",
-      key: "bidPrc",
-      width: "100px",
+      title: 'Bid参考净价',
+      dataIndex: 'bidPrc',
+      key: 'bidPrc',
+      width: '100px'
     },
     {
-      title: "Bid",
-      dataIndex: "bidPx",
-      key: "bidPx",
-      width: "100px",
+      title: 'Bid',
+      dataIndex: 'bidPx',
+      key: 'bidPx',
+      width: '100px'
     },
     {
-      title: "Ofr",
-      dataIndex: "ofrPx",
-      key: "ofrPx",
-      width: "100px",
+      title: 'Ofr',
+      dataIndex: 'ofrPx',
+      key: 'ofrPx',
+      width: '100px'
     },
     {
-      title: "Ofr参考净价",
-      dataIndex: "askPrc",
-      key: "askPrc",
-      width: "100px",
+      title: 'Ofr参考净价',
+      dataIndex: 'askPrc',
+      key: 'askPrc',
+      width: '100px'
     },
     {
-      title: "Vol.Ofr",
-      dataIndex: "askVol",
-      key: "askVol",
-      width: "100px",
+      title: 'Vol.Ofr',
+      dataIndex: 'askVol',
+      key: 'askVol',
+      width: '100px'
     },
     {
-      title: "中债估值到期",
-      dataIndex: "valuation1",
-      key: "valuation1",
-      width: "100px",
+      title: '中债估值到期',
+      dataIndex: 'valuation1',
+      key: 'valuation1',
+      width: '100px'
     },
     {
-      title: "中债估值行权",
-      dataIndex: "valuation5",
-      key: "valuation5",
-      width: "100px",
+      title: '中债估值行权',
+      dataIndex: 'valuation5',
+      key: 'valuation5',
+      width: '100px'
     },
     {
-      title: "中证估值到期",
-      dataIndex: "valuation2",
-      key: "valuation2",
-      width: "100px",
+      title: '中证估值到期',
+      dataIndex: 'valuation2',
+      key: 'valuation2',
+      width: '100px'
     },
     {
-      title: "中证估值行权",
-      dataIndex: "valuation6",
-      key: "valuation6",
-      width: "100px",
+      title: '中证估值行权',
+      dataIndex: 'valuation6',
+      key: 'valuation6',
+      width: '100px'
     },
     {
-      title: "bid-中债(BP)",
-      dataIndex: "bidSpread1",
-      key: "bidSpread1",
-      width: "100px",
+      title: 'bid-中债(BP)',
+      dataIndex: 'bidSpread1',
+      key: 'bidSpread1',
+      width: '100px'
     },
     {
-      title: "中债-Ofr(BP)",
-      dataIndex: "askSpread1",
-      key: "askSpread1",
-      width: "100px",
+      title: '中债-Ofr(BP)',
+      dataIndex: 'askSpread1',
+      key: 'askSpread1',
+      width: '100px'
     },
     {
-      title: "bid-中证(BP)",
-      dataIndex: "bidSpread2",
-      key: "bidSpread2",
-      width: "100px",
+      title: 'bid-中证(BP)',
+      dataIndex: 'bidSpread2',
+      key: 'bidSpread2',
+      width: '100px'
     },
     {
-      title: "中证-Ofr(BP)",
-      dataIndex: "askSpread2",
-      key: "askSpread2",
-      width: "100px",
+      title: '中证-Ofr(BP)',
+      dataIndex: 'askSpread2',
+      key: 'askSpread2',
+      width: '100px'
     },
     {
-      title: "Bid报价状态",
-      dataIndex: "bidQuoteSts",
-      key: "bidQuoteSts",
-      width: "100px",
+      title: 'Bid报价状态',
+      dataIndex: 'bidQuoteSts',
+      key: 'bidQuoteSts',
+      width: '100px'
     },
     {
-      title: "Ask报价状态",
-      dataIndex: "askQuoteSts",
-      key: "askQuoteSts",
-      width: "100px",
+      title: 'Ask报价状态',
+      dataIndex: 'askQuoteSts',
+      key: 'askQuoteSts',
+      width: '100px'
     },
     {
-      title: "消息序号",
-      dataIndex: "msgSeq",
-      key: "msgSeq",
-      width: "300px",
+      title: '消息序号',
+      dataIndex: 'msgSeq',
+      key: 'msgSeq',
+      width: '300px'
     },
     {
-      title: "Bid编号",
-      dataIndex: "bidQuoteId",
-      key: "bidQuoteId",
-      width: "300px",
+      title: 'Bid编号',
+      dataIndex: 'bidQuoteId',
+      key: 'bidQuoteId',
+      width: '300px'
     },
     {
-      title: "Ask编号",
-      dataIndex: "askQuoteId",
-      key: "askQuoteId",
-      width: "300px",
-    },
+      title: 'Ask编号',
+      dataIndex: 'askQuoteId',
+      key: 'askQuoteId',
+      width: '300px'
+    }
   ].map((column) => {
     let tableSort: any;
 
     if (sortObj.direction) {
-      tableSort = sortObj.direction === "ASC" ? "ascend" : "descend";
+      tableSort = sortObj.direction === 'ASC' ? 'ascend' : 'descend';
     } else {
       tableSort = null;
     }
@@ -5132,11 +5090,49 @@ export const _ZZ_CustomTableComponent = () => {
       sorter: true,
       // sortDirections: ['ascend', 'descend', 'ascend'], // 禁止排序恢复到默认状态
       showSorterTooltip: false,
-      sortOrder: column.key === sortObj.property ? tableSort : null,
+      sortOrder: column.key === sortObj.property ? tableSort : null
     };
   });
 
-  // -------------------------------------------------------------
+  // throttle data -> 300ms ---------------------------------------
+
+  const updateTableData = useCallback(
+    throttle((rowSize, index) => {
+      // console.log('updateTableData', rowSize, index);
+      if (rowSize.length > 1 && index >= rowSize[0] && index <= rowSize[1]) {
+        setTableData(refData);
+      }
+    }, 300),
+    []
+  );
+
+  // sort --------------------------------------------------------
+
+  const onTableChange = (pagination: any, filters: any, sorter: any) => {
+    // console.log('onTableChange', sorter, sortObj);
+
+    let tableSort: any = {
+      property: sorter.field
+    };
+
+    if (sorter.order) {
+      tableSort = {
+        ...tableSort,
+        direction: sorter.order === 'ascend' ? 'ASC' : 'DESC'
+      };
+    } else {
+      tableSort = {
+        ...tableSort,
+        direction: null
+      };
+    }
+
+    // console.log('tableSort', tableSort);
+
+    setSortObj(tableSort);
+  };
+
+  // websocket callback function ---------------------------------
 
   const fetchColumns = () => {
     socket.send(`{"cmd":"schema", "id": ${requstId + 1}}`);
@@ -5152,181 +5148,180 @@ export const _ZZ_CustomTableComponent = () => {
       setRequestId(0);
     }
 
-    if (data?.payload?.title === "quote") {
+    if (data?.payload?.title === 'quote') {
       // console.log('data', data);
       const config: any = [];
       Object.keys(data.payload.properties).forEach((key) => {
-        config.push({
-          title: data.payload.properties[key]?.cnName || key,
-          key,
-        });
+        config.push({ title: data.payload.properties[key]?.cnName || key, key });
       });
 
       const newKeys = (config as any[]).map((item) => item.key);
-      const newColumns = columns.filter(
-        (column) => newKeys.indexOf(column.key) !== -1
-      );
+      const newColumns = columns.filter((column) => newKeys.indexOf(column.key) !== -1);
       setModalList(newColumns);
 
-      if (!localStorage.getItem("checkedConfig")) {
+      if (!localStorage.getItem('checkedConfig')) {
         setTableColumns(newColumns);
       }
     } // columns
 
     if (data?.payload?.list) {
-      console.log("in-data", data.payload.list.length);
+      // console.log('in-data', data);
       refData = data.payload.list;
       setTableData(data.payload.list);
-      setSaveData(data.payload.list);
     } // data
 
-    if (Object.prototype.toString.call(data) === "[object Array]") {
+    if (Object.prototype.toString.call(data) === '[object Array]') {
       // console.log('this ----------------------------->', data);
-      setSocketMessage(data);
+      dealData(data);
     } // subscribe
   };
 
-  const dealData = (message: any) => {
-    console.log('dealData', Math.random(), message);
-    // const newData: any[] = [...tableData];
-    const newData: any[] = [...saveData];
+  const dealData = async (message: any) => {
+    // console.log('dealData', message);
+    const newData: any[] = [...refData];
 
-    // console.log('newData-before', newData.length);
     if (message.length > 0) {
       message.forEach((item: any) => {
         let itemData = {
           ...item?.payload,
           animeKey: Date.now()
         }
-        if (item.action === "ADD") {
+
+        if (item.action === 'ADD') {
           newData.splice(item.index, 0, itemData);
           // console.log('ADD', newData);
         }
 
-        if (item.action === "REMOVE") {
+        if (item.action === 'REMOVE') {
           newData.splice(item.index, 1);
           // console.log('REMOVE', newData);
         }
 
-        if (item.action === "MODIFY") {
+        if (item.action === 'MODIFY') {
           newData.splice(item.index, 1, itemData);
           // console.log('MODIFY', newData);
         }
+
+        refData = newData;
+        updateTableData(tableRowSize.current, item.index)
       });
-
-      // console.log('newData-after', newData.length);
-
-      refData = newData;
-      setSaveData(newData);
-
-      // setTableData(newData);
     }
-
   };
 
   // -------------------------------------------------------------
 
   useEffect(() => {
-    socket.addEventListener("open", fetchColumns);
-    socket.addEventListener("message", sendRequest);
+    socket.addEventListener('open', fetchColumns);
+    socket.addEventListener('message', sendRequest);
 
     return () => {
-      socket.removeEventListener("open", fetchColumns);
-      socket.removeEventListener("message", sendRequest);
+      socket.removeEventListener('open', fetchColumns);
+      socket.removeEventListener('message', sendRequest);
     };
   }, []);
 
   useEffect(() => {
     if (isOpen) {
-      const snapshotConifg: any = {
-        cmd: "snapshot",
-        id: requstId + 1,
-        payload: { type: "TOP_N", n: 1000 },
-      }; // 快照 params config
+      // const snapshotConifg: any = {
+      //   cmd: 'snapshot',
+      //   id: requstId + 1,
+      //   payload: { type: 'TOP_N', n: 1000 }
+      // }; // 快照 params config
 
-      const subscribeConifg: any = {
-        cmd: "subscribe",
-        id: requstId + 2,
-        payload: { type: "TOP_N", n: 1000 },
-      }; // 推送 params config
+      // const subscribeConifg: any = {
+      //   cmd: 'subscribe',
+      //   id: requstId + 2,
+      //   payload: { type: 'TOP_N', n: 1000 }
+      // }; // 推送 params config
+
+      const snapshotAndSubscribeConfig: any = {
+        cmd: 'snapshot_and_subscribe',
+        id: requstId + 1,
+        payload: { type: 'TOP_N', n: 1000 }
+        // payload: { type: 'OFFSET_LIMIT', limit: 1000, offset: paging }
+      }; // 快照 && 推送 params config
 
       let otherConfig = {};
 
       if (sortObj.direction) {
-        snapshotConifg.payload.sort = [sortObj];
-        subscribeConifg.payload.sort = [sortObj];
+        // snapshotConifg.payload.sort = [sortObj];
+        // subscribeConifg.payload.sort = [sortObj];
+        snapshotAndSubscribeConfig.payload.sort = [sortObj];
       }
 
-      if (filterRadio.join() !== "ALL") {
+      if (filterRadio.join() !== 'ALL') {
         otherConfig = {
           ...otherConfig,
-          contributorId: filterRadio.join(),
+          contributorId: filterRadio.join()
         };
       } // filter 经纪商
 
-      if (productKeys.join() !== "ALL") {
+      if (productKeys.join() !== 'ALL') {
         otherConfig = {
           ...otherConfig,
-          productIds: productKeys,
+          productIds: productKeys
         };
       } // filter 产品
 
       if (bidMin || bidMin === 0 || bidMax || bidMax === 0) {
         otherConfig = {
           ...otherConfig,
-          bidPxRange: [bidMin || null, bidMax || null],
+          bidPxRange: [bidMin || null, bidMax || null]
         };
       } // filter Bid
 
       if (ofrMin || ofrMin === 0 || ofrMax || ofrMax === 0) {
         otherConfig = {
           ...otherConfig,
-          ofrPxRange: [ofrMin || null, ofrMax || null],
+          ofrPxRange: [ofrMin || null, ofrMax || null]
         };
       } // filter Ofr
 
       if (bidSpread1Range[0] !== null || bidSpread1Range[1] !== null) {
         otherConfig = {
           ...otherConfig,
-          bidSpread1Range,
+          bidSpread1Range
         };
       } // bidSpread1Range
 
       if (askSpread1Range[0] !== null || askSpread1Range[1] !== null) {
         otherConfig = {
           ...otherConfig,
-          askSpread1Range,
+          askSpread1Range
         };
       } // askSpread1Range
 
       if (bidVolRange[0] !== null || bidVolRange[1] !== null) {
         otherConfig = {
           ...otherConfig,
-          bidVolRange,
+          bidVolRange
         };
       } // bidVolRange
 
       if (askVolRange[0] !== null || askVolRange[1] !== null) {
         otherConfig = {
           ...otherConfig,
-          askVolRange,
+          askVolRange
         };
       } // askVolRange
 
-      snapshotConifg.payload.filter = otherConfig;
-      subscribeConifg.payload.filter = otherConfig;
+      // snapshotConifg.payload.filter = otherConfig;
+      // subscribeConifg.payload.filter = otherConfig;
+      snapshotAndSubscribeConfig.payload.filter = otherConfig;
 
-      console.log("snapshotConifg", snapshotConifg);
-      console.log("subscribeConifg", subscribeConifg);
+      // console.log('snapshotConifg', snapshotConifg);
+      // console.log('subscribeConifg', subscribeConifg);
+      console.log('snapshotAndSubscribeConfig', snapshotAndSubscribeConfig);
 
-      socket.send(JSON.stringify(snapshotConifg));
-      socket.send(JSON.stringify(subscribeConifg));
+      // socket.send(JSON.stringify(snapshotConifg));
+      // socket.send(JSON.stringify(subscribeConifg));
+      socket.send(JSON.stringify(snapshotAndSubscribeConfig));
       setRequestId(requstId + 2);
     }
     return () => {
       if (isOpen) {
         const unsubscribeConifg = {
-          cmd: "unsubscribe",
+          cmd: 'unsubscribe'
         }; // 推送 params config
 
         socket.send(JSON.stringify(unsubscribeConifg));
@@ -5345,21 +5340,16 @@ export const _ZZ_CustomTableComponent = () => {
     bidVolRange,
     askVolRange,
     sortObj,
+    paging
   ]);
-
-  useEffect(() => {
-    dealData(socketMessage);
-  }, [socketMessage]);
 
   // modal ---------------------------------------------------------
 
   useEffect(() => {
     if (!isModalVisible) {
-      const localData = localStorage.getItem("checkedConfig")?.split(",");
+      const localData = localStorage.getItem('checkedConfig')?.split(',');
       if ((localData && localData.length > 0) || sortObj.direction) {
-        const newColumns = columns.filter(
-          (item) => localData?.indexOf(item.key) !== -1
-        );
+        const newColumns = columns.filter((item) => localData?.indexOf(item.key) !== -1);
         // console.log('newColumns', newColumns);
         setTableColumns([...newColumns]);
       }
@@ -5372,16 +5362,16 @@ export const _ZZ_CustomTableComponent = () => {
 
   const handleOk = () => {
     setIsModalVisible(false);
-    localStorage.setItem("checkedConfig", `${checkedKeys}`);
+    localStorage.setItem('checkedConfig', `${checkedKeys}`);
   };
 
   const handleCancel = () => {
     setIsModalVisible(false);
-    setCheckedKeys(localStorage.getItem("checkedConfig")?.split(",") || []);
+    setCheckedKeys(localStorage.getItem('checkedConfig')?.split(',') || []);
   };
 
   const onCheckboxChange = (checkedValue: (string | number | boolean)[]) => {
-    console.log("in->", checkedValue);
+    console.log('in->', checkedValue);
 
     setCheckedKeys(checkedValue);
   };
@@ -5391,33 +5381,39 @@ export const _ZZ_CustomTableComponent = () => {
     modalList.map((item) => {
       return {
         label: <div style={{ width: 100 }}>{item.title}</div>,
-        value: item.key,
+        value: item.key
       };
     });
 
-  // -------------------------------------------------------------
+  // scroll page next -------------------------------------------
+  const onScrllDownMiddle = () => {
+    console.log("onScrollMiddle");
+    setPaging(paging + 1000);
+  };
+
+  // Product Filter ---------------------------------------------
 
   const filterOptions = [
     {
-      label: "国际",
-      value: "CNEX",
+      label: '国际',
+      value: 'CNEX'
     },
     {
-      label: "中诚",
-      value: "CCTB",
+      label: '中诚',
+      value: 'CCTB'
     },
     {
-      label: "平安",
-      value: "PATR",
+      label: '平安',
+      value: 'PATR'
     },
     {
-      label: "信唐",
-      value: "TJXT",
+      label: '信唐',
+      value: 'TJXT'
     },
     {
-      label: "国利",
-      value: "TPSH",
-    },
+      label: '国利',
+      value: 'TPSH'
+    }
   ];
 
   const onFilterChange = (value: (string | number)[]): void => {
@@ -5427,65 +5423,65 @@ export const _ZZ_CustomTableComponent = () => {
 
   const productOptions = [
     {
-      label: "国债",
-      value: "1",
+      label: '国债',
+      value: '1'
     },
     {
-      label: "央票",
-      value: "2",
+      label: '央票',
+      value: '2'
     },
     {
-      label: "金融债",
-      value: "3",
+      label: '金融债',
+      value: '3'
     },
     {
-      label: "地方债",
-      value: "4",
+      label: '地方债',
+      value: '4'
     },
     {
-      label: "短融",
-      value: "5",
+      label: '短融',
+      value: '5'
     },
     {
-      label: "中票",
-      value: "6",
+      label: '中票',
+      value: '6'
     },
     {
-      label: "企业债",
-      value: "7",
+      label: '企业债',
+      value: '7'
     },
     {
-      label: "公司债",
-      value: "8",
+      label: '公司债',
+      value: '8'
     },
     {
-      label: "PPN",
-      value: "9",
+      label: 'PPN',
+      value: '9'
     },
     {
-      label: "NCD",
-      value: "10",
+      label: 'NCD',
+      value: '10'
     },
     {
-      label: "ABS",
-      value: "11",
+      label: 'ABS',
+      value: '11'
     },
     {
-      label: "CRM",
-      value: "12",
+      label: 'CRM',
+      value: '12'
     },
     {
-      label: "可转债",
-      value: "13",
+      label: '可转债',
+      value: '13'
     },
     {
-      label: "次级债",
-      value: "14",
+      label: '次级债',
+      value: '14'
     },
     {
-      label: "其他",
-      value: "15",
-    },
+      label: '其他',
+      value: '15'
+    }
   ];
 
   const onFilterProductChange = (value: (string | number)[]): void => {
@@ -5493,35 +5489,32 @@ export const _ZZ_CustomTableComponent = () => {
     setProductKeys(value);
   };
 
-  // -------------------------------------------------------------
+  // Filter -----------------------------------------------------
 
-  // onChange 事件
+  // Bid Min
   const onBidMinChange = (e: any) => {
     setBidMin(e.target.value as number);
   };
 
+  // Bid Max
   const onBidMaxChange = (e: any) => {
     setBidMax(e.target.value as number);
   };
 
+  // Ofr Min
   const onOfrMinChange = (e: any) => {
     setOfrMin(e.target.value as number);
   };
 
+  // Ofr Max
   const onOfrMaxChange = (e: any) => {
     setOfrMax(e.target.value as number);
   };
 
-  // -------------------------------------------------------------
-
   // |bid-中债|
   const onBidSpread1RangeChange = (e: any) => {
     if (e.target.value) {
-      setBidSpread1Range(
-        bidSpread1RangeArrow
-          ? [e.target.value as number, null]
-          : [null, e.target.value as number]
-      );
+      setBidSpread1Range(bidSpread1RangeArrow ? [e.target.value as number, null] : [null, e.target.value as number]);
     } else {
       setBidSpread1Range([null, null]);
     }
@@ -5530,11 +5523,7 @@ export const _ZZ_CustomTableComponent = () => {
   // |中债-ofr|
   const onAskSpread1RangeChange = (e: any) => {
     if (e.target.value) {
-      setAskSpread1Range(
-        askSpread1RangeArrow
-          ? [e.target.value as number, null]
-          : [null, e.target.value as number]
-      );
+      setAskSpread1Range(askSpread1RangeArrow ? [e.target.value as number, null] : [null, e.target.value as number]);
     } else {
       setAskSpread1Range([null, null]);
     }
@@ -5543,11 +5532,7 @@ export const _ZZ_CustomTableComponent = () => {
   // Vol.Bid
   const onBidVolRangeChange = (e: any) => {
     if (e.target.value) {
-      setBidVolRange(
-        bidVolRangeArrow
-          ? [e.target.value as number, null]
-          : [null, e.target.value as number]
-      );
+      setBidVolRange(bidVolRangeArrow ? [e.target.value as number, null] : [null, e.target.value as number]);
     } else {
       setBidVolRange([null, null]);
     }
@@ -5556,11 +5541,7 @@ export const _ZZ_CustomTableComponent = () => {
   // Vol.Ofr
   const onAskVolRangeChange = (e: any) => {
     if (e.target.value) {
-      setAskVolRange(
-        askVolRangeArrow
-          ? [e.target.value as number, null]
-          : [null, e.target.value as number]
-      );
+      setAskVolRange(askVolRangeArrow ? [e.target.value as number, null] : [null, e.target.value as number]);
     } else {
       setAskVolRange([null, null]);
     }
@@ -5568,199 +5549,133 @@ export const _ZZ_CustomTableComponent = () => {
 
   // -------------------------------------------------------------
 
+  // console.log('re render ---------------------------------------------->');
+
   return (
-    <div className="ss-demo">
-      <div className="left">
+    <div className='ss-demo'>
+      <div className='left'>
         Filter:
-        <div className="left-filter-box">
-          <div className="filter-item">
-            <span className="filter-title">Bid</span>
+        <div className='left-filter-box'>
+          <div className='filter-item'>
+            <span className='filter-title'>Bid</span>
             <span>
-              <InputNumber
-                keyboard
-                onPressEnter={onBidMinChange}
-                onBlur={onBidMinChange}
-              />
+              <InputNumber keyboard onPressEnter={onBidMinChange} onBlur={onBidMinChange} />
               -
-              <InputNumber
-                keyboard
-                onPressEnter={onBidMaxChange}
-                onBlur={onBidMaxChange}
-              />
+              <InputNumber keyboard onPressEnter={onBidMaxChange} onBlur={onBidMaxChange} />
             </span>
           </div>
-          <div className="filter-item">
-            <span className="filter-title">Ofr</span>
+          <div className='filter-item'>
+            <span className='filter-title'>Ofr</span>
             <span>
-              <InputNumber
-                keyboard
-                onPressEnter={onOfrMinChange}
-                onBlur={onOfrMinChange}
-              />
+              <InputNumber keyboard onPressEnter={onOfrMinChange} onBlur={onOfrMinChange} />
               -
-              <InputNumber
-                keyboard
-                onPressEnter={onOfrMaxChange}
-                onBlur={onOfrMaxChange}
-              />
+              <InputNumber keyboard onPressEnter={onOfrMaxChange} onBlur={onOfrMaxChange} />
             </span>
           </div>
 
-          <div className="filter-item">
-            <span className="filter-title">|bid-中债|</span>
+          <div className='filter-item'>
+            <span className='filter-title'>|bid-中债|</span>
             <span>
-              <Button
-                style={{ marginRight: 8 }}
-                onClick={() => setBidSpread1RangeArrow(!bidSpread1RangeArrow)}
-              >
-                <Icon
-                  type={bidSpread1RangeArrow ? "right" : "left"}
-                  style={{ fontSize: 12 }}
-                />
+              <Button style={{ marginRight: 8 }} onClick={() => setBidSpread1RangeArrow(!bidSpread1RangeArrow)}>
+                <Icon type={bidSpread1RangeArrow ? 'right' : 'left'} style={{ fontSize: 12 }} />
               </Button>
-              <InputNumber
-                keyboard
-                onPressEnter={onBidSpread1RangeChange}
-                onBlur={onBidSpread1RangeChange}
-              />
+              <InputNumber keyboard onPressEnter={onBidSpread1RangeChange} onBlur={onBidSpread1RangeChange} />
             </span>
           </div>
 
-          <div className="filter-item">
-            <span className="filter-title">|中债-ofr|</span>
+          <div className='filter-item'>
+            <span className='filter-title'>|中债-ofr|</span>
             <span>
-              <Button
-                style={{ marginRight: 8 }}
-                onClick={() => setAskSpread1RangeArrow(!askSpread1RangeArrow)}
-              >
-                <Icon
-                  type={askSpread1RangeArrow ? "right" : "left"}
-                  style={{ fontSize: 12 }}
-                />
+              <Button style={{ marginRight: 8 }} onClick={() => setAskSpread1RangeArrow(!askSpread1RangeArrow)}>
+                <Icon type={askSpread1RangeArrow ? 'right' : 'left'} style={{ fontSize: 12 }} />
               </Button>
-              <InputNumber
-                keyboard
-                onPressEnter={onAskSpread1RangeChange}
-                onBlur={onAskSpread1RangeChange}
-              />
+              <InputNumber keyboard onPressEnter={onAskSpread1RangeChange} onBlur={onAskSpread1RangeChange} />
             </span>
           </div>
 
-          <div className="filter-item">
-            <span className="filter-title">Vol.Bid</span>
+          <div className='filter-item'>
+            <span className='filter-title'>Vol.Bid</span>
             <span>
-              <Button
-                style={{ marginRight: 8 }}
-                onClick={() => setBidVolRangeArrow(!bidVolRangeArrow)}
-              >
-                <Icon
-                  type={bidVolRangeArrow ? "right" : "left"}
-                  style={{ fontSize: 12 }}
-                />
+              <Button style={{ marginRight: 8 }} onClick={() => setBidVolRangeArrow(!bidVolRangeArrow)}>
+                <Icon type={bidVolRangeArrow ? 'right' : 'left'} style={{ fontSize: 12 }} />
               </Button>
-              <InputNumber
-                keyboard
-                onPressEnter={onBidVolRangeChange}
-                onBlur={onBidVolRangeChange}
-              />
+              <InputNumber keyboard onPressEnter={onBidVolRangeChange} onBlur={onBidVolRangeChange} />
             </span>
           </div>
 
-          <div className="filter-item">
-            <span className="filter-title">Vol.Ofr</span>
+          <div className='filter-item'>
+            <span className='filter-title'>Vol.Ofr</span>
             <span>
-              <Button
-                style={{ marginRight: 8 }}
-                onClick={() => setAskVolRangeArrow(!askVolRangeArrow)}
-              >
-                <Icon
-                  type={askVolRangeArrow ? "right" : "left"}
-                  style={{ fontSize: 12 }}
-                />
+              <Button style={{ marginRight: 8 }} onClick={() => setAskVolRangeArrow(!askVolRangeArrow)}>
+                <Icon type={askVolRangeArrow ? 'right' : 'left'} style={{ fontSize: 12 }} />
               </Button>
-              <InputNumber
-                keyboard
-                onPressEnter={onAskVolRangeChange}
-                onBlur={onAskVolRangeChange}
-              />
+              <InputNumber keyboard onPressEnter={onAskVolRangeChange} onBlur={onAskVolRangeChange} />
             </span>
           </div>
 
           <Divider />
 
-          <div className="flex-l_r">
-            <div className="filter-title">产品</div>
+          <div className='flex-l_r'>
+            <div className='filter-title'>产品</div>
             <div>
-              <Filter
-                multiple
-                options={productOptions}
-                value={productKeys}
-                onChange={onFilterProductChange}
-              />
+              <Filter multiple options={productOptions} value={productKeys} onChange={onFilterProductChange} />
             </div>
           </div>
 
           <Divider />
         </div>
       </div>
-      <div className="right">
-        <div className="config-box">
-          <div className="tool">
+      <div className='right'>
+        <div className='config-box'>
+          <div className='tool'>
             Tool:
-            <Icon className="config" type="setting" onClick={showModal} />
+            <Icon className='config' type='setting' onClick={showModal} />
           </div>
 
-          <div className="filter">
-            <Filter
-              options={filterOptions}
-              value={filterRadio}
-              onChange={onFilterChange}
-            />
+          <div className='filter'>
+            <Filter options={filterOptions} value={filterRadio} onChange={onFilterChange} />
           </div>
         </div>
-        <div className="top">
+        <div className='top'>
           {tableColumns.length > 0 && (
             <Table
               animeRowKey="animeKey"
-              rowKey="msgSeq"
+              rowKey='msgSeq'
               columns={tableColumns || []}
               dataSource={tableData || []}
-              height="100%"
+              height='100%'
               rowActive={activeRowKey}
               rowActiveFixedData
               rowActiveFixedTip={"有新消息"}
               rowActiveFirstGradient={true}
+              onScrllDownMiddle={onScrllDownMiddle}
               onRow={(record) => {
                 return {
                   onClick: () => {
                     setActiveRowKey(record.msgSeq);
-                  },
+                  }
                 };
               }}
               onChange={onTableChange}
               loading={tableData.length === 0}
+              onRowSize={(rowSize: any[]) => {
+                if (tableRowSize.current[0] !== rowSize[0] || tableRowSize.current[1] !== rowSize[1]) {
+                  tableRowSize.current = rowSize;
+                  setTableData(refData);
+                }
+              }}
             />
           )}
         </div>
-        <div className="bottom">Bottom</div>
+        <div className='bottom'>Bottom</div>
       </div>
 
-      <Modal
-        title="表格设置"
-        visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        width={500}
-      >
+      <Modal title='表格设置' visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} width={500}>
         <p>设置需要展示的列：</p>
         {modalList && modalList.length > 0 && (
           <Checkbox.Group
             options={tableColumnsOptions}
-            value={
-              checkedKeys.length > 0
-                ? checkedKeys
-                : tableColumns.map((item) => item.key)
-            }
+            value={checkedKeys.length > 0 ? checkedKeys : tableColumns.map((item) => item.key)}
             onChange={onCheckboxChange}
           />
         )}

@@ -121,27 +121,27 @@ interface BaseColumnsTypeProps<RecordType> {
   sortDirections?: ("descend" | "ascend" | null)[];
   /** 排序函数，本地排序使用一个函数(参考 Array.sort 的 compareFunction)，需要服务端排序可设为 true */
   sorter?:
-    | boolean
-    | CompareFn<RecordType>
-    | {
-        compare?: CompareFn<RecordType>;
-        /** Config multiple sorter order priority */
-        multiple?: number;
-      };
+  | boolean
+  | CompareFn<RecordType>
+  | {
+    compare?: CompareFn<RecordType>;
+    /** Config multiple sorter order priority */
+    multiple?: number;
+  };
   /** 排序的受控属性，外界可用此控制列的排序，可设置为 ascend descend false */
   sortOrder?: "descend" | "ascend" | null | boolean;
   /** 列头显示文字（函数用法 3.10.0 后支持） */
   title?:
-    | ReactNode
-    | (({
-        sortOrder,
-        sortColumn,
-        filters,
-      }: {
-        sortOrder: SortOrder;
-        sortColumn: object;
-        filters: ColumnFilterItem[];
-      }) => ReactNode);
+  | ReactNode
+  | (({
+    sortOrder,
+    sortColumn,
+    filters,
+  }: {
+    sortOrder: SortOrder;
+    sortColumn: object;
+    filters: ColumnFilterItem[];
+  }) => ReactNode);
   /** 列宽度（指定了也不生效？看 antd 官方文档） */
   width?: string | number;
   /** 设置最小的 resize 列宽度，参考 demo 进行配置 */
@@ -261,9 +261,9 @@ export interface RowSelectionProps extends TableRowSelection<RecordType> {
   ) =>
     | React.ReactNode
     | {
-        props?: object;
-        children?: React.ReactNode;
-      };
+      props?: object;
+      children?: React.ReactNode;
+    };
   /** 指定选中项的 key 数组，需要和 onChange 进行配合 */
   selectedRowKeys?: Key[];
   /** 默认选中项的 key 数组 */
@@ -339,6 +339,8 @@ export interface TableLocaleProps extends TableLocale {
 }
 
 export interface FRCTableProps extends Omit<TableProps<RecordType>, "columns"> {
+  /** 表格最新的 虚拟滚动 data 区间，例：[0,25] */
+  onRowSize?: (rowSize: any[]) => void;
   /** 表格 “向下” 滑动至中间位置时，触发 */
   onScrllDownMiddle?: () => void;
   /** 表格高度 */
@@ -393,13 +395,13 @@ export interface FRCTableProps extends Omit<TableProps<RecordType>, "columns"> {
   sortDirections?: ("descend" | "ascend" | null)[];
   /** 设置粘性头部和滚动条 */
   sticky?:
-    | boolean
-    | {
-        offsetHeader?: number;
-        offsetSummary?: number;
-        offsetScroll?: number;
-        getContainer?: () => Window | HTMLElement;
-      };
+  | boolean
+  | {
+    offsetHeader?: number;
+    offsetSummary?: number;
+    offsetScroll?: number;
+    getContainer?: () => Window | HTMLElement;
+  };
   /** 总结栏 */
   summary?: (currentData: readonly RecordType[]) => ReactNode;
   /** 表格元素的 table-layout 属性，设为 fixed 表示内容不会影响列的布局 */
@@ -465,6 +467,7 @@ export const Table: FC<FRCTableProps> = (props) => {
     rowKey,
     expandable,
     onScrllDownMiddle,
+    onRowSize,
     ...restProps
   } = props;
 
@@ -481,7 +484,7 @@ export const Table: FC<FRCTableProps> = (props) => {
   // virtual sroll
   let tableWidthInner = 0;
   const [initScroll, setInitScroll] = useState<boolean>(false);
-  const [rowSize, setRowSize] = useState<any[]>([0, 0]);
+  const [rowSize, setRowSize] = useState<any[]>([0]);
   const [hiddenTopStyle, setHiddenTopStyle] = useState(0);
   const [totalHeight, setTotalHeight] = useState<number>(0);
   const [virtualData, setVirtualData] = useState<any[]>([]);
@@ -700,15 +703,13 @@ export const Table: FC<FRCTableProps> = (props) => {
 
     if (width) {
       if (width >= tableWidthInner) {
-        bodyNode.style.height = `calc(100% - ${
-          heightNode.clientHeight + (bottomSummary?.clientHeight || 0)
-        }px)`;
+        bodyNode.style.height = `calc(100% - ${heightNode.clientHeight + (bottomSummary?.clientHeight || 0)
+          }px)`;
         heightNode.style.paddingRight = "8px";
         setShowXScroll(false);
       } else {
-        bodyNode.style.height = `calc(100% - ${
-          heightNode.clientHeight + (bottomSummary?.clientHeight || 0) + 9
-        }px)`;
+        bodyNode.style.height = `calc(100% - ${heightNode.clientHeight + (bottomSummary?.clientHeight || 0) + 9
+          }px)`;
         heightNode.style.paddingRight = "0px";
         setShowXScroll(true);
       }
@@ -804,6 +805,7 @@ export const Table: FC<FRCTableProps> = (props) => {
       listTotalHeight !== totalHeight
     ) {
       // 顺序不能变，否则会导致 抖动
+      onRowSize && onRowSize(rowSizeNow) // 将最新的 rowSize 返回出去
       setRowSize(rowSizeNow); // 可视区域的行号有了变化才重新进行渲染
       setHiddenTopStyle(listTotalhiddenTopHeight);
       setTotalHeight(listTotalHeight);
