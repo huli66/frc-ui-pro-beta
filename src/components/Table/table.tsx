@@ -339,6 +339,8 @@ export interface TableLocaleProps extends TableLocale {
 }
 
 export interface FRCTableProps extends Omit<TableProps<RecordType>, "columns"> {
+  /** 初始化 table 滚动条位置（置顶） */
+  scrollInit?: boolean;
   /** 表格最新的 虚拟滚动 data 区间，例：[0,25] */
   onRowSize?: (rowSize: any[]) => void;
   /** 表格 “向下” 滑动至中间位置时，触发 */
@@ -468,6 +470,7 @@ export const Table: FC<FRCTableProps> = (props) => {
     expandable,
     onScrllDownMiddle,
     onRowSize,
+    scrollInit,
     ...restProps
   } = props;
 
@@ -508,6 +511,12 @@ export const Table: FC<FRCTableProps> = (props) => {
   useEffect(() => {
     rowActive && setRowActiveInner(rowActive);
   }, [rowActive]); // 设置 active key，用于 active 状态
+
+  useEffect(() => {
+    if (scrollInit) {
+      setInitScroll(true);
+    }
+  }, [scrollInit])
 
   useEffect(() => {
     if (rowActiveInner && rowActiveFixedData && !dataIsFixed) {

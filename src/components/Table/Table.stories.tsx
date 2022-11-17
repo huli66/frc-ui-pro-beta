@@ -4806,20 +4806,21 @@ const socket = new WebSocket("wss://web.qa.sumscope.com:28888/nqb/ws");
 let refData: any[] = [];
 export const _ZZ_CustomTableComponent = () => {
   const [tableData, setTableData] = useState<any[]>([]);
+  const [mainLoading, setMainLoading] = useState<boolean>(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [activeRowKey, setActiveRowKey] = useState<string>();
+  const [scrollInit, setScrollInit] = useState<boolean>(false);
   const [modalList, setModalList] = useState<any[]>([]);
   const [tableColumns, setTableColumns] = useState<any[]>([]);
   const [checkedKeys, setCheckedKeys] = useState<any[]>(localStorage.getItem('checkedConfig')?.split(',') || []);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [requstId, setRequestId] = useState<number>(-1);
   const [sortObj, setSortObj] = useState<any>({
     property: 'bondKey',
     direction: null
   });
+  const [isTurnPages, setIsTurnPages] = useState<boolean>(false);
   const [paging, setPaging] = useState<number>(0);
-  // const [tableRowSize, setTableRowSize] = useState<any[]>([null, null]);
-  const tableRowSize = useRef<any[]>([null, null])
+  const tableRowSize = useRef<any[]>([null, null]);
 
   const [filterRadio, setFilterRadio] = useState<any[]>(['ALL']);
   const [productKeys, setProductKeys] = useState<any[]>(['ALL']);
@@ -5096,10 +5097,14 @@ export const _ZZ_CustomTableComponent = () => {
 
   // throttle data -> 300ms ---------------------------------------
 
+  window.addEventListener('resize', () => {
+    setTableData(refData);
+  });
+
   const updateTableData = useCallback(
     throttle((rowSize, index) => {
       // console.log('updateTableData', rowSize, index);
-      if (rowSize.length > 1 && index >= rowSize[0] && index <= rowSize[1]) {
+      if (rowSize.length > 1 && index < rowSize[1]) {
         setTableData(refData);
       }
     }, 300),
@@ -5135,45 +5140,8 @@ export const _ZZ_CustomTableComponent = () => {
   // websocket callback function ---------------------------------
 
   const fetchColumns = () => {
-    socket.send(`{"cmd":"schema", "id": ${requstId + 1}}`);
-    setRequestId(requstId + 1);
+    socket.send(`{"cmd":"schema", "id": 0}`);
     setIsOpen(true);
-  };
-
-  const sendRequest = (event: any) => {
-    const data: any = JSON.parse(event.data);
-    // console.log('in-data', data);
-
-    if (data.id === 0) {
-      setRequestId(0);
-    }
-
-    if (data?.payload?.title === 'quote') {
-      // console.log('data', data);
-      const config: any = [];
-      Object.keys(data.payload.properties).forEach((key) => {
-        config.push({ title: data.payload.properties[key]?.cnName || key, key });
-      });
-
-      const newKeys = (config as any[]).map((item) => item.key);
-      const newColumns = columns.filter((column) => newKeys.indexOf(column.key) !== -1);
-      setModalList(newColumns);
-
-      if (!localStorage.getItem('checkedConfig')) {
-        setTableColumns(newColumns);
-      }
-    } // columns
-
-    if (data?.payload?.list) {
-      // console.log('in-data', data);
-      refData = data.payload.list;
-      setTableData(data.payload.list);
-    } // data
-
-    if (Object.prototype.toString.call(data) === '[object Array]') {
-      // console.log('this ----------------------------->', data);
-      dealData(data);
-    } // subscribe
   };
 
   const dealData = async (message: any) => {
@@ -5182,10 +5150,10 @@ export const _ZZ_CustomTableComponent = () => {
 
     if (message.length > 0) {
       message.forEach((item: any) => {
-        let itemData = {
+        const itemData = {
           ...item?.payload,
           animeKey: Date.now()
-        }
+        };
 
         if (item.action === 'ADD') {
           newData.splice(item.index, 0, itemData);
@@ -5203,9 +5171,55 @@ export const _ZZ_CustomTableComponent = () => {
         }
 
         refData = newData;
-        updateTableData(tableRowSize.current, item.index)
+
+        updateTableData(tableRowSize.current, item.index);
       });
     }
+  };
+
+  const sendRequest = (event: any) => {
+    const data: any = JSON.parse(event.data);
+    const code = data.id;
+    // console.log('in-data', data);
+
+    if (typeof code === 'number') {
+      if (code === 0) {
+        console.log('in');
+
+        const config: any = [];
+        Object.keys(data.payload.properties).forEach((key) => {
+          config.push({ title: data.payload.properties[key]?.cnName || key, key });
+        });
+
+        const newKeys = (config as any[]).map((item) => item.key);
+        const newColumns = columns.filter((column) => newKeys.indexOf(column.key) !== -1);
+        setModalList(newColumns);
+
+        if (!localStorage.getItem('checkedConfig')) {
+          setTableColumns(newColumns);
+        }
+      } // columns
+
+      if (data?.payload?.list) {
+        if (code === 1) {
+          // console.log('init data', data);
+          refData = data.payload.list;
+          setTableData(data.payload.list);
+          setMainLoading(false);
+          setScrollInit(false);
+        } // init data
+
+        if (code === 2) {
+          // console.log('turn pages data', data);
+          refData = [...refData, ...data.payload.list];
+        } // turn pages data
+      } // data
+    }
+
+    if (Object.prototype.toString.call(data) === '[object Array]') {
+      // console.log('this ----------------------------->', data);
+      dealData(data);
+    } // subscribe
   };
 
   // -------------------------------------------------------------
@@ -5222,31 +5236,22 @@ export const _ZZ_CustomTableComponent = () => {
 
   useEffect(() => {
     if (isOpen) {
-      // const snapshotConifg: any = {
-      //   cmd: 'snapshot',
-      //   id: requstId + 1,
-      //   payload: { type: 'TOP_N', n: 1000 }
-      // }; // 快照 params config
-
-      // const subscribeConifg: any = {
-      //   cmd: 'subscribe',
-      //   id: requstId + 2,
-      //   payload: { type: 'TOP_N', n: 1000 }
-      // }; // 推送 params config
-
       const snapshotAndSubscribeConfig: any = {
         cmd: 'snapshot_and_subscribe',
-        id: requstId + 1,
-        payload: { type: 'TOP_N', n: 1000 }
-        // payload: { type: 'OFFSET_LIMIT', limit: 1000, offset: paging }
+        id: 1,
+        payload: { type: 'OFFSET_LIMIT', limit: 1000, offset: 0 }
       }; // 快照 && 推送 params config
 
       let otherConfig = {};
 
       if (sortObj.direction) {
-        // snapshotConifg.payload.sort = [sortObj];
-        // subscribeConifg.payload.sort = [sortObj];
         snapshotAndSubscribeConfig.payload.sort = [sortObj];
+      }
+
+      if (isTurnPages) {
+        snapshotAndSubscribeConfig.id = 2;
+        snapshotAndSubscribeConfig.payload.offset = paging;
+        setIsTurnPages(false);
       }
 
       if (filterRadio.join() !== 'ALL') {
@@ -5305,28 +5310,10 @@ export const _ZZ_CustomTableComponent = () => {
         };
       } // askVolRange
 
-      // snapshotConifg.payload.filter = otherConfig;
-      // subscribeConifg.payload.filter = otherConfig;
       snapshotAndSubscribeConfig.payload.filter = otherConfig;
-
-      // console.log('snapshotConifg', snapshotConifg);
-      // console.log('subscribeConifg', subscribeConifg);
       console.log('snapshotAndSubscribeConfig', snapshotAndSubscribeConfig);
-
-      // socket.send(JSON.stringify(snapshotConifg));
-      // socket.send(JSON.stringify(subscribeConifg));
       socket.send(JSON.stringify(snapshotAndSubscribeConfig));
-      setRequestId(requstId + 2);
     }
-    return () => {
-      if (isOpen) {
-        const unsubscribeConifg = {
-          cmd: 'unsubscribe'
-        }; // 推送 params config
-
-        socket.send(JSON.stringify(unsubscribeConifg));
-      }
-    };
   }, [
     filterRadio,
     productKeys,
@@ -5387,7 +5374,8 @@ export const _ZZ_CustomTableComponent = () => {
 
   // scroll page next -------------------------------------------
   const onScrllDownMiddle = () => {
-    console.log("onScrollMiddle");
+    console.log('onScrollMiddle');
+    setIsTurnPages(true);
     setPaging(paging + 1000);
   };
 
@@ -5419,6 +5407,8 @@ export const _ZZ_CustomTableComponent = () => {
   const onFilterChange = (value: (string | number)[]): void => {
     // console.log('value, allValue', value, allValue);
     setFilterRadio(value);
+    setMainLoading(true);
+    setScrollInit(true);
   };
 
   const productOptions = [
@@ -5639,16 +5629,17 @@ export const _ZZ_CustomTableComponent = () => {
         <div className='top'>
           {tableColumns.length > 0 && (
             <Table
-              animeRowKey="animeKey"
+              animeRowKey='animeKey'
               rowKey='msgSeq'
               columns={tableColumns || []}
               dataSource={tableData || []}
               height='100%'
               rowActive={activeRowKey}
               rowActiveFixedData
-              rowActiveFixedTip={"有新消息"}
-              rowActiveFirstGradient={true}
+              rowActiveFixedTip='有新消息'
+              rowActiveFirstGradient
               onScrllDownMiddle={onScrllDownMiddle}
+              scrollInit={scrollInit}
               onRow={(record) => {
                 return {
                   onClick: () => {
@@ -5657,7 +5648,7 @@ export const _ZZ_CustomTableComponent = () => {
                 };
               }}
               onChange={onTableChange}
-              loading={tableData.length === 0}
+              loading={mainLoading}
               onRowSize={(rowSize: any[]) => {
                 if (tableRowSize.current[0] !== rowSize[0] || tableRowSize.current[1] !== rowSize[1]) {
                   tableRowSize.current = rowSize;
