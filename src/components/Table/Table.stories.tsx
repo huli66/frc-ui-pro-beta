@@ -4452,313 +4452,159 @@ export default {
 
 // // ----------------------------------------------------------------
 
-// export const _AS_ScrollPageComponent = () => {
-//   interface DataType {
-//     key: number;
-//     name: string;
-//     age: string;
-//     address: string;
-//   }
-
-//   const columns: ColumnsTypeProps[] = [
-//     {
-//       title: "Name",
-//       dataIndex: "name",
-//       key: "name",
-//       width: 300,
-//     },
-//     {
-//       title: "Age",
-//       dataIndex: "age",
-//       key: "age",
-//       width: 300,
-//     },
-//     {
-//       title: "Address",
-//       dataIndex: "address",
-//       key: "address",
-//       width: 500,
-//     },
-//   ];
-
-//   const data: DataType[] = Array.from({ length: 50 }, (_, key) => ({
-//     key: key,
-//     name: `name-${key}`,
-//     age: `age-${key}`,
-//     address: `address-${key}`,
-//   }));
-
-//   const [tableData, setTableData] = useState<any[]>(data);
-
-//   const concatData: DataType[] = Array.from({ length: 50 }, (_, key) => ({
-//     key: tableData.length + key,
-//     name: `name-${key} nextPage-${tableData.length + key}`,
-//     age: `age-${key} nextPage-${tableData.length + key}`,
-//     address: `address-${key} nextPage-${tableData.length + key}`,
-//   }));
-
-//   const onScrllDownMiddle = () => {
-//     // console.log("onScrollMiddle", tableData, concatData);
-//     const oldData = [...tableData];
-//     setTableData([...oldData, ...concatData]);
-//   };
-
-//   // useEffect(() => {
-//   //   console.log("tableData", tableData);
-//   // }, [tableData]);
-
-//   // --------------------------------------------------------------
-
-//   const code = `
-//     // import code
-//     import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
-
-//     // 基于 虚拟滚动 的表格
-//   `;
-
-//   // --------------------------------------------------------------
-
-//   return (
-//     <>
-//       <ImportCode code={code} />
-//       <Table
-//         columns={columns}
-//         dataSource={tableData || []}
-//         onScrllDownMiddle={onScrllDownMiddle}
-//       />
-//     </>
-//   );
-// };
-
-// _AS_ScrollPageComponent.storyName = "滚动翻页(剩余的中间)";
-
-// // ----------------------------------------------------------------
-
-export const _BL_MessageTipComponent = () => {
+export const _AS_ScrollPageComponent = () => {
   interface DataType {
-    key: string;
+    key: number;
     name: string;
-    age: number;
+    age: string;
     address: string;
-    description: string;
-    animeKey?: string | number;
   }
-
-  const [data, setData] = useState<any[]>([
-    {
-      key: "1",
-      name: "John Brown123",
-      age: 32,
-      address: "New York No. 1 Lake Park123",
-      description: "something else123",
-    },
-    {
-      key: "2",
-      name: "Jim Green",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      description: "something else",
-    },
-    {
-      key: "3",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-      description: "something else",
-    },
-    {
-      key: "4",
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      description: "something else",
-    },
-    {
-      key: "5",
-      name: "Jim Green",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      description: "something else",
-    },
-    {
-      key: "6",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-      description: "something else",
-    },
-    {
-      key: "7",
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      description: "something else",
-    },
-    {
-      key: "8",
-      name: "Jim Green",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      description: "something else",
-    },
-    {
-      key: "9",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-      description: "something else",
-    },
-    {
-      key: "10",
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      description: "something else",
-    },
-    {
-      key: "11",
-      name: "John Brown123",
-      age: 32,
-      address: "New York No. 1 Lake Park123",
-      description: "something else123",
-    },
-    {
-      key: "12",
-      name: "Jim Green",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      description: "something else",
-    },
-    {
-      key: "13",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-      description: "something else",
-    },
-    {
-      key: "14",
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      description: "something else",
-    },
-    {
-      key: "15",
-      name: "Jim Green",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      description: "something else",
-    },
-    {
-      key: "16",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-      description: "something else",
-    },
-    {
-      key: "17",
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      description: "something else",
-    },
-    {
-      key: "18",
-      name: "Jim Green",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      description: "something else",
-    },
-    {
-      key: "19",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-      description: "something else",
-    },
-    {
-      key: "20",
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      description: "something else",
-    },
-  ]);
-  const [activeRowKey, setActiveRowKey] = useState<string>();
-
-  // useEffect(() => {
-  //   // let time = Date.now();
-  //   setData(
-  //     data.map((item) => {
-  //       return {
-  //         ...item,
-  //         // animeKey: time,
-  //       };
-  //     })
-  //   );
-  // }, []);
-
-  // mock update data ---------------------------------------------
-
-  useEffect(() => {
-    setInterval(() => {
-      setData((pre) => {
-        const dataMock: DataType[] = [
-          {
-            key: pre.length + 1 + "",
-            name: "新推送：" + (pre.length + 1),
-            age: 42,
-            address: "London No. 1 Lake Park",
-            description: "something else",
-            animeKey: Date.now(), // 用于动画
-          },
-        ];
-
-        return [...dataMock].concat([...pre]);
-      });
-    }, 500);
-  }, []);
-
-  useEffect(() => {
-    console.log("data", Date.now(), data);
-  }, [data]);
-
-  // --------------------------------------------------------------
 
   const columns: ColumnsTypeProps[] = [
     {
       title: "Name",
       dataIndex: "name",
       key: "name",
-      fixed: "left",
-      width: "300px",
-      align: "center",
+      width: 300,
     },
     {
       title: "Age",
       dataIndex: "age",
       key: "age",
-      align: "center",
-      width: "120px",
+      width: 300,
     },
     {
       title: "Address",
       dataIndex: "address",
       key: "address",
-      width: "400px",
-      align: "center",
-    },
-    {
-      title: "Description",
-      key: "description",
-      dataIndex: "description",
-      width: "300px",
-      fixed: "right",
-      align: "center",
+      width: 500,
     },
   ];
+
+  const [loading, setLoading] = useState(false);
+
+  const data: any[] = Array.from({ length: 1000 }, (_, key) => ({
+    key: key,
+    name: `name-${key}`,
+    age: `age-${key}`,
+    address: `address-${key}`,
+    time1: Math.random(),
+    time2: Math.random(),
+    time3: Math.random(),
+    time4: Math.random(),
+    time5: Math.random(),
+    time6: Math.random(),
+    time7: Math.random(),
+    time8: Math.random(),
+    time9: Math.random(),
+    time10: Math.random(),
+    time11: Math.random(),
+    time12: Math.random(),
+    time13: Math.random(),
+    time14: Math.random(),
+    time15: Math.random(),
+    time16: Math.random(),
+    time17: Math.random(),
+    time18: Math.random(),
+    time19: Math.random(),
+    time20: Math.random(),
+    time21: Math.random(),
+    time22: Math.random(),
+    time23: Math.random(),
+    time24: Math.random(),
+    time25: Math.random(),
+    time26: Math.random(),
+    time27: Math.random(),
+    time28: Math.random(),
+    time29: Math.random(),
+    time30: Math.random(),
+    time31: Math.random(),
+    time32: Math.random(),
+    time33: Math.random(),
+    time34: Math.random(),
+    time35: Math.random(),
+    time36: Math.random(),
+    time37: Math.random(),
+    time38: Math.random(),
+    time39: Math.random(),
+    time40: Math.random(),
+    time41: Math.random(),
+    time42: Math.random(),
+    time43: Math.random(),
+    time44: Math.random(),
+    time45: Math.random(),
+    time46: Math.random(),
+    time47: Math.random(),
+    time48: Math.random(),
+    time49: Math.random(),
+    time50: Math.random(),
+  }));
+
+  const [tableData, setTableData] = useState<any[]>(data);
+
+  const concatData: DataType[] = Array.from({ length: 1000 }, (_, key) => ({
+    key: tableData.length + key,
+    name: `name-${key} nextPage-${tableData.length + key}`,
+    age: `age-${key} nextPage-${tableData.length + key}`,
+    address: `address-${key} nextPage-${tableData.length + key}`,
+    time1: Math.random(),
+    time2: Math.random(),
+    time3: Math.random(),
+    time4: Math.random(),
+    time5: Math.random(),
+    time6: Math.random(),
+    time7: Math.random(),
+    time8: Math.random(),
+    time9: Math.random(),
+    time10: Math.random(),
+    time11: Math.random(),
+    time12: Math.random(),
+    time13: Math.random(),
+    time14: Math.random(),
+    time15: Math.random(),
+    time16: Math.random(),
+    time17: Math.random(),
+    time18: Math.random(),
+    time19: Math.random(),
+    time20: Math.random(),
+    time21: Math.random(),
+    time22: Math.random(),
+    time23: Math.random(),
+    time24: Math.random(),
+    time25: Math.random(),
+    time26: Math.random(),
+    time27: Math.random(),
+    time28: Math.random(),
+    time29: Math.random(),
+    time30: Math.random(),
+    time31: Math.random(),
+    time32: Math.random(),
+    time33: Math.random(),
+    time34: Math.random(),
+    time35: Math.random(),
+    time36: Math.random(),
+    time37: Math.random(),
+    time38: Math.random(),
+    time39: Math.random(),
+    time40: Math.random(),
+    time41: Math.random(),
+    time42: Math.random(),
+    time43: Math.random(),
+    time44: Math.random(),
+    time45: Math.random(),
+    time46: Math.random(),
+    time47: Math.random(),
+    time48: Math.random(),
+    time49: Math.random(),
+    time50: Math.random(),
+  }));
+
+  const onScrllDownMiddle = () => {
+    console.log("onScrollMiddle");
+    const oldData = [...tableData];
+    setTableData([...oldData, ...concatData]);
+    setLoading(true);
+  };
 
   // --------------------------------------------------------------
 
@@ -4766,10 +4612,7 @@ export const _BL_MessageTipComponent = () => {
     // import code
     import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
 
-    // rowActiveFixedData 启动 “固定数据” 效果
-    // rowActiveFixedTip 设置 “固定提示” 文案
-    // rowActiveFirstGradient 启动 “数据” 渐变效果 (每次 data change, 都会触发)
-    // animeRowKey 为 “数据” 渐变效果的 key。(!!!: 有推送时，处理 item 时自行添加 animeRowKey, 否则无效)
+    // 基于 虚拟滚动 的表格
   `;
 
   // --------------------------------------------------------------
@@ -4778,30 +4621,288 @@ export const _BL_MessageTipComponent = () => {
     <>
       <ImportCode code={code} />
       <Table
-        animeRowKey="animeKey"
         columns={columns}
-        dataSource={data}
-        rowActive={activeRowKey}
-        rowActiveFixedData={true}
-        rowActiveFixedTip={"有新消息"}
-        rowActiveFirstGradient={true}
-        onRow={(record) => {
-          return {
-            onClick: (e) => {
-              setActiveRowKey(record.key);
-            },
-          };
-        }}
+        dataSource={tableData || []}
+        onScrllDownMiddle={onScrllDownMiddle}
+        loading={loading}
       />
     </>
   );
 };
 
-_BL_MessageTipComponent.storyName = "新消息提醒（常用于推送，defective）";
+_AS_ScrollPageComponent.storyName = "滚动翻页(剩余的中间)";
 
-// ----------------------------------------------------------------
+// // ----------------------------------------------------------------
 
-const socket = new WebSocket("wss://web.qa.sumscope.com:28888/nqb/ws");
+// export const _BL_MessageTipComponent = () => {
+//   interface DataType {
+//     key: string;
+//     name: string;
+//     age: number;
+//     address: string;
+//     description: string;
+//     animeKey?: string | number;
+//   }
+
+//   const [data, setData] = useState<any[]>([
+//     {
+//       key: "1",
+//       name: "John Brown123",
+//       age: 32,
+//       address: "New York No. 1 Lake Park123",
+//       description: "something else123",
+//     },
+//     {
+//       key: "2",
+//       name: "Jim Green",
+//       age: 42,
+//       address: "London No. 1 Lake Park",
+//       description: "something else",
+//     },
+//     {
+//       key: "3",
+//       name: "Joe Black",
+//       age: 32,
+//       address: "Sidney No. 1 Lake Park",
+//       description: "something else",
+//     },
+//     {
+//       key: "4",
+//       name: "John Brown",
+//       age: 32,
+//       address: "New York No. 1 Lake Park",
+//       description: "something else",
+//     },
+//     {
+//       key: "5",
+//       name: "Jim Green",
+//       age: 42,
+//       address: "London No. 1 Lake Park",
+//       description: "something else",
+//     },
+//     {
+//       key: "6",
+//       name: "Joe Black",
+//       age: 32,
+//       address: "Sidney No. 1 Lake Park",
+//       description: "something else",
+//     },
+//     {
+//       key: "7",
+//       name: "John Brown",
+//       age: 32,
+//       address: "New York No. 1 Lake Park",
+//       description: "something else",
+//     },
+//     {
+//       key: "8",
+//       name: "Jim Green",
+//       age: 42,
+//       address: "London No. 1 Lake Park",
+//       description: "something else",
+//     },
+//     {
+//       key: "9",
+//       name: "Joe Black",
+//       age: 32,
+//       address: "Sidney No. 1 Lake Park",
+//       description: "something else",
+//     },
+//     {
+//       key: "10",
+//       name: "John Brown",
+//       age: 32,
+//       address: "New York No. 1 Lake Park",
+//       description: "something else",
+//     },
+//     {
+//       key: "11",
+//       name: "John Brown123",
+//       age: 32,
+//       address: "New York No. 1 Lake Park123",
+//       description: "something else123",
+//     },
+//     {
+//       key: "12",
+//       name: "Jim Green",
+//       age: 42,
+//       address: "London No. 1 Lake Park",
+//       description: "something else",
+//     },
+//     {
+//       key: "13",
+//       name: "Joe Black",
+//       age: 32,
+//       address: "Sidney No. 1 Lake Park",
+//       description: "something else",
+//     },
+//     {
+//       key: "14",
+//       name: "John Brown",
+//       age: 32,
+//       address: "New York No. 1 Lake Park",
+//       description: "something else",
+//     },
+//     {
+//       key: "15",
+//       name: "Jim Green",
+//       age: 42,
+//       address: "London No. 1 Lake Park",
+//       description: "something else",
+//     },
+//     {
+//       key: "16",
+//       name: "Joe Black",
+//       age: 32,
+//       address: "Sidney No. 1 Lake Park",
+//       description: "something else",
+//     },
+//     {
+//       key: "17",
+//       name: "John Brown",
+//       age: 32,
+//       address: "New York No. 1 Lake Park",
+//       description: "something else",
+//     },
+//     {
+//       key: "18",
+//       name: "Jim Green",
+//       age: 42,
+//       address: "London No. 1 Lake Park",
+//       description: "something else",
+//     },
+//     {
+//       key: "19",
+//       name: "Joe Black",
+//       age: 32,
+//       address: "Sidney No. 1 Lake Park",
+//       description: "something else",
+//     },
+//     {
+//       key: "20",
+//       name: "John Brown",
+//       age: 32,
+//       address: "New York No. 1 Lake Park",
+//       description: "something else",
+//     },
+//   ]);
+//   const [activeRowKey, setActiveRowKey] = useState<string>();
+
+//   // useEffect(() => {
+//   //   // let time = Date.now();
+//   //   setData(
+//   //     data.map((item) => {
+//   //       return {
+//   //         ...item,
+//   //         // animeKey: time,
+//   //       };
+//   //     })
+//   //   );
+//   // }, []);
+
+//   // mock update data ---------------------------------------------
+
+//   useEffect(() => {
+//     setInterval(() => {
+//       setData((pre) => {
+//         const dataMock: DataType[] = [
+//           {
+//             key: pre.length + 1 + "",
+//             name: "新推送：" + (pre.length + 1),
+//             age: 42,
+//             address: "London No. 1 Lake Park",
+//             description: "something else",
+//             animeKey: Date.now(), // 用于动画
+//           },
+//         ];
+
+//         return [...dataMock].concat([...pre]);
+//       });
+//     }, 500);
+//   }, []);
+
+//   useEffect(() => {
+//     console.log("data", Date.now(), data);
+//   }, [data]);
+
+//   // --------------------------------------------------------------
+
+//   const columns: ColumnsTypeProps[] = [
+//     {
+//       title: "Name",
+//       dataIndex: "name",
+//       key: "name",
+//       fixed: "left",
+//       width: "300px",
+//       align: "center",
+//     },
+//     {
+//       title: "Age",
+//       dataIndex: "age",
+//       key: "age",
+//       align: "center",
+//       width: "120px",
+//     },
+//     {
+//       title: "Address",
+//       dataIndex: "address",
+//       key: "address",
+//       width: "400px",
+//       align: "center",
+//     },
+//     {
+//       title: "Description",
+//       key: "description",
+//       dataIndex: "description",
+//       width: "300px",
+//       fixed: "right",
+//       align: "center",
+//     },
+//   ];
+
+//   // --------------------------------------------------------------
+
+//   const code = `
+//     // import code
+//     import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+
+//     // rowActiveFixedData 启动 “固定数据” 效果
+//     // rowActiveFixedTip 设置 “固定提示” 文案
+//     // rowActiveFirstGradient 启动 “数据” 渐变效果 (每次 data change, 都会触发)
+//     // animeRowKey 为 “数据” 渐变效果的 key。(!!!: 有推送时，处理 item 时自行添加 animeRowKey, 否则无效)
+//   `;
+
+//   // --------------------------------------------------------------
+
+//   return (
+//     <>
+//       <ImportCode code={code} />
+//       <Table
+//         animeRowKey="animeKey"
+//         columns={columns}
+//         dataSource={data}
+//         rowActive={activeRowKey}
+//         rowActiveFixedData={true}
+//         rowActiveFixedTip={"有新消息"}
+//         rowActiveFirstGradient={true}
+//         onRow={(record) => {
+//           return {
+//             onClick: (e) => {
+//               setActiveRowKey(record.key);
+//             },
+//           };
+//         }}
+//       />
+//     </>
+//   );
+// };
+
+// _BL_MessageTipComponent.storyName = "新消息提醒（常用于推送，defective）";
+
+// // ----------------------------------------------------------------
+
+const socket = new WebSocket('ws://172.16.74.20:8088');
+// const socket = new WebSocket("wss://web.qa.sumscope.com:28888/nqb/ws");
 
 let refData: any[] = [];
 export const _ZZ_CustomTableComponent = () => {
@@ -5184,7 +5285,6 @@ export const _ZZ_CustomTableComponent = () => {
 
     if (typeof code === 'number') {
       if (code === 0) {
-        console.log('in');
 
         const config: any = [];
         Object.keys(data.payload.properties).forEach((key) => {
@@ -5201,25 +5301,32 @@ export const _ZZ_CustomTableComponent = () => {
       } // columns
 
       if (data?.payload?.list) {
+        const newData = data.payload.list.map((item: any) => {
+          return {
+            marketDataTm: item.marketDataTm,
+            msgSeq: item.msgSeq
+          };
+        });
         if (code === 1) {
           // console.log('init data', data);
-          refData = data.payload.list;
-          setTableData(data.payload.list);
+          refData = newData;
+          setTableData(newData);
           setMainLoading(false);
           setScrollInit(false);
         } // init data
 
         if (code === 2) {
-          // console.log('turn pages data', data);
-          refData = [...refData, ...data.payload.list];
+          console.log('turn pages data', data);
+          refData = [...refData, ...newData];
+          setTableData([...refData, ...newData]);
         } // turn pages data
       } // data
     }
 
-    if (Object.prototype.toString.call(data) === '[object Array]') {
-      // console.log('this ----------------------------->', data);
-      dealData(data);
-    } // subscribe
+    // if (Object.prototype.toString.call(data) === '[object Array]') {
+    //   // console.log('this ----------------------------->', data);
+    //   dealData(data);
+    // } // subscribe
   };
 
   // -------------------------------------------------------------
@@ -5372,12 +5479,23 @@ export const _ZZ_CustomTableComponent = () => {
       };
     });
 
+  const concatData: any[] = Array.from({ length: 1000 }, (_, key) => ({
+    marketDataTm: tableData.length + key,
+    msgSeq: tableData.length + key + Math.random()
+  }));
+
   // scroll page next -------------------------------------------
   const onScrllDownMiddle = () => {
     console.log('onScrollMiddle');
-    setIsTurnPages(true);
-    setPaging(paging + 1000);
+    refData = [...refData, ...concatData];
+    setTableData([...tableData, ...concatData]);
+    // setIsTurnPages(true);
+    // setPaging(paging + 1000);
   };
+
+  // useEffect(() => {
+  //   console.log('change-two', tableData);
+  // }, [tableData])
 
   // Product Filter ---------------------------------------------
 
@@ -5630,7 +5748,9 @@ export const _ZZ_CustomTableComponent = () => {
           {tableColumns.length > 0 && (
             <Table
               animeRowKey='animeKey'
-              rowKey='msgSeq'
+              rowKey={(record) => {
+                return record.msgSeq + Math.random()
+              }}
               columns={tableColumns || []}
               dataSource={tableData || []}
               height='100%'
@@ -5649,12 +5769,12 @@ export const _ZZ_CustomTableComponent = () => {
               }}
               onChange={onTableChange}
               loading={mainLoading}
-              onRowSize={(rowSize: any[]) => {
-                if (tableRowSize.current[0] !== rowSize[0] || tableRowSize.current[1] !== rowSize[1]) {
-                  tableRowSize.current = rowSize;
-                  setTableData(refData);
-                }
-              }}
+              // onRowSize={(rowSize: any[]) => {
+              //   if (tableRowSize.current[0] !== rowSize[0] || tableRowSize.current[1] !== rowSize[1]) {
+              //     tableRowSize.current = rowSize;
+              //     setTableData(refData);
+              //   }
+              // }}
             />
           )}
         </div>
@@ -5677,4 +5797,4 @@ export const _ZZ_CustomTableComponent = () => {
 
 _ZZ_CustomTableComponent.storyName = "最优报价 demo";
 
-// ----------------------------------------------------------------
+// // ----------------------------------------------------------------

@@ -545,7 +545,7 @@ export const Table: FC<FRCTableProps> = (props) => {
     fitHeaderWidth(containerNode); // 适配 header width
     fitSummaryButtom(containerNode); // 适配 summary bottom
     calEmptyHeight(height || 300); // 计算 empty 高度
-    scrollMove(); // 初始化滚动速度控制
+    // scrollMove(); // 初始化滚动速度控制
   }, []); // 组件加载时，执行 “虚拟滚动” 初始化的必要操作
 
   useEffect(() => {
@@ -601,12 +601,20 @@ export const Table: FC<FRCTableProps> = (props) => {
 
   useEffect(() => {
     const tableNode = ref.current.querySelector(".ant-table-body-box");
+    const innerNode = ref.current.querySelector(".ant-table-body");
 
     if (initScroll) {
       tableNode.scrollTop = 0;
       scrollPosition = 0;
       setInitScroll(false);
     } else {
+
+      console.log(
+        'in----------------------------------0',
+        tableNode.clientHeight + tableNode.scrollTop,
+        innerNode.scrollHeight
+      );
+
       tableNode.addEventListener("scroll", scrollMove);
     }
 
@@ -690,12 +698,17 @@ export const Table: FC<FRCTableProps> = (props) => {
     }
   }; // 计算 empty 高度
 
-  const scrollMove = async () => {
-    const tableNode = await ref.current.querySelector(".ant-table-body-box");
+  const scrollMove = () => {
+    const tableNode = ref.current.querySelector(".ant-table-body-box");
     const innerNode = ref.current.querySelector(".ant-table-body");
+    console.log(
+      'in----------------------------------1',
+      tableNode.clientHeight + tableNode.scrollTop,
+      innerNode.scrollHeight
+    );
     scrollPosition = controlScrollSpeed(
       tableNode,
-      120,
+      12000000,
       scrollPosition,
       innerNode,
       onScrllDownMiddle
