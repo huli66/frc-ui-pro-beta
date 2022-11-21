@@ -10,6 +10,8 @@ interface BaseDropdownProps {
   menuOptions?: MenuProps;
   /** 下拉根元素的类名称 */
   overlayClassName?: string;
+  /** 下拉根元素的样式 */
+  overlayStyle?:React.CSSProperties;
   /** 下拉元素样式 */
   triggerStyle?: React.CSSProperties;
   /** 菜单是否禁用 */
