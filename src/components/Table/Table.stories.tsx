@@ -4600,10 +4600,11 @@ export const _AS_ScrollPageComponent = () => {
   }));
 
   const onScrllDownMiddle = () => {
+    setLoading(true);
     console.log("onScrollMiddle");
     const oldData = [...tableData];
     setTableData([...oldData, ...concatData]);
-    setLoading(true);
+    setLoading(false);
   };
 
   // --------------------------------------------------------------
@@ -5204,7 +5205,6 @@ export const _ZZ_CustomTableComponent = () => {
 
   const updateTableData = useCallback(
     throttle((rowSize, index) => {
-      // console.log('updateTableData', rowSize, index);
       if (rowSize.length > 1 && index < rowSize[1]) {
         setTableData(refData);
       }
@@ -5303,10 +5303,12 @@ export const _ZZ_CustomTableComponent = () => {
       if (data?.payload?.list) {
         const newData = data.payload.list.map((item: any) => {
           return {
+            ...item,
             marketDataTm: item.marketDataTm,
             msgSeq: item.msgSeq
           };
         });
+
         if (code === 1) {
           // console.log('init data', data);
           refData = newData;
@@ -5316,17 +5318,17 @@ export const _ZZ_CustomTableComponent = () => {
         } // init data
 
         if (code === 2) {
-          console.log('turn pages data', data);
-          refData = [...refData, ...newData];
+          // console.log('turn pages data', data);
           setTableData([...refData, ...newData]);
+          refData = [...refData, ...newData];
         } // turn pages data
       } // data
     }
 
-    // if (Object.prototype.toString.call(data) === '[object Array]') {
-    //   // console.log('this ----------------------------->', data);
-    //   dealData(data);
-    // } // subscribe
+    if (Object.prototype.toString.call(data) === '[object Array]') {
+      // console.log('this ----------------------------->', data);
+      dealData(data);
+    } // subscribe
   };
 
   // -------------------------------------------------------------
@@ -5479,23 +5481,12 @@ export const _ZZ_CustomTableComponent = () => {
       };
     });
 
-  const concatData: any[] = Array.from({ length: 1000 }, (_, key) => ({
-    marketDataTm: tableData.length + key,
-    msgSeq: tableData.length + key + Math.random()
-  }));
-
   // scroll page next -------------------------------------------
   const onScrllDownMiddle = () => {
     console.log('onScrollMiddle');
-    refData = [...refData, ...concatData];
-    setTableData([...tableData, ...concatData]);
-    // setIsTurnPages(true);
-    // setPaging(paging + 1000);
+    setIsTurnPages(true);
+    setPaging(paging + 1000);
   };
-
-  // useEffect(() => {
-  //   console.log('change-two', tableData);
-  // }, [tableData])
 
   // Product Filter ---------------------------------------------
 
@@ -5769,12 +5760,12 @@ export const _ZZ_CustomTableComponent = () => {
               }}
               onChange={onTableChange}
               loading={mainLoading}
-              // onRowSize={(rowSize: any[]) => {
-              //   if (tableRowSize.current[0] !== rowSize[0] || tableRowSize.current[1] !== rowSize[1]) {
-              //     tableRowSize.current = rowSize;
-              //     setTableData(refData);
-              //   }
-              // }}
+              onRowSize={(rowSize: any[]) => {
+                if (tableRowSize.current[0] !== rowSize[0] || tableRowSize.current[1] !== rowSize[1]) {
+                  tableRowSize.current = rowSize;
+                  // setTableData(refData);
+                }
+              }}
             />
           )}
         </div>

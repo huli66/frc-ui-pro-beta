@@ -601,20 +601,11 @@ export const Table: FC<FRCTableProps> = (props) => {
 
   useEffect(() => {
     const tableNode = ref.current.querySelector(".ant-table-body-box");
-    const innerNode = ref.current.querySelector(".ant-table-body");
-
     if (initScroll) {
       tableNode.scrollTop = 0;
       scrollPosition = 0;
       setInitScroll(false);
     } else {
-
-      console.log(
-        'in----------------------------------0',
-        tableNode.clientHeight + tableNode.scrollTop,
-        innerNode.scrollHeight
-      );
-
       tableNode.addEventListener("scroll", scrollMove);
     }
 
@@ -701,11 +692,6 @@ export const Table: FC<FRCTableProps> = (props) => {
   const scrollMove = () => {
     const tableNode = ref.current.querySelector(".ant-table-body-box");
     const innerNode = ref.current.querySelector(".ant-table-body");
-    console.log(
-      'in----------------------------------1',
-      tableNode.clientHeight + tableNode.scrollTop,
-      innerNode.scrollHeight
-    );
     scrollPosition = controlScrollSpeed(
       tableNode,
       12000000,
