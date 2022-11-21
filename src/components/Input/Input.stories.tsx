@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism'
@@ -7,7 +7,6 @@ import { FiSearch } from 'react-icons/fi'
 import { MenuFoldOutlined, EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 
 import { ComponentMeta } from '@storybook/react';
-import Highlighter from 'react-highlight-words';
 
 import {
     Title,
@@ -22,7 +21,6 @@ import Input, { FRCInputProps, InputRef } from './index';
 
 import Button from '../Button';
 import Select from '../Select';
-import { ImportCode } from '../../utils/importComponent';
 
 // ----------------------------------------------------------------
 
@@ -94,18 +92,6 @@ export default {
 
                     <Subheading>Input.Password</Subheading>
                     <ArgsTable of={Input.Password} />
-
-                    <Subheading>Input.InputSelect</Subheading>
-                    <ArgsTable
-                        of={Input.InputSelect}
-                        include={[
-                            'options',
-                            'dropdownClassName',
-                            'dropdownStyle',
-                            'width',
-                            'onDropdownSelected'
-                        ]}
-                    />
 
                     <Subheading>方法</Subheading>
                     <Subheading>Input</Subheading>
@@ -350,164 +336,6 @@ _PasswordComponent.parameters = {
     controls: { hideNoControlsWarning: true },
 };
 
-// ----------------------------------------------------------------
-
-export const _ZASearchComponent = () => {
-    type TOptions = Array<{label:React.ReactNode;value:string}>;
-
-    const {InputSelect} = Input;
-    const [options,setOptions] = React.useState<TOptions>([]);
-
-    const mockFetch = (value:string) => {
-        return new Promise<TOptions>((resolve) => {
-            setTimeout(() => {
-                const temp = value? Array.from({length:5}).map((o,i) => ({
-                    label:`${value}-${parseInt(`${Math.random() * 100}`)}`,
-                    value:`data${i}`
-                })):[]
-                resolve(temp);
-            },300);
-        })
-    }
-    const handleChange =  async (e:ChangeEvent<HTMLInputElement>) => {
-        const val = e.target.value;
-        const opts = await mockFetch(val);
-        setOptions(opts);
-    }
-
-
-    const handleSelected = (key:string) => {
-        console.log(key)
-    }
-
-    return (
-        <>
-            InputSelect是Input输入框和Dropdown下拉框的结合，用于页面头部搜索，若涉及复杂交互请用Select或Dropdown
-            <InputSelect onChange={handleChange} options={options} onDropdownSelected={handleSelected} />
-        </>
-    )
-}
-
-_ZASearchComponent.storyName = '搜索选择框InputSelect';
-_ZASearchComponent.parameters = {
-    controls: { hideNoControlsWarning: true },
-};
-// ----------------------------------------------------------------
-export const _ZBSearchComponent = () => {
-    type TOptions = Array<{label:React.ReactNode;value:string}>;
-
-    const {InputSelect} = Input;
-    const inputRef = React.useRef<InputRef>(null);
-    const [options,setOptions] = React.useState<TOptions>([]);
-    const [showInput, setShowInput] = React.useState<boolean>(false);
-    const [inputValue, setInputValue] = React.useState<string>();
-
-    const mockFetch = (value:string) => {
-        return new Promise<Array<{label:string;value:string}>>((resolve) => {
-            setTimeout(() => {
-                const temp = value? Array.from({length:5}).map((o,i) => ({
-                    label:`${value}-${parseInt(`${Math.random() * 100}`)}`,
-                    value:`data${i}`
-                })):[]
-                resolve(temp);
-            },300);
-        })
-    }
-    const handleChange =  async (e:ChangeEvent<HTMLInputElement>) => {
-        const val = e.target.value;
-        setInputValue(val);
-        let opts:any = await mockFetch(val);
-        opts = opts.map((o:any) => ({
-            value:o.value,
-            label: (
-                <Highlighter
-                    textToHighlight={o.label}
-                    searchWords={[val]}
-                    autoEscape
-                    unhighlightStyle={{color: '#FFEBC8'}}
-                    highlightStyle={{
-                        color: '#F9C152',
-                        background: 'none',
-                        padding: 0,
-                        margin: 0,
-                        letterSpacing: 0
-                    }}
-                />)
-        }))
-        setOptions(opts);
-    }
-
-
-    const handleSelected = (key:string) => {
-        console.log(key)
-    }
-    
-    const handleClick = () => {
-        setShowInput(true);
-        setInputValue('永城煤电控股集团有限公司');
-    }
-
-    const handleBlur = () => {
-        setShowInput(false);
-        setOptions([]);
-    }
-
-    React.useEffect(() => {
-        if(showInput) {
-            inputRef.current?.select();
-            inputRef.current?.focus();
-        }
-    },[showInput])
-
-// -----------------------------------------------------
-    const code = `
-    // import code
-    import Highlighter from "react-highlight-words";
-    // 引入高亮插件
-  `;
-      const code2 = `
-    .header-text {
-        font-size: 24px;
-        color: #FFEBC8;
-        padding:0 4px;
-        cursor: pointer;
-    }
-    .header-text:hover{
-      background-color:#133E38;
-    }
-  `;
-// --------------------------------------------------------
-    return (
-        <>
-            点击文本切换到搜索输入框，自动填充文本且输入框为选中文本状态，搜索时支持键盘上下键切换选项
-            <br/>
-            <ImportCode code={code} />
-            <ImportCode code={code2} />
-            <br/>
-            {!showInput ?     
-                <span onClick={handleClick} className='header-text'>永城煤电控股集团有限公司</span>
-                :
-                <InputSelect 
-                    prefix={<FiSearch />}
-                    width={300}
-                    dropdownStyle={{width:320}}
-                    ref={inputRef}
-                    value={inputValue}
-                    allowClear
-                    options={options}
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    onDropdownSelected={handleSelected}
-                />
-            }
-        </>
-    )
-}
-
-_ZBSearchComponent.storyName = '用InputSelect实现头部搜索';
-_ZBSearchComponent.parameters = {
-    controls: { hideNoControlsWarning: true },
-};
 // ----------------------------------------------------------------
 
 export const _ZRefComponent = () => {

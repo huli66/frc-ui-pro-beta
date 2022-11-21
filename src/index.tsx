@@ -31,4 +31,4 @@ export { default as TreeSelect } from "./components/TreeSelect";
 export { default as Drawer} from './components/Drawer';
 
 // 业务模块
-export { default as CustomButton } from "./components/_BusinessCompositeModule/CustomButton";
+export { default as InputSelect } from "./components/_BusinessCompositeModule/InputSelect";

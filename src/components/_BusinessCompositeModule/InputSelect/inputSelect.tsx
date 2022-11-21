@@ -1,7 +1,7 @@
 import React, { forwardRef,useCallback,useEffect,useMemo,useState } from 'react';
 import classNames from "classnames";
-import Input,{FRCInputProps,InputRef} from './input';
-import Dropdown from '../Dropdown/dropdown';
+import Input,{FRCInputProps,InputRef} from '../../Input';
+import Dropdown from '../../Dropdown';
 
 export interface FRCInputSelectProps extends FRCInputProps{
   /** 下拉框选项 */
