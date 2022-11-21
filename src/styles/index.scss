@@ -52,9 +52,6 @@
 // divider
 @import "../components/Divider/style";
 
-// echarts
-@import "../components/Echarts/style";
-
 // menu
 @import "../components/Menu/style";
 
@@ -102,3 +99,7 @@
 
 // drawer
 @import '../components/Drawer/style';
+
+
+// 业务模块
+@import '../components/_BusinessCompositeModule/InputSelect/style';

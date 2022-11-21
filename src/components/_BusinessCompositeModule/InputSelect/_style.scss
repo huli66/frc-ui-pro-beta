@@ -1,0 +1,29 @@
+.storybook-demo {
+  
+  .header-text {
+    font-size: 24px;
+    color: #FFEBC8;
+    padding:0 4px;
+    cursor: pointer;
+    &:hover{
+      background-color:#133E38;
+    }
+  }
+}
+
+// input select
+
+.frc-input-select-dropdown.ant-dropdown-trigger.frc-dropdown-trigger {
+  padding: 0px;
+  border: none;
+  width: 100%;
+  &:not(.frc-dropdown-icon) {
+    min-width: unset;
+  }
+}
+.frc-input-select-overlay-empty {
+  .ant-dropdown-menu.frc-dropdown-menu {
+    padding:0 !important;
+    border:none !important;
+  }
+}
