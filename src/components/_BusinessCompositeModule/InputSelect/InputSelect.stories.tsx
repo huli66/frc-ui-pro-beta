@@ -22,8 +22,8 @@ import {ImportCode} from '../../../utils/importComponent'
 const importCode = `
 // import code
 import { InputSelect } from 'frc-ui-pro';
-import { FRCInputSelectProps } from "frc-ui-pro/components/_BusinessCompositeModule/CustomButton";
-import { InputRef } from "frc-ui-pro/components/Input";
+import { FRCInputSelectProps } from "frc-ui-pro/dist/src/components/_BusinessCompositeModule/CustomButton";
+import { InputRef } from "frc-ui-pro/dist/src/components/Input";
 
 // 引入高亮插件
 import Highlighter from "react-highlight-words";

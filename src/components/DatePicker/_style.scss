@@ -208,10 +208,12 @@
               &::before {
                 background: transparent;
               }
-              .ant-picker-cell-inner {
-                color: $words-high-light;
-                border-radius: 2px;
-                background: $btn-hover;
+              &:not(.ant-picker-cell-disabled){
+                .ant-picker-cell-inner {
+                  color: $words-high-light;
+                  border-radius: 2px;
+                  background: $btn-hover;
+                }
               }
             }
           }

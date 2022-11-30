@@ -27,3 +27,31 @@
     border:none !important;
   }
 }
+
+.frc-dropdown.frc-input-select-overlay {
+  .ant-dropdown-menu {
+    max-height: 200px;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      width: 4px;
+      height: 6px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: $basic-btn;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      &:active,
+      &:hover {
+        background-color: $btn-hover;
+      }
+    }
+    
+    &::-webkit-scrollbar-corner {
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: $element-background;
+      border-radius: unset;
+    }
+  }
+}

@@ -53,7 +53,7 @@ export const InputSelect = forwardRef<InputRef,FRCInputSelectProps>(
     }
   },[options,currentSelected,handleMenuClick]);
 
-  const overlayCls = classNames(dropdownClassName,{
+  const overlayCls = classNames(dropdownClassName,'frc-input-select-overlay',{
     'frc-input-select-overlay-empty':!options?.length
   });
 
