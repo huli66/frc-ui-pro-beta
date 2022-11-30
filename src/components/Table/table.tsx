@@ -339,12 +339,18 @@ export interface TableLocaleProps extends TableLocale {
 }
 
 export interface FRCTableProps extends Omit<TableProps<RecordType>, "columns"> {
+  /** 翻页时，删除的数据数组长度 */
+  pageTurnDeleteLength?: number;
+  /** 翻页时，一页 data 条数（使用 “上一页功能” 时必传） */
+  pageDataLength?: number;
   /** 初始化 table 滚动条位置（置顶） */
   scrollInit?: boolean;
   /** 表格最新的 虚拟滚动 data 区间，例：[0,25] */
   onRowSize?: (rowSize: any[]) => void;
+  /** 表格 “向上” 滑动至中间位置时，触发 */
+  onScrollPrvePage?: () => void;
   /** 表格 “向下” 滑动至中间位置时，触发 */
-  onScrllDownMiddle?: () => void;
+  onScrollNextPage?: () => void;
   /** 表格高度 */
   height?: number | string;
   /** 是否展示外边框和列边框 */
@@ -468,9 +474,12 @@ export const Table: FC<FRCTableProps> = (props) => {
     children,
     rowKey,
     expandable,
-    onScrllDownMiddle,
+    onScrollPrvePage,
+    onScrollNextPage,
     onRowSize,
     scrollInit,
+    pageDataLength,
+    pageTurnDeleteLength,
     ...restProps
   } = props;
 
@@ -493,6 +502,7 @@ export const Table: FC<FRCTableProps> = (props) => {
   const [virtualData, setVirtualData] = useState<any[]>([]);
   const [fixedYScroll, setFixedYScroll] = useState<boolean>(false);
   const [showXScroll, setShowXScroll] = useState<boolean>(true);
+  const isScrollPrvePage = useRef<boolean>(false);
 
   const classes = classNames("frc-table", className, {
     [`frc-row-bg-type-${rowBgType}`]: rowBgType,
@@ -545,7 +555,6 @@ export const Table: FC<FRCTableProps> = (props) => {
     fitHeaderWidth(containerNode); // 适配 header width
     fitSummaryButtom(containerNode); // 适配 summary bottom
     calEmptyHeight(height || 300); // 计算 empty 高度
-    // scrollMove(); // 初始化滚动速度控制
   }, []); // 组件加载时，执行 “虚拟滚动” 初始化的必要操作
 
   useEffect(() => {
@@ -691,14 +700,19 @@ export const Table: FC<FRCTableProps> = (props) => {
 
   const scrollMove = () => {
     const tableNode = ref.current.querySelector(".ant-table-body-box");
-    const innerNode = ref.current.querySelector(".ant-table-body");
+    const rowHeight = size === "small" ? 24 : size === "middle" ? 32 : 48; // 每行高度
+    const innerNodeHeight = initData.length * rowHeight;
+    
+
     scrollPosition = controlScrollSpeed(
       tableNode,
-      12000000,
       scrollPosition,
-      innerNode,
-      onScrllDownMiddle
+      innerNodeHeight,
+      onScrollPrvePage,
+      onScrollNextPage,
+      isScrollPrvePage,
     );
+
   }; // 初始化滚动速度控制
 
   const onWindowResize = async (boxNode: any, bodyNode: any) => {
@@ -790,6 +804,7 @@ export const Table: FC<FRCTableProps> = (props) => {
             currentStep += 1;
           } else {
             listTotalhiddenTopHeight += rowHeight;
+
             if (
               expandable &&
               expandedKeys.indexOf(item[rowKey as any].toString()) !== -1
@@ -810,8 +825,10 @@ export const Table: FC<FRCTableProps> = (props) => {
 
     if (
       rowSize.join() !== rowSizeNow.join() ||
-      listTotalHeight !== totalHeight
+      listTotalHeight !== totalHeight ||
+      listTotalhiddenTopHeight !== hiddenTopStyle
     ) {
+      // console.log('rowSizeNow', rowSizeNow);
       // 顺序不能变，否则会导致 抖动
       onRowSize && onRowSize(rowSizeNow) // 将最新的 rowSize 返回出去
       setRowSize(rowSizeNow); // 可视区域的行号有了变化才重新进行渲染

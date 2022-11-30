@@ -28,42 +28,54 @@ export function isString(value: any): boolean {
 export function isNumber(value: any): boolean {
   return typeof value === "number";
 }
-
-let oldMiddlePosition = 0;
 export function controlScrollSpeed(
   node: HTMLElement,
-  maxSpeed: number,
   scrollPosition: number,
-  innerNode?: HTMLElement,
-  middleCallBack?: () => void
+  innerNodeHeight?: number,
+  prvePageCallBack?: () => void,
+  nextPageCallBack?: () => void,
+  isScrollPrvePage?: any,
   // init?: boolean
 ) {
-  const scrollTop = node.scrollTop;
+
+  // if (innerNodeHeight) {
+  //   console.log(
+  //     'save',
+  //     node.scrollTop,
+  //     node.clientHeight + node.scrollTop,
+  //     innerNodeHeight
+  //   );
+  // }
+
+  let pageTurnOffSet: any = 0;
 
   // 向上
-  if (scrollTop < scrollPosition) {
-    // if (scrollPosition - scrollTop > maxSpeed) {
-    //   node.scrollTop = scrollPosition - maxSpeed;
-    // }
+  if (node.scrollTop < scrollPosition) {
+    if (innerNodeHeight && node.scrollTop <= innerNodeHeight * 0.2) {
+      if (prvePageCallBack) {
+        pageTurnOffSet = prvePageCallBack();
+      }
+
+      if (pageTurnOffSet) {
+        node.scrollTop += pageTurnOffSet * 24 - node.clientHeight;
+      }
+
+      isScrollPrvePage.current = true;
+    }
   }
 
   // 向下
-  if (scrollTop > scrollPosition) {
-    // if (scrollTop - scrollPosition > maxSpeed) {
-    //   node.scrollTop = scrollPosition + maxSpeed; // 例: 滚动速度 > 4 时，仅 + 4;
-    // }
+  if (node.scrollTop > scrollPosition) {
+    if (innerNodeHeight && node.clientHeight + node.scrollTop >= innerNodeHeight * 0.8) {
+      if (nextPageCallBack) {
+        pageTurnOffSet = nextPageCallBack();
+      }
 
-    if (
-      innerNode &&
-      (
-        node.clientHeight + scrollTop >= innerNode.clientHeight / 2 + oldMiddlePosition
-      )) {
-      oldMiddlePosition = node.clientHeight + scrollTop - oldMiddlePosition;
-      middleCallBack && middleCallBack();
+      if (pageTurnOffSet) {
+        node.scrollTop -= pageTurnOffSet * 24;
+      }
     }
   }
 
   return node.scrollTop;
-
-  // scrollPosition = node.scrollTop;
 };

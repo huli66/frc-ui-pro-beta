@@ -4481,9 +4481,9 @@ export const _AS_ScrollPageComponent = () => {
     },
   ];
 
-  const [loading, setLoading] = useState(false);
 
-  const data: any[] = Array.from({ length: 1000 }, (_, key) => ({
+
+  const data: any[] = Array.from({ length: 100 }, (_, key) => ({
     key: key,
     name: `name-${key}`,
     age: `age-${key}`,
@@ -4540,9 +4540,12 @@ export const _AS_ScrollPageComponent = () => {
     time50: Math.random(),
   }));
 
+  const [loading, setLoading] = useState(false);
   const [tableData, setTableData] = useState<any[]>(data);
+  const pageNumber = useRef<number>(1);
+  const deleteLength = useRef<number>(0);
 
-  const concatData: DataType[] = Array.from({ length: 1000 }, (_, key) => ({
+  const concatData: DataType[] = Array.from({ length: 100 }, (_, key) => ({
     key: tableData.length + key,
     name: `name-${key} nextPage-${tableData.length + key}`,
     age: `age-${key} nextPage-${tableData.length + key}`,
@@ -4599,12 +4602,51 @@ export const _AS_ScrollPageComponent = () => {
     time50: Math.random(),
   }));
 
-  const onScrllDownMiddle = () => {
+  useEffect(() => {
+    console.log('data length:', tableData.length, '  page number:', pageNumber.current);
+  }, [tableData])
+
+  const onScrollPrvePage = () => {
+    if (pageNumber.current > 1) {
+      setLoading(true);
+      console.log("onScrollPrvePage");
+      const oldData = [...tableData];
+      setLoading(false);
+
+      if (pageNumber.current >= 3) {
+        const newOldData = [...oldData].slice(0, oldData.length - 100);
+        deleteLength.current = 100;
+        setTableData([...concatData, ...newOldData]);
+      } else if (pageNumber.current === 2) {
+        const newOldData = [...oldData].slice(0, oldData.length - 100);
+        deleteLength.current = 0;
+        setTableData([...newOldData]);
+      }
+
+      pageNumber.current = pageNumber.current - 1;
+
+      return deleteLength.current || 0;
+    }
+  };
+
+  const onScrollNextPage = () => {
     setLoading(true);
-    console.log("onScrollMiddle");
+    console.log("onScrollNextPage");
     const oldData = [...tableData];
-    setTableData([...oldData, ...concatData]);
     setLoading(false);
+
+    if (pageNumber.current >= 2) {
+      const newOldData = [...oldData].slice(100);
+      deleteLength.current = 100;
+      setTableData([...newOldData, ...concatData]);
+    } else if (pageNumber.current === 1) {
+      deleteLength.current = 0;
+      setTableData([...oldData, ...concatData]);
+    }
+
+    pageNumber.current = pageNumber.current + 1;
+
+    return deleteLength.current || 0;
   };
 
   // --------------------------------------------------------------
@@ -4624,7 +4666,8 @@ export const _AS_ScrollPageComponent = () => {
       <Table
         columns={columns}
         dataSource={tableData || []}
-        onScrllDownMiddle={onScrllDownMiddle}
+        onScrollPrvePage={onScrollPrvePage}
+        onScrollNextPage={onScrollNextPage}
         loading={loading}
       />
     </>
@@ -5246,7 +5289,7 @@ export const _ZZ_CustomTableComponent = () => {
   };
 
   const dealData = async (message: any) => {
-    // console.log('dealData', message);
+    console.log('dealData', message);
     const newData: any[] = [...refData];
 
     if (message.length > 0) {
@@ -5482,7 +5525,7 @@ export const _ZZ_CustomTableComponent = () => {
     });
 
   // scroll page next -------------------------------------------
-  const onScrllDownMiddle = () => {
+  const onScrollNextPage = () => {
     console.log('onScrollMiddle');
     setIsTurnPages(true);
     setPaging(paging + 1000);
@@ -5749,7 +5792,7 @@ export const _ZZ_CustomTableComponent = () => {
               rowActiveFixedData
               rowActiveFixedTip='有新消息'
               rowActiveFirstGradient
-              onScrllDownMiddle={onScrllDownMiddle}
+              onScrollNextPage={onScrollNextPage}
               scrollInit={scrollInit}
               onRow={(record) => {
                 return {

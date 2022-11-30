@@ -74,7 +74,7 @@ export const Dropdown: FC<FRCDropdownProps> = (props: FRCDropdownProps) => {
   }
 
   const menu = useMemo(() => {
-    const handleList: (arr?: ItemType[]) =>  any[] = (arr?: ItemType[]) => {
+    const handleList: (arr?: ItemType[]) => any[] = (arr?: ItemType[]) => {
       return (arr || []).map((m: any) => {
         if(m) {
           if(!m.type && m.children?.length) {
