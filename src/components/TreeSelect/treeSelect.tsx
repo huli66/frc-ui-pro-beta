@@ -65,14 +65,18 @@ interface BaseTreeSelectProps {
   dropdownClassName?: string;
   /** 下拉菜单和选择器同宽。默认将设置 min-width，当值小于选择框宽度时会被忽略。false 时会关闭虚拟滚动 */
   dropdownMatchSelectWidth?: boolean | number;
-  /** 	自定义下拉框内容 */
+  /** 自定义下拉框内容 */
   dropdownRender?: (originNode: React.ReactNode, props: any) => React.ReactNode;
+  /** 已勾选项自定义下拉框内容 */
+  selectedDropdownRender?: (originNode: React.ReactNode, props: any) => React.ReactNode;
   /** 下拉菜单的样式 */
   dropdownStyle?: React.CSSProperties;
   /** 自定义节点 label、value、children 的字段 */
   fieldNames?: { value?: string; label?: string; children?: string };
   /** 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位 */
   getPopupContainer?: (triggerNode: HTMLElement) => HTMLElement;
+  /** 已勾选项菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位 */
+  getSelectedPopupContainer?: (triggerNode: HTMLElement) => HTMLElement;
   /** 设置弹窗滚动高度 */
   listHeight?: number;
   /** 最多显示多少个 tag，响应式模式会对性能产生损耗 */
@@ -92,7 +96,7 @@ interface BaseTreeSelectProps {
   /** 是否显示下拉小箭头 */
   showArrow?: boolean;
   /** 配置是否可搜索 */
-  showSearch?: boolean;
+  // showSearch?: boolean; 封装方式导致暂不支持改属性
   /** 搜索框的值，可以通过 onSearch 获取用户输入 */
   searchValue?: string;
   /** 选择器的样式 */
@@ -199,6 +203,8 @@ export const TreeSelect: React.FC<FRCTreeSelectProps> = ({
   showSelected,
   showExtraButton,
   separator,
+  getSelectedPopupContainer,
+  selectedDropdownRender,
 
   ...resetProps
 }) => {
@@ -400,7 +406,7 @@ export const TreeSelect: React.FC<FRCTreeSelectProps> = ({
         setTValue(value);
       }
     },
-    []
+    [onChange]
   );
 
   // ------------------------------- useEffect --------------------------
@@ -447,20 +453,27 @@ export const TreeSelect: React.FC<FRCTreeSelectProps> = ({
     const clearClas = classNames("frc-tree-select-clear", {
       "frc-tree-select-clear-disabled": isDisabled,
     });
+
+    const selectedOptions = {
+      className: "frc-select frc-tree-select frc-tree-selected",
+      dropdownClassName: "frc-select frc-tree-select-dropdown frc-tree-select-hidden-switcher",
+      notFoundContent: null,
+      showArrow: false,
+      treeData: checkedList,
+      value: checkedValue,
+      dropdownMatchSelectWidth: 200,
+      treeCheckable: true,
+      showSearch: false,
+      onChange: triggerChange,
+      disabled: isDisabled,
+      getPopupContainer: getSelectedPopupContainer,
+      dropdownRender: selectedDropdownRender,
+    }as TreeSelectProps;
+
     return (
       <div className="frc-tree-selected-wrapper">
         <AntTreeSelect
-          className="frc-select frc-tree-select frc-tree-selected"
-          dropdownClassName="frc-select frc-tree-select-dropdown frc-tree-select-hidden-switcher"
-          notFoundContent={null}
-          showArrow={false}
-          treeData={checkedList}
-          value={checkedValue}
-          dropdownMatchSelectWidth={200}
-          treeCheckable
-          showSearch={false}
-          onChange={triggerChange}
-          disabled={isDisabled}
+         {...selectedOptions}
         ></AntTreeSelect>
         <div className={selectedClas}>
           <span>{checkedList.length}</span>
