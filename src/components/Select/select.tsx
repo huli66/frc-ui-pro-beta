@@ -137,7 +137,7 @@ export interface BaseSelectProps extends SelectProps {
   /** 清除内容时回调 */
   onClear?: () => void;
   /** 取消选中时调用，参数为选中项的 value (或 key) 值，仅在 multiple 或 tags 模式下生效 */
-  onDeselect?: (e: string | number | LabelInValueType) => void;
+  onDeselect?: (e: string | number | object | LabeledValue) => void;
   /** 展开下拉菜单的回调 */
   onDropdownVisibleChange?: (open: boolean) => void;
   /** 获得焦点时回调 */
@@ -155,7 +155,7 @@ export interface BaseSelectProps extends SelectProps {
   /** 文本框值变化时回调	 */
   onSearch?: (value: string) => void;
   /** 被选中时调用，参数为选中项的 value (或 key) 值 */
-  onSelect?: (e: string | number | LabelInValueType, options: Object) => void;
+  onSelect?: (e: string | number | object | LabeledValue, options: Object) => void;
   /** 取消焦点 */
   blur?: () => void;
   /** 获取焦点 */
