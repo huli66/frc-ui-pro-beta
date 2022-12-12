@@ -1,13 +1,11 @@
 .frc-collapse {
-    line-height: 30px !important;
     background-color: $basic-plate !important;
     border: 1px solid $part-plate !important;
     &-panel {
-        // height: inherit;
         border-bottom: 1px solid $part-plate !important;
         .ant-collapse-header {
-            // height: inherit;
-            line-height: inherit !important;
+            height: 32px;
+            line-height: 32px !important;
             padding: 0 8px !important;
             color: $words-normal !important;
             font-size: 12px;
@@ -38,4 +36,15 @@
 
 .ant-collapse-borderless {
     border: 0 !important;
+}
+
+.frc-collapse.ant-collapse-ghost {
+    background: transparent !important;
+    & > .ant-collapse-item {
+        border-bottom: 0 !important;
+        & > .ant-collapse-content {
+            background: transparent !important;
+            border-top: 0 !important;
+        }
+    }
 }

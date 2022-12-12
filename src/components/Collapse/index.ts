@@ -9,7 +9,7 @@ export type FRCCollapseComponent = FC<FRCCollapseProps> & {
     Panel: typeof FRCCollapsePanel
 }
 
-const TransCollapse = FRCCollapse as FRCCollapseComponent
+export const TransCollapse = FRCCollapse as FRCCollapseComponent
 
 TransCollapse.Panel = FRCCollapsePanel
 

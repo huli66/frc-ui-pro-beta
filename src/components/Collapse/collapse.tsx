@@ -1,4 +1,4 @@
-import React, { FC, useState, CSSProperties, useEffect, ReactNode } from "react";
+import React, { FC} from "react";
 import classNames from "classnames";
 import { Collapse as AntCollapse, CollapseProps} from "antd";
 
@@ -18,6 +18,10 @@ export interface FRCCollapseProps extends CollapseProps{
   expandIconPosition?: 'left' | 'right';
   /** 销毁折叠隐藏的面板 */
   destroyInactivePanel?: boolean;
+  /** 所有子面板是否可折叠或指定可折叠触发区域 */
+  collapsible?: 'header' | 'disabled';
+  /** 使折叠面板透明且无边框	 */
+  ghost?: boolean;
 }
 
 export const Collapse: FC<FRCCollapseProps> = (props) => {

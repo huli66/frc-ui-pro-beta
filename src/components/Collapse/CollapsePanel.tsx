@@ -3,11 +3,11 @@ import classNames from "classnames";
 import { Collapse } from "antd";
 import { CollapsePanelProps } from "antd/es/collapse/CollapsePanel";
 
-const { Panel } = Collapse;
+const { Panel: AntCollapse } = Collapse;
 
 export interface FRCCollapsePanelProps extends CollapsePanelProps {
-  /** 禁用后的面板展开与否将无法通过用户交互改变 */
-  disabled?: boolean;
+  /** 是否可折叠或指定可折叠触发区域 */
+  collapsible?: 'header' | 'disabled';
   /** 被隐藏时是否渲染 DOM 结构 */
   forceRender?: boolean;
   /** 面板头内容 */
@@ -21,7 +21,7 @@ export interface FRCCollapsePanelProps extends CollapsePanelProps {
 }
 
 
-export const Group: FC<FRCCollapsePanelProps> = (props) => {
+export const Panel: FC<FRCCollapsePanelProps> = (props) => {
     const {
         className,
         ...restProps
@@ -35,11 +35,11 @@ export const Group: FC<FRCCollapsePanelProps> = (props) => {
       }
     
       // main
-      return <Panel {...options} />
+      return <AntCollapse {...options} />
 }
 
 // normal
-Group.defaultProps = {
+Panel.defaultProps = {
 };
 
-export default Group;
+export default Panel;
