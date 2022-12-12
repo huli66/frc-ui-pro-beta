@@ -1,0 +1,50 @@
+.frc-collapse {
+    background-color: $basic-plate !important;
+    border: 1px solid $part-plate !important;
+    &-panel {
+        border-bottom: 1px solid $part-plate !important;
+        .ant-collapse-header {
+            height: 32px;
+            line-height: 32px !important;
+            padding: 0 8px !important;
+            color: $words-normal !important;
+            font-size: 12px;
+//             .ant-collapse-arrow {
+//                 width: 24px;
+//                 height: 24px;
+//                 line-height: 28px;
+//                 font-size: 11px;
+//                 border-radius: 2px;
+//                 &:hover {
+//                     background: $btn-hover;
+//                 }
+//             }
+        }
+ 
+        .ant-collapse-content {
+            background-color: $basic-plate !important;
+            border-top: 1px solid $part-plate;
+            color: $words-normal !important;
+            font-size: 12px;
+            &-box {
+                padding: 8px !important;
+                line-height: normal;
+            }
+        }
+    }
+} 
+
+.ant-collapse-borderless {
+    border: 0 !important;
+}
+
+.frc-collapse.ant-collapse-ghost {
+    background: transparent !important;
+    & > .ant-collapse-item {
+        border-bottom: 0 !important;
+        & > .ant-collapse-content {
+            background: transparent !important;
+            border-top: 0 !important;
+        }
+    }
+}
