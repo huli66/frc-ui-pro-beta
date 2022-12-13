@@ -178,7 +178,7 @@ const addPrefixNode = (nodes: any, prefixIcon: React.ReactNode) => {
     prefixIcon as any,
     currentDom.querySelector(".frc-select-prefix-wrapper")
   );
-};
+}; 
 
 export type FRCSelectProps = BaseSelectProps;
 
@@ -242,8 +242,8 @@ export const Select = forwardRef<SelectRef, FRCSelectProps>((props, ref) => {
       setOpenDropdown(open);
     },
     ...restProps,
-  };
-
+  } as SelectProps; 
+ 
   return (
     <div
       ref={nodes}
@@ -255,7 +255,7 @@ export const Select = forwardRef<SelectRef, FRCSelectProps>((props, ref) => {
       </AntdSelect>
     </div>
   );
-});
+}); 
 
 // normal
 Select.defaultProps = {

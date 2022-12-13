@@ -339,8 +339,10 @@ export interface TableLocaleProps extends TableLocale {
 }
 
 export interface FRCTableProps extends Omit<TableProps<RecordType>, "columns"> {
+  /** 翻页时*/
+  isPage?: boolean;
   /** 翻页时，删除的数据数组长度 */
-  pageTurnDeleteLength?: number;
+  pageOffsetNumber?: number;
   /** 翻页时，一页 data 条数（使用 “上一页功能” 时必传） */
   pageDataLength?: number;
   /** 初始化 table 滚动条位置（置顶） */
@@ -451,6 +453,7 @@ const EmptyNode = (props: { height: number | string }) => {
 let scrollPosition = 0;
 export const Table: FC<FRCTableProps> = (props) => {
   const {
+    isPage,
     animeRowKey,
     className,
     height,
@@ -479,7 +482,7 @@ export const Table: FC<FRCTableProps> = (props) => {
     onRowSize,
     scrollInit,
     pageDataLength,
-    pageTurnDeleteLength,
+    pageOffsetNumber,
     ...restProps
   } = props;
 
@@ -502,7 +505,6 @@ export const Table: FC<FRCTableProps> = (props) => {
   const [virtualData, setVirtualData] = useState<any[]>([]);
   const [fixedYScroll, setFixedYScroll] = useState<boolean>(false);
   const [showXScroll, setShowXScroll] = useState<boolean>(true);
-  const isScrollPrvePage = useRef<boolean>(false);
 
   const classes = classNames("frc-table", className, {
     [`frc-row-bg-type-${rowBgType}`]: rowBgType,
@@ -610,18 +612,28 @@ export const Table: FC<FRCTableProps> = (props) => {
 
   useEffect(() => {
     const tableNode = ref.current.querySelector(".ant-table-body-box");
+
+    const scrollMoveBox = scrollMove(false)
+
     if (initScroll) {
       tableNode.scrollTop = 0;
       scrollPosition = 0;
       setInitScroll(false);
     } else {
-      tableNode.addEventListener("scroll", scrollMove);
+
+      tableNode.addEventListener("scroll", scrollMoveBox);
     }
 
     return () => {
-      tableNode.removeEventListener("scroll", scrollMove);
+      tableNode.removeEventListener("scroll", scrollMoveBox);
     };
-  }, [initScroll, initData]);
+  }, [initScroll, initData, isPage]);
+
+  useEffect(() => {
+    if (!isPage) {
+      scrollMove(true)();
+    }
+  }, [isPage]); // 翻页后 -> 更新虚拟滚动的滚动条位置(！！！根据 pageTurnNumber 的值 -> 进行位置更新)
 
   useEffect(() => {
     if (expandable?.expandedRowKeys) {
@@ -698,11 +710,10 @@ export const Table: FC<FRCTableProps> = (props) => {
     }
   }; // 计算 empty 高度
 
-  const scrollMove = () => {
+  const scrollMove = (pass?: boolean) => () => {
     const tableNode = ref.current.querySelector(".ant-table-body-box");
     const rowHeight = size === "small" ? 24 : size === "middle" ? 32 : 48; // 每行高度
     const innerNodeHeight = initData.length * rowHeight;
-    
 
     scrollPosition = controlScrollSpeed(
       tableNode,
@@ -710,7 +721,9 @@ export const Table: FC<FRCTableProps> = (props) => {
       innerNodeHeight,
       onScrollPrvePage,
       onScrollNextPage,
-      isScrollPrvePage,
+      pageOffsetNumber,
+      isPage,
+      pass
     );
 
   }; // 初始化滚动速度控制
@@ -981,18 +994,23 @@ export const Table: FC<FRCTableProps> = (props) => {
 
       let columnProps: any = {};
       const { children, className } = column;
+      let classes = className;
 
       if (children) {
+        classes += ' frc-col-has-child';
+
         columnProps = {
           ...columnProps,
-          className: `${className || ""} frc-col-has-child`,
+          className: classes,
         };
       }
 
       if (index === columnsLength - 1) {
+        classes += ' frc-table-cell-last';
+
         columnProps = {
           ...columnProps,
-          className: `${columnProps?.className || ""} frc-table-cell-last`,
+          className: classes,
         };
 
         if (children) {

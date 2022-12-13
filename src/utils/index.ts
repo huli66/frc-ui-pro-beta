@@ -34,47 +34,27 @@ export function controlScrollSpeed(
   innerNodeHeight?: number,
   prvePageCallBack?: () => void,
   nextPageCallBack?: () => void,
-  isScrollPrvePage?: any,
-  // init?: boolean
+  pageOffsetNumber?: number,
+  isPage?: boolean,
+  pass?: boolean,
 ) {
 
-  // if (innerNodeHeight) {
-  //   console.log(
-  //     'save',
-  //     node.scrollTop,
-  //     node.clientHeight + node.scrollTop,
-  //     innerNodeHeight
-  //   );
-  // }
-
-  let pageTurnOffSet: any = 0;
-
   // 向上
-  if (node.scrollTop < scrollPosition) {
+  if (node.scrollTop < scrollPosition && !isPage) {
     if (innerNodeHeight && node.scrollTop <= innerNodeHeight * 0.2) {
-      if (prvePageCallBack) {
-        pageTurnOffSet = prvePageCallBack();
-      }
-
-      if (pageTurnOffSet) {
-        node.scrollTop += pageTurnOffSet * 24 - node.clientHeight;
-      }
-
-      isScrollPrvePage.current = true;
+      prvePageCallBack && prvePageCallBack();
     }
   }
 
   // 向下
-  if (node.scrollTop > scrollPosition) {
-    if (innerNodeHeight && node.clientHeight + node.scrollTop >= innerNodeHeight * 0.8) {
-      if (nextPageCallBack) {
-        pageTurnOffSet = nextPageCallBack();
-      }
-
-      if (pageTurnOffSet) {
-        node.scrollTop -= pageTurnOffSet * 24;
-      }
+  if ((node.scrollTop > scrollPosition && !isPage)) {
+    if (innerNodeHeight && (node.clientHeight + node.scrollTop >= innerNodeHeight * 0.8)) {
+      nextPageCallBack && nextPageCallBack();
     }
+  }
+
+  if (pass && pageOffsetNumber) {
+    node.scrollTop += pageOffsetNumber * 24;
   }
 
   return node.scrollTop;
