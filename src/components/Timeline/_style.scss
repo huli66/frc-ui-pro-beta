@@ -1,0 +1,55 @@
+.frc-timeline {
+    color: #FFEBC8 !important;
+    &-small &-item .ant-timeline-item-content {
+        font-size: 16px !important;
+        line-height: 24px !important;
+    }
+    &-medium &-item .ant-timeline-item-content {
+        font-size: 18px !important;
+        line-height: 28px !important;
+    }
+    &-large &-item .ant-timeline-item-content {
+        font-size: 20px !important;
+        line-height: 32px !important;
+    }
+    &-item {
+        font-size: 16px !important;
+        line-height: 24px !important;
+        .ant-timeline-item-label + .ant-timeline-item-tail {
+            left: calc(50% + 2px) !important;
+        }
+        .ant-timeline-item-tail {
+            left: 6px;
+            border-color: $basic-btn;
+        }
+        .ant-timeline-item-head {
+            width: 14px;
+            height: 14px;
+            background-color: $basic-btn;
+            border: 5px solid $basic-plate !important;
+            &::after {
+                content: '';
+                position: absolute;
+                top: -6px;
+                left: -6px;
+                width: 16px;
+                height: 16px;
+                border: 2px solid $basic-btn !important;
+                border-radius: 50px;
+            }
+            &-custom {
+                font-size: 16px;
+                margin-left: 3px;
+            }
+        }
+    }
+    .ant-timeline-item-last .ant-timeline-item-tail {
+        border-left: 2px dotted $basic-btn !important;
+    }
+    .frc-majorItem {
+        color: #F9C152;
+        .ant-timeline-item-head {
+            background-color: #F9C152;
+        }
+    }
+}

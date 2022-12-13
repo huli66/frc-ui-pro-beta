@@ -31,6 +31,7 @@ export { default as TreeSelect } from "./components/TreeSelect";
 export { default as Drawer} from './components/Drawer';
 export { default as Collapse} from './components/Collapse';
 export { default as Tree} from './components/Tree';
+export { default as Timeline} from './components/Timeline';
 
 // 业务模块
 export { default as InputSelect } from "./components/_BusinessCompositeModule/InputSelect";
