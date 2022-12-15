@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -16,7 +16,8 @@ import {
 } from "@storybook/addon-docs";
 
 import Timeline, {FRCTimelineProps} from "./index";
-import { Radio } from "../..";
+import { Radio, Button } from "../..";
+import { isEqual, cloneDeep } from "lodash";
 const {Item} = Timeline;
 // ----------------------------------------------------------------
 
@@ -167,3 +168,120 @@ export const _ASizeComponent = () => {
   };
   
   // ----------------------------------------------------------------
+
+  export const _AKeyFrameComponent = () => {
+    const baseList: any = [
+      {label: '14:39', text: '这是一个描述性的消息。'}, 
+      {label: '13:27', text: '这是一个描述性的消息。'}, 
+      {label: '12:16', text: '这是一个描述性的消息。'},
+    ]
+
+    // 模拟后端数据
+    const [axiosList, setAxiosList] = useState(baseList)  
+    // 模拟新数据推送
+    const handleList = () => {
+      const label = new Date().getMinutes() + ':' + new Date().getSeconds()
+      setAxiosList([{label, text: '这是一个描述性的消息。'}, ...axiosList])
+    }
+    
+    return (
+      <div style={{background: '#172422 ', padding: 16}}>
+        <Button onClick={() => handleList()}>点我加一条数据</Button>
+        <Timeline mode="left">
+            {axiosList.map((e: any) => {
+              return <Item label={e.label} key={e.label+ Math.random()}>{e.text}</Item>
+            })}
+        </Timeline>
+      </div>
+    )
+  };
+  
+  _AKeyFrameComponent.storyName = "数据刷新动效";
+  _AKeyFrameComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+  };
+  
+  // ----------------------------------------------------------------
+
+  // export const _ANewsLetterComponent = () => {
+  //   const baseList: any = [
+  //     {label: '14:39', text: '这是一个描述性的消息。'}, 
+  //     {label: '13:27', text: '这是一个描述性的消息。'}, 
+  //     {label: '12:16', text: '这是一个描述性的消息。'},
+  //   ]
+
+  //   // 模拟后端数据
+  //   const [axiosList, setAxiosList] = useState(baseList)  
+  //   // 渲染的数据
+  //   const [myList, setMyList] = useState<any>(axiosList || []) 
+  //   // 模拟新数据推送
+  //   const handleList = () => {
+  //     const label = new Date().getMinutes() + ':' + new Date().getSeconds()
+  //     setAxiosList([{label, text: '这是一个描述性的消息。'}, ...axiosList])
+  //   }
+
+  //   useEffect(() => {
+  //     if (axiosList && !isEqual(axiosList, myList)) {
+  //       // console.log(document);
+        
+  //       setMyList(axiosList)
+  //     }
+  //   }, [axiosList])
+
+  //   // useEffect(() => {
+  //   //   console.log('myList', myList);
+  //   // }, [myList])
+    
+  //   return (
+  //     <div style={{background: '#172422 ', padding: 16}}>
+  //       <Button onClick={() => handleList()}>点我加一条数据</Button>
+  //       <div style={{height: 200, overflow: "hidden auto"}}>
+  //         <Timeline mode="left">
+  //           {myList.map((e: any) => {
+  //             return <Item label={e.label} key={e.label + Math.random()} showAction={e?.showAction}>{e.text}</Item>
+  //           })}
+  //         </Timeline>
+  //       </div>
+  //       <div style={{textAlign: 'center', color: "pink"}}>Timerline类似标签,不方便在内部处理数据,此demo暴露出一个  参数来加载动画,需要前端进行处理</div>
+  //     </div>
+  //   )
+  // };
+  
+  // _ANewsLetterComponent.storyName = "新数据提醒";
+  // _ANewsLetterComponent.parameters = {
+  //   controls: { hideNoControlsWarning: true },
+  // };
+  
+  // ----------------------------------------------------------------
+
+  // export const _AKeyFrameComponent = () => {
+  //   const baseList: any = [
+  //     {label: '14:39', text: '这是一个描述性的消息。'}, 
+  //     {label: '13:27', text: '这是一个描述性的消息。'}, 
+  //     {label: '12:16', text: '这是一个描述性的消息。'},
+  //   ]
+
+  //   // 模拟后端数据
+  //   const [axiosList, setAxiosList] = useState(baseList)  
+  //   // 模拟新数据推送
+  //   const handleList = () => {
+  //     const label = new Date().getMinutes() + ':' + new Date().getSeconds()
+  //     setAxiosList([{label, text: '这是一个描述性的消息。'}, ...axiosList])
+  //   }
+    
+  //   return (
+  //     <div style={{background: '#172422 ', padding: 16}}>
+  //       <Button onClick={() => handleList()}>点我加一条数据</Button>
+  //       <Timeline mode="left">
+  //           {axiosList.map((e: any) => {
+  //             return <Item label={e.label} key={e.label+ Math.random()}>{e.text}</Item>
+  //           })}
+  //       </Timeline>
+  //     </div>
+  //   )
+  // };
+  
+  // _AKeyFrameComponent.storyName = "test";
+  // _AKeyFrameComponent.parameters = {
+  //   controls: { hideNoControlsWarning: true },
+  // };
