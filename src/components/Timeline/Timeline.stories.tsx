@@ -12,12 +12,11 @@ import {
   Stories,
   Heading,
   Subheading,
-  Source
 } from "@storybook/addon-docs";
 
 import Timeline, {FRCTimelineProps} from "./index";
 import { Radio, Button } from "../..";
-import { isEqual, cloneDeep } from "lodash";
+import moment from "moment";
 const {Item} = Timeline;
 // ----------------------------------------------------------------
 
@@ -170,26 +169,38 @@ export const _ASizeComponent = () => {
   // ----------------------------------------------------------------
 
   export const _AKeyFrameComponent = () => {
-    const baseList: any = [
-      {label: '14:39', text: '这是一个描述性的消息。'}, 
-      {label: '13:27', text: '这是一个描述性的消息。'}, 
-      {label: '12:16', text: '这是一个描述性的消息。'},
-    ]
-
+    interface DataItem {
+      id:number;
+      label: string;
+      text: string;
+      showAction?: boolean;
+    }
     // 模拟后端数据
-    const [axiosList, setAxiosList] = useState(baseList)  
+    const [axiosList, setAxiosList] = useState<DataItem[]>([
+      {id: 2, label: '14:39', text: '这是一个描述性的消息。'}, 
+      {id: 1, label: '13:27', text: '这是一个描述性的消息。'}, 
+      {id: 0, label: '12:16', text: '这是一个描述性的消息。'},
+    ])  
     // 模拟新数据推送
     const handleList = () => {
-      const label = new Date().getMinutes() + ':' + new Date().getSeconds()
-      setAxiosList([{label, text: '这是一个描述性的消息。'}, ...axiosList])
+      
+      setAxiosList(pre => [
+        {
+          id:pre.length,
+          label:moment().format('HH:mm'),
+          text: '这是一个描述性的消息。',
+          showAction:true
+        },
+        ...pre
+      ])
     }
     
     return (
       <div style={{background: '#172422 ', padding: 16}}>
         <Button onClick={() => handleList()}>点我加一条数据</Button>
         <Timeline mode="left">
-            {axiosList.map((e: any) => {
-              return <Item label={e.label} key={e.label+ Math.random()}>{e.text}</Item>
+            {axiosList.map(({label,text,showAction,id}) => {
+              return <Item label={label} key={`action-${id}`}  showAction={showAction}>{text}</Item>
             })}
         </Timeline>
       </div>

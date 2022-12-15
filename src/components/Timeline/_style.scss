@@ -39,7 +39,7 @@
             top: 22px;
             height: 100%;
             left: 6px;
-            border-color: $basic-btn;
+            border-color: $part-plate;
         }
         .ant-timeline-item-head {
             z-index: 1;
@@ -54,7 +54,7 @@
                 left: -6px;
                 width: 16px;
                 height: 16px;
-                border: 2px solid $basic-btn !important;
+                border: 2px solid $part-plate;
                 border-radius: 50px;
             }
             &-custom {

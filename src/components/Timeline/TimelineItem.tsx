@@ -25,8 +25,8 @@ export const Item: FC<FRCTimeLineItemProps> = (props) => {
     } = props;
 
     const classes = classNames('frc-timeline-item', className, {
-      [`frc-majorItem`]: major,
-      [`frc-item-animation`]: showAction === true,
+      'frc-majorItem': major,
+      'frc-item-animation': showAction,
     })
 
     const options = {
