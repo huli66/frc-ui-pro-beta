@@ -12,18 +12,12 @@ export interface FRCTimelineProps extends TimelineProps{
   reverse?: boolean;
   /** 消息字号, (注：label不跟随size变化) */
   size?: 'small' | 'medium' | 'large';
-  /** 新数据提醒 */
-  newWarn?: boolean;
-  /** 新数据提醒文本 */
-  newWarnText?: string | ReactNode;
 }
 
 export const Timeline: FC<FRCTimelineProps> = (props) => {
   const {
     className,
     size,
-    newWarn,
-    newWarnText,
     ...restProps
   } = props;
 
@@ -44,9 +38,7 @@ export const Timeline: FC<FRCTimelineProps> = (props) => {
 
 // default
 Timeline.defaultProps = {
-  size: 'small',
-  newWarn: true,
-  newWarnText: '出现新快讯，点击刷新'
+  size: 'small'
 };
 
 export default Timeline;

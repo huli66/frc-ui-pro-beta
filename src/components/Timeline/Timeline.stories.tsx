@@ -27,6 +27,8 @@ const ImportComponent = () => {
 import { Timeline } from 'frc-ui-pro';
 
 const { Item } = Timeline;
+
+Timeline内部不进行数据处理,数据刷新动效及新数据提醒需在前端完成,参考Demo
 ~~~
 `;
 
@@ -170,7 +172,7 @@ export const _ASizeComponent = () => {
 
   export const _AKeyFrameComponent = () => {
     interface DataItem {
-      id:number;
+      id: number;
       label: string;
       text: string;
       showAction?: boolean;
@@ -183,13 +185,12 @@ export const _ASizeComponent = () => {
     ])  
     // 模拟新数据推送
     const handleList = () => {
-      
       setAxiosList(pre => [
         {
-          id:pre.length,
-          label:moment().format('HH:mm'),
+          id: pre.length,
+          label: moment().format('HH:mm'),
           text: '这是一个描述性的消息。',
-          showAction:true
+          showAction: true
         },
         ...pre
       ])
@@ -214,85 +215,88 @@ export const _ASizeComponent = () => {
   
   // ----------------------------------------------------------------
 
-  // export const _ANewsLetterComponent = () => {
-  //   const baseList: any = [
-  //     {label: '14:39', text: '这是一个描述性的消息。'}, 
-  //     {label: '13:27', text: '这是一个描述性的消息。'}, 
-  //     {label: '12:16', text: '这是一个描述性的消息。'},
-  //   ]
+  export const _ANewsLetterComponent = () => {
+    interface DataItem {
+      id: number;
+      label: string;
+      text: string;
+      showAction?: boolean;
+    }
+    // 模拟后端数据
+    const [axiosList, setAxiosList] = useState<DataItem[]>([
+      {id: 4, label: '14:39', text: '这是一个描述性的消息。'}, 
+      {id: 3, label: '13:27', text: '这是一个描述性的消息。'}, 
+      {id: 2, label: '14:39', text: '这是一个描述性的消息。'}, 
+      {id: 1, label: '13:27', text: '这是一个描述性的消息。'}, 
+      {id: 0, label: '12:16', text: '这是一个描述性的消息。'},
+    ])  
+    // 真正渲染数据
+    const [showList, setShowList] = useState(axiosList)
+    const [showWarn, setShowWarn] = useState<boolean>(false)
+    // 模拟新数据推送
+    const handleList = () => {
+      setAxiosList(pre => [
+        {
+          id: pre.length,
+          label: moment().format('HH:mm'),
+          text: '这是一个描述性的消息。',
+          showAction: true
+        },
+        ...pre
+      ])
+    }
+    // 数据推送时判断是否加载数据提醒
+    useEffect(() => {
+      if (axiosList) {
+        if (document.querySelector('.justDemo')!.scrollTop && document.querySelector('.justDemo')!.scrollTop > 0) {
+          setShowWarn(true);
+        } else {
+          !showWarn && setShowList(axiosList)
+        }
+      }
+    }, [axiosList])
 
-  //   // 模拟后端数据
-  //   const [axiosList, setAxiosList] = useState(baseList)  
-  //   // 渲染的数据
-  //   const [myList, setMyList] = useState<any>(axiosList || []) 
-  //   // 模拟新数据推送
-  //   const handleList = () => {
-  //     const label = new Date().getMinutes() + ':' + new Date().getSeconds()
-  //     setAxiosList([{label, text: '这是一个描述性的消息。'}, ...axiosList])
-  //   }
+    const scrollTop = () => {
+      setShowList(axiosList)
+      setShowWarn(false)
+      document.querySelector('.justDemo')!.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
+    }
 
-  //   useEffect(() => {
-  //     if (axiosList && !isEqual(axiosList, myList)) {
-  //       // console.log(document);
-        
-  //       setMyList(axiosList)
-  //     }
-  //   }, [axiosList])
+    const linerBox = {
+      position: 'absolute' as 'absolute', 
+      top: 0, 
+      left: 0, 
+      height: 24, 
+      width: '100%', 
+      background: 'rgba(116,76,33,.8)', 
+      color: '#FFEBC8',
+      textAlign: 'center' as 'center',
+      zIndex: 2,
+      cursor: 'pointer'
+    }
 
-  //   // useEffect(() => {
-  //   //   console.log('myList', myList);
-  //   // }, [myList])
-    
-  //   return (
-  //     <div style={{background: '#172422 ', padding: 16}}>
-  //       <Button onClick={() => handleList()}>点我加一条数据</Button>
-  //       <div style={{height: 200, overflow: "hidden auto"}}>
-  //         <Timeline mode="left">
-  //           {myList.map((e: any) => {
-  //             return <Item label={e.label} key={e.label + Math.random()} showAction={e?.showAction}>{e.text}</Item>
-  //           })}
-  //         </Timeline>
-  //       </div>
-  //       <div style={{textAlign: 'center', color: "pink"}}>Timerline类似标签,不方便在内部处理数据,此demo暴露出一个  参数来加载动画,需要前端进行处理</div>
-  //     </div>
-  //   )
-  // };
+    return (
+      <div style={{background: '#172422', padding: 16, height: 280}}>
+        <Button onClick={() => handleList()}>点我加一条数据</Button>
+        <section style={{position: 'relative'}}>
+          {showWarn && <div style={linerBox} onClick={() => scrollTop()}>新的风暴已经出现,点击刷新</div>}
+          <div style={{height: 200, overflow: 'hidden auto'}} className='justDemo'>
+            <Timeline mode="left" >
+                {showList.map(({label,text,showAction,id}) => {
+                  return <Item label={label} key={`action-${id}`}  showAction={showAction}>{text}</Item>
+                })}
+            </Timeline>
+          </div>
+        </section>
+       
+      </div>
+    )
+  };
   
-  // _ANewsLetterComponent.storyName = "新数据提醒";
-  // _ANewsLetterComponent.parameters = {
-  //   controls: { hideNoControlsWarning: true },
-  // };
-  
-  // ----------------------------------------------------------------
-
-  // export const _AKeyFrameComponent = () => {
-  //   const baseList: any = [
-  //     {label: '14:39', text: '这是一个描述性的消息。'}, 
-  //     {label: '13:27', text: '这是一个描述性的消息。'}, 
-  //     {label: '12:16', text: '这是一个描述性的消息。'},
-  //   ]
-
-  //   // 模拟后端数据
-  //   const [axiosList, setAxiosList] = useState(baseList)  
-  //   // 模拟新数据推送
-  //   const handleList = () => {
-  //     const label = new Date().getMinutes() + ':' + new Date().getSeconds()
-  //     setAxiosList([{label, text: '这是一个描述性的消息。'}, ...axiosList])
-  //   }
-    
-  //   return (
-  //     <div style={{background: '#172422 ', padding: 16}}>
-  //       <Button onClick={() => handleList()}>点我加一条数据</Button>
-  //       <Timeline mode="left">
-  //           {axiosList.map((e: any) => {
-  //             return <Item label={e.label} key={e.label+ Math.random()}>{e.text}</Item>
-  //           })}
-  //       </Timeline>
-  //     </div>
-  //   )
-  // };
-  
-  // _AKeyFrameComponent.storyName = "test";
-  // _AKeyFrameComponent.parameters = {
-  //   controls: { hideNoControlsWarning: true },
-  // };
+  _ANewsLetterComponent.storyName = "新数据提醒";
+  _ANewsLetterComponent.parameters = {
+    controls: { hideNoControlsWarning: true },
+  };
