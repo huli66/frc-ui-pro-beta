@@ -1,0 +1,79 @@
+.frc-timeline.ant-timeline {
+    color: #FFEBC8;
+    .frc-timeline-item.ant-timeline-item {
+        padding: 15px 0 7px 0;
+        font-size: 16px;
+        line-height: 24px ;
+        .ant-timeline-item-label {
+            top: 8px;
+        }
+        .ant-timeline-item-label + .ant-timeline-item-tail {
+            left: calc(50% + 2px);
+        }
+        .ant-timeline-item-tail {
+            z-index: 1;
+            top: 22px;
+            height: 100%;
+            left: 6px;
+            border-color: $timeline-icon;
+        }
+        .ant-timeline-item-head {
+            z-index: 1;
+            width: 14px;
+            height: 14px;
+            background-color: $timeline-head;
+            border: 5px solid $basic-plate;
+            &::after {
+                content: '';
+                position: absolute;
+                top: -6px;
+                left: -6px;
+                width: 16px;
+                height: 16px;
+                border: 2px solid $timeline-icon;
+                border-radius: 50px;
+            }
+            &-custom {
+                font-size: 16px;
+                margin-left: 3px;
+            }
+        }
+        &.ant-timeline-item-last .ant-timeline-item-tail {
+            height: calc(100% - 24px);
+            border-left: 2px dotted $timeline-head;
+        }
+        &.frc-majorItem {
+            color: $words-high-light;
+            .ant-timeline-item-head {
+                background-color: $words-high-light;
+            }
+        }
+    }
+    &.frc-timeline-small .frc-timeline-item .ant-timeline-item-content {
+        font-size: 16px;
+        line-height: 24px;
+    }
+    &.frc-timeline-medium .frc-timeline-item .ant-timeline-item-content {
+        font-size: 18px;
+        line-height: 28px;
+    }
+    &.frc-timeline-large .frc-timeline-item .ant-timeline-item-content{
+        font-size: 20px;
+        line-height: 32px;
+    }
+    .ant-timeline-item-pending .ant-timeline-item-head-blue {
+        color: $tittle-word;
+
+    }
+    .frc-item-animation {
+        animation: special 3s;
+    }
+    @keyframes special {
+        0% {
+          background: rgba(116,76,33, 1);
+        }
+        100% {
+          background: rgba(116,76,33, 0);
+        }
+    }
+}
