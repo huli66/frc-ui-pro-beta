@@ -31,6 +31,8 @@ interface BaseCalendarProps extends CalendarProps<DateType> {
   headerRender?: HeaderRender;
   /** 卡片模式 */
   isCard?: boolean;
+  // /** 节假日日期 */
+  // holidayData?: any;
   /** 展示日期 */
   value?: DateType;
   /** 默认展示的日期 */

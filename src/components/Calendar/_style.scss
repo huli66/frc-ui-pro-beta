@@ -208,6 +208,9 @@
           z-index: 5;
           top: -24px;
           left: 0;
+          .ant-picker-calendar-date-content {
+            height: max-content;
+          }
         }
         .ant-picker-calendar-date {
           display: flex;
