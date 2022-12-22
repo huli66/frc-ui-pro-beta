@@ -4545,6 +4545,7 @@ export const _AS_ScrollPageComponent = () => {
   const direction = useRef<'up' | 'down' | null>(null);
   const [isPage, setIsPage] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
+  const [activeKey, setActiveKey] = useState<string>('');
 
   const concatData: DataType[] = Array.from({ length: 100 }, (_, key) => ({
     key: tableData.length + key,
@@ -4671,12 +4672,21 @@ export const _AS_ScrollPageComponent = () => {
   return (
     <>
       <Table
+        rowActiveKeyName="name"
+        rowActive={activeKey}
         columns={columns}
         dataSource={tableData || []}
         isPage={isPage}
         pageOffsetNumber={pageOffsetNumber.current}
         onScrollPrvePage={upPage}
         onScrollNextPage={downPage}
+        onRow={(r) => {
+          return {
+            onClick: () => {
+              setActiveKey(r.name)
+            }
+          }
+        }}
       />
     </>
   );

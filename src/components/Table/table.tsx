@@ -339,6 +339,8 @@ export interface TableLocaleProps extends TableLocale {
 }
 
 export interface FRCTableProps extends Omit<TableProps<RecordType>, "columns"> {
+  /** 激活 item 的 key 名称*/
+  rowActiveKeyName?: string;
   /** 翻页时*/
   isPage?: boolean;
   /** 翻页时，删除的数据数组长度 */
@@ -453,6 +455,7 @@ const EmptyNode = (props: { height: number | string }) => {
 let scrollPosition = 0;
 export const Table: FC<FRCTableProps> = (props) => {
   const {
+    rowActiveKeyName,
     isPage,
     animeRowKey,
     className,
@@ -1105,7 +1108,7 @@ export const Table: FC<FRCTableProps> = (props) => {
       }
     }
     // active row className
-    if (rowActiveInner && record?.key && rowActiveInner === record.key) {
+    if (rowActiveInner && rowActiveKeyName && record[rowActiveKeyName] && rowActiveInner === record[rowActiveKeyName]) {
       rowClasses += " frc-table-row-active";
     }
     // default row className
