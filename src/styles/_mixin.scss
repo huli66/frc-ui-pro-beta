@@ -820,34 +820,34 @@
 @mixin slider-ui-handle($size, $size-handle, $size-border) {
   height: $size;
   width: $size;
-  top: calc(50% - 0.5 * $size);
+  top: calc(50% - 0.5 * #{$size});
   border-width: $size-border;
   &::before {
     height: $size-handle;
     width: $size-handle;
-    top: calc(50% - 0.5 * $size-handle);
-    left: calc(50% - 0.5 * $size-handle);
+    top: calc(50% - 0.5 * #{$size-handle});
+    left: calc(50% - 0.5 * #{$size-handle});
   }
 }
 
 @mixin slider-ui-handle-vertical($size, $size-handle, $size-border) {
   height: $size;
   width: $size;
-  left: calc(50% - 0.5 * $size);
+  left: calc(50% - 0.5 * #{$size});
   top: auto;
   border-width: $size-border;
   &::before {
     height: $size-handle;
     width: $size-handle;
-    top: calc(50% - 0.5 * $size-handle);
-    left: calc(50% - 0.5 * $size-handle);
+    top: calc(50% - 0.5 * #{$size-handle});
+    left: calc(50% - 0.5 * #{$size-handle});
   }
 }
 
 @mixin slider-ui-dot($size, $size-handle, $size-border) {
   height: $size;
   width: $size;
-  top: calc(50% - 0.5 * $size);
+  top: calc(50% - 0.5 * #{$size});
   border-width: $size-border;
   &::before {
     content: none;
@@ -857,7 +857,7 @@
 @mixin slider-ui-dot-vertical($size, $size-handle, $size-border) {
   height: $size;
   width: $size;
-  left: calc(50% - 0.5 * $size);
+  left: calc(50% - 0.5 * #{$size});
   top: auto;
   border-width: $size-border;
   &::before {
@@ -867,14 +867,14 @@
 
 @mixin slider-ui-rail-track($height) {
   height: $height;
-  top: calc(50% - 0.5 * $height);
+  top: calc(50% - 0.5 * #{$height});
 }
 
 @mixin slider-ui-rail-track-vertical($width) {
   width: $width;
   height: 100%;
   top: auto;
-  left: calc(50% - 0.5 * $width);
+  left: calc(50% - 0.5 * #{$width});
 }
 // ----------------------------------------------------------------
 
