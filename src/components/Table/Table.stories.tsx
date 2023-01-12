@@ -4452,513 +4452,513 @@ export default {
 
 // // ----------------------------------------------------------------
 
-export const _AS_ScrollPageComponent = () => {
-  interface DataType {
-    key: number;
-    name: string;
-    age: string;
-    address: string;
-  }
-
-  const columns: ColumnsTypeProps[] = [
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-      width: 300,
-    },
-    {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
-      width: 300,
-    },
-    {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
-      width: 500,
-    },
-  ];
-
-  const data: any[] = Array.from({ length: 100 }, (_, key) => ({
-    key: key,
-    name: `name-${key}`,
-    age: `age-${key}`,
-    address: `address-${key}`,
-    time1: Math.random(),
-    time2: Math.random(),
-    time3: Math.random(),
-    time4: Math.random(),
-    time5: Math.random(),
-    time6: Math.random(),
-    time7: Math.random(),
-    time8: Math.random(),
-    time9: Math.random(),
-    time10: Math.random(),
-    time11: Math.random(),
-    time12: Math.random(),
-    time13: Math.random(),
-    time14: Math.random(),
-    time15: Math.random(),
-    time16: Math.random(),
-    time17: Math.random(),
-    time18: Math.random(),
-    time19: Math.random(),
-    time20: Math.random(),
-    time21: Math.random(),
-    time22: Math.random(),
-    time23: Math.random(),
-    time24: Math.random(),
-    time25: Math.random(),
-    time26: Math.random(),
-    time27: Math.random(),
-    time28: Math.random(),
-    time29: Math.random(),
-    time30: Math.random(),
-    time31: Math.random(),
-    time32: Math.random(),
-    time33: Math.random(),
-    time34: Math.random(),
-    time35: Math.random(),
-    time36: Math.random(),
-    time37: Math.random(),
-    time38: Math.random(),
-    time39: Math.random(),
-    time40: Math.random(),
-    time41: Math.random(),
-    time42: Math.random(),
-    time43: Math.random(),
-    time44: Math.random(),
-    time45: Math.random(),
-    time46: Math.random(),
-    time47: Math.random(),
-    time48: Math.random(),
-    time49: Math.random(),
-    time50: Math.random(),
-  }));
-
-  const [tableData, setTableData] = useState<any[]>(data);
-
-  // 翻页必备
-  const pageOffsetNumber = useRef<number>(0);
-  const direction = useRef<'up' | 'down' | null>(null);
-  const [isPage, setIsPage] = useState<boolean>(false);
-  const [page, setPage] = useState<number>(1);
-  const [activeKey, setActiveKey] = useState<string>('');
-
-  const concatData: DataType[] = Array.from({ length: 100 }, (_, key) => ({
-    key: tableData.length + key,
-    name: `name-${key} nextPage-${tableData.length + key}`,
-    age: `age-${key} nextPage-${tableData.length + key}`,
-    address: `address-${key} nextPage-${tableData.length + key}`,
-    time1: Math.random(),
-    time2: Math.random(),
-    time3: Math.random(),
-    time4: Math.random(),
-    time5: Math.random(),
-    time6: Math.random(),
-    time7: Math.random(),
-    time8: Math.random(),
-    time9: Math.random(),
-    time10: Math.random(),
-    time11: Math.random(),
-    time12: Math.random(),
-    time13: Math.random(),
-    time14: Math.random(),
-    time15: Math.random(),
-    time16: Math.random(),
-    time17: Math.random(),
-    time18: Math.random(),
-    time19: Math.random(),
-    time20: Math.random(),
-    time21: Math.random(),
-    time22: Math.random(),
-    time23: Math.random(),
-    time24: Math.random(),
-    time25: Math.random(),
-    time26: Math.random(),
-    time27: Math.random(),
-    time28: Math.random(),
-    time29: Math.random(),
-    time30: Math.random(),
-    time31: Math.random(),
-    time32: Math.random(),
-    time33: Math.random(),
-    time34: Math.random(),
-    time35: Math.random(),
-    time36: Math.random(),
-    time37: Math.random(),
-    time38: Math.random(),
-    time39: Math.random(),
-    time40: Math.random(),
-    time41: Math.random(),
-    time42: Math.random(),
-    time43: Math.random(),
-    time44: Math.random(),
-    time45: Math.random(),
-    time46: Math.random(),
-    time47: Math.random(),
-    time48: Math.random(),
-    time49: Math.random(),
-    time50: Math.random(),
-  }));
-
-  useEffect(() => {
-    console.log('data length:', tableData.length, '  page number:', page);
-  }, [tableData])
-
-  const onScrollPrvePage = (page: number) => {
-    // console.log("onScrollPrvePage");
-    const oldData = [...tableData];
-
-    if (page >= 2) {
-      const newOldData = [...oldData].slice(0, oldData.length - 100);
-      pageOffsetNumber.current = 100;
-      setTableData([...concatData, ...newOldData]);
-    } else if (page === 1) {
-      const newOldData = [...oldData].slice(0, oldData.length - 100);
-      pageOffsetNumber.current = 0;
-      setTableData([...newOldData]);
-    }
-  }; // 向上翻页，拼接数据
-
-  const onScrollNextPage = (page: number) => {
-    // console.log("onScrollNextPage: pageNumber ---------------->", pageNumber);
-    const oldData = [...tableData];
-
-    if (page >= 3) {
-      pageOffsetNumber.current = -100;
-      const newOldData = [...oldData].slice(100);
-      setTableData([...newOldData, ...concatData]);
-    } else if (page === 2) {
-      pageOffsetNumber.current = 0;
-      setTableData([...oldData, ...concatData]);
-    }
-  }; // 向下翻页，拼接数据
-
-  useEffect(() => {
-    if (direction.current === 'up') {
-      setTimeout(() => {
-        onScrollPrvePage(page)
-        setIsPage(false);
-      }, 1000) // 向上翻页 模拟接口延迟  
-    }
-
-    if (direction.current === 'down') {
-      setTimeout(() => {
-        onScrollNextPage(page)
-        setIsPage(false);
-      }, 1000) // 向下翻页 模拟接口延迟  
-    }
-
-    direction.current = null;
-  }, [page])
-
-  const upPage = () => {
-    if (page > 1) {
-      direction.current = 'up';
-      setIsPage(true);
-      setPage(page - 1)
-    };
-  }
-
-  const downPage = () => {
-    direction.current = 'down';
-    setIsPage(true);
-    setPage(page + 1);
-  }
-
-  return (
-    <>
-      <Table
-        rowActiveKeyName="name"
-        rowActive={activeKey}
-        columns={columns}
-        dataSource={tableData || []}
-        isPage={isPage}
-        pageOffsetNumber={pageOffsetNumber.current}
-        onScrollPrvePage={upPage}
-        onScrollNextPage={downPage}
-        onRow={(r) => {
-          return {
-            onClick: () => {
-              setActiveKey(r.name)
-            }
-          }
-        }}
-      />
-    </>
-  );
-};
-
-_AS_ScrollPageComponent.storyName = "滚动翻页(20% & 80%)";
-
-// // ----------------------------------------------------------------
-
-// export const _BL_MessageTipComponent = () => {
+// export const _AS_ScrollPageComponent = () => {
 //   interface DataType {
-//     key: string;
+//     key: number;
 //     name: string;
-//     age: number;
+//     age: string;
 //     address: string;
-//     description: string;
-//     animeKey?: string | number;
 //   }
-
-//   const [data, setData] = useState<any[]>([
-//     {
-//       key: "1",
-//       name: "John Brown123",
-//       age: 32,
-//       address: "New York No. 1 Lake Park123",
-//       description: "something else123",
-//     },
-//     {
-//       key: "2",
-//       name: "Jim Green",
-//       age: 42,
-//       address: "London No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "3",
-//       name: "Joe Black",
-//       age: 32,
-//       address: "Sidney No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "4",
-//       name: "John Brown",
-//       age: 32,
-//       address: "New York No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "5",
-//       name: "Jim Green",
-//       age: 42,
-//       address: "London No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "6",
-//       name: "Joe Black",
-//       age: 32,
-//       address: "Sidney No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "7",
-//       name: "John Brown",
-//       age: 32,
-//       address: "New York No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "8",
-//       name: "Jim Green",
-//       age: 42,
-//       address: "London No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "9",
-//       name: "Joe Black",
-//       age: 32,
-//       address: "Sidney No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "10",
-//       name: "John Brown",
-//       age: 32,
-//       address: "New York No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "11",
-//       name: "John Brown123",
-//       age: 32,
-//       address: "New York No. 1 Lake Park123",
-//       description: "something else123",
-//     },
-//     {
-//       key: "12",
-//       name: "Jim Green",
-//       age: 42,
-//       address: "London No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "13",
-//       name: "Joe Black",
-//       age: 32,
-//       address: "Sidney No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "14",
-//       name: "John Brown",
-//       age: 32,
-//       address: "New York No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "15",
-//       name: "Jim Green",
-//       age: 42,
-//       address: "London No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "16",
-//       name: "Joe Black",
-//       age: 32,
-//       address: "Sidney No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "17",
-//       name: "John Brown",
-//       age: 32,
-//       address: "New York No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "18",
-//       name: "Jim Green",
-//       age: 42,
-//       address: "London No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "19",
-//       name: "Joe Black",
-//       age: 32,
-//       address: "Sidney No. 1 Lake Park",
-//       description: "something else",
-//     },
-//     {
-//       key: "20",
-//       name: "John Brown",
-//       age: 32,
-//       address: "New York No. 1 Lake Park",
-//       description: "something else",
-//     },
-//   ]);
-//   const [activeRowKey, setActiveRowKey] = useState<string>();
-
-//   // useEffect(() => {
-//   //   // let time = Date.now();
-//   //   setData(
-//   //     data.map((item) => {
-//   //       return {
-//   //         ...item,
-//   //         // animeKey: time,
-//   //       };
-//   //     })
-//   //   );
-//   // }, []);
-
-//   // mock update data ---------------------------------------------
-
-//   useEffect(() => {
-//     setInterval(() => {
-//       setData((pre) => {
-//         const dataMock: DataType[] = [
-//           {
-//             key: pre.length + 1 + "",
-//             name: "新推送：" + (pre.length + 1),
-//             age: 42,
-//             address: "London No. 1 Lake Park",
-//             description: "something else",
-//             animeKey: Date.now(), // 用于动画
-//           },
-//         ];
-
-//         return [...dataMock].concat([...pre]);
-//       });
-//     }, 500);
-//   }, []);
-
-//   useEffect(() => {
-//     console.log("data", Date.now(), data);
-//   }, [data]);
-
-//   // --------------------------------------------------------------
 
 //   const columns: ColumnsTypeProps[] = [
 //     {
 //       title: "Name",
 //       dataIndex: "name",
 //       key: "name",
-//       fixed: "left",
-//       width: "300px",
-//       align: "center",
+//       width: 300,
 //     },
 //     {
 //       title: "Age",
 //       dataIndex: "age",
 //       key: "age",
-//       align: "center",
-//       width: "120px",
+//       width: 300,
 //     },
 //     {
 //       title: "Address",
 //       dataIndex: "address",
 //       key: "address",
-//       width: "400px",
-//       align: "center",
-//     },
-//     {
-//       title: "Description",
-//       key: "description",
-//       dataIndex: "description",
-//       width: "300px",
-//       fixed: "right",
-//       align: "center",
+//       width: 500,
 //     },
 //   ];
 
-//   // --------------------------------------------------------------
+//   const data: any[] = Array.from({ length: 100 }, (_, key) => ({
+//     key: key,
+//     name: `name-${key}`,
+//     age: `age-${key}`,
+//     address: `address-${key}`,
+//     time1: Math.random(),
+//     time2: Math.random(),
+//     time3: Math.random(),
+//     time4: Math.random(),
+//     time5: Math.random(),
+//     time6: Math.random(),
+//     time7: Math.random(),
+//     time8: Math.random(),
+//     time9: Math.random(),
+//     time10: Math.random(),
+//     time11: Math.random(),
+//     time12: Math.random(),
+//     time13: Math.random(),
+//     time14: Math.random(),
+//     time15: Math.random(),
+//     time16: Math.random(),
+//     time17: Math.random(),
+//     time18: Math.random(),
+//     time19: Math.random(),
+//     time20: Math.random(),
+//     time21: Math.random(),
+//     time22: Math.random(),
+//     time23: Math.random(),
+//     time24: Math.random(),
+//     time25: Math.random(),
+//     time26: Math.random(),
+//     time27: Math.random(),
+//     time28: Math.random(),
+//     time29: Math.random(),
+//     time30: Math.random(),
+//     time31: Math.random(),
+//     time32: Math.random(),
+//     time33: Math.random(),
+//     time34: Math.random(),
+//     time35: Math.random(),
+//     time36: Math.random(),
+//     time37: Math.random(),
+//     time38: Math.random(),
+//     time39: Math.random(),
+//     time40: Math.random(),
+//     time41: Math.random(),
+//     time42: Math.random(),
+//     time43: Math.random(),
+//     time44: Math.random(),
+//     time45: Math.random(),
+//     time46: Math.random(),
+//     time47: Math.random(),
+//     time48: Math.random(),
+//     time49: Math.random(),
+//     time50: Math.random(),
+//   }));
 
-//   const code = `
-//     // import code
-//     import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+//   const [tableData, setTableData] = useState<any[]>(data);
 
-//     // rowActiveFixedData 启动 “固定数据” 效果
-//     // rowActiveFixedTip 设置 “固定提示” 文案
-//     // rowActiveFirstGradient 启动 “数据” 渐变效果 (每次 data change, 都会触发)
-//     // animeRowKey 为 “数据” 渐变效果的 key。(!!!: 有推送时，处理 item 时自行添加 animeRowKey, 否则无效)
-//   `;
+//   // 翻页必备
+//   const pageOffsetNumber = useRef<number>(0);
+//   const direction = useRef<'up' | 'down' | null>(null);
+//   const [isPage, setIsPage] = useState<boolean>(false);
+//   const [page, setPage] = useState<number>(1);
+//   const [activeKey, setActiveKey] = useState<string>('');
 
-//   // --------------------------------------------------------------
+//   const concatData: DataType[] = Array.from({ length: 100 }, (_, key) => ({
+//     key: tableData.length + key,
+//     name: `name-${key} nextPage-${tableData.length + key}`,
+//     age: `age-${key} nextPage-${tableData.length + key}`,
+//     address: `address-${key} nextPage-${tableData.length + key}`,
+//     time1: Math.random(),
+//     time2: Math.random(),
+//     time3: Math.random(),
+//     time4: Math.random(),
+//     time5: Math.random(),
+//     time6: Math.random(),
+//     time7: Math.random(),
+//     time8: Math.random(),
+//     time9: Math.random(),
+//     time10: Math.random(),
+//     time11: Math.random(),
+//     time12: Math.random(),
+//     time13: Math.random(),
+//     time14: Math.random(),
+//     time15: Math.random(),
+//     time16: Math.random(),
+//     time17: Math.random(),
+//     time18: Math.random(),
+//     time19: Math.random(),
+//     time20: Math.random(),
+//     time21: Math.random(),
+//     time22: Math.random(),
+//     time23: Math.random(),
+//     time24: Math.random(),
+//     time25: Math.random(),
+//     time26: Math.random(),
+//     time27: Math.random(),
+//     time28: Math.random(),
+//     time29: Math.random(),
+//     time30: Math.random(),
+//     time31: Math.random(),
+//     time32: Math.random(),
+//     time33: Math.random(),
+//     time34: Math.random(),
+//     time35: Math.random(),
+//     time36: Math.random(),
+//     time37: Math.random(),
+//     time38: Math.random(),
+//     time39: Math.random(),
+//     time40: Math.random(),
+//     time41: Math.random(),
+//     time42: Math.random(),
+//     time43: Math.random(),
+//     time44: Math.random(),
+//     time45: Math.random(),
+//     time46: Math.random(),
+//     time47: Math.random(),
+//     time48: Math.random(),
+//     time49: Math.random(),
+//     time50: Math.random(),
+//   }));
+
+//   useEffect(() => {
+//     console.log('data length:', tableData.length, '  page number:', page);
+//   }, [tableData])
+
+//   const onScrollPrvePage = (page: number) => {
+//     // console.log("onScrollPrvePage");
+//     const oldData = [...tableData];
+
+//     if (page >= 2) {
+//       const newOldData = [...oldData].slice(0, oldData.length - 100);
+//       pageOffsetNumber.current = 100;
+//       setTableData([...concatData, ...newOldData]);
+//     } else if (page === 1) {
+//       const newOldData = [...oldData].slice(0, oldData.length - 100);
+//       pageOffsetNumber.current = 0;
+//       setTableData([...newOldData]);
+//     }
+//   }; // 向上翻页，拼接数据
+
+//   const onScrollNextPage = (page: number) => {
+//     // console.log("onScrollNextPage: pageNumber ---------------->", pageNumber);
+//     const oldData = [...tableData];
+
+//     if (page >= 3) {
+//       pageOffsetNumber.current = -100;
+//       const newOldData = [...oldData].slice(100);
+//       setTableData([...newOldData, ...concatData]);
+//     } else if (page === 2) {
+//       pageOffsetNumber.current = 0;
+//       setTableData([...oldData, ...concatData]);
+//     }
+//   }; // 向下翻页，拼接数据
+
+//   useEffect(() => {
+//     if (direction.current === 'up') {
+//       setTimeout(() => {
+//         onScrollPrvePage(page)
+//         setIsPage(false);
+//       }, 1000) // 向上翻页 模拟接口延迟  
+//     }
+
+//     if (direction.current === 'down') {
+//       setTimeout(() => {
+//         onScrollNextPage(page)
+//         setIsPage(false);
+//       }, 1000) // 向下翻页 模拟接口延迟  
+//     }
+
+//     direction.current = null;
+//   }, [page])
+
+//   const upPage = () => {
+//     if (page > 1) {
+//       direction.current = 'up';
+//       setIsPage(true);
+//       setPage(page - 1)
+//     };
+//   }
+
+//   const downPage = () => {
+//     direction.current = 'down';
+//     setIsPage(true);
+//     setPage(page + 1);
+//   }
 
 //   return (
 //     <>
-//       <ImportCode code={code} />
 //       <Table
-//         animeRowKey="animeKey"
+//         rowActiveKeyName="name"
+//         rowActive={activeKey}
 //         columns={columns}
-//         dataSource={data}
-//         rowActive={activeRowKey}
-//         rowActiveFixedData={true}
-//         rowActiveFixedTip={"有新消息"}
-//         rowActiveFirstGradient={true}
-//         onRow={(record) => {
+//         dataSource={tableData || []}
+//         isPage={isPage}
+//         pageOffsetNumber={pageOffsetNumber.current}
+//         onScrollPrvePage={upPage}
+//         onScrollNextPage={downPage}
+//         onRow={(r) => {
 //           return {
-//             onClick: (e) => {
-//               setActiveRowKey(record.key);
-//             },
-//           };
+//             onClick: () => {
+//               setActiveKey(r.name)
+//             }
+//           }
 //         }}
 //       />
 //     </>
 //   );
 // };
 
-// _BL_MessageTipComponent.storyName = "新消息提醒（常用于推送，defective）";
+// _AS_ScrollPageComponent.storyName = "滚动翻页(20% & 80%)";
 
-// // ----------------------------------------------------------------
+// ----------------------------------------------------------------
+
+export const _BL_MessageTipComponent = () => {
+  interface DataType {
+    key: string;
+    name: string;
+    age: number;
+    address: string;
+    description: string;
+    animeKey?: string | number;
+  }
+
+  const [data, setData] = useState<any[]>([
+    {
+      key: "1",
+      name: "John Brown123",
+      age: 32,
+      address: "New York No. 1 Lake Park123",
+      description: "something else123",
+    },
+    {
+      key: "2",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "3",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "4",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "5",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "6",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "7",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "8",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "9",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "10",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "11",
+      name: "John Brown123",
+      age: 32,
+      address: "New York No. 1 Lake Park123",
+      description: "something else123",
+    },
+    {
+      key: "12",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "13",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "14",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "15",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "16",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "17",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "18",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "19",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      description: "something else",
+    },
+    {
+      key: "20",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      description: "something else",
+    },
+  ]);
+  const [activeRowKey, setActiveRowKey] = useState<string>();
+
+  // useEffect(() => {
+  //   // let time = Date.now();
+  //   setData(
+  //     data.map((item) => {
+  //       return {
+  //         ...item,
+  //         // animeKey: time,
+  //       };
+  //     })
+  //   );
+  // }, []);
+
+  // mock update data ---------------------------------------------
+
+  useEffect(() => {
+    setInterval(() => {
+      setData((pre) => {
+        const dataMock: DataType[] = [
+          {
+            key: pre.length + 1 + "",
+            name: "新推送：" + (pre.length + 1),
+            age: 42,
+            address: "London No. 1 Lake Park",
+            description: "something else",
+            animeKey: Date.now(), // 用于动画
+          },
+        ];
+
+        return [...dataMock].concat([...pre]);
+      });
+    }, 500);
+  }, []);
+
+  useEffect(() => {
+    console.log("data", Date.now(), data);
+  }, [data]);
+
+  // --------------------------------------------------------------
+
+  const columns: ColumnsTypeProps[] = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      fixed: "left",
+      width: "300px",
+      align: "center",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
+      align: "center",
+      width: "120px",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+      width: "400px",
+      align: "center",
+    },
+    {
+      title: "Description",
+      key: "description",
+      dataIndex: "description",
+      width: "300px",
+      fixed: "right",
+      align: "center",
+    },
+  ];
+
+  // --------------------------------------------------------------
+
+  const code = `
+    // import code
+    import { ColumnsTypeProps } from "frc-ui-pro/components/Table/table";
+
+    // rowActiveFixedData 启动 “固定数据” 效果
+    // rowActiveFixedTip 设置 “固定提示” 文案
+    // rowActiveFirstGradient 启动 “数据” 渐变效果 (每次 data change, 都会触发)
+    // animeRowKey 为 “数据” 渐变效果的 key。(!!!: 有推送时，处理 item 时自行添加 animeRowKey, 否则无效)
+  `;
+
+  // --------------------------------------------------------------
+
+  return (
+    <>
+      <ImportCode code={code} />
+      <Table
+        animeRowKey="animeKey"
+        columns={columns}
+        dataSource={data}
+        rowActive={activeRowKey}
+        rowActiveFixedData={true}
+        rowActiveFixedTip={"有新消息"}
+        rowActiveFirstGradient={true}
+        onRow={(record) => {
+          return {
+            onClick: (e) => {
+              setActiveRowKey(record.key);
+            },
+          };
+        }}
+      />
+    </>
+  );
+};
+
+_BL_MessageTipComponent.storyName = "新消息提醒（常用于推送，defective）";
+
+// ----------------------------------------------------------------
