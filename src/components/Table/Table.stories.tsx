@@ -4850,18 +4850,6 @@ export const _BL_MessageTipComponent = () => {
   ]);
   const [activeRowKey, setActiveRowKey] = useState<string>();
 
-  // useEffect(() => {
-  //   // let time = Date.now();
-  //   setData(
-  //     data.map((item) => {
-  //       return {
-  //         ...item,
-  //         // animeKey: time,
-  //       };
-  //     })
-  //   );
-  // }, []);
-
   // mock update data ---------------------------------------------
 
   useEffect(() => {
@@ -4880,7 +4868,7 @@ export const _BL_MessageTipComponent = () => {
 
         return [...dataMock].concat([...pre]);
       });
-    }, 500);
+    }, 50);
   }, []);
 
   useEffect(() => {
@@ -4938,7 +4926,7 @@ export const _BL_MessageTipComponent = () => {
 
   return (
     <>
-      <ImportCode code={code} />
+      {/* <ImportCode code={code} /> */}
       <Table
         animeRowKey="animeKey"
         columns={columns}
@@ -4947,6 +4935,7 @@ export const _BL_MessageTipComponent = () => {
         rowActiveFixedData={true}
         rowActiveFixedTip={"有新消息"}
         rowActiveFirstGradient={true}
+        height='800px'
         onRow={(record) => {
           return {
             onClick: (e) => {
