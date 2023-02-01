@@ -4848,6 +4848,7 @@ export const _BL_MessageTipComponent = () => {
       description: "something else",
     },
   ]);
+
   const [activeRowKey, setActiveRowKey] = useState<string>();
 
   // mock update data ---------------------------------------------
@@ -4870,10 +4871,6 @@ export const _BL_MessageTipComponent = () => {
       });
     }, 50);
   }, []);
-
-  useEffect(() => {
-    console.log("data", Date.now(), data);
-  }, [data]);
 
   // --------------------------------------------------------------
 
@@ -4935,7 +4932,7 @@ export const _BL_MessageTipComponent = () => {
         rowActiveFixedData={true}
         rowActiveFixedTip={"有新消息"}
         rowActiveFirstGradient={true}
-        height='800px'
+        height='400px'
         onRow={(record) => {
           return {
             onClick: (e) => {
