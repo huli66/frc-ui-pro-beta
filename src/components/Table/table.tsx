@@ -1038,8 +1038,8 @@ export const Table: FC<FRCTableProps> = (props) => {
     if (
       rowActiveFirstGradient &&
       animeRowKey &&
-      record[animeRowKey] &&
-      typeof record[animeRowKey] === "number"
+      record?.[animeRowKey] &&
+      typeof record?.[animeRowKey] === "number"
     ) {
 
       if (Date.now() - 303 <= record[animeRowKey]) {
