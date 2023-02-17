@@ -283,3 +283,51 @@ export const _ShowAllComponent = () => {
 _ShowAllComponent.storyName = "全选按钮";
 
 // ------------------------------------------------------
+
+export const _ShowAllJumpAutomaticallyComponent = () => {
+  const options: OptionType[] = [
+    {
+      label: "filter1",
+      value: 1,
+    },
+    {
+      label: "filter2",
+      value: 2,
+    },
+    {
+      label: "filter3",
+      value: 3,
+    },
+    {
+      label: "filter4",
+      value: 4,
+    },
+    {
+      label: "filter5",
+      value: 5,
+    },
+  ];
+
+  const allVals = options.map(({value}) => value)
+
+  return (
+    <>
+      多选模式下且展示全选按钮时，autoSelectAll参数控制是否自动跳转全选按钮
+      <br />
+      以下三个组件的defaultValue参数值 集合元素相同
+      <br />
+      autoSelectAll为true时会默认选中且只选中全选按钮
+      <br />
+      <br />
+      <Filter options={options} multiple defaultValue={allVals} />
+      <br />
+      <Filter options={options} autoSelectAll={false} defaultValue={allVals} multiple />
+      <br />
+      <Filter options={options} showAll={false} defaultValue={allVals} multiple />
+    </>
+  );
+};
+
+_ShowAllJumpAutomaticallyComponent.storyName = "是否自动跳转全选按钮";
+
+// ------------------------------------------------------
