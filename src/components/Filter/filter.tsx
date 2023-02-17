@@ -29,6 +29,8 @@ export interface FRCFilterProps {
   multiple?: boolean;
   /** 是否展示全选按钮,全选按钮的value为"ALL"  */
   showAll?: boolean;
+  /** 在多选模式下且展示全选按钮，当选择所有元素时，是否自动跳回全选项 */
+  autoSelectAll?: boolean
 }
 
 const ALL = "ALL";
@@ -37,7 +39,8 @@ const calcValue = (
   showAll: boolean,
   multi: boolean,
   value: Array<string | number>,
-  opts: Array<string | number>
+  opts: Array<string | number>,
+  autoFlag: boolean
 ) => {
   if (!multi && value.length > 1) {
     return [value[0]];
@@ -45,7 +48,7 @@ const calcValue = (
 
   if (showAll) {
     const validateAll =
-      value.length === opts.length && value.every((v) => opts.includes(v));
+      value.length === opts.length && value.every((v) => opts.includes(v)) && autoFlag;
     if (value.includes(ALL) || validateAll) {
       return [ALL];
     }
@@ -64,6 +67,7 @@ export const Filter: React.FC<FRCFilterProps> = (props) => {
     defaultValue,
     value,
     allText,
+    autoSelectAll
   } = props;
 
   const [checked, setChecked] = useState<any[]>(
@@ -71,7 +75,8 @@ export const Filter: React.FC<FRCFilterProps> = (props) => {
       showAll!,
       multiple!,
       defaultValue || [],
-      options.map((o) => o.value)
+      options.map((o) => o.value),
+      autoSelectAll!
     )
   );
 
@@ -122,7 +127,7 @@ export const Filter: React.FC<FRCFilterProps> = (props) => {
       } else {
         _check = [..._check, op.value];
       }
-      if (showAll && (_check.length === options.length || !_check.length)) {
+      if (showAll && autoSelectAll && (_check.length === options.length || !_check.length)) {
         triggerChange(
           [ALL],
           options.map((o) => o.value)
@@ -131,7 +136,7 @@ export const Filter: React.FC<FRCFilterProps> = (props) => {
         triggerChange(_check);
       }
     },
-    [triggerChange, multiple, checked, options, showAll]
+    [triggerChange, multiple, checked, options, showAll, autoSelectAll]
   );
 
   useEffect(() => {
@@ -140,11 +145,12 @@ export const Filter: React.FC<FRCFilterProps> = (props) => {
         showAll!,
         multiple!,
         value || [],
-        options.map((o) => o.value)
+        options.map((o) => o.value),
+        autoSelectAll!
       );
       setChecked(_value);
     }
-  }, [value, props, options, showAll, multiple]);
+  }, [value, props, options, showAll, multiple,autoSelectAll]);
 
   return (
     <div className={cls} style={style}>
@@ -170,6 +176,7 @@ Filter.defaultProps = {
   multiple: false,
   showAll: true,
   allText: "全选",
+  autoSelectAll: true
 };
 
 export default Filter;
