@@ -391,25 +391,45 @@ export const _OverTextComponent = () => {
     borderRadius: 2,
   };
   return (
-    <>
-      <Tooltip overText style={demoStyle}>
+    <div style={demoStyle}>
+      <Tooltip 
+        overText 
+        style={{textAlign: 'right'}}
+        onOverTextChange={(isOver) => console.log('t1', isOver)}
+      >
         <span>当文本未超出容器文字提示不显示</span>
       </Tooltip>
       <Tooltip
         overText
-        placement="bottom"
-        style={demoStyle}
+        style={{textAlign: 'right'}}
+        onOverTextChange={(isOver) => console.log('t2', isOver)}
         title="当文本超出容器时文本末尾省略文字提示显示当文本超出容器时文本末尾省略文字提示显示"
       >
         <span>
           当文本超出容器时文本末尾省略文字提示显示当文本超出容器时文本末尾省略文字提示显示
         </span>
       </Tooltip>
-    </>
+      <Tooltip 
+        overText 
+        style={{textAlign: 'right'}}
+        forceDisplay 
+        onOverTextChange={(isOver) => console.log('t3', isOver)}
+        title="当文本未超出容器文字提示显示"
+        >
+        <span>当文本未超出容器文字提示显示</span>
+      </Tooltip>
+      <Tooltip 
+        style={{textAlign: 'right'}}
+        onOverTextChange={(isOver) => console.log('t4', isOver)}
+        title="未设置overText"
+        >
+        <span>未设置overText</span>
+      </Tooltip>
+    </div>
   );
 };
 
-_OverTextComponent.storyName = "文本未超出容器不提示 tooltip";
+_OverTextComponent.storyName = "文本过长与强制显示 tooltip";
 _OverTextComponent.parameters = {
   controls: { hideNoControlsWarning: true },
 };

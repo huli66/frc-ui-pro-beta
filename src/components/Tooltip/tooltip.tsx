@@ -18,8 +18,12 @@ export type ToolTipPlacementType =
 export type ToolTipBorderType = "thick" | "thin";
 
 interface BaseTooltipProps {
-  /** 设置文本能完全显示时(文本未超出容器)有无文字提示 */
+  /** 判断文本是否过长(文本超出容器)，过长后无文字提示 */
   overText?: boolean;
+  /** 文本超出容器的回调 */
+  onOverTextChange?: (isOver: boolean) => void;
+  /** 强制显示Tooltip(在overText下，文本未超出时使用forceDisplay强制显示) */
+  forceDisplay?: boolean;
   /** 设置tooltip内容 */
   title?: React.ReactNode;
   /** 设置tooltip显示位置*/
@@ -68,6 +72,8 @@ export type FRCTooltipProps = BaseTooltipProps &
 export const Tooltip: FC<FRCTooltipProps> = (props) => {
   const {
     overText,
+    onOverTextChange,
+    forceDisplay,
     title,
     placement,
     hasArrow,
@@ -106,6 +112,14 @@ export const Tooltip: FC<FRCTooltipProps> = (props) => {
       };
     }
   }, [children]);
+
+  useEffect(() => {
+    console.log(123);
+    
+    if (onOverTextChange) {
+      onOverTextChange(show);
+    }
+  }, [show]);
 
   const getWidth = () => {
     if (textWrap.current && node.current) {
@@ -167,7 +181,7 @@ export const Tooltip: FC<FRCTooltipProps> = (props) => {
         >
           {children}
         </span>
-        {show ? <Tooltip {...options}>{textContent}</Tooltip> : textContent}
+        {show ? <Tooltip {...options}>{textContent}</Tooltip> : forceDisplay ? <Tooltip {...options}>{textContent}</Tooltip> : textContent}
       </div>
     );
   };
@@ -176,13 +190,18 @@ export const Tooltip: FC<FRCTooltipProps> = (props) => {
   return overText ? (
     renderTextToolTip()
   ) : (
-    <AntdTooltip {...options}>{children}</AntdTooltip>
+    <AntdTooltip className={className} {...options}>
+      <div style={{ ...style }}>
+        {children}
+      </div>
+    </AntdTooltip>
   );
 };
 
 // normal
 Tooltip.defaultProps = {
   overText: false,
+  forceDisplay: false,
   placement: "right",
   hasArrow: true,
   borderType: "thin",
