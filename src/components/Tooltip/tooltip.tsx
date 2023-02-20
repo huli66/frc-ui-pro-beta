@@ -114,8 +114,6 @@ export const Tooltip: FC<FRCTooltipProps> = (props) => {
   }, [children]);
 
   useEffect(() => {
-    console.log(123);
-    
     if (onOverTextChange) {
       onOverTextChange(show);
     }

@@ -395,14 +395,13 @@ export const _OverTextComponent = () => {
       <Tooltip 
         overText 
         style={{textAlign: 'right'}}
-        onOverTextChange={(isOver) => console.log('t1', isOver)}
       >
         <span>当文本未超出容器文字提示不显示</span>
       </Tooltip>
       <Tooltip
         overText
         style={{textAlign: 'right'}}
-        onOverTextChange={(isOver) => console.log('t2', isOver)}
+        onOverTextChange={(isOver) => console.log('isOver===', isOver)}
         title="当文本超出容器时文本末尾省略文字提示显示当文本超出容器时文本末尾省略文字提示显示"
       >
         <span>
@@ -413,14 +412,12 @@ export const _OverTextComponent = () => {
         overText 
         style={{textAlign: 'right'}}
         forceDisplay 
-        onOverTextChange={(isOver) => console.log('t3', isOver)}
         title="当文本未超出容器文字提示显示"
         >
         <span>当文本未超出容器文字提示显示</span>
       </Tooltip>
       <Tooltip 
         style={{textAlign: 'right'}}
-        onOverTextChange={(isOver) => console.log('t4', isOver)}
         title="未设置overText"
         >
         <span>未设置overText</span>
