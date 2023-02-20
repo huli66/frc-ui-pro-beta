@@ -117,14 +117,14 @@ export const _DirectionComponent = () => {
     <div className="tlt-wrapper">
       <div className="center">
         <div className="top_panel">
-          <Tooltip title="这里是提示文本" hasArrow={true} placement="topLeft">
-            <span className="tooltip-base">上左</span>
+          <Tooltip title="这里是提示文本" className="tooltip-base" hasArrow={true} placement="topLeft">
+            上左
           </Tooltip>
-          <Tooltip title="这里是提示文本" hasArrow={true} placement="top">
-            <span className="tooltip-base">上中</span>
+          <Tooltip title="这里是提示文本" className="tooltip-base" hasArrow={true} placement="top">
+            上中
           </Tooltip>
-          <Tooltip title="这里是提示文本" hasArrow={true} placement="topRight">
-            <span className="tooltip-base">上右</span>
+          <Tooltip title="这里是提示文本" className="tooltip-base" hasArrow={true} placement="topRight">
+            上右
           </Tooltip>
         </div>
         <div className="left_panel">
@@ -213,19 +213,25 @@ export const _DirectionComponent = () => {
           <Tooltip
             title="这里是提示文本"
             hasArrow={true}
+            className="tooltip-base"
             placement="bottomLeft"
           >
-            <span className="tooltip-base">下左</span>
+            下左
           </Tooltip>
-          <Tooltip title="这里是提示文本" hasArrow={true} placement="bottom">
-            <span className="tooltip-base">下中</span>
+          <Tooltip 
+            title="这里是提示文本" 
+            hasArrow={true}
+            className="tooltip-base"
+            placement="bottom">
+            下中
           </Tooltip>
           <Tooltip
             title="这里是提示文本"
             hasArrow={true}
+            className="tooltip-base"
             placement="bottomRight"
           >
-            <span className="tooltip-base">下右</span>
+            下右
           </Tooltip>
         </div>
       </div>
@@ -259,6 +265,7 @@ export const _WithoutArrowComponent = () => {
               </div>
             </div>
           }
+          style={{display: 'inline-block'}}
           destroyTooltipOnHide={true}
           onVisibleChange={(visible) => {
             console.log(visible);
@@ -269,12 +276,12 @@ export const _WithoutArrowComponent = () => {
             <span>无箭头</span>
           </div>
         </Tooltip>
-        <Tooltip placement="topLeft" title="提示文本">
+        <Tooltip placement="topLeft" title="提示文本" style={{display: 'inline-block'}}>
           <div className="tooltip-base" style={{ width: "fit-content" }}>
             <span>Align edge / 边缘对齐</span>
           </div>
         </Tooltip>
-        <Tooltip placement="topLeft" title="提示文本" arrowPointAtCenter>
+        <Tooltip placement="topLeft" title="提示文本" arrowPointAtCenter style={{display: 'inline-block'}}>
           <div className="tooltip-base" style={{ width: "fit-content" }}>
             <span>Arrow points to center / 箭头指向中心</span>
           </div>
@@ -284,6 +291,7 @@ export const _WithoutArrowComponent = () => {
           hasArrow={false}
           title={<span>提示文本</span>}
           placement="top"
+          style={{display: 'inline-block'}}
         >
           <div className="tooltip-base no-arrow">
             <span>延迟1s显示</span>
@@ -294,6 +302,7 @@ export const _WithoutArrowComponent = () => {
           hasArrow={false}
           title={<span>提示文本</span>}
           placement="top"
+          style={{display: 'inline-block'}}
         >
           <div className="tooltip-base no-arrow">
             <span>延迟1s消失</span>
@@ -348,6 +357,7 @@ export const _ManualComponent = () => {
           }
           hasArrow={true}
           placement="left"
+          style={{display: 'inline-block'}}
           visible={isTooltip1Visible}
         >
           <Button type="primary" onClick={showTooltip1}>
@@ -366,9 +376,10 @@ export const _ManualComponent = () => {
           title="系统提示文本提示文本、提示文本2s后消失"
           hasArrow={false}
           placement="bottom"
+          style={{display: 'inline-block'}}
           visible={isTooltip2Visible}
         >
-          <span>目标元素</span>
+          目标元素
         </Tooltip>
       </div>
     </div>
