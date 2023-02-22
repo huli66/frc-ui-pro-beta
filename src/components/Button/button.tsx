@@ -10,11 +10,13 @@ export type ButtonType =
   | "link"
   | "lead"
   | "gray"
-  | "text"
-  | "light";
+  | "text";
 export type ButtonWorkType = "default" | "high-light";
+export type ButtonThemeType = "default" | "light";
 
 interface BaseButtonProps {
+  /** 设置按钮样式主题 */
+  theme?: ButtonThemeType;
   /** 设置按钮类型 */
   type?: ButtonType;
   /** 将按钮宽度调整为其父宽度的选项 */
@@ -47,6 +49,7 @@ export const Button: FC<FRCButtonProps> = (props) => {
     className,
     size,
     type,
+    theme,
     children,
     href,
     work,
@@ -61,6 +64,7 @@ export const Button: FC<FRCButtonProps> = (props) => {
     [`frc-btn-work-${workType}`]: work,
     [`frc-btn-loading`]: loading,
     [`frc-btn-icon-only`]: !children,
+    [`frc-btn-theme-${theme}`]: theme,
   });
 
   const options = {

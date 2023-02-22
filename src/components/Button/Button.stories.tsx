@@ -109,7 +109,6 @@ export const _ABaseComponent = () => {
         icon={<ProfileOutlined style={{ fontSize: 18, paddingTop: 3 }} />}
       />
       <Button type="text">Text Button</Button>
-      <Button type="light">Light Button</Button>
       <br />
       <Button type="default" disabled>
         Default Button
@@ -129,9 +128,6 @@ export const _ABaseComponent = () => {
       <Button icon={<ProfileOutlined style={{ fontSize: 18 }} />} disabled />
       <Button type="text" disabled>
         Text Button
-      </Button>
-      <Button type="light" disabled>
-        Light Button
       </Button>
     </>
   );
@@ -172,9 +168,6 @@ export const _ActiveComponent = () => {
       <Button type="text" work>
         Text Button
       </Button>
-      <Button type="light" work>
-        Light Button
-      </Button>
       <br />
       <Button type="default" work disabled>
         Default Button
@@ -202,15 +195,55 @@ export const _ActiveComponent = () => {
       <Button type="text" work disabled>
         Text Button
       </Button>
-      <Button type="light" work disabled>
-        Light Button
-      </Button>
     </>
   );
 };
 
 _ActiveComponent.storyName = "激活状态 button";
 _ActiveComponent.parameters = {
+  controls: { hideNoControlsWarning: true },
+};
+
+// ----------------------------------------------------------------
+
+export const _ThemeComponent = () => {
+  return (
+    <>
+      默认
+      <Button theme="default">Default Button</Button>
+      <Button disabled theme="default">
+        Default Button
+      </Button>
+      <Button theme="default" work>
+        Default Button
+      </Button>
+      <Button type="link" theme="default">
+        Default Button
+      </Button>
+      <Button type="text" theme="default">
+        Default Button
+      </Button>
+      <br />
+      浅色
+      <Button theme="light">Light Button</Button>
+      <Button disabled theme="light">
+        Light Button
+      </Button>
+      <Button theme="light" work>
+        Light Button
+      </Button>
+      <Button type="link" theme="light">
+        Light Button
+      </Button>
+      <Button type="text" theme="light">
+        Light Button
+      </Button>
+    </>
+  );
+};
+
+_ThemeComponent.storyName = "不同主题 button";
+_ThemeComponent.parameters = {
   controls: { hideNoControlsWarning: true },
 };
 
@@ -240,9 +273,6 @@ export const _IconComponent = () => {
       </Button>
       <Button type="text" icon={<QuestionCircleOutlined />}>
         Text Button
-      </Button>
-      <Button type="light" icon={<QuestionCircleOutlined />}>
-        Light Button
       </Button>
       <br />
       <Button type="default" icon={<QuestionCircleOutlined />} work>
@@ -275,9 +305,6 @@ export const _IconComponent = () => {
       </Button>
       <Button type="text" icon={<QuestionCircleOutlined />} work>
         Text Button
-      </Button>
-      <Button type="light" icon={<QuestionCircleOutlined />} work>
-        Light Button
       </Button>
     </>
   );
@@ -327,9 +354,6 @@ export const _LoadingComponent = () => {
       <Button type="link" href="https://google.com" work loading>
         Link Button
       </Button>
-      <Button type="light" work loading>
-        Light Button
-      </Button>
       <br />
       <Button type="default" work disabled loading>
         Default Button
@@ -348,9 +372,6 @@ export const _LoadingComponent = () => {
       </Button>
       <Button type="link" href="https://google.com" work disabled loading>
         Link Button
-      </Button>
-      <Button type="light" work disabled loading>
-        Light Button
       </Button>
     </>
   );

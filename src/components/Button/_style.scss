@@ -245,8 +245,8 @@
   }
 }
 
-// light
-.frc-btn.frc-btn-light {
+// theme-light
+.frc-btn.frc-btn-theme-light {
   @include button-style(
     $btn-background-light,
     $words-grey,
@@ -270,5 +270,61 @@
       $btn-background-light-disabled,
       $words-supporting
     );
+  }
+  // light-link
+  &.frc-btn-link {
+    @include button-style(
+      $btn-background-light,
+      $words-grey,
+      $btn-background-light-hover,
+      $link-hover-color,
+      $btn-background-light-active,
+      $link-hover-color,
+      $btn-background-light-disabled,
+      $words-supporting
+    );
+
+    &.frc-btn-work-default,
+    &.frc-btn-work-high-light {
+      @include button-style(
+        $btn-background-light,
+        $words-high-light,
+        $btn-background-light-hover,
+        $words-high-light,
+        $btn-background-light-active,
+        $words-high-light,
+        $btn-background-light-disabled,
+        $words-supporting
+      );
+    }
+  }
+
+  // light-text
+  &.frc-btn-text {
+    background-color: transparent;
+    @include button-style(
+      transparent,
+      $words-grey,
+      $btn-background-light-hover,
+      $words-grey,
+      $btn-background-light-active,
+      $words-grey,
+      $btn-background-light-disabled,
+      $words-supporting
+    );
+
+    &.frc-btn-work-default,
+    &.frc-btn-work-high-light {
+      @include button-style(
+        $btn-background-light,
+        $words-high-light,
+        $btn-background-light-hover,
+        $words-grey,
+        $btn-background-light-active,
+        $words-grey,
+        $btn-background-light-disabled,
+        $words-supporting
+      );
+    }
   }
 }
