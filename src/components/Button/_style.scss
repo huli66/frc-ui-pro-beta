@@ -244,3 +244,31 @@
     );
   }
 }
+
+// light
+.frc-btn.frc-btn-light {
+  @include button-style(
+    $btn-background-light,
+    $words-grey,
+    $btn-background-light-hover,
+    $words-grey,
+    $btn-background-light-active,
+    $words-grey,
+    $btn-background-light-disabled,
+    $words-supporting
+  );
+
+  &.frc-btn-work-default,
+  &.frc-btn-work-high-light {
+    @include button-style(
+      $btn-background-light,
+      $words-high-light,
+      $btn-background-light-hover,
+      $words-grey,
+      $btn-background-light-active,
+      $words-grey,
+      $btn-background-light-disabled,
+      $words-supporting
+    );
+  }
+}
