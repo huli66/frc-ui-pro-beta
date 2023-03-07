@@ -4642,14 +4642,14 @@ export default {
 //       setTimeout(() => {
 //         onScrollPrvePage(page)
 //         setIsPage(false);
-//       }, 1000) // 向上翻页 模拟接口延迟  
+//       }, 1000) // 向上翻页 模拟接口延迟
 //     }
 
 //     if (direction.current === 'down') {
 //       setTimeout(() => {
 //         onScrollNextPage(page)
 //         setIsPage(false);
-//       }, 1000) // 向下翻页 模拟接口延迟  
+//       }, 1000) // 向下翻页 模拟接口延迟
 //     }
 
 //     direction.current = null;
@@ -4851,6 +4851,10 @@ export const _BL_MessageTipComponent = () => {
 
   const [activeRowKey, setActiveRowKey] = useState<string>();
 
+  const onDataChange = () => {
+    console.log("change");
+  };
+
   // mock update data ---------------------------------------------
 
   useEffect(() => {
@@ -4869,7 +4873,7 @@ export const _BL_MessageTipComponent = () => {
 
         return [...dataMock].concat([...pre]);
       });
-    }, 50);
+    }, 500);
   }, []);
 
   // --------------------------------------------------------------
@@ -4932,7 +4936,7 @@ export const _BL_MessageTipComponent = () => {
         rowActiveFixedData={true}
         rowActiveFixedTip={"有新消息"}
         rowActiveFirstGradient={true}
-        height='400px'
+        height="400px"
         onRow={(record) => {
           return {
             onClick: (e) => {
@@ -4940,6 +4944,7 @@ export const _BL_MessageTipComponent = () => {
             },
           };
         }}
+        onDataChange={onDataChange}
       />
     </>
   );
