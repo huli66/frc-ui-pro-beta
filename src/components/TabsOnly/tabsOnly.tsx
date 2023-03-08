@@ -4,6 +4,7 @@ import classNames from "classnames";
 export interface TabItem {
   key: React.Key;
   label: string | ReactNode;
+  disabled?: boolean;
 }
 
 export type TabsOnlyType = "default" | "piend" | "solid";
@@ -19,8 +20,6 @@ export interface FRCTabsOnlyProps {
   defaultValue?: React.Key;
   /** 选中的value */
   value?: React.Key;
-  /** 设置是否禁用 */
-  disabled?: boolean;
   /** 选中tab某一项时的回调函数 */
   onChange?: (value: React.Key) => void;
   /** tabsOnly内容*/
@@ -44,7 +43,6 @@ export const TabsOnly: FC<FRCTabsOnlyProps> = (props) => {
     notAutoWidth,
     items,
     onChange,
-    disabled,
     className,
     type,
     style
@@ -53,7 +51,6 @@ export const TabsOnly: FC<FRCTabsOnlyProps> = (props) => {
   const classes = classNames("frc-tabs-only", className, {
     [`frc-tabs-only-${type}`]: type,
     [`frc-tabs-only-size-${size}`]: size,
-    [`frc-tabs-only-disabled`]: disabled,
     [`frc-tabs-only-not-atuo-width`]: notAutoWidth,
   });
 
@@ -63,7 +60,7 @@ export const TabsOnly: FC<FRCTabsOnlyProps> = (props) => {
     if (current === item.key) {
       return ;
     }
-    if (disabled) {
+    if (item.disabled) {
       return ;
     }
     if (onChange) {
@@ -88,7 +85,7 @@ export const TabsOnly: FC<FRCTabsOnlyProps> = (props) => {
             onClick={() => {
               changeTabPane(item);
             }}
-            className={`frc-tab-pane ${current === item.key ? 'frc-tab-pane-active':''}`}
+            className={`frc-tab-pane ${current === item.key ? 'frc-tab-pane-active':''} ${item.disabled ? 'frc-tab-pane-disabled' : ''}`}
             key={item.key}
           >
             <div

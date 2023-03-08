@@ -178,25 +178,39 @@ _BaseComponent.parameters = {
 // ----------------------------------------------------------------
 export const _DisableComponent = () => {
   const items: TabItem[] = [
-    { key: "1", label: "Filter001" },
-    { key: "2", label: "Filter002" },
+    { key: "1", label: "Filter001"},
+    { key: "2", label: "Filter002", disabled: true },
     { key: "3", label: "Filter003" },
-    { key: "4", label: "Filter004" },
+    { key: "4", label: "Filter004"},
+  ];
+  const disItems: TabItem[] = [
+    { key: "1", label: "Filter001", disabled: true },
+    { key: "2", label: "Filter002", disabled: true },
+    { key: "3", label: "Filter003", disabled: true },
+    { key: "4", label: "Filter004", disabled: true },
   ];
   return (
-    <>
-      <TabsOnly disabled defaultValue="1" items={items} />
-      <br />
-      <br />
-      <TabsOnly disabled defaultValue="1" type="piend" items={items} />
-      <br />
-      <br />
-      <TabsOnly disabled type="solid" defaultValue="1" items={items} />
-    </>
+        <>
+          <TabsOnly defaultValue="1" items={items} />
+          <br />
+          <br />
+          <TabsOnly defaultValue="1" type="piend" items={items} />
+          <br />
+          <br />
+          <TabsOnly type="solid" defaultValue="1" items={items} />
+          <br />
+          <br />
+          <TabsOnly defaultValue="1" items={disItems} />
+          <br />
+          <br />
+          <TabsOnly defaultValue="1" type="piend" items={disItems} />
+          <br />
+          <br />
+          <TabsOnly type="solid" defaultValue="1" items={disItems} />
+        </>
   );
-};
-
-_DisableComponent.storyName = "禁用 TabsOnly";
+}
+_DisableComponent.storyName = "禁用某一项 TabsOnly";
 _DisableComponent.parameters = {
   controls: { hideNoControlsWarning: true },
 };
