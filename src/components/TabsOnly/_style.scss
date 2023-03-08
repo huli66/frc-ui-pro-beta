@@ -29,10 +29,20 @@
     }
   }
 
-  &.frc-tabs-only-disabled {
-    .frc-tab-pane {
+  // disabled
+  &.frc-tabs-only {
+    .frc-tab-pane-disabled  {
       cursor: not-allowed;
       color: $words-disable;
+      &:hover {
+        background-color: transparent;
+      }
+      &.frc-tab-pane-active {
+        background-color: $tabs-base-background-disabled;
+        &:hover {
+          background-color: $tabs-base-background-disabled;
+        }
+      }
     }
   }
 }
@@ -44,22 +54,6 @@
 
   .frc-tab-pane-active {
     background: $tabs-base-background;
-  }
-
-  // disabled 
-  &.frc-tabs-only-disabled {
-    border-color: $tabs-base-background-disabled;
-    .frc-tab-pane {
-      &:hover {
-        background-color: transparent;
-      }
-    }
-   .frc-tab-pane-active {
-      background-color: $tabs-base-background-disabled;
-      &:hover {
-        background-color: $tabs-base-background-disabled;
-      }
-    }
   }
 }
 
@@ -84,28 +78,28 @@
     background-color: $element-background;
     border-radius: 0;
     &:hover {
-      background-color:$tabs-base-background-hover;
+      background-color: $tabs-base-background-disabled;
     }
     &::after {
       background-image: $high-light-area-linear-90;
     }
   }
 
-  &.frc-tabs-only-disabled {
-    .frc-tab-pane {
+  // disabled
+  &.frc-tabs-only {
+    .frc-tab-pane-disabled  {
+      cursor: not-allowed;
+      color: $words-disable;
       &:hover {
         background-color: transparent;
       }
-      &:active {
-        background-color: transparent;
-      }
-    }
-    .frc-tab-pane-active {
-      &:hover {
-        background-color:$element-background;
-      }
-      &::after {
-        opacity: 0.3;
+      &.frc-tab-pane-active {
+        &:hover {
+          background-color: $tabs-base-background-active;
+        }
+        &::after {
+          opacity: 0.3;
+        }
       }
     }
   }
@@ -132,18 +126,18 @@
     color: $words-high-light;
   }
   // disabled
-  &.frc-tabs-only-disabled {
-    .frc-tab-pane {
+  &.frc-tabs-only {
+    .frc-tab-pane-disabled  {
+      cursor: not-allowed;
+      color: $words-disable;
       &:hover {
         background-color: $element-background;
       }
-      &:active {
+      &.frc-tab-pane-active {
+        color: $words-disable;
+        border: 1px solid $tabs-base-background-disabled;
         background-color: $element-background;
       }
-    }
-    .frc-tab-pane-active {
-      color: $words-disable;
-      border: 1px solid $tabs-base-background-disabled;
     }
   }
 }
