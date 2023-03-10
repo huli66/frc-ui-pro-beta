@@ -856,7 +856,7 @@ export const Table: FC<FRCTableProps> = (props) => {
       onRowSize && onRowSize(rowSizeNow); // 将最新的 rowSize 返回出去
       setRowSize(rowSizeNow); // 可视区域的行号有了变化才重新进行渲染
       setHiddenTopStyle(listTotalhiddenTopHeight);
-      setTotalHeight(listTotalHeight);
+      setTotalHeight(listTotalHeight + 6);
     }
   }; // y 轴滚动
 
