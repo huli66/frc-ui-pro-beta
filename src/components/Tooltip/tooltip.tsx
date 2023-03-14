@@ -24,6 +24,8 @@ interface BaseTooltipProps {
   onOverTextChange?: (isOver: boolean) => void;
   /** 强制显示Tooltip(在overText下，文本未超出时使用forceDisplay强制显示) */
   forceDisplay?: boolean;
+  /** tooltip内最外层标签（未设置overText时默认为span, 后续将废除，统一为div）*/
+  domType?: 'span' | 'div';
   /** 设置tooltip内容 */
   title?: React.ReactNode;
   /** 设置tooltip显示位置*/
@@ -74,6 +76,7 @@ export const Tooltip: FC<FRCTooltipProps> = (props) => {
     overText,
     onOverTextChange,
     forceDisplay,
+    domType,
     title,
     placement,
     hasArrow,
@@ -184,22 +187,29 @@ export const Tooltip: FC<FRCTooltipProps> = (props) => {
     );
   };
 
+  const renderDefaultTooltip = () => {
+    if (domType === 'div') {
+      return (
+        <AntdTooltip className={className} {...options}>
+          <div style={{ ...style }}>
+            {children}
+          </div>
+        </AntdTooltip>
+      )
+    } else {
+      return <AntdTooltip style={{ ...style }} className={className} {...options}>{children}</AntdTooltip>
+    }
+  }
+
   // main
-  return overText ? (
-    renderTextToolTip()
-  ) : (
-    <AntdTooltip className={className} {...options}>
-      <div style={{ ...style }}>
-        {children}
-      </div>
-    </AntdTooltip>
-  );
+  return overText ? renderTextToolTip() : renderDefaultTooltip();
 };
 
 // normal
 Tooltip.defaultProps = {
   overText: false,
   forceDisplay: false,
+  domType: 'span',
   placement: "right",
   hasArrow: true,
   borderType: "thin",
