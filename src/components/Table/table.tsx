@@ -7,7 +7,7 @@ import React, {
   useState,
   useEffect,
 } from "react";
-import { controlScrollSpeed } from "./../../utils/index";
+import { controlScrollSpeed } from "../../utils/index";
 import classNames from "classnames";
 import {
   Table as AntdTable,
@@ -528,6 +528,9 @@ export const Table: FC<FRCTableProps> = (props) => {
 
   useEffect(() => {
     rowActive && setRowActiveInner(rowActive);
+    if (!rowActive) {
+      clearActiveAndFixedTip();
+    }
   }, [rowActive]); // 设置 active key，用于 active 状态
 
   useEffect(() => {
@@ -612,7 +615,10 @@ export const Table: FC<FRCTableProps> = (props) => {
 
   useEffect(() => {
     const innerNode = ref.current?.querySelector(".ant-table-body");
-    innerNode.style.height = (totalHeight || innerNode.style.height) + "px";
+    innerNode.style.height =
+      totalHeight !== 6
+        ? (totalHeight || innerNode.style.height) + "px"
+        : "100%";
     innerNode.style.paddingTop = hiddenTopStyle + "px";
   }, [hiddenTopStyle, totalHeight]); // 根据 scroll 滚动，控制整体滚动流畅度 （本质： padding-top 与 totalHeight 的相对值）
 
@@ -879,6 +885,19 @@ export const Table: FC<FRCTableProps> = (props) => {
     });
     containerNode.appendChild(tipNode);
   }; // 固定数据时 tooltip 显示
+
+  const clearActiveAndFixedTip = () => {
+    const containerNode = ref.current?.querySelector(".ant-table-container");
+    const tipNode = containerNode?.querySelector(".frc-table-fixed-tip");
+    setDataIsFixed(false);
+    setFixedData([]);
+
+    if (tipNode) {
+      containerNode.removeChild(tipNode);
+    }
+
+    setInitScroll(true);
+  };
 
   // expandable ----------------------------------------------------------
 
