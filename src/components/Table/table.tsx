@@ -882,6 +882,7 @@ export const Table: FC<FRCTableProps> = (props) => {
       setFixedData([]);
       containerNode.removeChild(tipNode);
       setInitScroll(true);
+      setRowActiveInner(null);
     });
     containerNode.appendChild(tipNode);
   }; // 固定数据时 tooltip 显示
@@ -1200,18 +1201,16 @@ export const Table: FC<FRCTableProps> = (props) => {
       // }
     }
     // active row className
-    if (
-      rowActiveInner &&
-      rowActiveKeyName &&
-      record[rowActiveKeyName] &&
-      rowActiveInner === record[rowActiveKeyName]
-    ) {
+
+    if (rowActiveKeyName && rowActiveInner === record[rowActiveKeyName]) {
       rowClasses += " frc-table-row-active";
     }
+
     // default row className
     if (rowClassName && typeof rowClassName === "function") {
       rowClasses += rowClassName(record, index);
     }
+
     return rowClasses;
   }; // 适配 rowClassName
 
