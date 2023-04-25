@@ -1,3 +1,4 @@
+import React from 'react';
 import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism'
@@ -79,7 +80,11 @@ export const Default = (args: FRCDragCollapseProps) => {
   return (
     <div style={containerStyle}>
       <DragCollapse
-        {...args}
+        {...{
+            ...args,
+            onDragChange:undefined,
+          }
+        }
       />
     </div>
   )
@@ -95,16 +100,11 @@ export const _Horizontal = () => {
     height: '400px'
   }
 
-  function getBoxWidth(e: number) {
-    console.log(e);
-  }
-
   return (
     <div style={containerStyle}>
     <DragCollapse
       mode="horizontal"
       mainContentInit={400}
-      onDragChange={ getBoxWidth }
     />
   </div>
   )
@@ -112,5 +112,33 @@ export const _Horizontal = () => {
 
 _Horizontal.storyName = '横向抽屉 horizontal';
 _Horizontal.parameters = {
+  controls: { hideNoControlsWarning: true },
+};
+// ----------------------------------------------------------------
+
+export const _Z_ControlDragCollapse = () => {
+  const [size, setSize] = React.useState<number>(200)
+  const containerStyle = {
+    width: '100%',
+    height: '400px'
+  }
+
+  const handleChange = (value: number) => {
+    console.log('size change', value);
+    setSize(value)
+  }
+
+  return (
+    <div style={containerStyle}>
+    <DragCollapse
+      mainContentSize={size}
+      onDragChange={handleChange}
+    />
+  </div>
+  )
+};
+
+_Z_ControlDragCollapse.storyName = '受控抽屉';
+_Z_ControlDragCollapse.parameters = {
   controls: { hideNoControlsWarning: true },
 };
