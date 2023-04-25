@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState, useEffect } from 'react'
+import React, { FC, useRef, useState, useEffect, useCallback } from 'react'
 import classNames from 'classnames'
 
 export type ModeType = 'vertical' | 'horizontal'
@@ -14,22 +14,24 @@ export interface FRCDragCollapseProps {
     extraContent?: React.ReactNode;
     /** 主层初始高度 */
     mainContentInit?: number;
+    /** 主层size */
+    mainContentSize?: number;
     /** 拖拽抽屉时的回调 */
-    onDragChange?: (e: number) => void;
-
+    onDragChange?: (size: number) => void;
 }
 
 export const DragCollapse: FC<FRCDragCollapseProps> = (props) => {
     const { className, mainContent, extraContent, mode, mainContentInit, onDragChange } = props
     const [topSize, setTopSize] = useState(mainContentInit)
     const hrBox = useRef<HTMLDivElement>(null)
+
     const getTopStyle = (mode: ModeType) => {
         let style: React.CSSProperties = {}
         if (mode === 'horizontal') {
-            style.width = '0'
-            style.width = topSize + 'px'
+            style.width = 0
+            style.width = topSize
         } else {
-            style.height = topSize + 'px'
+            style.height = topSize
         }
         return style
     }
@@ -41,7 +43,7 @@ export const DragCollapse: FC<FRCDragCollapseProps> = (props) => {
                 document.onmousemove = function (e) {
                     let newTopSize = e.clientX - diff
                     if (hrBox.current!.parentElement!.offsetWidth > newTopSize && newTopSize > 0) {
-                        setTopSize(newTopSize)
+                        triggerChange(newTopSize)
                     }
                     document.onmouseup = function () {
                         document.onmousemove = null
@@ -52,7 +54,7 @@ export const DragCollapse: FC<FRCDragCollapseProps> = (props) => {
                 document.onmousemove = function (e) {
                     let newTopSize = e.clientY - diff
                     if (hrBox.current!.parentElement!.offsetHeight > newTopSize && newTopSize > 0) {
-                        setTopSize(newTopSize)
+                        triggerChange(newTopSize)
                     }
                     document.onmouseup = function () {
                         document.onmousemove = null
@@ -62,11 +64,19 @@ export const DragCollapse: FC<FRCDragCollapseProps> = (props) => {
         }
     }
 
-    useEffect(() => {
-        if(onDragChange && topSize){
-            onDragChange(topSize)
+    const triggerChange = useCallback((value:number) => {
+        if(onDragChange){
+            onDragChange(value)
+        }else{
+            setTopSize(value)
         }
-    },[topSize])
+    },[onDragChange]);
+
+    useEffect(() => {
+        if(('mainContentSize' in props) && (typeof props.mainContentSize === 'number')){
+            setTopSize(props.mainContentSize)
+        }
+    },[props]);
 
     const cls = classNames('frc-dcollapse-drawer', className, {
         'frc-dcollapse-drawer-horizontal': mode === 'horizontal'
