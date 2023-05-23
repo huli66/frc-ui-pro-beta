@@ -40,6 +40,8 @@ interface BaseInputProps {
   suffix?: React.ReactNode;
   /** 输入框内容 */
   value?: string | ReadonlyArray<string> | number | undefined;
+  /** 是否开启安全校验模式 */
+  validate?: boolean;
   /** 输入框内容变化时的回调 */
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   /** 按下回车的回调 */
@@ -72,6 +74,7 @@ export const Input = forwardRef<InputRef, FRCInputProps>((props, ref) => {
     onChange,
     onKeyDown,
     allowClear,
+    validate,
     ...restProps
   } = props;
 
@@ -130,6 +133,15 @@ export const Input = forwardRef<InputRef, FRCInputProps>((props, ref) => {
       }
     },
     onChange: (e: any) => {
+      if(validate){
+        e.target.value = e.target.value.replace(/[&<>'"]/g, (tag:string) => ({
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          "'": '&#39;',
+          '"': '&quot;'
+        }[tag] || tag));
+      }
       onChange && onChange(e);
       if (!e.target.value && e.target.value !== 0) {
         setKeyDownEnter(false);
@@ -149,6 +161,7 @@ Input.defaultProps = {
   disabled: false,
   showCount: false,
   allowClear: false,
+  validate: true
 };
 
 export default Input;
