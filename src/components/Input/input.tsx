@@ -40,7 +40,7 @@ interface BaseInputProps {
   suffix?: React.ReactNode;
   /** 输入框内容 */
   value?: string | ReadonlyArray<string> | number | undefined;
-  /** 是否开启安全校验模式 */
+  /** 是否开启安全校验模式, 输入的字符 <、>、'、"、& 会被对应转化为 &lt;、&gt;、&#39;、&quot;、&amp; 来防止渲染内容时被 JavaScript 注入攻击。 */
   validate?: boolean;
   /** 输入框内容变化时的回调 */
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
