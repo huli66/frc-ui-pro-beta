@@ -9,9 +9,12 @@ export interface TabItem {
 
 export type TabsOnlyType = "default" | "piend" | "solid";
 export type TabsOnlySizeType = "small" | "large" | "middle";
+export type TabsOnlyThemeType = "default" | "light";
 
 
 export interface FRCTabsOnlyProps {
+  /** 设置tabsOnly样式主题 */
+  theme?: TabsOnlyThemeType;
   /** tabsOnly类名 */
   className?: string;
   /** tabsOnly类型 */
@@ -36,6 +39,7 @@ export interface FRCTabsOnlyProps {
 
 export const TabsOnly: FC<FRCTabsOnlyProps> = (props) => {
   const {
+    theme,
     defaultValue,
     value,
     width,
@@ -52,6 +56,7 @@ export const TabsOnly: FC<FRCTabsOnlyProps> = (props) => {
     [`frc-tabs-only-${type}`]: type,
     [`frc-tabs-only-size-${size}`]: size,
     [`frc-tabs-only-not-atuo-width`]: notAutoWidth,
+    [`frc-tabs-only-theme-${theme}`]: theme,
   });
 
   const [current, setCurrent] = useState<React.Key | undefined>(defaultValue);

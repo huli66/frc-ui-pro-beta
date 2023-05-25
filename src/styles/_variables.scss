@@ -623,10 +623,10 @@ $tooltip-border-radius:                            $border-radius !default;
 $tooltip-background-color:                         $element-background !default;
 
 // theme - light
-$tooltip-border-color-light:                             $basic-theme-light-disabled !default;
-$tooltip-border-light:                                   1px solid $basic-theme-light-disabled !default;
-$tooltip-box-shadow-light:                               $box-shadow-light !default;
-$tooltip-background-color-light:                         $basic-theme-light-bg !default;
+$tooltip-border-color-light:                       $basic-theme-light-disabled !default;
+$tooltip-border-light:                             1px solid $basic-theme-light-disabled !default;
+$tooltip-box-shadow-light:                         $box-shadow-light !default;
+$tooltip-background-color-light:                   $basic-theme-light-bg !default;
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
@@ -675,6 +675,15 @@ $tabs-line-side-width:                               2px !default;
 $tabs-small-font:                                    $font-size-base !default;
 $tabs-middle-font:                                   $font-size-medium !default;
 $tabs-large-font:                                    $font-size-lg !default;
+
+// theme - light
+$tabs-border-color-light:                            $basic-theme-light !default;
+$tabs-border-light:                                  1px solid $basic-theme-light !default;
+$tabs-background-color-light:                        $basic-theme-light-disabled !default;
+$tabs-tab-bg-light:                                  $basic-theme-light !default;
+$tabs-tab-bg-light-hover:                            $basic-theme-light-hover !default;
+$tabs-tab-bg-light-active:                           $basic-theme-light-active!default;
+$tabs-tab-bg-light-diabled:                          $words-supporting!default;
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------

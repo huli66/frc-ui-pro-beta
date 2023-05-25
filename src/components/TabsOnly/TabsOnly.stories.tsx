@@ -351,3 +351,24 @@ _NotAutoWidth.storyName = "是否不自动填充宽度";
 _NotAutoWidth.parameters = {
   controls: { hideNoControlsWarning: true },
 };
+
+// ----------------------------------------------------------------
+
+export const _ThemeComponent = () => {
+  const items: TabItem[] = [
+    { key: "1", label: "项1" },
+    { key: "2", label: "项2" },
+  ];
+  return (
+    <>
+      <TabsOnly items={items} defaultValue="1" />
+       &nbsp;&nbsp;
+      <TabsOnly items={items} defaultValue="1" theme="light"/>
+    </>
+  );
+};
+
+_ThemeComponent.storyName = "不同主题";
+_ThemeComponent.parameters = {
+  controls: { hideNoControlsWarning: true },
+};

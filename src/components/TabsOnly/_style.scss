@@ -177,3 +177,33 @@
   }
 }
 
+// theme-light
+.frc-tabs-only.frc-tabs-only-theme-light {
+  color: $words-grey;
+  background: $tabs-background-color-light;
+  border: $tabs-border-light;
+
+  .frc-tab-pane {
+    &.frc-tab-pane-active {
+      background: $tabs-tab-bg-light;
+    }
+    &:hover {
+      background-color: $tabs-tab-bg-light-hover;
+    }
+    &:active {
+      background-color: $tabs-tab-bg-light-active;
+    }
+
+    &.frc-tab-pane-disabled {
+      &.frc-tab-pane-active {
+        background-color: $tabs-tab-bg-light-diabled;
+        &:hover {
+          background-color: $tabs-tab-bg-light-diabled;
+        }
+      }
+      &:hover {
+        background-color: unset;
+      }
+    }
+  }
+}
