@@ -12,10 +12,12 @@ $tittle-word:                          #3b9078 !default;
 $new-data:                             #241f0c !default;
 $baisc-disable:                        #585b5a !default;
 $baisc-btn-light:                      #253330 !default;
-$btn-light:                            #a3c8c0 !default;
-$btn-light-hover:                      #8bd5c5 !default;
-$btn-light-active:                     #6da99c !default;
-$btn-light-disabled:                   #c8c8c8 !default;
+$basic-theme-light:                    #a3c8c0 !default;
+$basic-theme-light-hover:              #8bd5c5 !default;
+$basic-theme-light-active:             #6da99c !default;
+$basic-theme-light-disabled:           #c8c8c8 !default;
+$basic-theme-light-bg:                 #e6e6e6 !default;
+
 // - linear
 $button-linear-0:                      linear-gradient(0deg,   #3b9078, #325850) !default;
 $button-linear-90:                     linear-gradient(90deg,  #3b9078, #325850) !default;
@@ -260,6 +262,7 @@ $border-dropdown-color:                #3b9078 !default;
 
 // box阴影
 $box-shadow:                           0 0 24px 0 rgba(255, 235, 200, 0.3) !default;
+$box-shadow-light:                     0 0 24px 0 rgba(70, 70, 70, 0.3) !default;
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------

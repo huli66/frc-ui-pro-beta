@@ -1,5 +1,4 @@
 .frc-tooltip.ant-tooltip {
-
   &.ant-tooltip-placement-top,
   &.ant-tooltip-placement-topLeft,
   &.ant-tooltip-placement-topRight {
@@ -23,7 +22,6 @@
   &.ant-tooltip-placement-bottomRight {
     padding-top: $tooltip-target-gap;
   }
-
 
   &.frc-tooltip-border-thick {
     .ant-tooltip-content {
@@ -75,5 +73,22 @@
     --antd-arrow-background-color: none;
     background-color: $tooltip-background-color;
     border: $tooltip-border;
+  }
+}
+
+// theme-light
+.frc-tooltip.frc-tooltip-theme-light {
+  .ant-tooltip-content {
+    background: $tooltip-background-color-light;
+    border: $tooltip-border-light;
+    box-shadow: $tooltip-box-shadow-light;
+    .ant-tooltip-inner {
+      color: $words-grey;
+    }
+    .ant-tooltip-arrow .ant-tooltip-arrow-content {
+      background-color: $tooltip-background-color-light;
+      border: $tooltip-border-light;
+      box-shadow: $tooltip-box-shadow-light;
+    }
   }
 }

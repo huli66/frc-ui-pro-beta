@@ -16,8 +16,11 @@ export type ToolTipPlacementType =
   | "rightTop"
   | "rightBottom";
 export type ToolTipBorderType = "thick" | "thin";
+export type TooltipThemeType = "default" | "light";
 
 interface BaseTooltipProps {
+  /** 设置Tooltip样式主题 */
+  theme?: TooltipThemeType;
   /** 判断文本是否过长(文本超出容器)，过长后无文字提示 */
   overText?: boolean;
   /** 文本超出容器的回调 */
@@ -73,6 +76,7 @@ export type FRCTooltipProps = BaseTooltipProps &
 
 export const Tooltip: FC<FRCTooltipProps> = (props) => {
   const {
+    theme,
     overText,
     onOverTextChange,
     forceDisplay,
@@ -97,6 +101,7 @@ export const Tooltip: FC<FRCTooltipProps> = (props) => {
     [`frc-tooltip-without-arrow`]: !hasArrow,
     [`frc-tooltip-placement-${placement}`]: placement,
     [`frc-tooltip-border-${borderType}`]: borderType,
+    [`frc-tooltip-theme-${theme}`]: theme,
   });
 
   const options = {

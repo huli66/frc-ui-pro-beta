@@ -47,10 +47,10 @@ $btn-background-link-active:                       transparent !default;
 // ----------------------------------------------------------------
 
 // type - light
-$btn-background-light:                              $btn-light !default;
-$btn-background-light-hover:                        $btn-light-hover !default;
-$btn-background-light-active:                       $btn-light-active !default;
-$btn-background-light-disabled:                     $btn-light-disabled !default;
+$btn-background-light:                              $basic-theme-light !default;
+$btn-background-light-hover:                        $basic-theme-light-hover !default;
+$btn-background-light-active:                       $basic-theme-light-active !default;
+$btn-background-light-disabled:                     $basic-theme-light-disabled !default;
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
@@ -621,6 +621,12 @@ $tooltip-border:                                   1px solid $tooltip-border-col
 $tooltip-box-shadow:                               $box-shadow !default;
 $tooltip-border-radius:                            $border-radius !default;
 $tooltip-background-color:                         $element-background !default;
+
+// theme - light
+$tooltip-border-color-light:                             $basic-theme-light-disabled !default;
+$tooltip-border-light:                                   1px solid $basic-theme-light-disabled !default;
+$tooltip-box-shadow-light:                               $box-shadow-light !default;
+$tooltip-background-color-light:                         $basic-theme-light-bg !default;
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------

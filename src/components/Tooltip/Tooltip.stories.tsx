@@ -436,3 +436,75 @@ _OverTextComponent.storyName = "文本过长与强制显示 tooltip";
 _OverTextComponent.parameters = {
   controls: { hideNoControlsWarning: true },
 };
+
+// ----------------------------------------------------------------
+
+export const _ThemeComponent = () => {
+  return (
+    <>
+      默认
+      <Tooltip title="有箭头">
+        <span style={{ marginLeft: 8 }}>有箭头</span>
+      </Tooltip>
+      <Tooltip title="无箭头" hasArrow={false}>
+        <span style={{ marginLeft: 8 }}>无箭头</span>
+      </Tooltip>
+      <Tooltip title="宽边框" borderType="thick">
+        <span style={{ marginLeft: 8 }}>宽边框</span>
+      </Tooltip>
+      <span
+        style={{
+          width: 80,
+          display: "inline-block",
+          height: 16,
+          lineHeight: "16px",
+          verticalAlign: "text-top",
+        }}
+      >
+        <Tooltip
+          title="overText提示内容提示内容提示内容提示内容提示内容提示内容"
+          overText
+        >
+          <span style={{ marginLeft: 8 }}>
+            overText提示内容提示内容提示内容提示内容提示内容提示内容
+          </span>
+        </Tooltip>
+      </span>
+      <br />
+      浅色
+      <Tooltip title="有箭头" theme="light">
+        <span style={{ marginLeft: 8 }}>有箭头</span>
+      </Tooltip>
+      <Tooltip title="无箭头" hasArrow={false} theme="light">
+        <span style={{ marginLeft: 8 }}>无箭头</span>
+      </Tooltip>
+      <Tooltip title="宽边框" borderType="thick" theme="light">
+        <span style={{ marginLeft: 8 }}>宽边框</span>
+      </Tooltip>
+      <span
+        style={{
+          width: 80,
+          display: "inline-block",
+          height: 16,
+          lineHeight: "16px",
+          verticalAlign: "text-top",
+        }}
+      >
+        <Tooltip
+          title="overText提示内容提示内容提示内容提示内容提示内容提示内容"
+          overText
+          theme="light"
+        >
+          <span style={{ marginLeft: 8 }}>
+            overText提示内容提示内容提示内容提示内容提示内容提示内容
+          </span>
+        </Tooltip>
+      </span>
+    </>
+  );
+};
+
+_ThemeComponent.storyName = "不同主题 tooltip";
+_ThemeComponent.parameters = {
+  controls: { hideNoControlsWarning: true },
+};
