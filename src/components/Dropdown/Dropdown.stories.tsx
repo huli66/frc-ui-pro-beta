@@ -419,3 +419,39 @@ _TriggerComponent.parameters = {
 
 // ----------------------------------------------------------------
 
+export const _ThemeComponent = () => {
+  const list: ItemType[] = [
+    {
+      label: "1st menu item",
+      key: "0",
+    },
+    {
+      label: "2nd menu item",
+      key: "1",
+    },
+    {
+      label: "3rd menu item",
+      key: "3",
+    },
+  ];
+  return (
+    <>
+      默认<Dropdown
+        trigger={["hover"]}
+        menuOptions={{ items: list }}
+        icon={<MoreOutlined style={{ fontSize: 18 }} />}
+      />
+      浅色<Dropdown
+        trigger={["hover"]}
+        menuOptions={{ items: list }}
+        theme="light"
+        icon={<MoreOutlined style={{ fontSize: 18 }} />}
+      />
+    </>
+  );
+};
+
+_ThemeComponent.storyName = "不同主题";
+_ThemeComponent.parameters = {
+  controls: { hideNoControlsWarning: true },
+};

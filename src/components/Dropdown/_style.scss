@@ -158,3 +158,36 @@
     }
   }
 }
+
+// theme-light
+.ant-dropdown-trigger.frc-dropdown-trigger.frc-dropdown-theme-light {
+  color: $words-grey;
+  &:hover {
+    background-color: $dropdown-menu-item-bg-light-hover;
+  }
+  &:active {
+    background-color: $dropdown-menu-item-bg-light-hover;
+  }
+
+  // focus
+  &.frc-dropdown-focus {
+    border-color: $dropdown-menu-item-bg-light-hover;
+    background-color: $dropdown-menu-item-bg-light-hover;
+  }
+}
+.ant-dropdown
+  .ant-dropdown-menu.frc-dropdown-menu.frc-dropdown-menu-theme-light {
+  background: $dropdown-menu-background-color-light;
+  border: $dropdown-menu-border-light;
+  box-shadow: $dropdown-menu-box-shadow-light;
+  .ant-dropdown-menu-item {
+    color: $words-grey;
+    &.ant-dropdown-menu-item-active,
+    &:hover {
+      background: $dropdown-menu-item-bg-light-hover;
+    }
+    &:active {
+      background: $dropdown-menu-item-bg-light-active;
+    }
+  }
+}

@@ -608,6 +608,15 @@ $dropdown-base-margin:                             8px !default;
 $dropdown-min-margin:                              4px !default;
 $dropdown-font-size:                               $font-size-base !default;
 
+// theme - light
+$dropdown-menu-border-color-light:                      $basic-theme-light-disabled !default;
+$dropdown-menu-border-light:                            1px solid $basic-theme-light-disabled !default;
+$dropdown-menu-background-color-light:                  $basic-theme-light-bg !default;
+$dropdown-menu-box-shadow-light:                        $box-shadow-light-clear !default;
+$dropdown-menu-item-bg-light:                           $basic-theme-light-bg !default;
+$dropdown-menu-item-bg-light-hover:                     $basic-theme-light-hover !default;
+$dropdown-menu-item-bg-light-active:                    $basic-theme-light-active!default;
+
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------

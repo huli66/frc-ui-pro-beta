@@ -3,7 +3,11 @@ import {Dropdown as AntDropdown, DropdownProps, Menu, MenuProps} from 'antd'
 import {DownOutlined,UpOutlined} from '@ant-design/icons';
 import classNames from 'classnames';
 
+export type DropdownThemeType = "default" | "light";
+
 interface BaseDropdownProps {
+  /** 设置Dropdown样式主题 */
+  theme?: DropdownThemeType;
   /** 下拉框箭头是否显示 */
   arrow?: boolean;
   /** 下拉menu配置，详细配置请参考Menu文档 */
@@ -42,6 +46,7 @@ export type FRCDropdownProps = BaseDropdownProps & Omit<DropdownProps, 'overlay'
 
 export const Dropdown: FC<FRCDropdownProps> = (props: FRCDropdownProps) => {
   const {
+    theme,
     className,
     disabled,
     menuOptions,
@@ -61,7 +66,8 @@ export const Dropdown: FC<FRCDropdownProps> = (props: FRCDropdownProps) => {
     'frc-dropdown-disabled': disabled,
     'frc-dropdown-icon': icon,
     'frc-dropdown-working': working,
-    'frc-dropdown-arrow': arrow
+    'frc-dropdown-arrow': arrow,
+    [`frc-dropdown-theme-${theme}`]: theme
   });
 
   const overlayClasses = classNames('frc-dropdown', overlayClassName)
@@ -107,11 +113,11 @@ export const Dropdown: FC<FRCDropdownProps> = (props: FRCDropdownProps) => {
     
     return (
         <Menu
-          className='frc-dropdown-menu'
+          className={`frc-dropdown-menu${theme?` frc-dropdown-menu-theme-${theme}`:''}`}
           {...opts}
         />
       );
-  },[menuOptions]);
+  },[menuOptions, theme]);
 
   const handleVisibleChange = useCallback((visible: boolean) => {
     setDropDownVisible(visible)
