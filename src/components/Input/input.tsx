@@ -138,7 +138,7 @@ export const Input = forwardRef<InputRef, FRCInputProps>((props, ref) => {
           '&': '&amp;',
           '<': '&lt;',
           '>': '&gt;',
-          "'": '&#39;',
+          // "'": '&#39;',
           '"': '&quot;'
         }[tag] || tag));
       }
