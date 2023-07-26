@@ -33,7 +33,7 @@ export interface BaseSelectProps extends SelectProps {
   prefixIcon?: React.ReactNode;
   /** 列表下拉时，后缀图标 */
   extendSuffixIcon?: React.ReactNode;
-  /** 是否显示选中条目右侧图标 */
+  /** 是否隐藏选中条目右侧图标 */
   removeMenuItemSelectedIcon?: boolean;
   /** 支持清除 */
   allowClear?: boolean;
