@@ -44,7 +44,7 @@ export const SqueezeDrawer: FC<FRCSqueezeDrawerProps> = (props) => {
   const {
     extraContent,
     mainContent,
-    extraContentVisible,
+    extraContentVisible = false,
     className,
     width,
     height,
@@ -56,10 +56,10 @@ export const SqueezeDrawer: FC<FRCSqueezeDrawerProps> = (props) => {
     onOpenChange,
   } = props;
 
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(extraContentVisible);
 
   useEffect(() => {
-    setVisible(!!extraContentVisible);
+    setVisible(extraContentVisible);
   }, [extraContentVisible]);
 
   const handleClick = (): void => {
@@ -68,9 +68,7 @@ export const SqueezeDrawer: FC<FRCSqueezeDrawerProps> = (props) => {
       onOpenChange(!visible);
     } else {
       // 默认切换
-      if (extraContentVisible === undefined) {
-        setVisible(!visible);
-      }
+      setVisible(!visible);
     }
   };
 
