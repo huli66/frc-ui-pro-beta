@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState, useRef } from "react";
 import {
   LeftOutlined,
   RightOutlined,
@@ -38,7 +38,51 @@ export interface FRCSqueezeDrawerProps {
   mainContentStyle?: React.CSSProperties;
   /** 开关样式 */
   turnStyle?: React.CSSProperties;
+  /** 获取 主容器 宽高 */
+  getMainContentRect?: (width: number, height: number) => void;
 }
+
+const getContentContainerStyle = (currentPlacement: PlacementType) => {
+  let style: React.CSSProperties = {};
+  const styleOfPlacement = {
+    top: "column-reverse",
+    right: "row",
+    bottom: "column",
+    left: "row-reverse",
+  };
+  style.flexDirection = styleOfPlacement[currentPlacement] as any;
+  return style;
+};
+
+const getExtraContentStyle = (
+  currentPlacement: PlacementType,
+  currentVisible: boolean,
+  height: number,
+  width: number,
+  initProps: any,
+  getMainContentRect?: (width: number, height: number) => void,
+  containerRef?: any
+) => {
+  let style: React.CSSProperties = {};
+  if (currentPlacement === "top" || currentPlacement === "bottom") {
+    style.height = currentVisible ? height : 0;
+  }
+  if (currentPlacement === "right" || currentPlacement === "left") {
+    style.width = currentVisible ? width : 0;
+  }
+  style = {
+    ...style,
+    ...initProps,
+  };
+
+  getMainContentRect &&
+    getMainContentRect(
+      containerRef.current.clientWidth - ((style.width as number) || 0),
+      containerRef.current.clientHeight - ((style.height as number) || 0)
+    );
+
+  return style;
+};
 
 export const SqueezeDrawer: FC<FRCSqueezeDrawerProps> = (props) => {
   const {
@@ -52,15 +96,37 @@ export const SqueezeDrawer: FC<FRCSqueezeDrawerProps> = (props) => {
     extraContentStyle: extraContentStyleProps,
     mainContentStyle,
     turnStyle: turnStyleProps,
-    placement,
+    placement = "left",
     onOpenChange,
+    getMainContentRect,
   } = props;
 
+  const containerRef = useRef<any>(null);
   const [visible, setVisible] = useState(extraContentVisible);
+  const [containerStyle, setContainerStyle] = useState<any>({});
+  const [extraStyle, setExtraStyle] = useState<any>({});
 
   useEffect(() => {
     setVisible(extraContentVisible);
   }, [extraContentVisible]);
+
+  useEffect(() => {
+    setContainerStyle(getContentContainerStyle(placement));
+  }, [placement]);
+
+  useEffect(() => {
+    setExtraStyle(
+      getExtraContentStyle(
+        placement,
+        visible,
+        height as number,
+        width as number,
+        extraContentStyleProps,
+        getMainContentRect as (width: number, height: number) => void,
+        containerRef
+      )
+    );
+  }, [placement, visible, height, width, extraContentStyleProps]);
 
   const handleClick = (): void => {
     if (onOpenChange) {
@@ -92,36 +158,6 @@ export const SqueezeDrawer: FC<FRCSqueezeDrawerProps> = (props) => {
     return openIcon;
   };
 
-  const getContentContainerStyle = (currentPlacement: PlacementType) => {
-    let style: React.CSSProperties = {};
-    const styleOfPlacement = {
-      top: "column-reverse",
-      right: "row",
-      bottom: "column",
-      left: "row-reverse",
-    };
-    style.flexDirection = styleOfPlacement[currentPlacement] as any;
-    return style;
-  };
-
-  const getExtraContentStyle = (
-    currentPlacement: PlacementType,
-    currentVisible: boolean
-  ) => {
-    let style: React.CSSProperties = {};
-    if (currentPlacement === "top" || currentPlacement === "bottom") {
-      style.height = currentVisible ? height : 0;
-    }
-    if (currentPlacement === "right" || currentPlacement === "left") {
-      style.width = currentVisible ? width : 0;
-    }
-    style = {
-      ...style,
-      ...extraContentStyleProps,
-    };
-    return style;
-  };
-
   const getTurnStyle = (
     currentPlacement: PlacementType,
     currentVisible: boolean
@@ -151,8 +187,9 @@ export const SqueezeDrawer: FC<FRCSqueezeDrawerProps> = (props) => {
   return (
     <div className={classes} style={styleProps}>
       <div
+        ref={containerRef}
         className="content-container"
-        style={getContentContainerStyle(placement!)}
+        style={containerStyle}
       >
         <div
           className="frc-squeeze-drawer-main-content"
@@ -160,10 +197,7 @@ export const SqueezeDrawer: FC<FRCSqueezeDrawerProps> = (props) => {
         >
           {mainContent}
         </div>
-        <div
-          className="frc-squeeze-drawer-extra-content"
-          style={getExtraContentStyle(placement!, visible)}
-        >
+        <div className="frc-squeeze-drawer-extra-content" style={extraStyle}>
           {visible && extraContent}
         </div>
       </div>

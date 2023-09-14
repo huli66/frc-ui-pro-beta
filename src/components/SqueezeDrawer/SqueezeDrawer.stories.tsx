@@ -144,19 +144,28 @@ export const _PlacementComponent = () => {
   };
   const [placement, setPlacement] = useState<PlacementType>("left");
 
+  const [mainHeight, setMainHeight] = useState<number | null>(null);
+  const [mainWidth, setMainWidth] = useState<number | null>(null);
+
   return (
     <div className="squeeze-story">
       <Button onClick={() => setPlacement("left")}>左侧弹出</Button>
       <Button onClick={() => setPlacement("top")}>上方弹出</Button>
       <Button onClick={() => setPlacement("right")}>右侧弹出</Button>
       <Button onClick={() => setPlacement("bottom")}>下方弹出</Button>
+      主层内容: 宽: {mainWidth}; 高: {mainHeight};
       <div className="suqeeze-drawer-container">
         <SqueezeDrawer
+          className="test"
           placement={placement}
           extraContentVisible={visible}
           onOpenChange={onHandleClick}
           mainContent={<div style={{ height: "100%" }}>ma</div>}
           extraContent={<div>ex</div>}
+          getMainContentRect={(width, height) => {
+            setMainWidth(width);
+            setMainHeight(height);
+          }}
         />
       </div>
     </div>
