@@ -84,6 +84,36 @@ const getExtraContentStyle = (
   return style;
 };
 
+// const handleResize = (
+//   height: number,
+//   width: number,
+//   containerRef: any,
+//   getMainContentRect: (width: number, height: number) => void
+// ) => {
+//   // console.log(
+//   //   containerRef.current.clientWidth,
+//   //   containerRef.current.clientHeight
+//   // );
+
+//   let style: React.CSSProperties = {};
+//   if (currentPlacement === "top" || currentPlacement === "bottom") {
+//     style.height = currentVisible ? height : 0;
+//   }
+//   if (currentPlacement === "right" || currentPlacement === "left") {
+//     style.width = currentVisible ? width : 0;
+//   }
+//   style = {
+//     ...style,
+//     ...initProps,
+//   };
+
+//   getMainContentRect &&
+//     getMainContentRect(
+//       containerRef.current.clientWidth - ((width as number) || 0),
+//       containerRef.current.clientHeight - ((height as number) || 0)
+//     );
+// };
+
 export const SqueezeDrawer: FC<FRCSqueezeDrawerProps> = (props) => {
   const {
     extraContent,
@@ -105,28 +135,6 @@ export const SqueezeDrawer: FC<FRCSqueezeDrawerProps> = (props) => {
   const [visible, setVisible] = useState(extraContentVisible);
   const [containerStyle, setContainerStyle] = useState<any>({});
   const [extraStyle, setExtraStyle] = useState<any>({});
-
-  useEffect(() => {
-    setVisible(extraContentVisible);
-  }, [extraContentVisible]);
-
-  useEffect(() => {
-    setContainerStyle(getContentContainerStyle(placement));
-  }, [placement]);
-
-  useEffect(() => {
-    setExtraStyle(
-      getExtraContentStyle(
-        placement,
-        visible,
-        height as number,
-        width as number,
-        extraContentStyleProps,
-        getMainContentRect as (width: number, height: number) => void,
-        containerRef
-      )
-    );
-  }, [placement, visible, height, width, extraContentStyleProps]);
 
   const handleClick = (): void => {
     if (onOpenChange) {
@@ -183,6 +191,71 @@ export const SqueezeDrawer: FC<FRCSqueezeDrawerProps> = (props) => {
     [`frc-squeeze-drawer-${placement}`]: placement,
     "frc-squeeze-drawer-open": visible,
   });
+
+  useEffect(() => {
+    setVisible(extraContentVisible);
+  }, [extraContentVisible]);
+
+  useEffect(() => {
+    setContainerStyle(getContentContainerStyle(placement));
+  }, [placement]);
+
+  useEffect(() => {
+    // setExtraStyle(
+    //   getExtraContentStyle(
+    //     placement,
+    //     visible,
+    //     height as number,
+    //     width as number,
+    //     extraContentStyleProps,
+    //     getMainContentRect as (width: number, height: number) => void,
+    //     containerRef
+    //   )
+    // );
+    const resize = () => {
+      setExtraStyle(
+        getExtraContentStyle(
+          placement,
+          visible,
+          height as number,
+          width as number,
+          extraContentStyleProps,
+          getMainContentRect as (width: number, height: number) => void,
+          containerRef
+        )
+      );
+    };
+
+    resize();
+    window.addEventListener("resize", resize);
+
+    return () => {
+      window.removeEventListener("resize", resize);
+    };
+  }, [
+    placement,
+    visible,
+    height,
+    width,
+    extraContentStyleProps,
+    getMainContentRect,
+  ]);
+
+  // useEffect(() => {
+  //   const resizeMain = () =>
+  //     handleResize(
+  //       height as number,
+  //       width as number,
+  //       containerRef,
+  //       getMainContentRect as (width: number, height: number) => void
+  //     );
+
+  //   window.addEventListener("resize", resizeMain);
+
+  //   return () => {
+  //     window.removeEventListener("resize", resizeMain);
+  //   };
+  // }, [placement, height, width, getMainContentRect]);
 
   return (
     <div className={classes} style={styleProps}>

@@ -163,6 +163,8 @@ export const _PlacementComponent = () => {
           mainContent={<div style={{ height: "100%" }}>ma</div>}
           extraContent={<div>ex</div>}
           getMainContentRect={(width, height) => {
+            console.log(width, height);
+
             setMainWidth(width);
             setMainHeight(height);
           }}
