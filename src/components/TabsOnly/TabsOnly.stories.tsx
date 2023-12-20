@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactHTMLElement, useState } from "react";
+import React, { ReactElement, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -88,6 +88,7 @@ export default {
             code="interface TabItem {
               key: React.Key;
               label: string;
+              disabled?: boolean;
             };"
           />
         </>
@@ -183,14 +184,22 @@ export const _DisableComponent = () => {
     { key: "3", label: "Filter003" },
     { key: "4", label: "Filter004"},
   ];
-  const disItems: TabItem[] = [
-    { key: "1", label: "Filter001", disabled: true },
-    { key: "2", label: "Filter002", disabled: true },
-    { key: "3", label: "Filter003", disabled: true },
-    { key: "4", label: "Filter004", disabled: true },
-  ];
+
   return (
         <>
+          禁用整个组件
+          <br />
+         <TabsOnly defaultValue="1" disabled items={items} />
+          <br />
+          <br />
+          <TabsOnly defaultValue="1" type="piend" disabled items={items} />
+          <br />
+          <br />
+          <TabsOnly type="solid" defaultValue="1" disabled items={items} />
+          <br />
+          <br />
+          禁用某一项
+          <br />
           <TabsOnly defaultValue="1" items={items} />
           <br />
           <br />
@@ -198,19 +207,10 @@ export const _DisableComponent = () => {
           <br />
           <br />
           <TabsOnly type="solid" defaultValue="1" items={items} />
-          <br />
-          <br />
-          <TabsOnly defaultValue="1" items={disItems} />
-          <br />
-          <br />
-          <TabsOnly defaultValue="1" type="piend" items={disItems} />
-          <br />
-          <br />
-          <TabsOnly type="solid" defaultValue="1" items={disItems} />
         </>
   );
 }
-_DisableComponent.storyName = "禁用某一项 TabsOnly";
+_DisableComponent.storyName = "禁用 TabsOnly";
 _DisableComponent.parameters = {
   controls: { hideNoControlsWarning: true },
 };

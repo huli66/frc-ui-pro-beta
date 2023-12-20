@@ -13,6 +13,8 @@ export type TabsOnlyThemeType = "default" | "light";
 
 
 export interface FRCTabsOnlyProps {
+  /** 禁用整个组件 */
+  disabled?: boolean;
   /** 设置tabsOnly样式主题 */
   theme?: TabsOnlyThemeType;
   /** tabsOnly类名 */
@@ -40,6 +42,7 @@ export interface FRCTabsOnlyProps {
 export const TabsOnly: FC<FRCTabsOnlyProps> = (props) => {
   const {
     theme,
+    disabled,
     defaultValue,
     value,
     width,
@@ -59,13 +62,18 @@ export const TabsOnly: FC<FRCTabsOnlyProps> = (props) => {
     [`frc-tabs-only-theme-${theme}`]: theme,
   });
 
+  const itemCls = (itemActive:boolean, itemDisabled?:boolean) => classNames('frc-tab-pane', {
+    'frc-tab-pane-active': itemActive,
+    'frc-tab-pane-disabled': itemDisabled
+  })
+
   const [current, setCurrent] = useState<React.Key | undefined>(defaultValue);
 
   const changeTabPane = (item: TabItem) => {
     if (current === item.key) {
       return ;
     }
-    if (item.disabled) {
+    if (disabled || item.disabled) {
       return ;
     }
     if (onChange) {
@@ -90,7 +98,7 @@ export const TabsOnly: FC<FRCTabsOnlyProps> = (props) => {
             onClick={() => {
               changeTabPane(item);
             }}
-            className={`frc-tab-pane ${current === item.key ? 'frc-tab-pane-active':''} ${item.disabled ? 'frc-tab-pane-disabled' : ''}`}
+            className={itemCls(current === item.key, disabled || item.disabled)}
             key={item.key}
           >
             <div
