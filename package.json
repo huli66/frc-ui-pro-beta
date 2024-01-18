@@ -1,6 +1,6 @@
 {
   "name": "frc-ui-pro",
-  "version": "2.9.4",
+  "version": "2.9.9",
   "author": "sumscope",
   "private": false,
   "main": "dist/src/index.js",
