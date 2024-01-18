@@ -11,6 +11,9 @@
   // width: 100%;
   min-width: 120px;
   @include input-selection;
+  &.frc-select-container-prefix {
+    position: relative;
+  }
 }
 
 .frc-select.ant-select.ant-select-single,
@@ -254,24 +257,25 @@
   }
 }
 
+// icon
+.frc-select-prefix-wrapper {
+  z-index: 11;
+  display: flex;
+  height: 22px;
+  width: 20px;
+  justify-content: center;
+  align-items: center;
+  cursor: default;
+  color: $words-normal;
+  position: absolute;
+  left: 1px;
+  top: 1px;
+}
+
 // prefix select
 .frc-select.frc-select-prefix {
   position: relative;
   line-height: $line-height-base;
-  // icon
-  .frc-select-prefix-wrapper {
-    z-index: 10;
-    display: flex;
-    height: 22px;
-    width: 20px;
-    justify-content: center;
-    align-items: center;
-    cursor: default;
-    color: $words-normal;
-    position: absolute;
-    left: 1px;
-    top: 0px;
-  }
   // single
   &.ant-select-single {
     .ant-select-selector {

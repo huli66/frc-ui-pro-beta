@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, forwardRef } from "react";
+import React, { useState, useRef, forwardRef } from "react";
 import classNames from "classnames";
 import AntdSelect, {
   SelectProps,
@@ -6,7 +6,6 @@ import AntdSelect, {
   RefSelectProps as SelectRef,
 } from "antd/es/select";
 import { FiSearch, FiX, FiCheck } from "react-icons/fi";
-import ReactDOM from "react-dom";
 
 export type { SelectRef };
 interface LabeledValue {
@@ -162,24 +161,6 @@ export interface BaseSelectProps extends SelectProps {
   focus?: () => void;
 }
 
-const addPrefixNode = (nodes: any, prefixIcon: React.ReactNode) => {
-  const addNode = document.createElement("div");
-  addNode.setAttribute("class", "frc-select-prefix-wrapper");
-
-  // dom container insert
-  const currentDom = nodes.current;
-  currentDom &&
-    currentDom
-      .querySelector(".frc-select")
-      .insertBefore(addNode, currentDom.querySelector(".ant-select-selector"));
-
-  // icon insert
-  ReactDOM.render(
-    prefixIcon as any,
-    currentDom.querySelector(".frc-select-prefix-wrapper")
-  );
-}; 
-
 export type FRCSelectProps = BaseSelectProps;
 
 export const Select = forwardRef<SelectRef, FRCSelectProps>((props, ref) => {
@@ -203,13 +184,6 @@ export const Select = forwardRef<SelectRef, FRCSelectProps>((props, ref) => {
     ...restProps
   } = props;
 
-  // add prefix node
-  useEffect(() => {
-    if (prefixIcon) {
-      addPrefixNode(nodes, prefixIcon);
-    }
-  }, [prefixIcon]);
-
   const classes = classNames("frc-select", className, {
     [`frc-select-prefix`]: prefixIcon,
     [`frc-select-prefix-icon-disabled`]: disabled,
@@ -220,6 +194,10 @@ export const Select = forwardRef<SelectRef, FRCSelectProps>((props, ref) => {
     [`frc-select-prefix-dropdown`]: prefixIcon,
     [`frc-select-remove-selected-icon`]: removeMenuItemSelectedIcon,
   });
+
+  const classesWrapper = classNames("frc-select-container", wrapperClassName, {
+    [`frc-select-container-prefix`]: prefixIcon,
+  })
 
   const options = {
     className: classes,
@@ -247,9 +225,16 @@ export const Select = forwardRef<SelectRef, FRCSelectProps>((props, ref) => {
   return (
     <div
       ref={nodes}
-      className={`frc-select-container ${wrapperClassName || ""}`}
+      className={classesWrapper}
       style={wrapperStyle || {}}
     >
+      {
+        prefixIcon && (
+          <div className="frc-select-prefix-wrapper">
+            {prefixIcon}
+          </div>
+        )
+      }
       <AntdSelect ref={ref} {...options}>
         {children}
       </AntdSelect>
