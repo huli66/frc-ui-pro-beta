@@ -186,7 +186,7 @@ export const Select = forwardRef<SelectRef, FRCSelectProps>((props, ref) => {
 
   const classes = classNames("frc-select", className, {
     [`frc-select-prefix`]: prefixIcon,
-    [`frc-select-prefix-icon-disabled`]: disabled,
+    // [`frc-select-prefix-icon-disabled`]: disabled,
     [`frc-select-no-border`]: type === "no-border" && mode !== "multiple",
   });
 
@@ -197,6 +197,7 @@ export const Select = forwardRef<SelectRef, FRCSelectProps>((props, ref) => {
 
   const classesWrapper = classNames("frc-select-container", wrapperClassName, {
     [`frc-select-container-prefix`]: prefixIcon,
+    [`frc-select-container-prefix-icon-disabled`]: disabled,
   })
 
   const options = {

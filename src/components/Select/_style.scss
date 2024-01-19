@@ -14,6 +14,12 @@
   &.frc-select-container-prefix {
     position: relative;
   }
+  &.frc-select-container-prefix-icon-disabled{
+    .frc-select-prefix-wrapper {
+      color: $words-disable;
+      cursor: not-allowed;
+    }
+  }
 }
 
 .frc-select.ant-select.ant-select-single,
@@ -292,12 +298,6 @@
       .ant-select-selection-placeholder {
         padding-left: 22px;
       }
-    }
-  }
-  &.frc-select-prefix-icon-disabled {
-    .frc-select-prefix-wrapper {
-      color: $words-disable;
-      cursor: not-allowed;
     }
   }
 }
