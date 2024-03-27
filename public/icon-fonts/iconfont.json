@@ -3,8 +3,29 @@
   "name": "qeubee VENUS",
   "font_family": "sumscope-icon",
   "css_prefix_text": "icon-",
-  "description": "2021 size=12x12",
+  "description": "2021 size=12x12 font-size=14px",
   "glyphs": [
+    {
+      "icon_id": "31403497",
+      "name": "visit-history",
+      "font_class": "visit-history",
+      "unicode": "e86d",
+      "unicode_decimal": 59501
+    },
+    {
+      "icon_id": "27981156",
+      "name": "chart-mix",
+      "font_class": "chart-mix",
+      "unicode": "e86c",
+      "unicode_decimal": 59500
+    },
+    {
+      "icon_id": "27677338",
+      "name": "exclamation-triangle-o",
+      "font_class": "exclamation-triangle-o",
+      "unicode": "e840",
+      "unicode_decimal": 59456
+    },
     {
       "icon_id": "2192699",
       "name": "frown",
@@ -956,13 +977,6 @@
       "font_class": "exclamation-circle-o",
       "unicode": "e7a0",
       "unicode_decimal": 59296
-    },
-    {
-      "icon_id": "2598218",
-      "name": "exclamation-triangle",
-      "font_class": "exclamation-triangle-o",
-      "unicode": "e840",
-      "unicode_decimal": 59456
     },
     {
       "icon_id": "2598219",
