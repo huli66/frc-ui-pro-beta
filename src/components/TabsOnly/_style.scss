@@ -21,11 +21,12 @@
     }
     &:hover {
       background-color: $tabs-base-background-hover;
-      border-color: $tabs-active-color;
-      color: $tabs-active-color;
+      border-color: $tabs-base-background-hover;
+      color: $tabs-base-color;
     }
     &:active {
       background-color: $tabs-base-background;
+      border-color: $tabs-base-background;
     }
     .frc-tab-pane-content {
       min-width: 80px;
@@ -61,7 +62,13 @@
   .frc-tab-pane-active {
     color: $tabs-active-color;
     border-color: $tabs-active-color;
-    background: $tabs-base-background-active;
+    background-color: $tabs-base-background-active;
+     &:hover {
+      background-color: $tabs-base-background-hover;
+    }
+    &:active {
+      background-color: $tabs-base-background;
+    }
   }
 }
 

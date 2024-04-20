@@ -772,9 +772,11 @@ $tree-font-size:                                      $font-size-base !default;
 $tree-background:                                     $basic-plate !default;
 $tree-line-color:                                     $part-plate !default;
 $tree-default-color:                                  $words-normal !default;
+$tree-selected:                                       $hover-button !default;
+$tree-active-background:                              $hover-button !default;
 
 // tree hover
-$tree-row-hover-background:                                      $hover-button !default;
+$tree-row-hover-background:                           $hover-list !default;
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
