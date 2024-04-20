@@ -415,6 +415,7 @@ $date-picker-color-icon-disabled:                  $words-disable !default;
 // ----------------------------------------------------------------
 
 // modal
+$modal-header-bg:                                  $btn-hover !default;
 
 // basic
 $modal-line-height:                                $line-height-base !default;
@@ -518,7 +519,7 @@ $tabs-base-background-active:                      $element-background !default;
 $tabs-base-background-disabled:                    $part-plate !default;
 $tabs-base-padding:                                16px !default;
 $tabs-item-default-height:                         24px !default;
-$tabs-item-default-line-height:                    20px !default; //如果和高度一样不好看
+$tabs-item-default-line-height:                    22px !default; //如果和高度一样不好看
 $tabs-item-middle-height:                          30px !default;
 $tabs-item-middle-line-height:                     26px !default;
 $tabs-item-large-height:                           36px !default;

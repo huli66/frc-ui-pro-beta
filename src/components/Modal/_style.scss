@@ -26,13 +26,13 @@
     // header
     .ant-modal-header {
       @include flex-center(column);
-      background-color: transparent;
+      background-color: $modal-header-bg;
       line-height: $modal-line-height;
       min-height: $modal-min-height;
       padding: 0;
       border: none;
       .ant-modal-title {
-        font-size: 12px;
+        font-size: $font-size-normal;
         color: $words-normal;
       }
     }
