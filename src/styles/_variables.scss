@@ -745,7 +745,8 @@ $filter-line-height:                                 $line-height-base !default;
 
 $filter-item-base-bg:                                $part-plate !default;
 $filter-item-hover-bg:                               $hover-button !default;
-$filter-item-active-bg:                              $part-plate !default;
+$filter-item-pressed-bg:                             $part-plate !default;
+$filter-item-active-bg:                              $element-background !default;
 $filter-item-disabled-bg:                            $part-plate !default;
 
 $filter-item-color:                                  $words-normal !default;

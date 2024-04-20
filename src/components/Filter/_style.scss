@@ -16,6 +16,7 @@
   &.frc-filter-item-active {
     color: $filter-item-checked-color;
     border-color: $filter-item-checked-color;
+    background-color: $filter-item-active-bg;
     &.frc-filter-item-disabled {
       border-color: $filter-item-disabled-border;
     }
@@ -25,7 +26,7 @@
     background-color: $filter-item-hover-bg;
   }
   &:active {
-    background-color: $filter-item-active-bg;
+    background-color: $filter-item-pressed-bg;
   }
 
   &.frc-filter-item-disabled {
