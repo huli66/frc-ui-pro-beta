@@ -63,7 +63,7 @@ $input-padding-y:                                  3px !default;
 $input-padding-x:                                  6px !default;
 $input-font-family:                                $font-family-base !default;
 $input-font-size:                                  $font-size-base !default;
-$input-font-weight:                                500 !default;
+$input-font-weight:                                $font-weight-base !default;
 $input-line-height:                                $line-height-sm !default;
 $input-border-radius:                              $border-radius !default;
 $input-background:                                 $element-background !default;
@@ -295,7 +295,7 @@ $checkbox-font-weight:                             $font-weight-base !default;
 
 // normal
 $checkbox-background:                              transparent !default;
-$checkbox-color:                                   $words-high-light !default;
+$checkbox-color:                                   $words-normal !default;
 $checkbox-border:                                  none !default;
 
 $checkbox-background-icon:                         $element-background !default;
