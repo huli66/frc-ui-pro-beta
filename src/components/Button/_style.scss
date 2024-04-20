@@ -87,8 +87,8 @@
   display: none;
 }
 
-// primary
-.frc-btn.frc-btn-primary {
+// default
+.frc-btn.frc-btn-default {
   text-shadow: none;
   box-shadow: none;
   @include button-style(

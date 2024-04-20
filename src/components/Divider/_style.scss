@@ -1,4 +1,5 @@
 .frc-divider.ant-divider {
+  color: $divider-background;
   &.ant-divider-horizontal {
     line-height: $divider-line-height;
     border-top: $divider-border-top;

@@ -102,7 +102,7 @@
     width: 16px;
     height: 16px;
     &:hover {
-      background: $btn-hover;
+      background: $hover-button;
     }
   }
   .ant-select-selection-item {
@@ -134,7 +134,7 @@
 
     // hover
     &:hover {
-      background-color: $btn-hover;
+      background-color: $hover-button;
       .ant-select-selection-item {
         color: $select-color !important;
       }
@@ -145,7 +145,7 @@
 
     // focus
     &.ant-select-focused.ant-select-open {
-      background-color: $btn-hover !important;
+      background-color: $hover-button !important;
       .ant-select-selection-item {
         color: $words-high-light !important;
       }

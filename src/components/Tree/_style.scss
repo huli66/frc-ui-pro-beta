@@ -36,19 +36,19 @@ $namePrefix: 'ant-tree';
     @include radio-checkbox-style(
           // normal
           $checkbox-background,
-          $checkbox-color,
+          $tree-default-color,
           $checkbox-border,
           $checkbox-background-icon,
           $checkbox-border-icon,
           // hover
-          $select-background-hover,
-          $checkbox-color-hover,
+          $tree-row-hover-background,
+          $tree-default-color,
           $checkbox-border-hover,
           $checkbox-background-hover-icon,
           $checkbox-border-hover-icon,
           // active
           $select-background-hover,
-          $checkbox-color-active,
+          $tree-default-color,
           $checkbox-border-active,
           $checkbox-background-active-icon,
           $checkbox-border-active-icon,

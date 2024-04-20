@@ -72,7 +72,7 @@ export const ModalFooter = (props: FRCModalProps) => {
   return (
     <>
       <Button type="gray" onClick={onCancel} style={{ width: 60 }} {...cancelFrcButtonProps}>{cancelText || '取消'}</Button>
-      <Button loading={confirmLoading} type={okBtnType || "primary"} onClick={onOk} style={{ width: 120 }} {...okFrcButtonProps}>
+      <Button loading={confirmLoading} type={okBtnType || "default"} onClick={onOk} style={{ width: 120 }} {...okFrcButtonProps}>
         {okText || '确定'}
       </Button>
     </>
@@ -114,7 +114,7 @@ Modal.defaultProps = {
   mask: true,
   maskClosable: false,
   okText: '确定',
-  okBtnType: 'primary',
+  okBtnType: 'default',
   zIndex: 1000
 }
 
