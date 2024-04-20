@@ -1,6 +1,6 @@
 .frc-tabs.ant-tabs {
   color: $tabs-base-color;
-  
+
   // base style
   .ant-tabs-content {
     height: 100%;
@@ -18,17 +18,21 @@
     font-size: $font-size-base;
     line-height: 2em;
     justify-content: center;
+    border: 1px solid $tabs-base-bg;
+    border-radius: 2px;
     &:hover {
-      color: $tabs-base-color;
+      color: $tabs-active-color;
+      border-color: $tabs-active-color;
     }
     &.ant-tabs-tab-active {
+      border: 1px solid $tabs-active-color;
       .ant-tabs-tab-btn {
-        color: $tabs-base-color;
+        color: $tabs-active-color;
         text-shadow: unset;
       }
     }
-    &+.ant-tabs-tab {
-      margin:0;
+    & + .ant-tabs-tab {
+      margin-left: 2px;
     }
     &.ant-tabs-tab-disabled {
       color: $tabs-disabled-color;
@@ -39,16 +43,17 @@
   }
   .ant-tabs-nav-operations {
     .ant-tabs-nav-more {
-      padding:0 4px;
+      padding: 0 4px;
     }
   }
   .ant-tabs-tab-btn {
-    &:focus, &:active {
+    &:focus,
+    &:active {
       color: $tabs-base-color;
     }
   }
 
-  &.ant-tabs-top > .ant-tabs-nav{
+  &.ant-tabs-top > .ant-tabs-nav {
     margin: 0;
     margin-bottom: 4px;
   }
@@ -64,13 +69,12 @@
     }
     .ant-tabs-nav {
       .ant-tabs-nav-list {
-        background-color: $tabs-base-bg;
-        border: 1px solid $tabs-focus-bg;
+        border: none;
         border-radius: $border-radius;
       }
     }
     @include tabs-style(
-      $base-bg: transparent,
+      $base-bg: $tabs-base-bg,
       $hover-bg: $tabs-hover-bg,
       $active-bg: $tabs-active-bg,
       $focus-bg: $tabs-focus-bg,
@@ -85,7 +89,8 @@
 
   // type => card
   &.frc-tabs-card {
-    & > .ant-tabs-nav,& > .ant-tabs-nav div {
+    & > .ant-tabs-nav,
+    & > .ant-tabs-nav div {
       .ant-tabs-nav-list {
         padding-top: $tabs-line-side-width;
         align-items: center;
@@ -117,9 +122,9 @@
       $base-bg: transparent,
       $hover-bg: $tabs-hover-bg,
       $active-bg: $tabs-active-bg,
-      $focus-bg: $tabs-base-bg,
+      $focus-bg: $tabs-active-bg,
       $disabled-bg: $tabs-disabled-bg
-    )
+    );
   }
 
   // type => block
@@ -143,7 +148,8 @@
 
   // full tab
   &.frc-tabs-full {
-    & > .ant-tabs-nav,& > .ant-tabs-nav div {
+    & > .ant-tabs-nav,
+    & > .ant-tabs-nav div {
       .ant-tabs-nav-list {
         flex-grow: 1;
       }
@@ -158,7 +164,7 @@
   &.ant-tabs-left {
     & > .ant-tabs-content-holder,
     & > div > .ant-tabs-content-holder {
-      border:none;
+      border: none;
     }
     .ant-tabs-nav {
       .ant-tabs-tab {
@@ -172,7 +178,7 @@
 
     &.frc-tabs-card {
       > .ant-tabs-nav .ant-tabs-nav-list,
-      > .ant-tabs-nav div .ant-tabs-nav-list{
+      > .ant-tabs-nav div .ant-tabs-nav-list {
         padding-top: 0;
       }
       .ant-tabs-tab {
@@ -200,7 +206,7 @@
   &.ant-tabs-left {
     &.frc-tabs-card {
       > .ant-tabs-nav .ant-tabs-nav-list,
-      > .ant-tabs-nav div .ant-tabs-nav-list{
+      > .ant-tabs-nav div .ant-tabs-nav-list {
         padding-right: $tabs-line-side-width;
       }
       .ant-tabs-tab::after {
@@ -212,7 +218,7 @@
   &.ant-tabs-right {
     &.frc-tabs-card {
       > .ant-tabs-nav .ant-tabs-nav-list,
-      > .ant-tabs-nav div .ant-tabs-nav-list{
+      > .ant-tabs-nav div .ant-tabs-nav-list {
         padding-left: $tabs-line-side-width;
       }
       .ant-tabs-tab::after {
@@ -221,8 +227,8 @@
     }
   }
 
-   // size => small 
-   &.frc-tabs-small {
+  // size => small
+  &.frc-tabs-small {
     & > .ant-tabs-nav .ant-tabs-tab {
       font-size: $tabs-small-font;
     }
@@ -240,5 +246,4 @@
       font-size: $tabs-large-font;
     }
   }
-
 }

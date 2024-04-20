@@ -512,9 +512,9 @@ $menu-item-height:                                 24px !default;
 // ----------------------------------------------------------------
 
 // tabs
-$tabs-base-background:                             $basic-filter !default;
+$tabs-base-background:                             $part-plate !default;
 $tabs-base-background-hover:                       $hover-button !default;
-$tabs-base-background-active:                      $part-plate !default;
+$tabs-base-background-active:                      $element-background !default;
 $tabs-base-background-disabled:                    $part-plate !default;
 $tabs-base-padding:                                16px !default;
 $tabs-item-default-height:                         24px !default;
@@ -667,15 +667,16 @@ $dcollapse-bar-short-side:                          2px !default;
 // ----------------------------------------------------------------
 
 // tabs
-$tabs-base-bg:                                       $element-background!default;
-$tabs-focus-bg:                                      $basic-btn !default;
+$tabs-base-bg:                                       $part-plate !default;
+$tabs-focus-bg:                                      $element-background !default;
 $tabs-hover-bg:                                      $hover-button !default;
 $tabs-active-bg:                                     $part-plate !default;
 $tabs-disabled-bg:                                   $part-plate !default;
-$tabs-card-focus-bg:                                 $element-background!default;
+$tabs-card-focus-bg:                                 $element-background !default;
 $tabs-block-base-bg:                                 $basic-plate !default;
 
 $tabs-base-color:                                    $words-normal !default;
+$tabs-active-color:                                  $words-high-light !default;
 $tabs-disabled-color:                                $words-disable !default;
 $tabs-card-color:                                    $words-supporting !default;
 

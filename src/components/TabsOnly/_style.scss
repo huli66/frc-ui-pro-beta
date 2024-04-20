@@ -7,18 +7,25 @@
   border-radius: $border-radius;
   align-items: center;
   justify-content: center;
- 
+
   .frc-tab-pane {
     height: 100%;
     box-sizing: border-box;
     transition: all 0.3s ease-in-out;
     position: relative;
     cursor: pointer;
+    border: 1px solid $tabs-base-background;
+    background-color: $tabs-base-background;
+    & + .frc-tab-pane {
+      margin-left: 2px;
+    }
     &:hover {
       background-color: $tabs-base-background-hover;
+      border-color: $tabs-active-color;
+      color: $tabs-active-color;
     }
     &:active {
-      background-color: $tabs-base-background-active;
+      background-color: $tabs-base-background;
     }
     .frc-tab-pane-content {
       min-width: 80px;
@@ -31,7 +38,7 @@
 
   // disabled
   &.frc-tabs-only {
-    .frc-tab-pane-disabled  {
+    .frc-tab-pane-disabled {
       cursor: not-allowed;
       color: $words-disable;
       &:hover {
@@ -50,16 +57,16 @@
 // type default
 .frc-tabs-only.frc-tabs-only-default {
   background: $element-background;
-  border: 1px solid $tabs-base-background;
 
   .frc-tab-pane-active {
-    background: $tabs-base-background;
+    color: $tabs-active-color;
+    border-color: $tabs-active-color;
+    background: $tabs-base-background-active;
   }
 }
 
 // type piend
 .frc-tabs-only.frc-tabs-only-piend {
-
   .frc-tab-pane {
     border-radius: $border-radius;
     &::after {
@@ -87,7 +94,7 @@
 
   // disabled
   &.frc-tabs-only {
-    .frc-tab-pane-disabled  {
+    .frc-tab-pane-disabled {
       cursor: not-allowed;
       color: $words-disable;
       &:hover {
@@ -127,7 +134,7 @@
   }
   // disabled
   &.frc-tabs-only {
-    .frc-tab-pane-disabled  {
+    .frc-tab-pane-disabled {
       cursor: not-allowed;
       color: $words-disable;
       &:hover {
@@ -141,7 +148,6 @@
     }
   }
 }
-
 
 // size
 .frc-tabs-only.frc-tabs-only-size-small {
