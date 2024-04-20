@@ -246,7 +246,7 @@ $radio-background-disabled:                        transparent !default;
 $radio-color-disabled:                             $words-disable !default;
 $radio-border-disabled:                            none !default;
 
-$radio-background-disabled-icon:                   $element-background !default;
+$radio-background-disabled-icon:                   $part-plate !default;
 $radio-border-disabled-icon:                       1px solid $baisc-disable !default;
 $radio-background-disabled-icon-inner:             $baisc-disable !default;
 $radio-border-disabled-icon-inner:                 2px solid $baisc-disable !default;
@@ -331,7 +331,7 @@ $checkbox-background-disabled:                     transparent !default;
 $checkbox-color-disabled:                          $words-disable !default;
 $checkbox-border-disabled:                         none !default;
 
-$checkbox-background-disabled-icon:                $element-background !default;
+$checkbox-background-disabled-icon:                $part-plate !default;
 $checkbox-border-disabled-icon:                    1px solid $baisc-disable !default;
 $checkbox-background-disabled-icon-inner:          $baisc-disable !default;
 $checkbox-border-disabled-icon-inner:              2px solid $baisc-disable !default;
@@ -369,7 +369,7 @@ $switch-border-focus:                              1px solid $words-high-light !
 $switch-background-focus-icon:                     $words-high-light !default;
 
 // disable
-$switch-background-disabled:                       $element-background !default;
+$switch-background-disabled:                       $part-plate !default;
 $switch-color-disabled:                            $words-disable !default;
 $switch-border-disabled:                           1px solid $baisc-disable !default;
 
