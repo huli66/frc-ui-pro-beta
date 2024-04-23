@@ -37,7 +37,7 @@
   
   .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected,
   .ant-menu-item.ant-menu-item-selected {
-    @include menu-color($words-high-light, $menu-base-background);
+    @include menu-color($words-high-light, $menu-active-background);
   }
   .ant-menu-item:hover,
   .ant-menu-submenu-title:hover  {
@@ -62,9 +62,9 @@
   .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
   .ant-menu-submenu-active,
   .ant-menu-submenu-title:hover {
-    color: $words-high-light;
+    color: $words-normal;
     .ant-menu-submenu-arrow {
-      color: $words-high-light;
+      color: $words-normal;
     }
   }
   .ant-menu-item:active,
@@ -158,7 +158,7 @@
     color: $words-normal;
   }
   .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
-    @include menu-color($words-high-light, $menu-base-background);
+    @include menu-color($words-high-light, $menu-active-background);
   }
   .ant-menu-submenu:hover
     > .ant-menu-submenu-title
