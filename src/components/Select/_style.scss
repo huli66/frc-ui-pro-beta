@@ -200,6 +200,9 @@
   // now active
   .ant-select-item-option-active {
     background-color: $select-background-hover;
+    &:active {
+      background-color: $select-icon-active;
+    }
   }
 
   // prve active
@@ -328,7 +331,7 @@
       background-color: $part-plate;
       .ant-select-selection-item-remove {
         color: $words-normal;
-        width: 16px !important; 
+        width: 16px !important;
         .anticon-close {
           vertical-align: 0;
           font-size: 8px;
