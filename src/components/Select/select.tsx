@@ -1,4 +1,11 @@
-import React, { useState, useRef, forwardRef } from "react";
+import React, {
+  useState,
+  useRef,
+  forwardRef,
+  useEffect,
+  useCallback,
+  useMemo,
+} from "react";
 import classNames from "classnames";
 import AntdSelect, {
   SelectProps,
@@ -6,6 +13,8 @@ import AntdSelect, {
   RefSelectProps as SelectRef,
 } from "antd/es/select";
 import { FiSearch, FiX, FiCheck } from "react-icons/fi";
+import Icon from "../Icon";
+import { Checkbox } from "../..";
 
 export type { SelectRef };
 interface LabeledValue {
@@ -154,11 +163,16 @@ export interface BaseSelectProps extends SelectProps {
   /** 文本框值变化时回调	 */
   onSearch?: (value: string) => void;
   /** 被选中时调用，参数为选中项的 value (或 key) 值 */
-  onSelect?: (e: string | number | object | LabeledValue, options: Object) => void;
+  onSelect?: (
+    e: string | number | object | LabeledValue,
+    options: Object
+  ) => void;
   /** 取消焦点 */
   blur?: () => void;
   /** 获取焦点 */
   focus?: () => void;
+  /** 展示当前选中数量，仅在 mode 为 multiple 或 tags 时生效 */
+  showCount?: boolean;
 }
 
 export type FRCSelectProps = BaseSelectProps;
@@ -166,7 +180,12 @@ export type FRCSelectProps = BaseSelectProps;
 export const Select = forwardRef<SelectRef, FRCSelectProps>((props, ref) => {
   const [openDropdown, setOpenDropdown] = useState(false);
   const nodes = useRef(null);
+  type CheckboxValueType = string | number | boolean;
+  const [selectedValue, setSelectedValue] = useState<CheckboxValueType[]>([]);
+  const [dropdownList, setDropdownList] = useState<DefaultOptionType[]>([]);
+  const [show, setShow] = useState<boolean>(false);
   const {
+    value,
     className,
     type,
     mode,
@@ -181,8 +200,13 @@ export const Select = forwardRef<SelectRef, FRCSelectProps>((props, ref) => {
     dropdownClassName,
     removeMenuItemSelectedIcon,
     onDropdownVisibleChange,
+    showCount,
+    options: ops,
+    onChange,
     ...restProps
   } = props;
+
+  const isShowCount = showCount && ["multiple", "tags"].includes(mode || "");
 
   const classes = classNames("frc-select", className, {
     [`frc-select-prefix`]: prefixIcon,
@@ -198,7 +222,8 @@ export const Select = forwardRef<SelectRef, FRCSelectProps>((props, ref) => {
   const classesWrapper = classNames("frc-select-container", wrapperClassName, {
     [`frc-select-container-prefix`]: prefixIcon,
     [`frc-select-container-prefix-icon-disabled`]: disabled,
-  })
+    ["frc-select-container-show-count"]: isShowCount,
+  });
 
   const options = {
     className: classes,
@@ -221,27 +246,111 @@ export const Select = forwardRef<SelectRef, FRCSelectProps>((props, ref) => {
       setOpenDropdown(open);
     },
     ...restProps,
-  } as SelectProps; 
- 
-  return (
-    <div
-      ref={nodes}
-      className={classesWrapper}
-      style={wrapperStyle || {}}
-    >
-      {
-        prefixIcon && (
-          <div className="frc-select-prefix-wrapper">
-            {prefixIcon}
-          </div>
-        )
+  } as SelectProps;
+
+  const handleShow = (e: any) => {
+    e.stopPropagation();
+    setShow(!show);
+  };
+
+  const onClear = (e: MouseEvent) => {
+    e.stopPropagation();
+    setSelectedValue([]);
+  };
+
+  const handleRemove = (val: string) => {
+    const list = (selectedValue || []).filter((item) => item !== val);
+
+    if (!list.length) {
+      setShow(false);
+    }
+
+    setSelectedValue(list || []);
+  };
+
+  const onValueChange = (
+    checkedValue: CheckboxValueType[],
+    option: DefaultOptionType | DefaultOptionType[]
+  ) => {
+    setSelectedValue(checkedValue);
+
+    if (onChange) {
+      onChange(checkedValue, option);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", () => {
+      if (show) {
+        setShow(false);
       }
-      <AntdSelect ref={ref} {...options}>
+    });
+
+    return () => {
+      document.removeEventListener("click", () => {});
+    };
+  }, [show]);
+
+  useEffect(() => {
+    if (isShowCount) {
+      const list = (ops || []).filter((type) =>
+        selectedValue.includes(type.value)
+      );
+
+      setDropdownList(list);
+    }
+  }, [selectedValue]);
+
+  useEffect(() => {
+    setSelectedValue((value || []) as CheckboxValueType[]);
+  }, [value]);
+
+  return (
+    <div ref={nodes} className={classesWrapper} style={wrapperStyle || {}}>
+      {prefixIcon && (
+        <div className="frc-select-prefix-wrapper">{prefixIcon}</div>
+      )}
+      <AntdSelect
+        ref={ref}
+        {...options}
+        options={ops}
+        value={selectedValue}
+        onChange={onValueChange}
+      >
         {children}
       </AntdSelect>
+      {isShowCount && (
+        <div
+          className={classNames("add-on-after", {
+            "add-on-after-disabled": !dropdownList.length,
+          })}
+          onClick={handleShow}
+        >
+          {(selectedValue || []).length}
+          <Icon type="close" onClick={onClear} />
+          {show && (
+            <div className="add-on-after-dropdown">
+              {dropdownList.map((item) => {
+                return (
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleRemove(item.value as string);
+                    }}
+                    key={item.value}
+                  >
+                    {item.label}
+                    <Icon type="close" />
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
-}); 
+});
 
 // normal
 Select.defaultProps = {

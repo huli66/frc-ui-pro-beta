@@ -14,7 +14,7 @@
   &.frc-select-container-prefix {
     position: relative;
   }
-  &.frc-select-container-prefix-icon-disabled{
+  &.frc-select-container-prefix-icon-disabled {
     .frc-select-prefix-wrapper {
       color: $words-disable;
       cursor: not-allowed;
@@ -347,5 +347,86 @@
   .ant-select-selection-placeholder {
     left: 0;
     padding-left: 4px;
+  }
+}
+
+// show count
+.frc-select-container-show-count {
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+
+  .add-on-after {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 48px;
+    height: 24px;
+    margin-left: 4px;
+    padding: 4px;
+    font-size: 12px;
+    border: $select-border;
+    border-radius: 2px;
+
+    // hover
+    &:hover {
+      cursor: pointer;
+    }
+
+    &-disabled {
+      color: $select-color-disabled;
+      border: $select-border-disabled;
+      cursor: not-allowed;
+      pointer-events: none;
+      .frc-icon {
+        color: $select-color-disabled;
+        background-color: $btn-background-disabled !important;
+      }
+    }
+    .frc-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      font-size: 12px;
+      margin-right: 0 !important;
+      padding: none;
+      background: $btn-background-primary;
+      &:hover {
+        background-color: $btn-background-hover;
+      }
+      &:active {
+        background-color: $btn-background-active;
+      }
+    }
+
+    .add-on-after-dropdown {
+      position: absolute;
+      top: 26px;
+      right: 0;
+      z-index: 999;
+      width: 120px;
+      color: #f9c152;
+      background-color: #121a19;
+      border: 1px solid $select-border-disabled;
+      border-radius: 2px;
+      box-shadow: 0 0 24px 0 rgba(255, 235, 200, 0.3);
+      & > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 8px;
+        cursor: pointer;
+        &:hover {
+          background-color: $select-background-hover;
+        }
+        .frc-icon {
+          font-size: 12px;
+        }
+      }
+    }
   }
 }

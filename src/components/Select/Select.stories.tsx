@@ -1308,3 +1308,26 @@ _ZRefComponent.storyName = "Select Methods";
 _ZRefComponent.parameters = {
   controls: { hideNoControlsWarning: true },
 };
+
+// ----------------------------------------------------------------
+export const _ShowCoundRefComponet = () => {
+  const selectRef = React.useRef<SelectRef>(null);
+  const options = [
+    { label: "Apple", value: "Apple" },
+    { label: "Banana", value: "Banana" },
+    { label: "Orange", value: "Orange" },
+  ];
+
+  // ----------------------------------------------------------------
+
+  return (
+    <>
+      <Select ref={selectRef} options={options} showCount mode="tags" />
+    </>
+  );
+};
+
+_ShowCoundRefComponet.storyName = "show count";
+_ShowCoundRefComponet.parameters = {
+  controls: { hideNoControlsWarning: true },
+};
