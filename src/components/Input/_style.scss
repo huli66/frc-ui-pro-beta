@@ -205,7 +205,7 @@
     .ant-input-search-button {
       border-radius: 0 !important;
       height: $line-height-border;
-      background: $basic-border;
+      background: $btn-background-primary;
       border: 1px solid transparent !important;
       display: flex;
       justify-content: center;
@@ -231,8 +231,8 @@
 .frc-input-search-loading {
   .ant-btn-loading.ant-input-search-button::before,
   .ant-btn-loading.ant-input-search-button {
-    background: $input-search-background-hover;
-    color: $tittle-word !important;
+    background: $btn-background-disabled !important;
+    color: $words-disable !important;
     cursor: pointer;
   }
   .ant-input-affix-wrapper-disabled + .ant-input-group-addon {
