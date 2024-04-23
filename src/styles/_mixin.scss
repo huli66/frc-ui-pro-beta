@@ -410,7 +410,7 @@
   // active
   &:active {
     background: $active-background;
-    color: $active-color;
+    // color: $active-color;
     border: $active-border;
     // active icon
     .#{$prefix}-radio,
