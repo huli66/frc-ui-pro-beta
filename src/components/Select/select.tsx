@@ -363,6 +363,7 @@ Select.defaultProps = {
   menuItemSelectedIcon: <FiCheck />,
   removeMenuItemSelectedIcon: false,
   placeholder: "请选择",
+  showCount: false,
 };
 
 export default Select;

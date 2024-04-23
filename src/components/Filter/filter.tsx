@@ -30,7 +30,9 @@ export interface FRCFilterProps {
   /** 是否展示全选按钮,全选按钮的value为"ALL"  */
   showAll?: boolean;
   /** 在多选模式下且展示全选按钮，当选择所有元素时，是否自动跳回全选项 */
-  autoSelectAll?: boolean
+  autoSelectAll?: boolean;
+  /** 仅展示全选按钮,全选按钮的value为"ALL"，取消全选返回“[]” */
+  showAllOnly?: boolean;
 }
 
 const ALL = "ALL";
@@ -48,7 +50,9 @@ const calcValue = (
 
   if (showAll) {
     const validateAll =
-      value.length === opts.length && value.every((v) => opts.includes(v)) && autoFlag;
+      value.length === opts.length &&
+      value.every((v) => opts.includes(v)) &&
+      autoFlag;
     if (value.includes(ALL) || validateAll) {
       return [ALL];
     }
@@ -67,7 +71,8 @@ export const Filter: React.FC<FRCFilterProps> = (props) => {
     defaultValue,
     value,
     allText,
-    autoSelectAll
+    autoSelectAll,
+    showAllOnly,
   } = props;
 
   const [checked, setChecked] = useState<any[]>(
@@ -127,7 +132,11 @@ export const Filter: React.FC<FRCFilterProps> = (props) => {
       } else {
         _check = [..._check, op.value];
       }
-      if (showAll && autoSelectAll && (_check.length === options.length || !_check.length)) {
+      if (
+        showAll &&
+        autoSelectAll &&
+        (_check.length === options.length || !_check.length)
+      ) {
         triggerChange(
           [ALL],
           options.map((o) => o.value)
@@ -141,6 +150,10 @@ export const Filter: React.FC<FRCFilterProps> = (props) => {
 
   useEffect(() => {
     if ("value" in props) {
+      if (showAllOnly && (!value || !value.length)) {
+        setChecked(["N"]);
+        return;
+      }
       const _value = calcValue(
         showAll!,
         multiple!,
@@ -148,9 +161,10 @@ export const Filter: React.FC<FRCFilterProps> = (props) => {
         options.map((o) => o.value),
         autoSelectAll!
       );
+
       setChecked(_value);
     }
-  }, [value, props, options, showAll, multiple,autoSelectAll]);
+  }, [value, props, JSON.stringify(options), showAll, multiple, autoSelectAll]);
 
   return (
     <div className={cls} style={style}>
@@ -176,7 +190,8 @@ Filter.defaultProps = {
   multiple: false,
   showAll: true,
   allText: "全选",
-  autoSelectAll: true
+  autoSelectAll: true,
+  showAllOnly: false,
 };
 
 export default Filter;

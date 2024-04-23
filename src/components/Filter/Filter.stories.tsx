@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ComponentMeta } from "@storybook/react";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -13,6 +13,7 @@ import {
 } from "@storybook/addon-docs";
 
 import Filter, { FRCFilterProps, OptionType } from "./index";
+import Button from "../Button";
 
 const ImportComponent = () => {
   const markdown = `
@@ -308,7 +309,7 @@ export const _ShowAllJumpAutomaticallyComponent = () => {
     },
   ];
 
-  const allVals = options.map(({value}) => value)
+  const allVals = options.map(({ value }) => value);
 
   return (
     <>
@@ -321,9 +322,19 @@ export const _ShowAllJumpAutomaticallyComponent = () => {
       <br />
       <Filter options={options} multiple defaultValue={allVals} />
       <br />
-      <Filter options={options} autoSelectAll={false} defaultValue={allVals} multiple />
+      <Filter
+        options={options}
+        autoSelectAll={false}
+        defaultValue={allVals}
+        multiple
+      />
       <br />
-      <Filter options={options} showAll={false} defaultValue={allVals} multiple />
+      <Filter
+        options={options}
+        showAll={false}
+        defaultValue={allVals}
+        multiple
+      />
     </>
   );
 };
@@ -331,3 +342,57 @@ export const _ShowAllJumpAutomaticallyComponent = () => {
 _ShowAllJumpAutomaticallyComponent.storyName = "是否自动跳转全选按钮";
 
 // ------------------------------------------------------
+// ------------------------------------------------------
+
+export const _ShowAllOnlyComponent = () => {
+  const options: OptionType[] = [
+    {
+      label: "filter1",
+      value: 1,
+    },
+    {
+      label: "filter2",
+      value: 2,
+    },
+    {
+      label: "filter3",
+      value: 3,
+    },
+    {
+      label: "filter4",
+      value: 4,
+    },
+    {
+      label: "filter5",
+      value: 5,
+    },
+  ];
+
+  const [val, setVal] = useState(["ALL"]);
+
+  return (
+    <>
+      仅展示全选按钮 <br />
+      设置showAllOnly <br />
+      value设置为[]时全选按钮取消选中
+      <br />
+      <Button
+        onClick={() => {
+          setVal([]);
+        }}
+      >
+        取消全选
+      </Button>
+      <Filter
+        value={val}
+        onChange={(v) => {
+          setVal(v);
+        }}
+        allText="show all"
+        showAllOnly
+      />
+    </>
+  );
+};
+
+_ShowAllOnlyComponent.storyName = "仅展示show All";
