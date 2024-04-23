@@ -161,7 +161,7 @@
             }
             &:hover {
               .ant-picker-cell-inner {
-                background: $hover-button;
+                background: $part-plate;
                 color: $words-high-light;
               }
             }
@@ -177,22 +177,22 @@
             color: $words-normal;
             // last day of the month
             &.ant-picker-cell-end {
-              &::after {
-                content: "";
-                position: absolute;
-                border-top: 4px solid $words-high-light;
-                border-left: 2px solid transparent;
-                border-right: 2px solid transparent;
-                width: 4px;
-                height: 4px;
-                right: 12px;
-                top: 2px;
-              }
+              // &::after {
+              //   content: "";
+              //   position: absolute;
+              //   border-top: 4px solid $words-high-light;
+              //   border-left: 2px solid transparent;
+              //   border-right: 2px solid transparent;
+              //   width: 4px;
+              //   height: 4px;
+              //   right: 12px;
+              //   top: 2px;
+              // }
             }
             &.ant-picker-cell-today {
               .ant-picker-cell-inner {
-                background: $part-plate;
-                color: $words-high-light;
+                background: $words-high-light;
+                color: $basic-background;
                 &::before {
                   border: none;
                 }
