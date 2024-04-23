@@ -50,8 +50,16 @@
   }
 
   &.frc-btn-icon-only {
-    padding-left: 6px;
-    padding-right: 0;
+    padding: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    > span.anticon {
+      padding-top: 0 !important;
+      & + span {
+        margin-left: 0;
+      }
+    }
     @include button-style(
       transparent,
       $words-normal,
