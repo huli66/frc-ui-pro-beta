@@ -21,6 +21,9 @@
     &:hover {
       background-color: $squeeze-open-hover-button-background;
     }
+    &:active {
+      background-color: $squeeze-open-btn-active-background;
+    }
     .anticon{
       display: block;
       font-size: 10px;
