@@ -328,13 +328,16 @@
       background-color: $part-plate;
       .ant-select-selection-item-remove {
         color: $words-normal;
-        width: 20px;
+        width: 16px !important; 
         .anticon-close {
           vertical-align: 0;
           font-size: 8px;
         }
         &:hover {
-          background-color: $select-background-hover;
+          background-color: $select-icon-hover;
+        }
+        &:active {
+          background-color: $select-icon-active;
         }
       }
     }
