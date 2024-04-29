@@ -442,5 +442,4 @@ export const _DifferentTypeComponent = () => {
     </>
   );
 };
-
 _DifferentTypeComponent.storyName = "不同主题";

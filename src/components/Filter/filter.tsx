@@ -89,7 +89,7 @@ export const Filter: React.FC<FRCFilterProps> = (props) => {
   );
 
   const cls = classNames("frc-filter", className, {
-    [`frc-filter-${theme}`]: theme,
+    [`frc-filter-${theme}`]: theme, // 主题
   });
 
   const memoOpts = useMemo(() => {

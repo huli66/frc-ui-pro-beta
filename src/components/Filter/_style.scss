@@ -1,6 +1,7 @@
 .frc-filter {
   display: flex;
   flex-wrap: wrap;
+  // light
   &-light {
     .frc-filter-item {
       border: 1px solid $basic-theme-light-disabled;
