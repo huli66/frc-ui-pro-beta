@@ -33,6 +33,8 @@ export interface FRCFilterProps {
   autoSelectAll?: boolean;
   /** 仅展示全选按钮,全选按钮的value为"ALL"，取消全选返回“[]” */
   showAllOnly?: boolean;
+  /** 主题切换 */
+  type?: "default" | "light";
 }
 
 const ALL = "ALL";
@@ -73,6 +75,7 @@ export const Filter: React.FC<FRCFilterProps> = (props) => {
     allText,
     autoSelectAll,
     showAllOnly,
+    type,
   } = props;
 
   const [checked, setChecked] = useState<any[]>(
@@ -85,7 +88,9 @@ export const Filter: React.FC<FRCFilterProps> = (props) => {
     )
   );
 
-  const cls = classNames("frc-filter", className, {});
+  const cls = classNames("frc-filter", className, {
+    [`frc-filter-${type}`]: type,
+  });
 
   const memoOpts = useMemo(() => {
     return showAll ? [{ label: allText, value: ALL }, ...options] : options;
@@ -192,6 +197,7 @@ Filter.defaultProps = {
   allText: "全选",
   autoSelectAll: true,
   showAllOnly: false,
+  type: "default",
 };
 
 export default Filter;

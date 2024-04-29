@@ -396,3 +396,51 @@ export const _ShowAllOnlyComponent = () => {
 };
 
 _ShowAllOnlyComponent.storyName = "仅展示show All";
+
+// ------------------------------------------------------
+// ------------------------------------------------------
+
+export const _DifferentTypeComponent = () => {
+  const options: OptionType[] = [
+    {
+      label: "filter1",
+      value: 1,
+    },
+    {
+      label: "filter2",
+      value: 2,
+    },
+    {
+      label: "filter3",
+      value: 3,
+    },
+    {
+      label: "filter4",
+      value: 4,
+    },
+    {
+      label: "filter5",
+      value: 5,
+    },
+  ];
+
+  const [type, setType] = useState<"default" | "light">("default");
+  const handleType = () => {
+    if (type === "default") {
+      setType("light");
+    } else {
+      setType("default");
+    }
+  };
+
+  return (
+    <>
+      不同主题切换，默认设置default
+      <br />
+      <Button onClick={handleType}>切换Type</Button>
+      <Filter options={options} type={type} />
+    </>
+  );
+};
+
+_DifferentTypeComponent.storyName = "不同主题";

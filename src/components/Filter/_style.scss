@@ -1,6 +1,29 @@
 .frc-filter {
   display: flex;
   flex-wrap: wrap;
+  &-light {
+    .frc-filter-item {
+      border: 1px solid $basic-theme-light-disabled;
+      background-color: $basic-theme-light-disabled;
+      color: $words-grey;
+
+      &.frc-filter-item-active {
+        border: 1px solid $words-grey;
+        color: $words-grey;
+        background-color: $basic-theme-light;
+      }
+
+      &:hover {
+        background-color: $basic-theme-light-hover;
+        border: 1px solid $basic-theme-light-hover;
+      }
+      &:active {
+        background-color: $basic-theme-light-active;
+        border: 1px solid $words-grey;
+        color: $words-grey;
+      }
+    }
+  }
 }
 .frc-filter-item {
   height: $filter-item-height;
