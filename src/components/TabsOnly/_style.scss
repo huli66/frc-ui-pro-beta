@@ -16,6 +16,7 @@
     cursor: pointer;
     border: 1px solid $tabs-base-background;
     background-color: $tabs-base-background;
+    border-radius: 2px;
     & + .frc-tab-pane {
       margin-left: 2px;
     }
@@ -63,7 +64,7 @@
     color: $tabs-active-color;
     border-color: $tabs-active-color;
     background-color: $tabs-base-background-active;
-     &:hover {
+    &:hover {
       background-color: $tabs-base-background-hover;
     }
     &:active {

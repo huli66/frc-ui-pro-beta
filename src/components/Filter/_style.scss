@@ -32,11 +32,10 @@
   &.frc-filter-item-disabled {
     cursor: not-allowed;
     background-color: $filter-item-base-bg;
-    color:$filter-item-disabled-color;
+    color: $filter-item-disabled-color;
   }
 
   &:not(:last-of-type) {
-    margin-right: 4px;
+    margin-right: 2px;
   }
-  
 }

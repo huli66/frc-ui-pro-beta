@@ -386,7 +386,7 @@ export const _ShowAllOnlyComponent = () => {
       <Filter
         value={val}
         onChange={(v) => {
-          setVal(v);
+          setVal(v as any);
         }}
         allText="show all"
         showAllOnly
