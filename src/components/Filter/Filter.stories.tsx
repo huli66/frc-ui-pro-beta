@@ -438,7 +438,7 @@ export const _DifferentTypeComponent = () => {
       不同主题切换，默认设置default
       <br />
       <Button onClick={handleType}>切换Type</Button>
-      <Filter options={options} type={type} />
+      <Filter options={options} theme={type} />
     </>
   );
 };
