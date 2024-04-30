@@ -65,3 +65,23 @@
     $switch-background-disabled-icon
   );
 }
+
+.frc-switch-with-extra-text {
+  display: flex;
+  align-items: center;
+  .frc-switch-extra-text {
+    margin-left: 4px;
+    color: $words-normal;
+  }
+  &.flex-reverse {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    .frc-switch-extra-text {
+      margin: 0 4px 0 0;
+    }
+  }
+
+  .ant-switch-checked + .frc-switch-extra-text {
+    color: $words-high-light;
+  }
+}
