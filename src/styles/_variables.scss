@@ -753,10 +753,12 @@ $filter-font-size:                                   $font-size-base !default;
 $filter-item-height:                                 24px !default;
 $filter-line-height:                                 $line-height-base !default;
 
-$filter-item-base-bg:                                $part-plate !default;
+// $filter-item-base-bg:                                $part-plate !default;
+$filter-item-base-bg:                                $filter-normal-bg !default;
 $filter-item-hover-bg:                               $hover-button !default;
 $filter-item-pressed-bg:                             $part-plate !default;
-$filter-item-active-bg:                              $element-background !default;
+// $filter-item-active-bg:                              $element-background !default;
+$filter-item-active-bg:                              $filter-active-bg !default;
 $filter-item-disabled-bg:                            $part-plate !default;
 
 $filter-item-color:                                  $words-normal !default;
