@@ -676,8 +676,8 @@ $dcollapse-bar-short-side:                          2px !default;
 // ----------------------------------------------------------------
 
 // tabs
-$tabs-base-bg:                                       $part-plate !default;
-$tabs-focus-bg:                                      $element-background !default;
+$tabs-base-bg:                                       $filter-normal-bg !default;
+$tabs-focus-bg:                                      $filter-active-bg !default;
 $tabs-hover-bg:                                      $hover-button !default;
 $tabs-active-bg:                                     $part-plate !default;
 $tabs-disabled-bg:                                   $part-plate !default;

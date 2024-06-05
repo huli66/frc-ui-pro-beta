@@ -22,6 +22,10 @@
     border-radius: 2px;
     &:hover {
       color: $tabs-base-color;
+      border-color: $tabs-hover-bg;
+    }
+    &:active {
+      border-color: $tabs-active-bg;
     }
     &.ant-tabs-tab-active {
       border: 1px solid $tabs-active-color;
