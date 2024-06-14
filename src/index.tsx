@@ -36,3 +36,4 @@ export { default as Calendar } from './components/Calendar';
 
 // 业务模块
 export { default as InputSelect } from "./components/_BusinessCompositeModule/InputSelect";
+export { default as Chatroom } from "./components/_BusinessCompositeModule/Chatroom";
