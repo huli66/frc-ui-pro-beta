@@ -3,17 +3,21 @@ import { AxiosResponse, AxiosStatic } from "axios";
 /**
  * 聊天室组件参数
  * @property chatroomCode 聊天室代码，唯一标识
+ * @property chatroomName 聊天室名称
  * @property permission 权限
  * @property axios axios 方法
+ * @property openNewWindow 方法，右上角弹出按钮事件
  */
 export interface IChatroomProps {
   chatroomCode: string;
+  chatroomName: string;
   axios: AxiosStatic;
   permission: boolean;
   openNewWindow: () => void;
 }
 
 export interface IChatProps {
+  chatroomName: string;
   chatroomCode: string;
   permission: boolean;
   chatroomApi: IChatroomApi;

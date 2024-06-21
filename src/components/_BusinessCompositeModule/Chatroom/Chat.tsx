@@ -27,7 +27,7 @@ import List, { IListRefProps } from "./list";
 import { CheckboxChangeEvent } from "../../Checkbox/checkbox";
 
 const Chatroom: React.FC<IChatProps> = (props) => {
-  const { chatroomCode, permission, chatroomApi, openNewWindow } = props;
+  const { chatroomCode, chatroomName, permission, chatroomApi, openNewWindow } = props;
   const {
     sendMessage,
     getChatroomConfig,
@@ -274,7 +274,7 @@ const Chatroom: React.FC<IChatProps> = (props) => {
       >
         <div className={`chat-container`}>
           <div className={`chat-top-container`}>
-            票据聊天室
+            {chatroomName}
             <div className={`chat-icon-container`}>
               <Icon
                 type="setting"

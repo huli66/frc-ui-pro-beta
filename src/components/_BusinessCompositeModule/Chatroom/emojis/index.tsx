@@ -52,21 +52,20 @@ const Emojis = ({canSendMsg}: IProps) => {
     <div className='chatroom-emojis'>
       <div className='chatroom-emoji-tabs'>
         <div
-          className={`chatroom-emoji-tabs-inner ${selectedEmoji[0] === 'CUSTOM' ? 'custom-active' : 'emoji-active'}`}
+          className={`chatroom-emoji-tabs-inner ${selectedEmoji?.[0] === 'CUSTOM' ? 'custom-active' : 'emoji-active'}`}
         >
           <div className='chatroom-emojis-list'>
-            {EmojiNames.map((item) => {
-              return (
-                <div className='emoji-item'>
+            {EmojiNames?.map((item) => (
+                <div className='emoji-item' key={`emoji-${item}`}>
                   <div className={`emojione ${item}`} onClick={() => addEmoji(item)} />
                 </div>
-              );
-            })}
+              )
+            )}
           </div>
           <div className='chatroom-emojis-list'>
-            {customEmojiList.map(({id, emojiUrl}) => {
+            {customEmojiList?.map(({id, emojiUrl}) => {
               return (
-                <div className={`custom-item ${editing && 'can-be-delete'}`} onClick={() => sendImage(emojiUrl)}>
+                <div key={`emoji-${id}`} className={`custom-item ${editing && 'can-be-delete'}`} onClick={() => sendImage(emojiUrl)}>
                   <Tooltip
                     placement='top'
                     title={
@@ -105,7 +104,7 @@ const Emojis = ({canSendMsg}: IProps) => {
         value={selectedEmoji}
         onChange={(val) => setSelectedEmoji(val)}
       />
-      {selectedEmoji[0] === 'CUSTOM' && (
+      {selectedEmoji?.[0] === 'CUSTOM' && (
         <Button onClick={() => editHandle()} className='edit-custom-emoji' type='default'>
           {editing ? '完成' : '编辑'}
         </Button>

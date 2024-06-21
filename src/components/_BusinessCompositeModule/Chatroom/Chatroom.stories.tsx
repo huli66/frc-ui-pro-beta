@@ -10,17 +10,36 @@ import {
     Subheading,
     Source
 } from '@storybook/addon-docs';
-
 import Chatroom, { IChatroomProps } from './index';
-import axios from 'axios';
+
+const demoImg = require('../../../../public/chatroom/assets/chatroomDemo.png');
+
 
 // --------------------------------------------------------------
 
 const importCode = `
 // import code
-import { Chatroom } from 'frc-ui-pro';
-import { IChatroomProps } from "frc-ui-pro/dist/src/components/_BusinessCompositeModule/Chatroom";
+import axios from '@utils/axios';
+import {Chatroom} from 'frc-ui-pro';
+import React from 'react';
 
+const ForfaitingChatroom = () => {
+  const chatroomCode = 'forfaiting';
+  const chatroomName = '福费廷聊天室';
+  const openNewWindow = () => {
+    window.open('/forfaiting/chatroom?title=福费廷聊天室&popup=true&w=380&h=800&sizable=true');
+  };
+
+  return (
+    <Chatroom
+      chatroomName={chatroomName}
+      openNewWindow={openNewWindow}
+      permission
+      chatroomCode={chatroomCode}
+      axios={axios as any}
+    />
+  );
+};
 `;
 
 // --------------------------------------------------------------
@@ -56,7 +75,9 @@ export default {
                         of={Chatroom}
                         include={[
                             'chatroomCode',
+                            'chatroomName',
                             'permission',
+                            'openNewWindow',
                             'axios',
                         ]}
                     />
@@ -83,17 +104,13 @@ export const Default = () => {
         cursor: pointer;
     }
     .header-text:hover{
-      background-color:#133E38;
+        background-color:#133E38;
     }
   `;
 // --------------------------------------------------------
     return (
         <>
-            <Chatroom 
-                chatroomCode='rediscount'
-                permission={true}
-                axios={axios}
-            />
+            <img src={demoImg} />
         </>
     )
 }

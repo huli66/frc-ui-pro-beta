@@ -1,13 +1,14 @@
 import Chat from "./Chat";
-import React from "react";
+import React, { FC } from "react";
 import useChatroomApi from "./useChatroomApi";
 import { IChatroomProps } from "./types";
 
-const ChatRoom = ({permission, chatroomCode, axios, openNewWindow}: IChatroomProps) => {
+const ChatRoom: FC<IChatroomProps> = (props) => {
+    const {permission, chatroomCode, chatroomName, axios, openNewWindow} = props;
     const chatroomApi = useChatroomApi(chatroomCode, axios);
     const {getLatestMessage} = chatroomApi;
     return (
-        typeof getLatestMessage === 'function' ? <Chat openNewWindow={openNewWindow} chatroomCode={chatroomCode} permission={permission} chatroomApi={chatroomApi} /> : null
+        typeof getLatestMessage === 'function' ? <Chat chatroomName={chatroomName} openNewWindow={openNewWindow} chatroomCode={chatroomCode} permission={permission} chatroomApi={chatroomApi} /> : null
     )
 }
 
