@@ -31,3 +31,12 @@ import { Button } from "frc-ui-pro";
 
 ReactDOM.render(<Button>Frc Button</Button>, mountNode);
 ```
+
+## 安装 node-sass失败
+
+查找和 node 版本对应的 node-sass ，比如 node 18 使用 node-sass 8+ 即可
+
+```shell
+npm install node-sass@^8.0.0 --registry=https://registry.npmmirror.com --sass_binary_site=https://www.npmmirror.com/mirrors/node-sass/
+
+```
