@@ -15,6 +15,7 @@ import AntdSelect, {
 import { FiSearch, FiX, FiCheck } from "react-icons/fi";
 import Icon from "../Icon";
 import { Checkbox } from "../..";
+import { isNil } from "lodash";
 
 export type { SelectRef };
 interface LabeledValue {
@@ -302,7 +303,8 @@ export const Select = forwardRef<SelectRef, FRCSelectProps>((props, ref) => {
   }, [selectedValue]);
 
   useEffect(() => {
-    setSelectedValue((value || []) as CheckboxValueType[]);
+    const val = isNil(value) ? [] : value;
+    setSelectedValue(val as CheckboxValueType[]);
   }, [value]);
 
   return (
