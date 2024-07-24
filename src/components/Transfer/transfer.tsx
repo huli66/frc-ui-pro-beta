@@ -7,17 +7,15 @@ import {
   TransferLocale,
   TransferProps,
   TransferListProps,
-  TransferOperationProps,
 } from "antd/es/transfer";
 
 
 declare const InputStatuses: ["warning", "error", ""];
 declare type InputStatus = typeof InputStatuses[number];
-interface RecordType {
+interface RecordType extends TransferItem  {
   key: string;
   title: string;
   description: string;
-  chosen: boolean;
 }
 interface ListStyle {
   direction: TransferDirection;
@@ -90,7 +88,7 @@ interface BaseTransferProps {
   onSelectChange?: (sourceSelectedKeys: string[], targetSelectedKeys: string[]) => void,
 }
 
-export type FRCTransferProps = BaseTransferProps;
+export type FRCTransferProps = BaseTransferProps & TransferProps<RecordType>;
 
 export const Transfer = forwardRef<unknown, FRCTransferProps>((props, ref: any) => {
   const { className, ...restProps } = props;

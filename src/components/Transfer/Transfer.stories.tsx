@@ -11,7 +11,7 @@ import {
   Heading,
   Subheading,
 } from "@storybook/addon-docs";
-import Transfer, { FRCTransferProps } from "./index";
+import Transfer from "./index";
 import {
   TransferItem,
   TransferDirection,
@@ -136,9 +136,9 @@ export const Default = () => {
       render={item => item.title}
     />
   );
-};;
+};
 
-Default.storyName = "默认 Transfer";
+Default.storyName = "基本用法";
 Default.parameters = {
   controls: { hideNoControlsWarning: true },
 };
