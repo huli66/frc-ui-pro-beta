@@ -33,6 +33,7 @@ export { default as Collapse} from './components/Collapse';
 export { default as Tree} from './components/Tree';
 export { default as Timeline} from './components/Timeline';
 export { default as Calendar } from './components/Calendar';
+export { default as Transfer } from './components/Transfer';
 
 // 业务模块
 export { default as InputSelect } from "./components/_BusinessCompositeModule/InputSelect";
