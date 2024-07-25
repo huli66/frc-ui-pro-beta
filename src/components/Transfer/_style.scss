@@ -43,7 +43,7 @@
     }
     .ant-transfer-list-body {
       .ant-transfer-list-content {
-        padding: 4px 4px 0;
+        padding: 4px 4px 0 8px;
         background: $basic-plate;
         .ant-transfer-list-content-item {
           background: $filter-normal-bg;
@@ -118,7 +118,7 @@
     background-color: transparent;
   }
   ::-webkit-scrollbar-track {
-    background-color: $element-background;
+    // background-color: $element-background;
     border-radius: unset;
   }
 }
