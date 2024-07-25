@@ -134,6 +134,7 @@ export const Default = () => {
       onSelectChange={onSelectChange}
       onScroll={onScroll}
       render={item => item.title}
+      operations={["", ""]}
     />
   );
 };
