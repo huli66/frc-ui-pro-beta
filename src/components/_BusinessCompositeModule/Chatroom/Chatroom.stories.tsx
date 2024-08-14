@@ -20,12 +20,14 @@ const demoImg = require('../../../../public/chatroom/assets/chatroomDemo.png');
 const importCode = `
 // import code
 import axios from '@utils/axios';
+import UserCache from '@caches/UserCache';
 import {Chatroom} from 'frc-ui-pro';
 import React from 'react';
 
 const ForfaitingChatroom = () => {
   const chatroomCode = 'forfaiting';
   const chatroomName = '福费廷聊天室';
+  const {userId} = UserCache.user;
   const openNewWindow = () => {
     window.open('/forfaiting/chatroom?title=福费廷聊天室&popup=true&w=380&h=800&sizable=true');
   };
@@ -37,6 +39,7 @@ const ForfaitingChatroom = () => {
       permission
       chatroomCode={chatroomCode}
       axios={axios as any}
+      userId={userId}
     />
   );
 };
