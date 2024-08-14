@@ -13,6 +13,7 @@ export interface IChatroomProps {
   chatroomName: string;
   axios: AxiosStatic;
   permission: boolean;
+  userId: string;
   openNewWindow: () => void;
 }
 
@@ -21,6 +22,7 @@ export interface IChatProps {
   chatroomCode: string;
   permission: boolean;
   chatroomApi: IChatroomApi;
+  userId: string;
   openNewWindow: () => void;
 }
 
@@ -124,6 +126,7 @@ export interface IChatroomContext {
   anonymous: boolean;
   chatroomCode: string;
   chatroomApi: IChatroomApi;
+  userId: string;
 }
 
 /** chatroom apis */

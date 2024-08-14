@@ -18,5 +18,6 @@ export const ChatroomContext = React.createContext<IChatroomContext>({
   getMoreMsg: () => ({}),
   anonymous: false,
   chatroomCode: '',
-  chatroomApi: {} as any
+  chatroomApi: {} as any,
+  userId: ''
 });

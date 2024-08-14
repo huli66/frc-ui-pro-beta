@@ -25,13 +25,10 @@ const optQuote: ItemType = {
   key: 'QUOTE'
 };
 
-// const {userId} = UserCache.user;
-const userId = '';
-
 const Message: React.FC<IMsgProps> = (props) => {
   const {prefixCls, message, actionKey, handleMessageClick} = props;
 
-  const {setQuoteMsg, settings, focusOnTextarea, msgWithdrawList, msgDeleteList, chatroomApi} = useContext(ChatroomContext);
+  const {userId, setQuoteMsg, settings, focusOnTextarea, msgWithdrawList, msgDeleteList, chatroomApi} = useContext(ChatroomContext);
   const {withdrawMessage} = chatroomApi;
 
   const renderCotent = useMemo(() => {
@@ -63,9 +60,9 @@ const Message: React.FC<IMsgProps> = (props) => {
 
   const execCommandCopy = (text: string) => {
     // 此方法已被浏览器废弃，尽量少用
-    const input = document.createElement('input');
+    const input = document.createElement('textarea');
     document.body.appendChild(input);
-    input.setAttribute('value', text);
+    input.value = text;
     input.setAttribute('readonly', 'readonly'); // 防止软键盘弹出
     input.select();
     if (document.execCommand('copy')) {

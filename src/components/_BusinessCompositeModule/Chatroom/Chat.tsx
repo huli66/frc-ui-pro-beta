@@ -27,7 +27,7 @@ import List, { IListRefProps } from "./list";
 import { CheckboxChangeEvent } from "../../Checkbox/checkbox";
 
 const Chatroom: React.FC<IChatProps> = (props) => {
-  const { chatroomCode, chatroomName, permission, chatroomApi, openNewWindow } = props;
+  const { chatroomCode, chatroomName, permission, chatroomApi, userId, openNewWindow } = props;
   const {
     sendMessage,
     getChatroomConfig,
@@ -131,6 +131,12 @@ const Chatroom: React.FC<IChatProps> = (props) => {
         }, 30000);
       });
   }, []);
+
+  useEffect(() => {
+    if (!chatConfig.chatAnonymous && anonymous) {
+      setAnonymous(false);
+    }
+  }, [chatConfig]);
 
   useEffect(() => {
     Promise.all([getLatestMessage(), getChatroomConfig()])
@@ -269,7 +275,8 @@ const Chatroom: React.FC<IChatProps> = (props) => {
           getMoreMsg: getMoreMessage,
           anonymous,
           chatroomCode,
-          chatroomApi
+          chatroomApi,
+          userId,
         }}
       >
         <div className={`chat-container`}>
