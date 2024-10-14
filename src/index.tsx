@@ -12,7 +12,7 @@ export { default as TimePicker } from "./components/TimePicker";
 export { default as Menu } from "./components/Menu";
 export { default as TabsOnly } from "./components/TabsOnly";
 export { default as Socket } from "./components/Socket";
-export { default as Loading } from "./components/loading";
+export { default as Loading } from "./components/Loading";
 export { default as Error } from "./components/Error";
 export { default as Slider } from "./components/Slider";
 export { default as SliderController } from "./components/SliderController";
