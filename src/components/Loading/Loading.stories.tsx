@@ -13,7 +13,7 @@ import {
     PRIMARY_STORY,
 } from '@storybook/addon-docs';
 
-import Loading from './Index';
+import Loading from '.';
 import { FRCLoadingProps } from './loading';
 
 const ImportComponent = () => {
